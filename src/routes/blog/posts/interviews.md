@@ -17,7 +17,7 @@ A few people asked me recently how I prepare for interviews, especially the more
 
 I don't actually interview very often. When one matters, though, I prepare quite a lot in the days before it. I speak answers aloud, record myself, stand in front of a mirror, rehearse my opening and mentally run through the whole session.
 
-Some of the preparation obviously happened much earlier through the work itself. I wrote separately about [what I look for when I interview someone](/blog/what-i-look-for-in-interviews), because that became a whole other post once I started thinking about it.
+Some of the preparation obviously happened much earlier through the work itself. I ended up separating my thoughts on what I look for when I interview someone into another post, because that became a whole other topic once I started thinking about it.
 
 This one is about the practical bit: what I actually do before I walk into the room.
 
