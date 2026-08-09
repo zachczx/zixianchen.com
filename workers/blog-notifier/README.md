@@ -6,7 +6,18 @@ The first RSS check records the posts that already exist and sends nothing. Late
 
 Subscribers start on `All posts`. They can use `/settings` to select any combination of the blog's `Work`, `Systems`, `Dev`, and `Life` categories. Category preferences are checked both when a notification is queued and again before it is delivered.
 
-Run the Wrangler commands below from the repository root. `pnpm exec` uses the Wrangler version installed by this repository rather than a separate global installation.
+The notifier is its own pnpm workspace package at `workers/blog-notifier`. Its `package.json` owns the Worker-specific TypeScript, Wrangler, test, and deploy lifecycle. Commands below can still be run from the repository root.
+
+For direct package commands:
+
+```bash
+pnpm --filter @zixianchen/blog-notifier check
+pnpm --filter @zixianchen/blog-notifier test
+pnpm --filter @zixianchen/blog-notifier dev
+pnpm --filter @zixianchen/blog-notifier deploy
+```
+
+The root package keeps `pnpm check:notifier`, `pnpm test:notifier`, and `pnpm deploy:notifier` as convenient aliases.
 
 ## BotFather setup
 
@@ -32,7 +43,7 @@ Get a Telegram message when I publish something new on zixianchen.com.
 Before creating or deploying anything, confirm which authenticated Cloudflare account Wrangler will modify:
 
 ```bash
-pnpm exec wrangler whoami
+pnpm --filter @zixianchen/blog-notifier exec wrangler whoami
 ```
 
 Check the account name and account ID before continuing.
@@ -44,7 +55,7 @@ The Worker is pinned in `workers/blog-notifier/wrangler.jsonc` to the explicitly
 Verify that database exists in the authenticated account:
 
 ```bash
-pnpm exec wrangler d1 info zixianchen-blog-notifier
+pnpm --filter @zixianchen/blog-notifier exec wrangler d1 info zixianchen-blog-notifier
 ```
 
 Confirm the database UUID reported by Wrangler matches the `database_id` committed in `workers/blog-notifier/wrangler.jsonc`.
@@ -56,13 +67,13 @@ The Worker creates its small D1 SQL schema on first use.
 Create the notification Queue once:
 
 ```bash
-pnpm exec wrangler queues create zixianchen-blog-notifier-notifications
+pnpm --filter @zixianchen/blog-notifier exec wrangler queues create zixianchen-blog-notifier-notifications
 ```
 
 Then verify the Queue is present in the authenticated account:
 
 ```bash
-pnpm exec wrangler queues list
+pnpm --filter @zixianchen/blog-notifier exec wrangler queues list
 ```
 
 Confirm `zixianchen-blog-notifier-notifications` appears before deploying the Worker.
@@ -73,17 +84,19 @@ The Worker configuration references the existing D1 database and Queue directly.
 
 Do not create the Worker manually in the Cloudflare dashboard. The committed Wrangler configuration is the source of truth for the Worker, its bindings, cron trigger, and queue-consumer configuration.
 
-From the repository root, deploy with the root package script:
+From the repository root, deploy with the convenience script:
 
 ```bash
 pnpm deploy:notifier
 ```
 
-That script runs:
+That delegates to the notifier package's local deploy script:
 
 ```bash
-wrangler deploy --config workers/blog-notifier/wrangler.jsonc
+pnpm --filter @zixianchen/blog-notifier deploy
 ```
+
+Because the command runs in the notifier package, Wrangler automatically uses `workers/blog-notifier/wrangler.jsonc`.
 
 The first deployment creates the Worker named `zixianchen-blog-notifier`; later deployments update it. The deployment prints the `workers.dev` URL. Keep that URL for the webhook setup below.
 
@@ -92,13 +105,13 @@ The first deployment creates the Worker named `zixianchen-blog-notifier`; later 
 Add the BotFather token:
 
 ```bash
-pnpm exec wrangler secret put TELEGRAM_BOT_TOKEN --config workers/blog-notifier/wrangler.jsonc
+pnpm --filter @zixianchen/blog-notifier exec wrangler secret put TELEGRAM_BOT_TOKEN
 ```
 
 Create a webhook secret containing only letters, numbers, `_`, or `-`, then store it:
 
 ```bash
-pnpm exec wrangler secret put TELEGRAM_WEBHOOK_SECRET --config workers/blog-notifier/wrangler.jsonc
+pnpm --filter @zixianchen/blog-notifier exec wrangler secret put TELEGRAM_WEBHOOK_SECRET
 ```
 
 On PowerShell, a simple suitable value can be generated with:
@@ -154,18 +167,27 @@ The RSS check runs every 15 minutes. Existing posts are seeded on the first run 
 Count active subscribers:
 
 ```powershell
-pnpm exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT COUNT(*) AS subscribers FROM subscribers" --config workers/blog-notifier/wrangler.jsonc
+pnpm --filter @zixianchen/blog-notifier exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT COUNT(*) AS subscribers FROM subscribers"
 ```
 
 Inspect category preferences:
 
 ```powershell
-pnpm exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT categories, COUNT(*) AS subscribers FROM subscribers GROUP BY categories ORDER BY subscribers DESC" --config workers/blog-notifier/wrangler.jsonc
+pnpm --filter @zixianchen/blog-notifier exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT categories, COUNT(*) AS subscribers FROM subscribers GROUP BY categories ORDER BY subscribers DESC"
 ```
 
 ## Local validation
 
+From the repository root:
+
 ```bash
 pnpm check:notifier
 pnpm test:notifier
+```
+
+Or run the package scripts directly:
+
+```bash
+pnpm --filter @zixianchen/blog-notifier check
+pnpm --filter @zixianchen/blog-notifier test
 ```
