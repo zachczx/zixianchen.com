@@ -1,4 +1,5 @@
 export interface RssPost {
+	category?: string;
 	description: string;
 	guid: string;
 	title: string;
@@ -34,6 +35,7 @@ export function parseRss(xml: string): RssPost[] {
 		if (!guid || !title || !url) continue;
 
 		posts.push({
+			category: readTag(item, 'category'),
 			description: readTag(item, 'description') ?? '',
 			guid,
 			title,
