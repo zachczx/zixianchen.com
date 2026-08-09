@@ -13,6 +13,7 @@ import {
 	editTelegramReplyMarkup,
 	parseCommand,
 	sendTelegramMessage,
+	SETTINGS_DONE_CALLBACK,
 	type InlineKeyboardMarkup,
 	type TelegramApiResponse,
 	type TelegramCallbackQuery,
@@ -57,7 +58,7 @@ function settingsMessage(justSubscribed = false): string {
 		? "You're subscribed. I'll message you when I publish something new."
 		: 'Notification settings';
 
-	return `${heading}\n\nChoose what you'd like updates for:`;
+	return `${heading}\n\nChoose what you'd like updates for. Changes save immediately:`;
 }
 
 async function handlePreferenceCallback(
@@ -66,14 +67,15 @@ async function handlePreferenceCallback(
 	ctx: ExecutionContextLike,
 ): Promise<Response> {
 	const message = callbackQuery.message;
-	const preferenceKey = callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
+	const isDone = callbackQuery.data === SETTINGS_DONE_CALLBACK;
+	const preferenceKey = !isDone && callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
 
 	if (!message || message.chat.type !== 'private' || String(callbackQuery.from.id) !== String(message.chat.id)) {
 		await acknowledgeCallback(env, callbackQuery.id);
 		return new Response('ok');
 	}
 
-	if (!preferenceKey) {
+	if (!isDone && !preferenceKey) {
 		await acknowledgeCallback(env, callbackQuery.id, 'That setting is no longer available.');
 		return new Response('ok');
 	}
@@ -86,6 +88,21 @@ async function handlePreferenceCallback(
 		await acknowledgeCallback(env, callbackQuery.id, 'Send /start to subscribe first.');
 		return new Response('ok');
 	}
+
+	if (isDone) {
+		await acknowledgeCallback(env, callbackQuery.id);
+		ctx.waitUntil(
+			editTelegramReplyMarkup(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, { inline_keyboard: [] })
+				.then((response) => {
+					if (!response.ok) logTelegramError('Telegram settings close failed:', response);
+				})
+				.catch((error) => console.error('Telegram settings close failed:', error)),
+		);
+		reply(env, ctx, chatId, 'Preferences saved.');
+		return new Response('ok');
+	}
+
+	if (!preferenceKey) return new Response('ok');
 
 	const update = togglePreference(subscriber.categories, preferenceKey);
 	if (update.changed) await updateSubscriberCategories(env.DB, chatId, update.value);

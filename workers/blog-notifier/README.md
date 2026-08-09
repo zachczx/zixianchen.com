@@ -145,7 +145,7 @@ Check the Worker itself:
 Invoke-RestMethod "$workerUrl/health"
 ```
 
-Then open the bot in Telegram and send `/start`. It should subscribe you to all posts and show category buttons. Select a couple of categories, run `/settings` again to confirm the choices, then use `/stop` to unsubscribe.
+Then open the bot in Telegram and send `/start`. It should subscribe you to all posts and show category buttons. Select a couple of categories, tap `Done` to close the settings keyboard, run `/settings` again to confirm the choices, then use `/stop` to unsubscribe.
 
 The RSS check runs every 15 minutes. Existing posts are seeded on the first run and are never broadcast as new posts.
 
