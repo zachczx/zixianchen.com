@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { parsePreferenceCallback, shouldNotify, togglePreference } from './preferences.ts';
 import { parseRss } from './rss.ts';
-import { buildPreferenceKeyboard, formatNotification, parseCommand } from './telegram.ts';
+import { buildPreferenceKeyboard, formatNotification, parseCommand, SETTINGS_DONE_CALLBACK } from './telegram.ts';
 
 test('parseRss reads categories and decodes escaped metadata', () => {
 	const posts = parseRss(`<?xml version="1.0"?>
@@ -70,11 +70,13 @@ test('category matching only filters subscribers with specific preferences', () 
 
 test('preference callback and keyboard state are deterministic', () => {
 	assert.equal(parsePreferenceCallback('prefs:life'), 'life');
+	assert.equal(parsePreferenceCallback(SETTINGS_DONE_CALLBACK), undefined);
 	assert.equal(parsePreferenceCallback('other:life'), undefined);
 	assert.deepEqual(
 		buildPreferenceKeyboard('work,life').inline_keyboard.map((row) => row.map(({ text }) => text)),
-		[['◻️ All posts'], ['✅ Work', '◻️ Systems'], ['◻️ Dev', '✅ Life']],
+		[['◻️ All posts'], ['✅ Work', '◻️ Systems'], ['◻️ Dev', '✅ Life'], ['Done']],
 	);
+	assert.equal(buildPreferenceKeyboard('work,life').inline_keyboard.at(-1)?.[0]?.callback_data, SETTINGS_DONE_CALLBACK);
 });
 
 test('formatNotification keeps the message simple and includes the post URL', () => {
