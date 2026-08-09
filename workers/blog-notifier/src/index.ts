@@ -1,9 +1,4 @@
-import {
-	describePreferences,
-	parsePreferenceCallback,
-	shouldNotify,
-	togglePreference,
-} from './preferences';
+import { parsePreferenceCallback, shouldNotify, togglePreference } from './preferences';
 import { parseRss } from './rss';
 import type { Env, ExecutionContextLike, NotificationMessage, QueueBatch } from './runtime';
 import {
@@ -85,12 +80,12 @@ function reply(
 	);
 }
 
-function settingsMessage(preferences: string, justSubscribed = false): string {
+function settingsMessage(justSubscribed = false): string {
 	const heading = justSubscribed
 		? "You're subscribed. I'll message you when I publish something new."
 		: 'Notification settings';
 
-	return `${heading}\n\nCurrently: ${describePreferences(preferences)}\n\nChoose what you'd like updates for:`;
+	return `${heading}\n\nChoose what you'd like updates for:`;
 }
 
 async function getSubscriber(env: Env, chatId: string): Promise<SubscriberRow | null> {
@@ -187,7 +182,7 @@ async function handleWebhook(request: Request, env: Env, ctx: ExecutionContextLi
 
 		const subscriber = await getSubscriber(env, chatId);
 		const preferences = subscriber?.categories ?? 'all';
-		reply(env, ctx, chatId, settingsMessage(preferences, true), buildPreferenceKeyboard(preferences));
+		reply(env, ctx, chatId, settingsMessage(true), buildPreferenceKeyboard(preferences));
 		return new Response('ok');
 	}
 
@@ -198,7 +193,7 @@ async function handleWebhook(request: Request, env: Env, ctx: ExecutionContextLi
 			return new Response('ok');
 		}
 
-		reply(env, ctx, chatId, settingsMessage(subscriber.categories), buildPreferenceKeyboard(subscriber.categories));
+		reply(env, ctx, chatId, settingsMessage(), buildPreferenceKeyboard(subscriber.categories));
 		return new Response('ok');
 	}
 
