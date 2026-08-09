@@ -102,6 +102,8 @@ async function handlePreferenceCallback(
 		return new Response('ok');
 	}
 
+	if (!preferenceKey) return new Response('ok');
+
 	const update = togglePreference(subscriber.categories, preferenceKey);
 	if (update.changed) await updateSubscriberCategories(env.DB, chatId, update.value);
 
