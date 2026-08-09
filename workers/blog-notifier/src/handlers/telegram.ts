@@ -72,7 +72,8 @@ async function handlePreferenceCallback(
 	const message = callbackQuery.message;
 	const isDone = callbackQuery.data === SETTINGS_DONE_CALLBACK;
 	const isEdit = callbackQuery.data === SETTINGS_EDIT_CALLBACK;
-	const preferenceKey = !isDone && !isEdit && callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
+	const preferenceKey =
+		!isDone && !isEdit && callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
 
 	if (!message || message.chat.type !== 'private' || String(callbackQuery.from.id) !== String(message.chat.id)) {
 		await acknowledgeCallback(env, callbackQuery.id);
