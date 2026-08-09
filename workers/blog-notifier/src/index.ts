@@ -64,6 +64,15 @@ function logTelegramError(context: string, response: TelegramApiResponse): void 
 	console.error(context, response.error_code ?? 'unknown', response.description ?? 'Unknown Telegram error');
 }
 
+async function acknowledgeCallback(env: Env, callbackQueryId: string, text?: string): Promise<void> {
+	try {
+		const response = await answerTelegramCallback(env.TELEGRAM_BOT_TOKEN, callbackQueryId, text);
+		if (!response.ok) logTelegramError('Telegram callback acknowledgement failed:', response);
+	} catch (error) {
+		console.error('Telegram callback acknowledgement failed:', error);
+	}
+}
+
 function reply(
 	env: Env,
 	ctx: ExecutionContextLike,
@@ -103,12 +112,12 @@ async function handlePreferenceCallback(
 	const preferenceKey = callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
 
 	if (!message || message.chat.type !== 'private' || String(callbackQuery.from.id) !== String(message.chat.id)) {
-		await answerTelegramCallback(env.TELEGRAM_BOT_TOKEN, callbackQuery.id);
+		await acknowledgeCallback(env, callbackQuery.id);
 		return new Response('ok');
 	}
 
 	if (!preferenceKey) {
-		await answerTelegramCallback(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, 'That setting is no longer available.');
+		await acknowledgeCallback(env, callbackQuery.id, 'That setting is no longer available.');
 		return new Response('ok');
 	}
 
@@ -117,7 +126,7 @@ async function handlePreferenceCallback(
 	const chatId = String(message.chat.id);
 	const subscriber = await getSubscriber(env, chatId);
 	if (!subscriber) {
-		await answerTelegramCallback(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, 'Send /start to subscribe first.');
+		await acknowledgeCallback(env, callbackQuery.id, 'Send /start to subscribe first.');
 		return new Response('ok');
 	}
 
@@ -128,7 +137,7 @@ async function handlePreferenceCallback(
 			.run();
 	}
 
-	await answerTelegramCallback(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, update.message);
+	await acknowledgeCallback(env, callbackQuery.id, update.message);
 
 	if (update.changed) {
 		ctx.waitUntil(
