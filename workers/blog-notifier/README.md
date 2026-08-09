@@ -6,6 +6,8 @@ The first RSS check records the posts that already exist and sends nothing. Late
 
 Subscribers start on `All posts`. They can use `/settings` to select any combination of the blog's `Work`, `Systems`, `Dev`, and `Life` categories. Category preferences are checked both when a notification is queued and again before it is delivered.
 
+Run the Wrangler commands below from the repository root. `pnpm exec` uses the Wrangler version installed by this repository rather than a separate global installation.
+
 ## BotFather setup
 
 Create the bot with `@BotFather` and keep the token out of the repository.
@@ -25,26 +27,51 @@ Suggested description:
 Get a Telegram message when I publish something new on zixianchen.com.
 ```
 
-## Provision Cloudflare resources
+## Verify the Cloudflare account
 
-The Worker is configured to use an explicitly provisioned D1 database:
+Before creating or deploying anything, confirm which authenticated Cloudflare account Wrangler will modify:
 
-```text
-zixianchen-blog-notifier
-25196238-e145-40bf-bde5-f70224d0e771
+```bash
+pnpm exec wrangler whoami
 ```
 
-Create the notification Queue before deploying the Worker:
+Check the account name and account ID before continuing.
+
+## Verify the D1 database
+
+The Worker is pinned in `workers/blog-notifier/wrangler.jsonc` to the explicitly provisioned D1 database named `zixianchen-blog-notifier`.
+
+Verify that database exists in the authenticated account:
+
+```bash
+pnpm exec wrangler d1 info zixianchen-blog-notifier
+```
+
+Confirm the database UUID reported by Wrangler matches the `database_id` committed in `workers/blog-notifier/wrangler.jsonc`.
+
+The Worker creates its small D1 SQL schema on first use.
+
+## Provision and verify the Queue
+
+Create the notification Queue once:
 
 ```bash
 pnpm exec wrangler queues create zixianchen-blog-notifier-notifications
 ```
 
-The Worker configuration references these resources directly. Deployment should not be relied on to create persistence or Queue infrastructure implicitly.
+Then verify the Queue is present in the authenticated account:
 
-The Worker creates its small D1 SQL schema on first use.
+```bash
+pnpm exec wrangler queues list
+```
+
+Confirm `zixianchen-blog-notifier-notifications` appears before deploying the Worker.
+
+The Worker configuration references the existing D1 database and Queue directly. Deployment should not be relied on to create persistence or Queue infrastructure implicitly.
 
 ## Deploy the Worker
+
+Do not create the Worker manually in the Cloudflare dashboard. The committed Wrangler configuration is the source of truth for the Worker, its bindings, cron trigger, and queue-consumer configuration.
 
 From the repository root:
 
@@ -52,7 +79,7 @@ From the repository root:
 pnpm exec wrangler deploy --config workers/blog-notifier/wrangler.jsonc
 ```
 
-The deployment prints the `workers.dev` URL. Keep that URL for the webhook setup below.
+The first deployment creates the Worker named `zixianchen-blog-notifier`; later deployments update it. The deployment prints the `workers.dev` URL. Keep that URL for the webhook setup below.
 
 ## Add secrets
 
