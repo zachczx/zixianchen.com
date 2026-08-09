@@ -73,10 +73,16 @@ The Worker configuration references the existing D1 database and Queue directly.
 
 Do not create the Worker manually in the Cloudflare dashboard. The committed Wrangler configuration is the source of truth for the Worker, its bindings, cron trigger, and queue-consumer configuration.
 
-From the repository root:
+From the repository root, deploy with the root package script:
 
 ```bash
-pnpm exec wrangler deploy --config workers/blog-notifier/wrangler.jsonc
+pnpm deploy:notifier
+```
+
+That script runs:
+
+```bash
+wrangler deploy --config workers/blog-notifier/wrangler.jsonc
 ```
 
 The first deployment creates the Worker named `zixianchen-blog-notifier`; later deployments update it. The deployment prints the `workers.dev` URL. Keep that URL for the webhook setup below.
