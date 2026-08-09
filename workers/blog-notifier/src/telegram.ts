@@ -3,6 +3,8 @@ import type { NotificationMessage } from './runtime';
 
 export type BotCommand = 'help' | 'settings' | 'start' | 'stop';
 
+export const SETTINGS_DONE_CALLBACK = 'settings:done';
+
 export interface InlineKeyboardButton {
 	callback_data: string;
 	text: string;
@@ -71,6 +73,7 @@ export function buildPreferenceKeyboard(preferences: string): InlineKeyboardMark
 				button('systems', 'Systems', !isAll && selected.has('systems')),
 			],
 			[button('dev', 'Dev', !isAll && selected.has('dev')), button('life', 'Life', !isAll && selected.has('life'))],
+			[{ callback_data: SETTINGS_DONE_CALLBACK, text: 'Done' }],
 		],
 	};
 }
