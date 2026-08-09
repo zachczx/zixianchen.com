@@ -50,8 +50,11 @@ jobs:
       - name: Test blog notifier Worker
         run: pnpm test:notifier
 
-      - name: Check formatting and linting
-        run: pnpm lint
+      - name: Inspect notifier formatting
+        run: |
+          pnpm exec prettier --write workers/blog-notifier/src/index.ts workers/blog-notifier/src/notifier.test.ts workers/blog-notifier/src/telegram.ts
+          git diff -- workers/blog-notifier/src/index.ts workers/blog-notifier/src/notifier.test.ts workers/blog-notifier/src/telegram.ts
+          exit 1
 
       - name: Build site
         run: pnpm exec vite build
