@@ -2,39 +2,49 @@
 
 ## Project Structure & Module Organization
 
-This is a SvelteKit personal website. Route files live in `src/routes`, with page components following SvelteKit names such as `+page.svelte`, `+page.ts`, `+layout.svelte`, and server routes such as `sitemap.xml/+server.ts`. Blog Markdown posts are stored in `src/routes/blog/posts` and use kebab-case slugs. Shared components, project metadata, logos, screenshots, and imported assets live under `src/lib`. Public static files, favicons, robots.txt, and SVGs served directly by Vite live in `static`. Build and framework output (`build`, `.svelte-kit`) should be treated as generated.
+This repository contains two independently deployable pnpm workspace packages:
+
+- `web/` is the static SvelteKit personal website. Route files live in `web/src/routes`, blog Markdown posts live in `web/src/routes/blog/posts`, shared components and imported assets live under `web/src/lib`, and public static files live in `web/static`.
+- `notifier/` is the Cloudflare Worker for Telegram blog notifications. Entrypoints live in `notifier/src/index.ts`, handlers in `notifier/src/handlers`, D1 persistence in `notifier/src/repositories`, and focused tests in `notifier/src/notifier.test.ts`.
+
+Repository-level CI, workspace configuration, product notes, and shared documentation stay at the root. Generated output such as `web/build`, `web/.svelte-kit`, `web/static/pagefind`, and Wrangler state must not be committed.
 
 ## Build, Test, and Development Commands
 
-- `pnpm install`: install dependencies from `pnpm-lock.yaml`.
-- `pnpm dev`: run the local Vite dev server, configured to start on port `6173` when available.
-- `pnpm build`: create the static production build in `build`.
-- `pnpm preview`: preview the built site locally.
-- `pnpm check`: sync SvelteKit types and run `svelte-check`.
-- `pnpm lint`: run Prettier in check mode and ESLint.
-- `pnpm format`: format the repository with Prettier.
+Run normal commands from the repository root:
 
-Before submitting JavaScript, TypeScript, or Svelte changes, run `pnpm format` and `pnpm check`. Also run `pnpm build` for route, content, asset, or config changes.
+- `pnpm install`: install all workspace dependencies from `pnpm-lock.yaml`.
+- `pnpm dev`: run the web Vite dev server.
+- `pnpm dev:notifier`: run the notifier with Wrangler locally.
+- `pnpm build`: build the web app and Pagefind index.
+- `pnpm preview`: preview the built website.
+- `pnpm check`: run both web and notifier checks.
+- `pnpm check:web`: run SvelteKit sync and `svelte-check` for `web/`.
+- `pnpm check:notifier`: run notifier TypeScript and a Wrangler dry-run deploy.
+- `pnpm test:notifier`: run the notifier Node test suite.
+- `pnpm lint`: run repository formatting checks plus package-specific ESLint checks.
+- `pnpm format`: format root files and both packages.
+- `pnpm deploy:web`: build and deploy the static site through the web package's Wrangler config.
+- `pnpm deploy:notifier`: deploy the notifier Worker through its own Wrangler config.
+
+Before submitting changes, run the checks relevant to the changed package. For structural or shared changes, run `pnpm check`, `pnpm test:notifier`, `pnpm lint`, and `pnpm build`.
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript and Svelte conventions already present in the repository. Prettier is configured for tabs, single quotes, trailing commas, `bracketSameLine`, and a `120` character print width, with Svelte and Tailwind plugins enabled. ESLint extends `eslint:recommended`, `plugin:svelte/recommended`, and `prettier`.
+Use TypeScript and Svelte conventions already present in the repository. Prettier uses tabs, single quotes, trailing commas, `bracketSameLine`, and a 120-character print width. The web package additionally loads the Svelte and Tailwind Prettier plugins.
 
-Name Svelte components in PascalCase, for example `ProjectShell.svelte`. Keep route and blog slugs kebab-case. Prefer shared UI and data in `src/lib` over duplicating logic inside route files.
+Name Svelte components in PascalCase, for example `ProjectShell.svelte`. Keep route and blog slugs kebab-case. Prefer shared web UI and data in `web/src/lib` over duplicating logic inside route files. Keep notifier request/cron/queue entrypoints thin and put application logic in handlers, domain helpers, and repositories.
 
 ## Testing Guidelines
 
-There is no dedicated test script or test framework configured yet. Treat `pnpm check`, `pnpm lint`, and `pnpm build` as the required validation suite. If adding tests later, keep names explicit, such as `feature-name.test.ts`, and document the new command in `package.json` and this guide.
+The web app relies on Svelte/TypeScript checks plus production builds. The notifier has focused Node tests in `notifier/src/notifier.test.ts`. Add tests when changing preference behavior, RSS parsing, Telegram serialization, or notification matching.
 
 ## Commit & Pull Request Guidelines
 
-Recent commits use Conventional Commit-style prefixes such as `feat:`, `fix:`, `refactor:`, and `style:`. Keep commit subjects imperative and scoped to one change.
-Do not include a parenthesized scope in commit subjects; use `feat: ...`, not `feat(sitemap): ...`.
+Recent commits use Conventional Commit-style prefixes such as `feat:`, `fix:`, `refactor:`, `chore:`, and `style:`. Keep commit subjects imperative and scoped to one change. Do not include a parenthesized scope in commit subjects; use `feat: ...`, not `feat(site): ...`.
 
-Do not push commits or branches unless the user explicitly asks for a push. A request to commit does not imply permission to push.
-
-Pull requests should include a short summary, linked issue when applicable, commands run, and screenshots or screen recordings for visual changes. Call out content migrations, asset additions, and any deployment implications for Cloudflare or static output.
+Do not merge pull requests on the user's behalf. Pull requests should include a short summary, commands/checks run, and any deployment implications. For visual changes, include screenshots or screen recordings when useful.
 
 ## Security & Configuration Tips
 
-Do not commit secrets, API keys, or local environment files. Review `wrangler.jsonc`, SvelteKit config, and deployment-related changes carefully because this site is built as static output.
+Do not commit secrets, API keys, BotFather tokens, webhook secrets, or local environment files. The site and notifier have separate Wrangler configs at `web/wrangler.jsonc` and `notifier/wrangler.jsonc`; review changes to either carefully. D1 database IDs, Queue names, and Worker bindings are identifiers rather than credentials, but Cloudflare API credentials and Telegram secrets must remain outside Git.
