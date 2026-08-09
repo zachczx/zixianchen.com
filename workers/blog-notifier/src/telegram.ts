@@ -1,4 +1,4 @@
-import { CATEGORY_OPTIONS, parsePreferences } from './preferences';
+import { parsePreferences } from './preferences';
 import type { NotificationMessage } from './runtime';
 
 export type BotCommand = 'help' | 'settings' | 'start' | 'stop';
