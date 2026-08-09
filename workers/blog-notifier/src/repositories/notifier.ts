@@ -83,7 +83,10 @@ export async function listSubscribers(db: D1DatabaseBinding): Promise<Subscriber
 }
 
 export async function isFeedInitialized(db: D1DatabaseBinding): Promise<boolean> {
-	const row = await db.prepare('SELECT value FROM state WHERE key = ?').bind(INITIALIZED_KEY).first<{ value: string }>();
+	const row = await db
+		.prepare('SELECT value FROM state WHERE key = ?')
+		.bind(INITIALIZED_KEY)
+		.first<{ value: string }>();
 	return Boolean(row);
 }
 
