@@ -16,7 +16,8 @@ import {
 
 const INITIALIZED_KEY = 'rss_initialized';
 const STOP_MESSAGE = "Notifications stopped. Send /start anytime if you'd like to subscribe again.";
-const HELP_MESSAGE = 'Use /start to subscribe, /settings to choose post categories, or /stop to turn notifications off.';
+const HELP_MESSAGE =
+	'Use /start to subscribe, /settings to choose post categories, or /stop to turn notifications off.';
 const QUEUE_BATCH_SIZE = 100;
 const D1_MAX_BOUND_PARAMETERS = 100;
 
@@ -132,21 +133,14 @@ async function handlePreferenceCallback(
 
 	const update = togglePreference(subscriber.categories, preferenceKey);
 	if (update.changed) {
-		await env.DB.prepare('UPDATE subscribers SET categories = ? WHERE chat_id = ?')
-			.bind(update.value, chatId)
-			.run();
+		await env.DB.prepare('UPDATE subscribers SET categories = ? WHERE chat_id = ?').bind(update.value, chatId).run();
 	}
 
 	await acknowledgeCallback(env, callbackQuery.id, update.message);
 
 	if (update.changed) {
 		ctx.waitUntil(
-			editTelegramReplyMarkup(
-				env.TELEGRAM_BOT_TOKEN,
-				chatId,
-				message.message_id,
-				buildPreferenceKeyboard(update.value),
-			)
+			editTelegramReplyMarkup(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, buildPreferenceKeyboard(update.value))
 				.then((response) => {
 					if (!response.ok) logTelegramError('Telegram settings update failed:', response);
 				})
