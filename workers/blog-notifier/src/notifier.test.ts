@@ -73,11 +73,7 @@ test('preference callback and keyboard state are deterministic', () => {
 	assert.equal(parsePreferenceCallback('other:life'), undefined);
 	assert.deepEqual(
 		buildPreferenceKeyboard('work,life').inline_keyboard.map((row) => row.map(({ text }) => text)),
-		[
-			['◻️ All posts'],
-			['✅ Work', '◻️ Systems'],
-			['◻️ Dev', '✅ Life'],
-		],
+		[['◻️ All posts'], ['✅ Work', '◻️ Systems'], ['◻️ Dev', '✅ Life']],
 	);
 });
 
