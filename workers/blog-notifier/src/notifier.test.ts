@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { parsePreferenceCallback, shouldNotify, togglePreference } from './preferences.ts';
 import { parseRss } from './rss.ts';
-import { formatNotification, parseCommand } from './telegram.ts';
+import { buildPreferenceKeyboard, formatNotification, parseCommand } from './telegram.ts';
 
-test('parseRss reads all items and decodes escaped metadata', () => {
+test('parseRss reads categories and decodes escaped metadata', () => {
 	const posts = parseRss(`<?xml version="1.0"?>
 <rss><channel>
 	<item>
@@ -11,6 +12,7 @@ test('parseRss reads all items and decodes escaped metadata', () => {
 		<link>https://zixianchen.com/blog/newest</link>
 		<guid isPermaLink="true">https://zixianchen.com/blog/newest</guid>
 		<description>One &lt; two &amp; three</description>
+		<category>Systems</category>
 	</item>
 	<item>
 		<title>Backdated post</title>
@@ -22,12 +24,14 @@ test('parseRss reads all items and decodes escaped metadata', () => {
 
 	assert.deepEqual(posts, [
 		{
+			category: 'Systems',
 			description: 'One < two & three',
 			guid: 'https://zixianchen.com/blog/newest',
 			title: 'Newest & useful',
 			url: 'https://zixianchen.com/blog/newest',
 		},
 		{
+			category: undefined,
 			description: 'Still needs to be detected.',
 			guid: 'https://zixianchen.com/blog/backdated',
 			title: 'Backdated post',
@@ -36,17 +40,51 @@ test('parseRss reads all items and decodes escaped metadata', () => {
 	]);
 });
 
-test('parseCommand accepts Telegram command suffixes and start payloads', () => {
+test('parseCommand accepts Telegram command suffixes and settings', () => {
 	assert.equal(parseCommand('/start'), 'start');
 	assert.equal(parseCommand('/start follow-blog'), 'start');
+	assert.equal(parseCommand('/settings'), 'settings');
 	assert.equal(parseCommand('/stop@zixianchen_blog_bot'), 'stop');
 	assert.equal(parseCommand('/help'), 'help');
 	assert.equal(parseCommand('hello'), undefined);
 });
 
+test('category preferences default to all and support multiple selections', () => {
+	assert.deepEqual(togglePreference('all', 'work'), { changed: true, value: 'work' });
+	assert.deepEqual(togglePreference('work', 'systems'), { changed: true, value: 'work,systems' });
+	assert.deepEqual(togglePreference('work,systems', 'work'), { changed: true, value: 'systems' });
+	assert.deepEqual(togglePreference('systems', 'systems'), {
+		changed: false,
+		message: 'Choose at least one category, or use /stop.',
+		value: 'systems',
+	});
+	assert.deepEqual(togglePreference('systems', 'all'), { changed: true, value: 'all' });
+});
+
+test('category matching only filters subscribers with specific preferences', () => {
+	assert.equal(shouldNotify('all', 'Dev'), true);
+	assert.equal(shouldNotify('work,systems', 'Systems'), true);
+	assert.equal(shouldNotify('work,systems', 'Life'), false);
+	assert.equal(shouldNotify('work,systems', undefined), false);
+});
+
+test('preference callback and keyboard state are deterministic', () => {
+	assert.equal(parsePreferenceCallback('prefs:life'), 'life');
+	assert.equal(parsePreferenceCallback('other:life'), undefined);
+	assert.deepEqual(
+		buildPreferenceKeyboard('work,life').inline_keyboard.map((row) => row.map(({ text }) => text)),
+		[
+			['◻️ All posts'],
+			['✅ Work', '◻️ Systems'],
+			['◻️ Dev', '✅ Life'],
+		],
+	);
+});
+
 test('formatNotification keeps the message simple and includes the post URL', () => {
 	assert.equal(
 		formatNotification({
+			category: 'Dev',
 			chatId: '123',
 			description: 'A short summary.',
 			guid: 'post-1',
