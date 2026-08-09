@@ -15,7 +15,7 @@ slug: 'prepare-for-interviews-and-presentations'
 
 A few people asked me recently how I prepare for interviews, mostly the practical stuff because I've mentioned before that I rehearse quite a lot. Someone also asked whether I still behave like myself, and the same habits carry over to bigger presentations where I know the room may push back.
 
-I don't actually interview very often, which probably explains why I prepare so much when one matters. I talk to myself, record myself, stand in front of a mirror, rehearse the opening and mentally play through the whole thing beforehand. Written down like this, it sounds slightly obsessive, and maybe it is.
+I don't actually interview very often, which probably explains why I prepare so much when one matters. The one thing I do pretty consistently is say answers out loud. For the bigger ones, I may record myself or stand in front of a mirror too. Written down like this, it sounds slightly obsessive, and maybe it is.
 
 Some of what makes an interview go well obviously comes from the work that happened long before the interview was scheduled. I started writing about that too, wandered very far away from the original question, and eventually split it into another post about what I look for when I interview someone. So this one stays with the practical stuff I do in the days before.
 
@@ -29,7 +29,7 @@ Then somebody actually asks the question and somehow I spend four minutes explai
 
 I've caught this many times. Something that feels concise while I'm thinking it becomes ridiculously long once I hear myself say it, and a beautiful sentence I wrote down can sound like a submission when it comes out of my mouth, because nobody talks like that.
 
-So I talk to myself quite a lot before an interview. I'll stand in front of a mirror, walk around the room saying an answer again, stop halfway because it sounds stupid, restart it, and eventually land on something that actually sounds like me.
+So I talk to myself quite a lot before an interview. I'll walk around the room saying an answer again, stop halfway because it sounds stupid, restart it, and eventually land on something that actually sounds like me.
 
 ### I remember the shape of the answer
 
@@ -39,9 +39,17 @@ Memorising a whole paragraph falls apart as soon as the interviewer asks somethi
 
 The same experience can be useful in very different ways. A difficult project might come up when somebody asks about leadership, then the useful part may be the disagreement I had with someone, a mistake I made, the trade-off we chose, or what I regret and would do differently now. I want to know the experience well enough to talk about the part that actually answers what they asked.
 
+### I save the mirror for the bigger ones
+
+For most interviews, saying the answers aloud is enough for me. The mirror comes out when the interview feels especially consequential, or when I'm rusty enough that I want to see what I actually look like while answering.
+
+I did this particularly for my PSLP application eons ago. There were a few interviews in that process, some with pretty big-shot panels, and I practised those in front of a mirror a lot. It worked for me. By the time I got into the actual interview, I had already seen myself say the answers enough times that the whole thing felt much less foreign.
+
+I can see it being useful when you're pretty new to interviews too, because you pick up your habits quickly. Once you know what you look and sound like, the mirror can go back to being a mirror.
+
 ## I record myself, unfortunately
 
-I hate watching myself on video, which is probably part of why this works so well.
+Recording is another thing I bring out for the bigger interviews, and I hate watching myself on video, which is probably part of why this works so well.
 
 You discover a lot of weird things you do without realizing it. I slouch and sometimes suck in through my nose for no reason when I'm thinking. There are random nervous tics, shifting around in the chair, looking away at odd moments, and other stuff that feels totally normal while I'm doing it and looks distracting when I watch it back.
 
@@ -106,7 +114,7 @@ I remember hearing ThePrimeagen say something along the lines of interviewing at
 
 I thought that was good advice and then, naturally, didn't really follow it. The version I would follow is to interview for roles I could genuinely see myself taking, even if they aren't the one I desperately want. I don't interview often, so an important interview also becomes the day I am shaking off the rust, which is not ideal.
 
-Practising in a mirror and recording myself helps, but it still doesn't reproduce the weirdness of sitting opposite people who are actually deciding whether they want you. Real interviews have awkward pauses, questions you misunderstood, a panel member whose face gives you absolutely nothing, and answers that wander somewhere you didn't expect before you have to find your way back. Those reps probably matter, and I'm writing this part as advice to myself too.
+All the rehearsal helps, but it still doesn't reproduce the weirdness of sitting opposite people who are actually deciding whether they want you. Real interviews have awkward pauses, questions you misunderstood, a panel member whose face gives you absolutely nothing, and answers that wander somewhere you didn't expect before you have to find your way back. Those reps probably matter, and I'm writing this part as advice to myself too.
 
 ## I prepare the final question too
 
@@ -160,6 +168,6 @@ I'd rather hear myself say that sentence twenty times at home before the first r
 
 ## I probably overprepare
 
-I probably overprepare, because I talk to myself, use a mirror, record myself, mentally run through the session, prepare the obvious questions, hunt for the uncomfortable ones and think about what I'm going to ask at the end.
+For the interviews I really care about, I probably do overprepare. I talk to myself a lot, and if the stakes feel high enough I may bring out the mirror or record myself too. I also mentally run through the session, prepare the obvious questions, hunt for the uncomfortable ones and think about what I'm going to ask at the end.
 
 The work I've done over the years gives me the actual things to talk about. This preparation helps me get those things out of my head and into the room without spending half the interview on nerves, filler words or a four-minute background story that should have taken one. After that, if they don't want me, so be it, because at least they got a fair look.
