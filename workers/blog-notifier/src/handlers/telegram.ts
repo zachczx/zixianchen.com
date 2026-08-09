@@ -94,7 +94,12 @@ async function handlePreferenceCallback(
 
 	if (update.changed) {
 		ctx.waitUntil(
-			editTelegramReplyMarkup(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, buildPreferenceKeyboard(update.value))
+			editTelegramReplyMarkup(
+				env.TELEGRAM_BOT_TOKEN,
+				chatId,
+				message.message_id,
+				buildPreferenceKeyboard(update.value),
+			)
 				.then((response) => {
 					if (!response.ok) logTelegramError('Telegram settings update failed:', response);
 				})
