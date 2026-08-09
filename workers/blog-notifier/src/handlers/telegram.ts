@@ -10,10 +10,13 @@ import type { Env, ExecutionContextLike } from '../runtime';
 import {
 	answerTelegramCallback,
 	buildPreferenceKeyboard,
+	buildSettingsClosedKeyboard,
+	editTelegramMessageText,
 	editTelegramReplyMarkup,
 	parseCommand,
 	sendTelegramMessage,
 	SETTINGS_DONE_CALLBACK,
+	SETTINGS_EDIT_CALLBACK,
 	type InlineKeyboardMarkup,
 	type TelegramApiResponse,
 	type TelegramCallbackQuery,
@@ -68,14 +71,16 @@ async function handlePreferenceCallback(
 ): Promise<Response> {
 	const message = callbackQuery.message;
 	const isDone = callbackQuery.data === SETTINGS_DONE_CALLBACK;
-	const preferenceKey = !isDone && callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
+	const isEdit = callbackQuery.data === SETTINGS_EDIT_CALLBACK;
+	const preferenceKey =
+		!isDone && !isEdit && callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
 
 	if (!message || message.chat.type !== 'private' || String(callbackQuery.from.id) !== String(message.chat.id)) {
 		await acknowledgeCallback(env, callbackQuery.id);
 		return new Response('ok');
 	}
 
-	if (!isDone && !preferenceKey) {
+	if (!isDone && !isEdit && !preferenceKey) {
 		await acknowledgeCallback(env, callbackQuery.id, 'That setting is no longer available.');
 		return new Response('ok');
 	}
@@ -92,13 +97,36 @@ async function handlePreferenceCallback(
 	if (isDone) {
 		await acknowledgeCallback(env, callbackQuery.id);
 		ctx.waitUntil(
-			editTelegramReplyMarkup(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, { inline_keyboard: [] })
+			editTelegramMessageText(
+				env.TELEGRAM_BOT_TOKEN,
+				chatId,
+				message.message_id,
+				'Preferences saved.',
+				buildSettingsClosedKeyboard(),
+			)
 				.then((response) => {
 					if (!response.ok) logTelegramError('Telegram settings close failed:', response);
 				})
 				.catch((error) => console.error('Telegram settings close failed:', error)),
 		);
-		reply(env, ctx, chatId, 'Preferences saved.');
+		return new Response('ok');
+	}
+
+	if (isEdit) {
+		await acknowledgeCallback(env, callbackQuery.id);
+		ctx.waitUntil(
+			editTelegramMessageText(
+				env.TELEGRAM_BOT_TOKEN,
+				chatId,
+				message.message_id,
+				settingsMessage(),
+				buildPreferenceKeyboard(subscriber.categories),
+			)
+				.then((response) => {
+					if (!response.ok) logTelegramError('Telegram settings reopen failed:', response);
+				})
+				.catch((error) => console.error('Telegram settings reopen failed:', error)),
+		);
 		return new Response('ok');
 	}
 
