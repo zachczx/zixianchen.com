@@ -4,6 +4,8 @@ This Worker sends a private Telegram message when a new public blog post appears
 
 The first RSS check records the posts that already exist and sends nothing. Later checks compare all feed GUIDs against D1, so a newly published post is detected even if its publication date puts it below the first RSS item.
 
+Subscribers start on `All posts`. They can use `/settings` to select any combination of the blog's `Work`, `Systems`, `Dev`, and `Life` categories. Category preferences are checked both when a notification is queued and again before it is delivered.
+
 ## BotFather setup
 
 Create the bot with `@BotFather` and keep the token out of the repository.
@@ -12,6 +14,7 @@ Suggested commands:
 
 ```text
 start - Notify me about new posts
+settings - Choose which posts to get
 stop - Stop new-post notifications
 help - Show notification commands
 ```
@@ -72,7 +75,7 @@ Then register the webhook:
 $body = @{
   url = "$workerUrl/telegram/webhook"
   secret_token = $secret
-  allowed_updates = '["message"]'
+  allowed_updates = '["message","callback_query"]'
   drop_pending_updates = 'true'
 }
 
@@ -92,9 +95,23 @@ Check the Worker itself:
 Invoke-RestMethod "$workerUrl/health"
 ```
 
-Then open the bot in Telegram and send `/start`. It should confirm the subscription. `/stop` should remove it.
+Then open the bot in Telegram and send `/start`. It should subscribe you to all posts and show category buttons. Select a couple of categories, run `/settings` again to confirm the choices, then use `/stop` to unsubscribe.
 
 The RSS check runs every 15 minutes. Existing posts are seeded on the first run and are never broadcast as new posts.
+
+## Inspect subscribers
+
+Count active subscribers:
+
+```powershell
+pnpm exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT COUNT(*) AS subscribers FROM subscribers" --config workers/blog-notifier/wrangler.jsonc
+```
+
+Inspect category preferences:
+
+```powershell
+pnpm exec wrangler d1 execute zixianchen-blog-notifier --remote --command="SELECT categories, COUNT(*) AS subscribers FROM subscribers GROUP BY categories ORDER BY subscribers DESC" --config workers/blog-notifier/wrangler.jsonc
+```
 
 ## Local validation
 
