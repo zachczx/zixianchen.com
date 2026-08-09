@@ -7,6 +7,7 @@ export const CATEGORY_OPTIONS = [
 
 export type CategoryKey = (typeof CATEGORY_OPTIONS)[number]['key'];
 export type PreferenceKey = 'all' | CategoryKey;
+export type PreferenceCallback = PreferenceKey | 'done';
 
 export interface PreferenceUpdate {
 	changed: boolean;
@@ -69,9 +70,9 @@ export function shouldNotify(preferences: string, category?: string): boolean {
 	return Boolean(key && isCategoryKey(key) && selected.has(key));
 }
 
-export function parsePreferenceCallback(data: string): PreferenceKey | undefined {
+export function parsePreferenceCallback(data: string): PreferenceCallback | undefined {
 	if (!data.startsWith('prefs:')) return undefined;
 	const key = data.slice('prefs:'.length).toLowerCase();
-	if (key === 'all') return 'all';
+	if (key === 'all' || key === 'done') return key;
 	return isCategoryKey(key) ? key : undefined;
 }
