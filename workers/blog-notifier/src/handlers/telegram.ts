@@ -10,6 +10,7 @@ import type { Env, ExecutionContextLike } from '../runtime';
 import {
 	answerTelegramCallback,
 	buildPreferenceKeyboard,
+	editTelegramMessageText,
 	editTelegramReplyMarkup,
 	parseCommand,
 	sendTelegramMessage,
@@ -57,7 +58,7 @@ function settingsMessage(justSubscribed = false): string {
 		? "You're subscribed. I'll message you when I publish something new."
 		: 'Notification settings';
 
-	return `${heading}\n\nChoose what you'd like updates for:`;
+	return `${heading}\n\nChoose what you'd like updates for. Changes save immediately:`;
 }
 
 async function handlePreferenceCallback(
@@ -66,14 +67,14 @@ async function handlePreferenceCallback(
 	ctx: ExecutionContextLike,
 ): Promise<Response> {
 	const message = callbackQuery.message;
-	const preferenceKey = callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
+	const action = callbackQuery.data ? parsePreferenceCallback(callbackQuery.data) : undefined;
 
 	if (!message || message.chat.type !== 'private' || String(callbackQuery.from.id) !== String(message.chat.id)) {
 		await acknowledgeCallback(env, callbackQuery.id);
 		return new Response('ok');
 	}
 
-	if (!preferenceKey) {
+	if (!action) {
 		await acknowledgeCallback(env, callbackQuery.id, 'That setting is no longer available.');
 		return new Response('ok');
 	}
@@ -87,7 +88,19 @@ async function handlePreferenceCallback(
 		return new Response('ok');
 	}
 
-	const update = togglePreference(subscriber.categories, preferenceKey);
+	if (action === 'done') {
+		await acknowledgeCallback(env, callbackQuery.id);
+		ctx.waitUntil(
+			editTelegramMessageText(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, 'Preferences saved.')
+				.then((response) => {
+					if (!response.ok) logTelegramError('Telegram settings close failed:', response);
+				})
+				.catch((error) => console.error('Telegram settings close failed:', error)),
+		);
+		return new Response('ok');
+	}
+
+	const update = togglePreference(subscriber.categories, action);
 	if (update.changed) await updateSubscriberCategories(env.DB, chatId, update.value);
 
 	await acknowledgeCallback(env, callbackQuery.id, update.message);
