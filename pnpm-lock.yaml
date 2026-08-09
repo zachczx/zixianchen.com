@@ -7,6 +7,42 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      prettier:
+        specifier: ^3.9.6
+        version: 3.9.6
+
+  notifier:
+    devDependencies:
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@10.8.0(jiti@2.7.0))
+      '@types/node':
+        specifier: ^26.1.2
+        version: 26.1.2
+      eslint:
+        specifier: ^10.8.0
+        version: 10.8.0(jiti@2.7.0)
+      eslint-config-prettier:
+        specifier: ^10.1.8
+        version: 10.1.8(eslint@10.8.0(jiti@2.7.0))
+      globals:
+        specifier: ^17.9.0
+        version: 17.9.0
+      prettier:
+        specifier: ^3.9.6
+        version: 3.9.6
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      typescript-eslint:
+        specifier: ^8.66.0
+        version: 8.66.0(eslint@10.8.0(jiti@2.7.0))(typescript@6.0.3)
+      wrangler:
+        specifier: ^4.119.0
+        version: 4.119.0
+
+  web:
     dependencies:
       '@fontsource-variable/figtree':
         specifier: ^5.3.0
@@ -47,9 +83,6 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
-      wrangler:
-        specifier: ^4.119.0
-        version: 4.119.0
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -156,6 +189,9 @@ importers:
       vite-plugin-pagefind:
         specifier: ^1.1.1
         version: 1.1.1(vite@8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0))
+      wrangler:
+        specifier: ^4.119.0
+        version: 4.119.0
 
 packages:
 
