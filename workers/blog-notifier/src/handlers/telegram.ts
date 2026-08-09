@@ -94,12 +94,7 @@ async function handlePreferenceCallback(
 
 	if (update.changed) {
 		ctx.waitUntil(
-			editTelegramReplyMarkup(
-				env.TELEGRAM_BOT_TOKEN,
-				chatId,
-				message.message_id,
-				buildPreferenceKeyboard(update.value),
-			)
+			editTelegramReplyMarkup(env.TELEGRAM_BOT_TOKEN, chatId, message.message_id, buildPreferenceKeyboard(update.value))
 				.then((response) => {
 					if (!response.ok) logTelegramError('Telegram settings update failed:', response);
 				})
@@ -110,11 +105,7 @@ async function handlePreferenceCallback(
 	return new Response('ok');
 }
 
-export async function handleTelegramWebhook(
-	request: Request,
-	env: Env,
-	ctx: ExecutionContextLike,
-): Promise<Response> {
+export async function handleTelegramWebhook(request: Request, env: Env, ctx: ExecutionContextLike): Promise<Response> {
 	const secret = request.headers.get('X-Telegram-Bot-Api-Secret-Token');
 	if (!env.TELEGRAM_WEBHOOK_SECRET || secret !== env.TELEGRAM_WEBHOOK_SECRET) {
 		return new Response('Unauthorized', { status: 401 });
