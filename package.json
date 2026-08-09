@@ -12,9 +12,9 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"check:notifier": "tsc -p workers/blog-notifier/tsconfig.json && wrangler deploy --dry-run --config workers/blog-notifier/wrangler.jsonc",
-		"test:notifier": "node --test workers/blog-notifier/src/notifier.test.ts",
-		"deploy:notifier": "wrangler deploy --config workers/blog-notifier/wrangler.jsonc",
+		"check:notifier": "pnpm --filter @zixianchen/blog-notifier check",
+		"test:notifier": "pnpm --filter @zixianchen/blog-notifier test",
+		"deploy:notifier": "pnpm --filter @zixianchen/blog-notifier deploy",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
@@ -69,7 +69,6 @@
 		"rehype-slug": "^6.0.0",
 		"shiki": "^4.4.2",
 		"svelte": "5.56.8",
-		"tailwind-merge": "^3.6.0",
-		"wrangler": "^4.119.0"
+		"tailwind-merge": "^3.6.0"
 	}
 }
