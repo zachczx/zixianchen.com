@@ -47,9 +47,6 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
-      wrangler:
-        specifier: ^4.119.0
-        version: 4.119.0
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -156,6 +153,18 @@ importers:
       vite-plugin-pagefind:
         specifier: ^1.1.1
         version: 1.1.1(vite@8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0))
+
+  workers/blog-notifier:
+    devDependencies:
+      '@types/node':
+        specifier: ^26.1.2
+        version: 26.1.2
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      wrangler:
+        specifier: ^4.119.0
+        version: 4.119.0
 
 packages:
 
