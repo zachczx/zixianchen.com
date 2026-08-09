@@ -13,13 +13,11 @@ listed: false
 slug: 'prepare-for-interviews-and-presentations'
 ---
 
-A few people asked me recently how I prepare for interviews, including whether I rehearse a lot, whether I still behave like myself, and what I do for the bigger presentations where I know the room may push back.
+A few people asked me recently how I prepare for interviews. Most were asking about the practical stuff because I've mentioned before that I rehearse quite a lot, and someone also asked whether I still behave like myself. The same habits carry over to bigger presentations where I know the room may push back.
 
-I don't actually interview very often, which probably explains why I prepare so much when one matters. I talk to myself, record myself, stand in front of a mirror, rehearse the opening and mentally play through the whole thing beforehand. Written down like this, it sounds slightly obsessive. Maybe it is.
+I don't actually interview very often, which probably explains why I prepare so much when one matters. I talk to myself, record myself, stand in front of a mirror, rehearse the opening and mentally play through the whole thing beforehand. Written down like this, it sounds slightly obsessive, and maybe it is.
 
-Some of what makes an interview go well obviously comes from the work that happened long before the interview was scheduled. I started writing about that too, wandered very far away from the original question, and eventually split it into another post about what I look for when I interview someone.
-
-This one is the practical stuff I do in the days before.
+Some of what makes an interview go well obviously comes from the work that happened long before the interview was scheduled. I started writing about that too, wandered very far away from the original question, and eventually split it into another post about what I look for when I interview someone. So this one stays with the practical stuff I do in the days before.
 
 ## I say the answers out loud
 
@@ -31,13 +29,13 @@ It is very easy to sit somewhere thinking:
 
 Then somebody actually asks the question and somehow I spend four minutes explaining the background before getting anywhere near the answer that sounded so good inside my head.
 
-I've caught this many times. Something that feels concise while I'm thinking it becomes ridiculously long once I hear myself say it, and a beautiful sentence I wrote down can sound like a submission when it comes out of my mouth. Nobody talks like that.
+I've caught this many times. Something that feels concise while I'm thinking it becomes ridiculously long once I hear myself say it, and a beautiful sentence I wrote down can sound like a submission when it comes out of my mouth, because nobody talks like that.
 
 So I talk to myself quite a lot before an interview. I'll stand in front of a mirror, walk around the room saying an answer again, stop halfway because it sounds stupid, restart it, and eventually find a version that feels natural enough to say to another human being.
 
-### I remember the shape, not the paragraph
+### I remember the shape of the answer
 
-I sometimes write an answer out first because writing helps me think. Once I start practising, I care more about remembering the shape of the answer, the useful example and perhaps a line or two that I particularly like.
+I sometimes write an answer out first because writing helps me think. Once I start practising, I care more about the shape of the answer and the experiences I might use. Sometimes there is also a line or two I particularly like and want to remember.
 
 Memorising a whole paragraph makes me brittle. The interviewer asks something slightly different, which they obviously will, and suddenly I'm trying to force my beautiful prepared answer into a question it doesn't fit.
 
@@ -49,13 +47,9 @@ I hate watching myself on video, which is probably part of why this works so wel
 
 You discover a lot of weird things you do without realizing it. I slouch. I sometimes suck in through my nose for no reason when I'm thinking. There are random nervous tics, shifting around in the chair, looking away at odd moments, and other stuff that feels totally normal while I'm doing it and looks distracting when I watch it back.
 
-Then there is all the verbal junk. Errrr. Erm. Basically. Actually. Well.
+Then there is all the verbal junk: "errrr", "erm", "basically", "actually", "well", and whatever else I apparently say while my brain catches up. I say some of these much more than I realize, and if every second answer starts with "well" or I keep saying "basically" while thinking, it gets very obvious on a recording. Basically, if I keep saying basically, then basically I have a problem.
 
-I say some of these much more than I realize. The individual word doesn't bother me much, but if every second answer starts with "well" or I keep saying "basically" while my brain catches up, it gets very obvious on a recording. Basically, if I keep saying basically, then basically I have a problem.
-
-Once I notice something, I can work on it. I sit a bit straighter, try to look more settled, let myself pause for a second instead of immediately filling the silence with "errrr", and try to stop doing the weird nose thing every time I need to think.
-
-I'm aiming for normal, settled me. I have zero interest in learning some executive body-language choreography where my hands need to be in the correct position every five seconds.
+Once I notice something, I can work on it. I sit a bit straighter, look more settled, let myself pause for a second instead of immediately filling the silence with "errrr", and try to stop doing the weird nose thing every time I need to think. I just want the distracting stuff to stop, preferably before half the panel spends the interview watching me suck air through my nose every time I need two seconds to think.
 
 Recording also exposes how long the answers really are. If I thought I gave a quick response and the video says I've been talking for four minutes, okay lor, apparently it wasn't that quick.
 
@@ -63,9 +57,7 @@ Recording also exposes how long the answers really are. If I thought I gave a qu
 
 The start of an interview is usually the point where I am most conscious that I am being interviewed. Once the conversation gets going, I tend to settle down and it feels much easier.
 
-So I rehearse the first few lines more than the rest. I think about how I will introduce myself, what I might say if they start with some version of "tell us about yourself", and roughly how I want that first answer to begin.
-
-I don't script the next 45 minutes. I just want the first minute to feel familiar enough that my brain has one less thing to deal with while the nerves are still there.
+So I rehearse the first few lines more than the rest. I think about how I will introduce myself, what I might say if they start with some version of "tell us about yourself", and roughly how I want that first answer to begin. The first minute gets most of my attention because I want it to feel familiar enough that my brain has one less thing to deal with while the nerves are still there.
 
 ## I mentally play through the whole interview
 
@@ -79,7 +71,7 @@ I think of it as the nerdier office-worker version of what athletes do when they
 
 ## Come on, some questions are predictable
 
-There will always be questions I didn't expect, but interviews aren't random events. You can normally anticipate quite a lot from the role, your own experience and what the organisation is dealing with.
+There will always be questions I didn't expect, but interviews have enough predictable bits that I can think through the obvious ones beforehand. You can normally anticipate quite a lot from the role, your own experience and what the organisation is dealing with.
 
 For a leadership interview, I might think through questions like:
 
@@ -100,15 +92,13 @@ This is probably the more useful part of the preparation.
 
 If there is a weak part of my experience, something that went badly, an awkward decision I made or an obvious question hanging over a project, I'd rather wrestle with it at home than discover my answer while several people are staring at me.
 
-I do the same thing with presentations. I look at the deck and ask where my evidence is weakest, which recommendation is likely to annoy someone, whether I've quietly made an assumption that somebody senior will spot immediately, and which slide I am praying nobody asks the obvious follow-up about.
-
-That last one is usually a pretty good sign that I should prepare for the question.
+I do the same thing with presentations. I look at the deck and ask where my evidence is weakest, which recommendation is likely to annoy someone, whether I've quietly made an assumption that somebody senior will spot immediately, and which slide I am praying nobody asks the obvious follow-up about. That last one is usually a pretty good sign that I should prepare for the question.
 
 It is quite comforting when the difficult question eventually appears and I realise I've already fought with some version of it before. I may still need to think because the question will rarely be identical, but at least I'm not starting from zero.
 
 ## I know what I hope they remember
 
-The panel controls the questions. I still go in knowing the things about me or my experience that I hope they walk away understanding.
+The panel controls the questions, and I still go in knowing the things about me or my experience that I hope they walk away understanding.
 
 I've definitely left conversations before and thought:
 
@@ -136,21 +126,19 @@ There is one question I can almost guarantee will appear in some form:
 
 > Do you have any questions for us?
 
-I always want something ready. I prefer a question I genuinely care about, that the organisation's website cannot answer, and that is important enough to the role that the panel may actually have something interesting to say.
+I always want something ready. It should be something I actually care about, because otherwise the question feels performative. I also avoid anything I could have answered by reading the organisation's website. The questions I like most tend to get the panel talking about what the job is really going to be like.
 
 One I like is:
 
 > What do you think will be the hardest problem for the person coming into this role?
 
-I genuinely want to hear the answer because it tells me something about what I might be walking into. There is also a nice side effect: sometimes somebody turns it around and asks me what I think, or how I would approach the problem.
+I genuinely want to hear the answer because it tells me something about what I might be walking into. There is also a nice side effect because sometimes somebody turns it around and asks me what I think, or how I would approach the problem, which is basically a free extra interview question on something I already thought about before I entered the room.
 
-Great, free extra interview question on something I already thought about before I entered the room!
-
-Yes, I absolutely think about this beforehand. It's an interview. Of course I do.
+Yes, I absolutely think about this beforehand because it's an interview, of course I do.
 
 ### Know when to stop
 
-Sometimes the panel answers my question, thanks me and starts wrapping up. Then we're done.
+Sometimes the panel answers my question, thanks me and starts wrapping up, so I let the interview end there.
 
 Please don't respond with:
 
@@ -170,7 +158,7 @@ Preparation actually helps with this. The first version of an honest answer can 
 
 Once I'm comfortable with my own material, I also have more attention left for the people in front of me. I can listen properly, shorten an answer when they clearly get it, go deeper when somebody seems interested, and change direction when the question isn't what I expected.
 
-So yes, the interview version of me is managed. It's still me.
+So yes, I manage how I present myself during the interview, and the person underneath is still me.
 
 ## Big presentations feel very similar
 
@@ -180,9 +168,7 @@ The slides themselves worry me less because I control them and know what comes n
 
 I practise the presentation aloud and listen for the bits that feel strange to say. I think about who is likely to disagree, where the argument feels weakest, which assumption could get attacked, and what question I really hope nobody asks.
 
-Sometimes the hardest part is simply saying the difficult sentence in the room.
-
-Imagine people have spent years supporting an existing approach and my slide effectively says:
+Sometimes the hardest part is simply saying the difficult sentence in the room. Imagine people have spent years supporting an existing approach and my slide effectively says:
 
 > We recommend stopping the existing approach because the evidence no longer supports it.
 
@@ -194,6 +180,4 @@ I'd rather hear myself say that sentence twenty times at home before the first r
 
 I probably do. I talk to myself, use a mirror, record myself, mentally run through the session, prepare the obvious questions, hunt for the uncomfortable ones and think about what I'm going to ask at the end.
 
-The work I've done over the years gives me the actual things to talk about. This preparation helps me get those things out of my head and into the room without spending half the interview on nerves, filler words or a four-minute background story that should have taken one.
-
-After that, if they don't want me, so be it. At least they got a fair look.
+The work I've done over the years gives me the actual things to talk about. This preparation helps me get those things out of my head and into the room without spending half the interview on nerves, filler words or a four-minute background story that should have taken one. After that, if they don't want me, so be it, because at least they got a fair look.
