@@ -43,6 +43,7 @@ export interface Env {
 }
 
 export interface NotificationMessage {
+	category?: string;
 	chatId: string;
 	description: string;
 	guid: string;
