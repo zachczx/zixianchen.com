@@ -70,10 +70,7 @@ export function buildPreferenceKeyboard(preferences: string): InlineKeyboardMark
 				button('work', 'Work', !isAll && selected.has('work')),
 				button('systems', 'Systems', !isAll && selected.has('systems')),
 			],
-			[
-				button('dev', 'Dev', !isAll && selected.has('dev')),
-				button('life', 'Life', !isAll && selected.has('life')),
-			],
+			[button('dev', 'Dev', !isAll && selected.has('dev')), button('life', 'Life', !isAll && selected.has('life'))],
 		],
 	};
 }
