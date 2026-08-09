@@ -4,6 +4,7 @@ import type { NotificationMessage } from './runtime';
 export type BotCommand = 'help' | 'settings' | 'start' | 'stop';
 
 export const SETTINGS_DONE_CALLBACK = 'settings:done';
+export const SETTINGS_EDIT_CALLBACK = 'settings:edit';
 
 export interface InlineKeyboardButton {
 	callback_data: string;
@@ -78,6 +79,12 @@ export function buildPreferenceKeyboard(preferences: string): InlineKeyboardMark
 	};
 }
 
+export function buildSettingsClosedKeyboard(): InlineKeyboardMarkup {
+	return {
+		inline_keyboard: [[{ callback_data: SETTINGS_EDIT_CALLBACK, text: 'Change preferences' }]],
+	};
+}
+
 export function formatNotification(message: NotificationMessage): string {
 	const description = message.description.trim();
 	const shortenedDescription = description.length > 800 ? `${description.slice(0, 797).trimEnd()}...` : description;
@@ -147,5 +154,20 @@ export function editTelegramReplyMarkup(
 		chat_id: chatId,
 		message_id: messageId,
 		reply_markup: replyMarkup,
+	});
+}
+
+export function editTelegramMessageText(
+	botToken: string,
+	chatId: string,
+	messageId: number,
+	text: string,
+	replyMarkup?: InlineKeyboardMarkup,
+): Promise<TelegramApiResponse> {
+	return telegramRequest(botToken, 'editMessageText', {
+		chat_id: chatId,
+		message_id: messageId,
+		text,
+		...(replyMarkup ? { reply_markup: replyMarkup } : {}),
 	});
 }
