@@ -12,29 +12,23 @@ listed: false
 slug: 'what-i-look-for-in-interviews'
 ---
 
-A few people asked me recently what I actually look for when I interview someone. I started answering that inside a post about [how I prepare for interviews](/blog/prepare-for-interviews-and-presentations), then realised I had wandered into a different topic entirely.
+A few people asked me recently what I actually look for when I interview someone. I started answering that inside a post about [how I prepare for interviews](/blog/prepare-for-interviews-and-presentations), then realised I had wandered into a different topic entirely: what am I actually trying to understand about the person sitting across from me?
 
-So this is the other half of it: what I am trying to understand about the person sitting across from me.
-
-I don't know the secret scoring rubric for every public service interview, and I am definitely not saying this is some official formula. A lot of it came from advice people gave me over the years, some from being interviewed myself, and later from sitting on the other side of the table.
+I don't know the secret scoring rubric for every public service interview, and I am definitely not saying this is some official formula. Some of it came from advice people gave me over the years, some from being interviewed myself, and quite a lot only became obvious later when I started sitting on the other side of the table and asking the questions.
 
 There is inevitably some of my own bias in here too. These are things I personally find convincing, so treat this as accumulated experience rather than the Public Service Interview Bible.
 
 ## The bar depends on where you are
 
-The first thing I would get out of the way is that I judge people in context.
-
-A fresh graduate may only have a school project, an internship or a short first posting to talk about. That is completely normal. The interesting part is how much they understood from whatever experience they did have.
+I judge people in context. A fresh graduate may have only a couple of small projects, an internship or a short first posting to talk about, and that is completely normal. The interesting part is how much they understood from whatever experience they did have.
 
 Did they understand the problem they were trying to solve and how their piece of work connected to it? When something became difficult, what did they do? Looking back now, what would they change, and was there anything they regretted or only understood afterwards?
 
-I have met young candidates with very little portfolio on paper who could go surprisingly deep once you asked them about one piece of work. I have also met people who had done something that sounded impressive, but could only describe the surface of it.
-
-A small piece of work can tell you plenty if the person really lived with it.
+I have met young candidates with very little portfolio on paper who could go surprisingly deep once you asked them about one piece of work. I have also met people who had done something that sounded impressive, but could only describe the surface of it. A small piece of work can tell you plenty if the person really lived with it.
 
 The bar rises naturally with experience. If somebody comes in much more senior, with years of work and a rich portfolio behind them, I will expect more depth, more judgement and a stronger sense of what they personally changed. They have had more opportunities to build those muscles, so the evidence should usually be richer too.
 
-That calibration matters to me. I am trying to understand what someone made of the opportunities they actually had, rather than comparing a fresh graduate's portfolio with somebody fifteen years into a career.
+That calibration matters because the comparison should make sense for the stage somebody is at and the opportunities they have actually had. A fresh graduate gets more room because they have had fewer chances to build a portfolio. Somebody senior arrives with much more evidence to draw from, so naturally I will probe it harder.
 
 ## Most of the preparation already happened
 
@@ -46,7 +40,7 @@ That is why I tend to think about interviews through a few recurring questions. 
 
 The interview itself gives me a short window to find out.
 
-## First, know your stuff
+## Know your stuff
 
 If you tell me you worked on something, I expect you to understand it properly. I mean understanding what you actually did, why the important decisions were made, what constraints shaped them, and what happened when reality became annoying.
 
@@ -54,39 +48,35 @@ You can normally tell when somebody really lived with a problem because there is
 
 A memorised first layer tends to run out quite quickly once the questions move sideways.
 
-### Knowing stuff isn't knowing trivia
+### What I mean by knowing your stuff
 
-I would be careful here because depth can look different depending on where somebody came from.
+Depth can look quite different depending on where somebody came from.
 
 Someone from another area may use completely different terminology and still understand the underlying problem very well. Someone who has spent years in exactly the same domain may know all the familiar words and still struggle once you move away from the standard answer.
 
-So I care much more about genuine understanding than whether somebody happens to know the same trivia I know.
-
-Sometimes the best follow-up question is simply:
+I care much more about genuine understanding than whether somebody happens to know the same trivia I know. Sometimes the best follow-up question is simply:
 
 > Why?
 
 Then see where the answer goes.
 
-## Then, get stuff done
+## Get stuff done
 
 Knowing things is great. I also want to know whether anything actually happened because you were there.
 
 What did you deliver? What changed? Maybe you took something from an idea to something people actually used. Maybe you moved a piece of work that had been stuck for months, helped kill a bad idea before more money went into it, or got a group of people to agree on something they had been circling around for ages.
 
-The outcome does not need to be some giant success story. Sometimes the right decision was to stop. Sometimes circumstances changed and the original outcome no longer made sense. Sometimes the useful part of the story is the mistake and what happened after it.
+Useful outcomes come in different forms. Sometimes the right decision was to stop. Sometimes circumstances changed and the original outcome no longer made sense. Sometimes the useful part of the story is the mistake and what happened after it. There are also cases where the eventual result is smaller than the original ambition, but still worth doing.
 
-What I care about is what you actually did and how you thought about it.
+What I care about is what you actually did and how you thought about it. There is a difference between being around good work and being responsible for making some of it happen, and that difference usually becomes fairly obvious once people start asking questions.
 
-There is a difference between being around good work and being responsible for making some of it happen. That difference usually becomes fairly obvious once people start asking questions.
-
-## Then show what you can do with what you know
+## Show what you can do with what you know
 
 This is probably where interviews become much more interesting to me.
 
 Nobody can know everything, and eventually every one of us reaches a problem we have never encountered before. I care quite a lot about what somebody does once they reach the edge of what they already know.
 
-I like people who can connect dots. Someone sees a technology problem and remembers something useful from operations. A policy question starts looking like an incentive problem they saw elsewhere. An approach from another industry suddenly becomes useful after a bit of adaptation.
+I like people who can connect dots. Someone sees a technology problem and remembers something useful from operations. A policy question starts looking like an incentive problem they saw elsewhere. The specific examples vary, but the underlying thing I am looking for is whether they can recognise a familiar shape inside an unfamiliar problem and adapt what they already know.
 
 The best people I have worked with seem to do this quite naturally. They recognise patterns across domains and can borrow ideas without blindly copying them.
 
@@ -128,9 +118,7 @@ People who are interested in something usually leave traces of it. They know som
 
 I recognise this because I do exactly the same thing when something catches my interest.
 
-That does not mean everybody needs to bounce around the room talking about how passionate they are. Some people are naturally quiet, and loud enthusiasm can be performed just as easily as anything else in an interview.
-
-I am more interested in what the curiosity caused them to do.
+Quiet people can show this just as clearly as loud ones. I have never needed somebody to bounce around the room talking about how passionate they are, because enthusiasm is easy to perform. I am more interested in what the curiosity caused them to do.
 
 ## Character and intent matter too
 
@@ -161,9 +149,9 @@ That is why I prepare quite hard when I am the candidate myself. I cannot contro
 
 ## A caveat about the private sector
 
-Most of this comes from my experience in the public service, where I think the bar should naturally rise with seniority and the opportunities someone has already had.
+Most of this comes from my experience in the public service, where I think the bar should naturally rise with seniority and the opportunities someone has already had. This is where my own experience is thinner.
 
-I am less sure this translates neatly to the private sector, especially in the current job market. After so many rounds of layoffs, employers in some areas may have the luxury of choosing between candidates with very different levels of experience for the same role. More experienced people may also decide to take a step down, which means a younger candidate can end up competing with somebody whose portfolio would normally belong at a different level.
+At the time I am writing this, after so many rounds of layoffs, employers in some parts of the private sector may have the luxury of choosing between candidates with very different levels of experience for the same role. More experienced people may also decide to take a step down, which means a younger candidate can end up competing with somebody whose portfolio would normally belong at a different level.
 
 That can make the comparison harsher in practice, even if I would personally still want to understand each candidate in context.
 
