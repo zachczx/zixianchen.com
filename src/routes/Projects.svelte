@@ -153,11 +153,11 @@
 				</h3>
 			</div>
 			<p class="text-neutral-content/75 mt-3 max-w-md text-sm leading-relaxed lg:text-base">{meta.subtitle}</p>
-			<p class="text-neutral-content/45 mt-2 text-xs">{p.stack}</p>
+			<p class="text-inverse-muted-foreground mt-2 text-xs">{p.stack}</p>
 			<dl class="mt-5 grid gap-2 border-y border-white/10 py-4">
 				{#each p.facts as fact (fact.label)}
 					<div class="grid gap-x-4 gap-y-0.5 sm:grid-cols-[5rem_1fr]">
-						<dt class="text-neutral-content/40 font-mono text-[0.65rem] tracking-[0.16em] uppercase">
+						<dt class="text-inverse-muted-foreground font-mono text-[0.65rem] tracking-[0.16em] uppercase">
 							{fact.label}
 						</dt>
 						<dd class="text-neutral-content/72 text-sm leading-relaxed">{fact.value}</dd>
@@ -181,7 +181,7 @@
 		<dd>
 			<span class="text-neutral-content/70 text-sm lg:text-base">{a.subtitle}</span>
 			{#if a.stack}
-				<span class="text-neutral-content/45 mt-0.5 block text-xs">{a.stack}</span>
+				<span class="text-inverse-muted-foreground mt-0.5 block text-xs">{a.stack}</span>
 			{/if}
 		</dd>
 		<dd class="text-neutral-content/65 text-xs sm:text-right">{a.lineage ?? ''}</dd>

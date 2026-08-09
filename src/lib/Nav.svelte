@@ -54,7 +54,7 @@
 			aria-current={ariaCurrent(link.active, active)}
 			class={[
 				'decoration-accent focus-visible:outline-accent inline-flex min-h-11 items-center justify-center px-1 text-center decoration-2 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-0',
-				active ? 'text-base-content underline' : 'text-base-content/60 hover:text-base-content',
+				active ? 'text-base-content underline' : 'text-muted-foreground hover:text-base-content',
 			]}>
 			{link.label}
 		</a>

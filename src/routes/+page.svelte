@@ -114,7 +114,7 @@
 		<div class="border-base-content/15 bg-base-100 w-full max-w-3xl border">
 			<div class="border-base-content/15 flex items-baseline justify-between border-b px-6 py-5 sm:px-8">
 				<h2 id="about-heading" class="text-2xl font-bold tracking-tight lg:text-3xl">Interests</h2>
-				<span class="text-base-content/40 text-[0.7rem] tracking-[0.25em] uppercase">Profile</span>
+				<span class="text-muted-foreground text-[0.7rem] tracking-[0.25em] uppercase">Profile</span>
 			</div>
 			<div class="sm:flex">
 				<div class="border-base-content/10 border-b px-4 py-4">
@@ -125,24 +125,24 @@
 				</div>
 				<dl class="divide-base-content/10 divide-y px-4">
 					<div class="grid gap-x-8 gap-y-1.5 py-4">
-						<dt class="text-base-content/45 text-xs tracking-[0.18em] uppercase sm:pt-1">Stack</dt>
+						<dt class="text-muted-foreground text-xs tracking-[0.18em] uppercase sm:pt-1">Stack</dt>
 						<dd class="text-base-content/80 text-sm leading-relaxed lg:text-base">Go, TypeScript, and a bit of Zig.</dd>
 					</div>
 					<div class="grid gap-x-8 gap-y-1.5 py-4">
-						<dt class="text-base-content/45 text-xs tracking-[0.18em] uppercase sm:pt-1">Since</dt>
+						<dt class="text-muted-foreground text-xs tracking-[0.18em] uppercase sm:pt-1">Since</dt>
 						<dd class="text-base-content/80 text-sm leading-relaxed lg:text-base">
 							2000 on/off. Back in the Frontpage, XHTML, PHP days.
 						</dd>
 					</div>
 					<div class="grid gap-x-8 gap-y-1.5 py-4">
-						<dt class="text-base-content/45 text-xs tracking-[0.18em] uppercase sm:pt-1">Now</dt>
+						<dt class="text-muted-foreground text-xs tracking-[0.18em] uppercase sm:pt-1">Now</dt>
 						<dd class="text-base-content/80 text-sm leading-relaxed lg:text-base">
 							Building a home admin app. Trying to write organic, free-range code by hand. It's tempting to let Claude
 							Code and OpenCode do it automatically but it doesn't feel the same.
 						</dd>
 					</div>
 					<div class="grid gap-x-8 gap-y-1.5 py-4">
-						<dt class="text-base-content/45 text-xs tracking-[0.18em] uppercase sm:pt-1">Offline</dt>
+						<dt class="text-muted-foreground text-xs tracking-[0.18em] uppercase sm:pt-1">Offline</dt>
 						<dd class="text-base-content/80 text-sm leading-relaxed lg:text-base">
 							Building PCs (love bargains, hate cable management). Learning about product design, business, and
 							entrepreneurship.
@@ -164,7 +164,7 @@
 		<section
 			class="bg-base-200 grid w-full max-w-250 grid-rows-[auto_1fr_auto] content-start gap-y-8 lg:col-span-3 lg:gap-y-24">
 			<div class="justify-self-start px-4 lg:pt-28">
-				<p class="text-base-content/45 font-mono text-xs tracking-[0.2em] uppercase">Work history</p>
+				<p class="text-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Work history</p>
 				<h2 id="jobs" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Day</h2>
 				<p class="text-base-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 					Public sector tech, policy, comms, and service delivery roles.
@@ -201,7 +201,7 @@
 				aria-labelledby="projects-heading"
 				class="navItem grid w-full max-w-250 justify-items-start px-4 pb-8 lg:grid-cols-3 lg:justify-self-end lg:pb-28">
 				<div class="justify-self-start pb-8 lg:col-span-3 lg:pb-24">
-					<p class="text-neutral-content/45 font-mono text-xs tracking-[0.2em] uppercase">Side projects</p>
+					<p class="text-inverse-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Side projects</p>
 					<h2 id="projects-heading" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Night</h2>
 					<p class="text-neutral-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 						Personal tools, experiments, and small products built outside the day job.
@@ -231,7 +231,7 @@
 				<div class="divide-y divide-white/10 px-6 sm:px-8">
 					{#each data.posts as post}
 						<a href="/blog/{post.slug}" class="group grid gap-x-8 gap-y-1.5 py-5 sm:grid-cols-[7rem_1fr]">
-							<span class="text-neutral-content/45 font-mono text-xs tracking-[0.18em] uppercase sm:pt-1.5">
+							<span class="text-inverse-muted-foreground font-mono text-xs tracking-[0.18em] uppercase sm:pt-1.5">
 								{dayjs(post.date).format('D MMM YYYY')}
 							</span>
 							<span class="block">
@@ -239,7 +239,8 @@
 									class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-hover:underline lg:text-lg">
 									{post.title}
 								</span>
-								<span class="text-neutral-content/45 mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">
+								<span
+									class="text-inverse-muted-foreground mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">
 									{#each post.tags as tag, j}
 										{#if j > 0}<span class="text-neutral-content/25">/</span>{/if}
 										<span>{tag}</span>
