@@ -1,4 +1,4 @@
-import { parsePreferences } from './preferences';
+import { parsePreferences } from './preferences.ts';
 import type { NotificationMessage } from './runtime';
 
 export type BotCommand = 'help' | 'settings' | 'start' | 'stop';
