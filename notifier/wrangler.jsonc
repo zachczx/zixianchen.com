@@ -5,24 +5,24 @@
 	"compatibility_date": "2026-08-08",
 	"workers_dev": true,
 	"triggers": {
-		"crons": ["*/15 * * * *"]
+		"crons": ["*/15 * * * *"],
 	},
 	"vars": {
-		"RSS_URL": "https://zixianchen.com/rss.xml"
+		"RSS_URL": "https://zixianchen.com/rss.xml",
 	},
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "zixianchen-blog-notifier",
-			"database_id": "25196238-e145-40bf-bde5-f70224d0e771"
-		}
+			"database_id": "25196238-e145-40bf-bde5-f70224d0e771",
+		},
 	],
 	"queues": {
 		"producers": [
 			{
 				"binding": "NOTIFICATIONS",
-				"queue": "zixianchen-blog-notifier-notifications"
-			}
+				"queue": "zixianchen-blog-notifier-notifications",
+			},
 		],
 		"consumers": [
 			{
@@ -30,8 +30,8 @@
 				"max_batch_size": 10,
 				"max_batch_timeout": 5,
 				"max_retries": 5,
-				"max_concurrency": 1
-			}
-		]
-	}
+				"max_concurrency": 1,
+			},
+		],
+	},
 }
