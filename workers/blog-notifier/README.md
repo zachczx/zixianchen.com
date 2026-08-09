@@ -25,6 +25,25 @@ Suggested description:
 Get a Telegram message when I publish something new on zixianchen.com.
 ```
 
+## Provision Cloudflare resources
+
+The Worker is configured to use an explicitly provisioned D1 database:
+
+```text
+zixianchen-blog-notifier
+25196238-e145-40bf-bde5-f70224d0e771
+```
+
+Create the notification Queue before deploying the Worker:
+
+```bash
+pnpm exec wrangler queues create zixianchen-blog-notifier-notifications
+```
+
+The Worker configuration references these resources directly. Deployment should not be relied on to create persistence or Queue infrastructure implicitly.
+
+The Worker creates its small D1 SQL schema on first use.
+
 ## Deploy the Worker
 
 From the repository root:
@@ -32,8 +51,6 @@ From the repository root:
 ```bash
 pnpm exec wrangler deploy --config workers/blog-notifier/wrangler.jsonc
 ```
-
-Wrangler provisions the D1 and Queue bindings from the Worker configuration if they do not already exist. The Worker creates its small D1 schema on first use.
 
 The deployment prints the `workers.dev` URL. Keep that URL for the webhook setup below.
 
