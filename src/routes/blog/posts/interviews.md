@@ -1,6 +1,6 @@
 ---
 title: 'How I Prepare for Interviews and Big Presentations'
-description: 'How I rehearse for interviews and big presentations, including recording myself, preparing difficult questions, and thinking about what I want people to remember.'
+description: 'How I actually rehearse for interviews and big presentations, from saying answers aloud to preparing for the questions I most hope nobody asks.'
 date: '2026-08-07'
 date_updated: '2026-08-09'
 category: 'Work'
@@ -13,7 +13,7 @@ listed: false
 slug: 'prepare-for-interviews-and-presentations'
 ---
 
-A few people asked me recently how I prepare for interviews, especially the more senior ones where people are trying to work out how you think and what you might be capable of. There were also questions about whether I remain my authentic self, whether I rehearse a lot, and how I prepare for big presentations where I know the room may push back.
+A few people asked me recently how I prepare for interviews, especially the more senior ones where people are trying to work out how you think and what you might be capable of. There were also questions about whether I remain my authentic self and how much of the whole thing I rehearse beforehand, including big presentations where I know the room may push back.
 
 I don't actually interview very often. When one matters, though, I prepare quite a lot in the days before it. I speak answers aloud, record myself, stand in front of a mirror, rehearse my opening and mentally run through the whole session.
 
@@ -21,7 +21,7 @@ Some of the preparation obviously happened much earlier through the work itself.
 
 This one is about the practical bit: what I actually do before I walk into the room.
 
-## Thinking about an answer isn't practising it
+## Say the answers out loud
 
 The biggest thing I do is say my answers out loud.
 
@@ -35,11 +35,11 @@ This happens to me too. An answer that sounds concise in my head can become ridi
 
 So I talk to myself. I might stand in front of a mirror, walk around the room saying an answer repeatedly, or read it aloud until I find a version that sounds natural.
 
-### I don't memorise paragraphs
+### Keep the answer flexible
 
-I sometimes write an answer out initially because writing helps me organise my thoughts. I don't want to memorise the whole thing and reproduce it word for word, because the interviewer will inevitably ask something slightly different and suddenly my beautiful prepared answer does not fit.
+I sometimes write an answer out initially because writing helps me organise my thoughts. Memorising the whole paragraph word for word tends to make me brittle, because the interviewer will inevitably ask something slightly different and suddenly my beautiful prepared answer does not fit.
 
-What I really want in my head are the main points, some useful examples and perhaps one or two sentences that express something particularly well.
+What I really want in my head is the shape of the answer, some useful examples and perhaps one or two sentences that express something particularly well.
 
 A difficult project I worked on could potentially help answer questions about leadership or recovering from a mistake. The same experience might also be useful if somebody asks about disagreement, trade-offs or something I would do differently now. I should be able to use the material according to what they actually ask.
 
@@ -47,7 +47,7 @@ A difficult project I worked on could potentially help answer questions about le
 
 I also try to record myself answering questions.
 
-This is mildly horrible, because watching yourself talk is a very effective way of discovering all the weird things you apparently do without knowing. Maybe I keep looking away whenever I think, move around too much, or discover that what felt like a confident answer somehow looks hesitant on video.
+This is mildly horrible, because watching yourself talk is a very effective way of discovering all the weird things you apparently do without knowing. Maybe I keep looking away whenever I think, move around too much, make some strange face while searching for a word, or discover that what felt like a confident answer somehow looks hesitant on video.
 
 I am mostly trying to remove distracting habits and become a little more aware of how I come across. I have no interest in choreographing some executive body language where my hands need to be in the correct position every five seconds.
 
@@ -88,15 +88,13 @@ You can normally anticipate quite a bit from the role, your own experience and w
 
 I don't need perfect answers to every one of these. I just don't want the interview to be the first time I have seriously thought about them.
 
-## Especially prepare the questions you hope they don't ask
+## Prepare the questions you hope they don't ask
 
 The uncomfortable questions are probably even more useful.
 
 If there is a weakness in my experience, something that went badly or some awkward part of a project somebody could reasonably challenge, I would rather think about it beforehand than sit there silently hoping nobody notices.
 
-The same applies to presentations. I look at the deck and ask which recommendation is likely to annoy someone, where my evidence is weakest, whether I have quietly made an assumption that somebody senior will immediately spot, and which slide I am praying nobody asks the obvious follow-up about.
-
-That is probably the question I should practise.
+The same applies to presentations. I look at the deck and ask which recommendation is likely to annoy someone, where my evidence is weakest, whether I have quietly made an assumption that somebody senior will immediately spot, and which slide I am praying nobody asks the obvious follow-up about. That is probably the question I should practise.
 
 There is something quite comforting about getting a difficult question in the actual session and realising I have already wrestled with some version of it before. I may still need to think, but at least I am not starting from zero.
 
@@ -108,7 +106,7 @@ There are usually a few experiences or things about how I work that are particul
 
 > Shit, we never talked about that at all.
 
-This doesn't mean forcing the same favourite story into every unrelated question. It means knowing what material I have and recognising an opening when one appears.
+I keep a mental map of the material I have and use whichever experience actually fits the question. That gives me a better chance of recognising an opening when one appears without shoehorning the same favourite story into everything.
 
 I do something similar with presentations. If the audience remembers only a few things the next morning, I should probably know beforehand what I want those things to be.
 
@@ -120,11 +118,9 @@ I thought that was good advice. Unfortunately, I didn't really follow it, and I 
 
 Because I don't interview often, the important interview can also become the occasion when I am shaking off the rust. Mirror practice, recording myself and visualising the session all help, but none of them fully reproduce sitting opposite people who are genuinely deciding whether they want you.
 
-Real interviews give you awkward pauses and questions you misunderstood. You meet the panel member whose face reveals absolutely nothing. Sometimes an answer goes somewhere completely unexpected and you have to recover from it while everyone is watching.
+Real interviews give you awkward pauses and questions you misunderstood. You meet the panel member whose face reveals absolutely nothing. Sometimes an answer goes somewhere completely unexpected and you have to recover from it while everyone is watching. Those reps probably matter.
 
-Those reps probably matter. If you are genuinely open to a few roles, even if some are not the one you desperately want, I can see the value in doing the interviews rather than saving your first one in five years for the job you really care about.
-
-I am writing this partly as advice to myself...
+If you are genuinely open to a few roles, even if some are not the one you desperately want, I can see the value in doing the interviews rather than saving your first one in five years for the job you really care about. I am writing this partly as advice to myself...
 
 ## Prepare your final question
 
@@ -134,7 +130,7 @@ There is one interview question you can almost certainly prepare for:
 
 I think people underestimate this part.
 
-I normally want at least one question ready, and I am quite deliberate about the type of question I prepare. Ideally it should be something I genuinely want answered, something the organisation's website cannot already tell me, and something important enough to the role that the panel may actually want to talk about it.
+I normally want at least one question ready, and I am quite deliberate about the type of question I prepare. Ideally it should be something I genuinely want answered and something the organisation's website cannot already tell me. I also like questions important enough to the role that the panel may actually want to talk about them, especially when the answer could teach me something about what I would be walking into.
 
 For example:
 
@@ -150,13 +146,13 @@ or:
 
 > How would you approach that?
 
-Great. I have just been given another opportunity to show how I think, except this time I knew roughly what I wanted to say before I entered the room.
+If that happens, I have just been given another opportunity to show how I think, except this time I knew roughly what I wanted to say before I entered the room.
 
 Yes, I absolutely think about this beforehand. It is still an interview. If I can ask a genuine question, learn something useful about the role and create another chance to demonstrate that I understand the problem, why wouldn't I?
 
-### Don't force it though
+### Let the conversation end naturally
 
-Sometimes they answer the question completely and that is the end of the interview. Fine.
+Sometimes they answer the question completely and that is the end of the interview. In that case, I let it end.
 
 Please don't respond:
 
@@ -172,7 +168,7 @@ Someone asked whether I remain my "true authentic self" during interviews or put
 
 I think I am still myself, obviously a more deliberate and probably better-behaved version. An interview isn't lunch with my friends. I know I am being assessed, so of course I choose my words more carefully and suppress some of the stupid shit I might otherwise say.
 
-I also don't suddenly become incredibly agreeable or pretend to believe in some management philosophy because I think that is what the panel wants to hear. If I have a strong view about something relevant, I would rather say what I actually think and explain why.
+I still want the views to be mine. If I have a strong view about something relevant, I would rather say what I actually think and explain why than invent a management philosophy because I think the panel wants to hear it.
 
 After all, if I get the job, somebody eventually has to employ the real me, and I have to work there too. If they only like me because I successfully hid everything inconvenient about how I think or work during the interview, that could become a rather annoying discovery for everybody three months later.
 
@@ -180,11 +176,11 @@ After all, if I get the job, somebody eventually has to employ the real me, and 
 
 This is also why I don't see rehearsal as being fake. I am practising how to express what I genuinely think better.
 
-The first version of an honest answer can still be rubbish. Maybe I ramble, give too much context or take four minutes to reach the useful bit. Practising lets me clean that up without changing the underlying view.
+The first version of an honest answer can still be rubbish. Maybe I ramble, give too much context, bury the point under caveats or take four minutes to reach the useful bit. Practising lets me clean that up without changing the underlying view.
 
 Once I know my material, I also have more attention available for the people in front of me. I can listen properly, shorten an answer when they clearly get it, or go deeper when somebody seems interested.
 
-So yes, I manage how I present myself. Everybody does. I just don't want to manufacture the person underneath.
+So yes, I manage how I present myself. Everybody does. The person underneath is still me.
 
 ## Big presentations are very similar
 
