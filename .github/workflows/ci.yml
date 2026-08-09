@@ -44,6 +44,12 @@ jobs:
       - name: Check Svelte and TypeScript
         run: pnpm check
 
+      - name: Check blog notifier Worker
+        run: pnpm check:notifier
+
+      - name: Test blog notifier Worker
+        run: pnpm test:notifier
+
       - name: Check formatting and linting
         run: pnpm lint
 

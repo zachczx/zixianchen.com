@@ -12,6 +12,9 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"check:notifier": "tsc -p workers/blog-notifier/tsconfig.json && wrangler deploy --dry-run --config workers/blog-notifier/wrangler.jsonc",
+		"test:notifier": "node --test workers/blog-notifier/src/notifier.test.ts",
+		"deploy:notifier": "wrangler deploy --config workers/blog-notifier/wrangler.jsonc",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
