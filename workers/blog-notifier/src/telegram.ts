@@ -71,6 +71,7 @@ export function buildPreferenceKeyboard(preferences: string): InlineKeyboardMark
 				button('systems', 'Systems', !isAll && selected.has('systems')),
 			],
 			[button('dev', 'Dev', !isAll && selected.has('dev')), button('life', 'Life', !isAll && selected.has('life'))],
+			[{ callback_data: 'prefs:done', text: 'Done' }],
 		],
 	};
 }
@@ -144,5 +145,18 @@ export function editTelegramReplyMarkup(
 		chat_id: chatId,
 		message_id: messageId,
 		reply_markup: replyMarkup,
+	});
+}
+
+export function editTelegramMessageText(
+	botToken: string,
+	chatId: string,
+	messageId: number,
+	text: string,
+): Promise<TelegramApiResponse> {
+	return telegramRequest(botToken, 'editMessageText', {
+		chat_id: chatId,
+		message_id: messageId,
+		text,
 	});
 }
