@@ -47,9 +47,11 @@ A difficult project I worked on could potentially help answer questions about le
 
 I also try to record myself answering questions.
 
-This is mildly horrible, because watching yourself talk is a very effective way of discovering all the weird things you apparently do without knowing. Maybe I keep looking away whenever I think, move around too much, make some strange face while searching for a word, or discover that what felt like a confident answer somehow looks hesitant on video.
+This is mildly horrible, because watching yourself talk is a very effective way of discovering all the weird things you apparently do without knowing. I might be slouching, sucking in through my nose for no reason, fiddling with something, shifting around in the chair or doing some other nervous tic every time I get stuck.
 
-I am mostly trying to remove distracting habits and become a little more aware of how I come across. I have no interest in choreographing some executive body language where my hands need to be in the correct position every five seconds.
+It also catches all the verbal junk. I say "errr", "erm", "basically", "actually" and "well" far more than I realise. None of these words is some great interview sin, but if I hear myself using one every other sentence, I know I am probably filling space while my brain catches up.
+
+Once I notice these things, I can work on them deliberately: sit a bit straighter, look more settled, let a pause happen instead of filling it with noise, and stop doing the weird nose thing every time I need a second to think. I am trying to look and sound like a more composed version of myself, while still sounding like myself.
 
 Recording also exposes how long my answers actually are. If I thought something was a quick response and discover I have been talking for four minutes... okay, maybe it wasn't that quick.
 
@@ -73,7 +75,7 @@ The point is to make the whole experience feel familiar enough that, when it act
 
 ## Prepare for the predictable questions
 
-There will always be questions you didn't expect, but come on... interviews aren't completely random events.
+There will always be questions you didn't expect, but come on... interviews aren't random events.
 
 You can normally anticipate quite a bit from the role, your own experience and whatever the organisation is dealing with. For a leadership interview, I might prepare around questions like:
 
@@ -118,7 +120,7 @@ I thought that was good advice. Unfortunately, I didn't really follow it, and I 
 
 Because I don't interview often, the important interview can also become the occasion when I am shaking off the rust. Mirror practice, recording myself and visualising the session all help, but none of them fully reproduce sitting opposite people who are genuinely deciding whether they want you.
 
-Real interviews give you awkward pauses and questions you misunderstood. You meet the panel member whose face reveals absolutely nothing. Sometimes an answer goes somewhere completely unexpected and you have to recover from it while everyone is watching. Those reps probably matter.
+Real interviews give you awkward pauses and questions you misunderstood. You meet the panel member whose face reveals absolutely nothing. Sometimes an answer goes somewhere unexpected and you have to recover from it while everyone is watching. Those reps probably matter.
 
 If you are genuinely open to a few roles, even if some are not the one you desperately want, I can see the value in doing the interviews rather than saving your first one in five years for the job you really care about. I am writing this partly as advice to myself...
 
@@ -136,7 +138,7 @@ For example:
 
 > What do you think will be the hardest problem for the person coming into this role?
 
-They might tell me the team is struggling with a particular issue, that expectations are changing, that whoever comes in will have to deal with some difficult stakeholders, or something else I had completely missed from the outside.
+They might tell me the team is struggling with a particular issue, that expectations are changing, that whoever comes in will have to deal with some difficult stakeholders, or something else I had missed from the outside.
 
 I listen because I genuinely want to know. There is also a reasonable chance that somebody eventually turns it around:
 
@@ -152,7 +154,7 @@ Yes, I absolutely think about this beforehand. It is still an interview. If I ca
 
 ### Let the conversation end naturally
 
-Sometimes they answer the question completely and that is the end of the interview. In that case, I let it end.
+Sometimes they answer the question and that is the end of the interview. In that case, I let it end.
 
 Please don't respond:
 
