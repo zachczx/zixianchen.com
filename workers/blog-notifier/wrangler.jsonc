@@ -14,6 +14,7 @@
 		{
 			"binding": "DB",
 			"database_name": "zixianchen-blog-notifier",
+			"database_id": "25196238-e145-40bf-bde5-f70224d0e771",
 		},
 	],
 	"queues": {
