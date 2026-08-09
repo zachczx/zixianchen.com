@@ -1,0 +1,16 @@
+{
+	"name": "@zixianchen/blog-notifier",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev",
+		"check": "tsc -p tsconfig.json && wrangler deploy --dry-run",
+		"test": "node --test src/notifier.test.ts",
+		"deploy": "wrangler deploy"
+	},
+	"devDependencies": {
+		"@types/node": "^26.1.2",
+		"typescript": "^6.0.3",
+		"wrangler": "^4.119.0"
+	}
+}
