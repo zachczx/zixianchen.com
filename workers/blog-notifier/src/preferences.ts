@@ -69,15 +69,6 @@ export function shouldNotify(preferences: string, category?: string): boolean {
 	return Boolean(key && isCategoryKey(key) && selected.has(key));
 }
 
-export function describePreferences(preferences: string): string {
-	const selected = parsePreferences(preferences);
-	if (selected === 'all') return 'All posts';
-
-	return CATEGORY_OPTIONS.filter(({ key }) => selected.has(key))
-		.map(({ label }) => label)
-		.join(', ');
-}
-
 export function parsePreferenceCallback(data: string): PreferenceKey | undefined {
 	if (!data.startsWith('prefs:')) return undefined;
 	const key = data.slice('prefs:'.length).toLowerCase();
