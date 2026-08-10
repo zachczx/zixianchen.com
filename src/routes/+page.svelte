@@ -5,7 +5,6 @@
 	import CodeCanvas from '$lib/CodeCanvas.svelte';
 	import Seo from '$lib/Seo.svelte';
 	import Moon from '$lib/assets/luke-stackpoole-TRXSkmJb40c-unsplash.webp';
-	import Computer from '$lib/assets/jl-cabrera-tcH6W-49jTU-unsplash.webp?enhanced';
 	import CrayonPortrait from '$lib/assets/crayon-drawing.webp?enhanced';
 	import Projects from './Projects.svelte';
 	import LinkedInIcon from '~icons/lucide/linkedin';
@@ -153,27 +152,19 @@
 		</div>
 	</section>
 
-	<div class="bg-base-200 grid min-h-dvh w-full justify-items-center lg:grid-cols-5">
-		<div id="com" class="hidden h-full w-full overflow-hidden pe-12 lg:col-span-2 lg:grid">
-			<enhanced:img
-				src={Computer}
-				alt=""
-				loading="lazy"
-				class="h-full w-full max-w-175 object-contain object-bottom-left" />
-		</div>
-		<section
-			class="bg-base-200 grid w-full max-w-250 grid-rows-[auto_1fr_auto] content-start gap-y-8 lg:col-span-3 lg:gap-y-24">
-			<div class="justify-self-start px-4 lg:pt-28">
+	<section aria-labelledby="jobs" class="bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
+		<div class="grid w-full max-w-250 content-start gap-y-12 lg:gap-y-24">
+			<div class="justify-self-start">
 				<p class="text-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Work history</p>
 				<h2 id="jobs" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Day</h2>
 				<p class="text-base-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 					Public sector tech, policy, comms, and service delivery roles.
 				</p>
 			</div>
-			<div class="grid content-start gap-y-10 px-4 lg:gap-y-16">
+			<div class="grid content-start gap-y-10 lg:gap-y-16">
 				{#each jobs as job}
-					<div class="job-row grid gap-y-1 lg:grid-cols-[auto_1fr]">
-						<div class="text-base-content/70 items-baseline text-sm lg:pe-12 lg:pt-1.5 lg:text-base">
+					<div class="job-row grid gap-y-1 lg:grid-cols-[5rem_minmax(0,1fr)]">
+						<div class="text-base-content/70 items-baseline text-sm lg:pt-1.5 lg:text-base">
 							{job.year}
 						</div>
 						<div>
@@ -191,8 +182,8 @@
 					</div>
 				{/each}
 			</div>
-		</section>
-	</div>
+		</div>
+	</section>
 
 	<div class="text-neutral-content grid w-full content-start justify-items-center bg-[#0E0E0E] lg:grid-cols-5">
 		<div class="grid w-full justify-items-center pt-8 lg:col-span-3 lg:pt-28">
