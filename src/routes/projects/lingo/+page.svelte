@@ -120,10 +120,12 @@
 			class="border-neutral/20 block w-full border-2 shadow-sm" />
 	{/snippet}
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">The onboarding problem</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-2xl leading-snug font-bold">
+	<section class="border-neutral/10 border-t py-14 lg:py-16">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			The glossary began with an onboarding problem
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
+			<p class="text-xl leading-snug font-bold lg:text-2xl">
 				When I joined, documents and conversations were full of abbreviations I did not know.
 			</p>
 			<p>
@@ -138,9 +140,11 @@
 		</div>
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Starting with a glossary</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
+	<section class="border-neutral/10 border-t py-16 lg:py-20">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			A glossary first
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
 			<p>
 				I began with a couple of small compilations that other people had put together, then kept adding terms as I
 				encountered them. Those starting lists now make up a relatively small part of the catalogue, which later grew
@@ -160,9 +164,11 @@
 		<ScreenshotGallery id="lingo-glossary-supporting" title="Inside the glossary" images={glossaryScreenshots} />
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Meilisearch does the heavy lifting now</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
+	<section class="border-neutral/10 border-t py-16 lg:py-24">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			Search that tolerates imperfect memory
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
 			<p>
 				Someone might remember only a few letters, part of a phrase or roughly how a name sounded, so I originally built
 				my own search using Jaro-Winkler and Metaphone to handle partial and phonetic matches.
@@ -194,12 +200,11 @@
 			class="border-neutral/20 mt-5 block w-full border-2 shadow-sm" />
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Turning the glossary into an onboarding guide</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-2xl leading-snug font-bold">
-				Search only helps after someone has already run into a term they do not know.
-			</p>
+	<section class="border-neutral/10 border-t py-16 lg:py-24">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			Search only helps after someone has already run into a term they do not know.
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
 			<p>
 				The pain point had always been onboarding, so I started arranging the terms around how new officers actually
 				encounter the Public Service: starting work, attending meetings, writing papers, navigating the hierarchy,
@@ -230,10 +235,12 @@
 		<ScreenshotGallery id="lingo-quiz-supporting" title="Quiz practice" images={quizScreenshots} />
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Adding more without making a mess</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-2xl leading-snug font-bold">
+	<section class="border-neutral/10 border-t py-14 lg:py-20">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			Accepting help without publishing blindly
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
+			<p class="text-xl leading-snug font-bold lg:text-2xl">
 				As the glossary grew, I needed a way to accept help without letting anything go straight into search.
 			</p>
 			<p>
@@ -276,10 +283,12 @@
 		</div>
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Keeping it light and dependable</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-2xl leading-snug font-bold">
+	<section class="border-neutral/10 border-t py-16 lg:py-20">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			Built for constrained government devices
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
+			<p class="text-xl leading-snug font-bold lg:text-2xl">
 				A site intended for public officers also has to work reasonably well on government devices.
 			</p>
 			<p>
@@ -311,12 +320,11 @@
 		</div>
 	</section>
 
-	<section class="border-neutral/10 border-t py-12">
-		<p class="text-xs tracking-wide" style="color: var(--accent-ink)">Built for when you need it</p>
-		<div class="text-base-content/85 mt-4 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-2xl leading-snug font-bold">
-				Most people will use Lingo only when a term gets in their way, and that is fine.
-			</p>
+	<section class="border-neutral/15 bg-base-100 mt-8 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
+		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			Most people will use Lingo only when a term gets in their way, and that is fine.
+		</h2>
+		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
 			<p>
 				They look it up, find the explanation and get back to whatever they were doing. The newbie guide gives new
 				officers somewhere to start before that happens, with situations they recognise and a way to practise the terms.
