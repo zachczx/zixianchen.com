@@ -106,7 +106,7 @@
 	accentInk="#1e293b"
 	eyebrow="Language of the Singapore Public Service"
 	headline="The glossary I wish I had when I started work."
-	sub="The current subheading lists the catalogue size, onboarding guide and quiz. Those remain accurate—the product documentation confirms more than 3,500 entries and 222 onboarding entries—but it misses the editorial and measurement layer."
+	sub="A searchable glossary, onboarding guide, and lightweight quiz for people learning the abbreviations, service names, and workplace language of the Singapore Public Service."
 	url="https://lingo.zixian.dev"
 	{stack}>
 	{#snippet wordmark()}
