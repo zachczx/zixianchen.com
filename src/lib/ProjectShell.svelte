@@ -13,6 +13,7 @@
 		slug: string;
 		accent?: string;
 		accentInk?: string;
+		heroLayout?: 'stacked' | 'split';
 		eyebrow?: string;
 		headline: string;
 		sub?: string;
@@ -29,6 +30,7 @@
 		slug,
 		accent = '#f93827',
 		accentInk = accent,
+		heroLayout = 'stacked',
 		eyebrow = '',
 		headline,
 		sub = '',
@@ -41,6 +43,33 @@
 		children,
 	}: Props = $props();
 </script>
+
+{#snippet intro()}
+	<div class="max-w-3xl">
+		{#if wordmark}{@render wordmark()}{/if}
+		{#if eyebrow}
+			<p class="mt-8 text-xs tracking-wide" style="color: var(--accent-ink)">{eyebrow}</p>
+		{/if}
+		<h1
+			class="mt-4 min-w-0 text-4xl leading-[1.05] font-black tracking-tight text-balance [overflow-wrap:anywhere] sm:text-5xl lg:text-6xl">
+			{headline}
+		</h1>
+		{#if sub}
+			<p class="text-base-content/80 mt-6 text-lg leading-relaxed">{sub}</p>
+		{/if}
+		{#if url}
+			<a
+				href={url}
+				target="_blank"
+				rel="noopener"
+				class="hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+				style="color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 45%, transparent); outline-color: var(--accent-ink)">
+				Visit site <ExternalLinkIcon class="size-[1.1em]" aria-hidden="true" />
+				<span class="sr-only">(opens in a new tab)</span>
+			</a>
+		{/if}
+	</div>
+{/snippet}
 
 <Seo title="{name} — Project Case Study | Zixian Chen" description={sub || headline} pathname="/projects/{slug}" />
 
@@ -56,34 +85,20 @@
 	</div>
 
 	<!-- hero -->
-	<header class="mx-auto max-w-5xl px-5 pt-14 pb-12 lg:pt-20">
-		<div class="max-w-3xl">
-			{#if wordmark}{@render wordmark()}{/if}
-			{#if eyebrow}
-				<p class="mt-8 text-xs tracking-wide" style="color: var(--accent-ink)">{eyebrow}</p>
-			{/if}
-			<h1 class="mt-4 text-4xl leading-[1.05] font-black tracking-tight text-balance sm:text-5xl lg:text-6xl">
-				{headline}
-			</h1>
-			{#if sub}
-				<p class="text-base-content/80 mt-6 text-lg leading-relaxed">{sub}</p>
-			{/if}
-			{#if url}
-				<a
-					href={url}
-					target="_blank"
-					rel="noopener"
-					class="hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-					style="color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 45%, transparent); outline-color: var(--accent-ink)">
-					Visit site <ExternalLinkIcon class="size-[1.1em]" aria-hidden="true" />
-					<span class="sr-only">(opens in a new tab)</span>
-				</a>
-			{/if}
-		</div>
-	</header>
+	{#if heroLayout === 'split' && hero}
+		<header
+			class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-14 lg:py-20">
+			{@render intro()}
+			<div class="min-w-0">{@render hero()}</div>
+		</header>
+	{:else}
+		<header class="mx-auto max-w-5xl px-5 pt-14 pb-12 lg:pt-20">
+			{@render intro()}
+		</header>
 
-	{#if hero}
-		<div class="mx-auto max-w-5xl px-5 pb-4">{@render hero()}</div>
+		{#if hero}
+			<div class="mx-auto max-w-5xl px-5 pb-4">{@render hero()}</div>
+		{/if}
 	{/if}
 
 	<!-- body -->

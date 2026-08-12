@@ -2,7 +2,6 @@
 	import ProjectShell from '$lib/ProjectShell.svelte';
 	import ScreenshotGallery from '$lib/ScreenshotGallery.svelte';
 	import LingoHome from '$lib/screenshots/lingo/home.png?enhanced&w=1600';
-	import LingoTermsDirectoryThumbnail from '$lib/screenshots/lingo/terms-directory.png?enhanced&w=800';
 	import LingoTermsDirectoryFull from '$lib/screenshots/lingo/terms-directory.png?enhanced&w=2400';
 	import LingoTermsSearch from '$lib/screenshots/lingo/terms-search-dc.png?enhanced&w=1600';
 	import LingoExploreConstructionThumbnail from '$lib/screenshots/lingo/explore-built-from-within.png?enhanced&w=800';
@@ -30,15 +29,6 @@
 		{ role: 'Product analytics', tools: 'PostHog, Umami' },
 		{ role: 'Observability', tools: 'Grafana Cloud, OpenTelemetry' },
 		{ role: 'Delivery', tools: 'GitHub Actions, Playwright, Coolify' },
-	];
-
-	const glossaryScreenshots = [
-		{
-			thumbnail: LingoTermsDirectoryThumbnail,
-			full: LingoTermsDirectoryFull,
-			alt: 'Lingo directory showing Singapore public-service terms beginning with C',
-			caption: 'The full A to Z list, now covering more than abbreviations.',
-		},
 	];
 
 	const exploreScreenshots = [
@@ -97,242 +87,471 @@
 			caption: 'Choose between Newbie practice and the full glossary.',
 		},
 	];
+
+	const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 </script>
 
+<!--
+THESIS: Lingo is understood through its interface and the judgment behind it, replacing the repeated case-study stack with a civic field guide.
+OWN-WORLD: Cool civic paper, slate rules, square screenshots, compact reference typography, and restrained annotation.
+STORY: An onboarding gap leads to tolerant search, proactive learning, deliberate editorial review, and delivery for constrained devices.
+FIRST VIEWPORT: The reason for Lingo sits at left while the working product occupies the larger right field; the live-site action stays with the introduction.
+FORM: An artifact-led Workbench shaped by the approved field-guide comp at .impeccable/mocks/lingo-field-guide.png.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
 <ProjectShell
 	name="Lingo"
 	slug="lingo"
-	accent="#475569"
-	accentInk="#1e293b"
+	accent="var(--color-base-content)"
+	accentInk="var(--color-base-content)"
+	heroLayout="split"
 	eyebrow="Language of the Singapore Public Service"
 	headline="The glossary I wish I had when I started work."
 	sub="A searchable glossary, onboarding guide, and lightweight quiz for people learning the abbreviations, service names, and workplace language of the Singapore Public Service."
 	url="https://lingo.zixian.dev"
 	{stack}>
 	{#snippet wordmark()}
-		<h2 class="text-4xl font-extrabold tracking-tighter text-[#475569] lg:text-5xl">Lingo</h2>
+		<p class="text-3xl font-extrabold tracking-tighter lg:text-4xl">Lingo</p>
 	{/snippet}
 
 	{#snippet hero()}
-		<enhanced:img
-			src={LingoHome}
-			alt="Lingo landing page for searching Singapore public-service terminology"
-			class="border-neutral/20 block w-full border-2 shadow-sm" />
+		<figure>
+			<enhanced:img
+				src={LingoHome}
+				alt="Lingo landing page for searching Singapore public-service terminology"
+				class="border-neutral/20 block w-full border shadow-sm" />
+			<figcaption class="text-base-content/55 mt-2 text-xs leading-relaxed">
+				Search, browse, explore, or start with the newbie guide.
+			</figcaption>
+		</figure>
 	{/snippet}
 
-	<section class="border-neutral/10 border-t py-14 lg:py-16">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			The glossary began with an onboarding problem
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-xl leading-snug font-bold lg:text-2xl">
-				When I joined, documents and conversations were full of abbreviations I did not know.
-			</p>
-			<p>
-				I heard the same from colleagues, and internal employee surveys also pointed to unfamiliar terminology as a
-				particular pain point during onboarding.
-			</p>
-			<p>
-				The available references were scattered across PDFs, Word documents and intranet pages, so I started collecting
-				the terms in one place. It remained a personal project, but eventually became useful enough to be linked from an
-				internal onboarding guide.
-			</p>
-		</div>
-	</section>
+	<div class="lingo-showcase">
+		<nav class="border-neutral/15 grid border-y py-5 lg:grid-cols-[12rem_1fr] lg:gap-8" aria-label="Inside Lingo">
+			<p class="text-base-content/55 font-mono text-xs tracking-wide uppercase">Inside Lingo</p>
+			<ol class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-5">
+				<li><a class="chapter-link" href="#why">Why it exists</a></li>
+				<li><a class="chapter-link" href="#find">Finding a term</a></li>
+				<li><a class="chapter-link" href="#learn">Learning earlier</a></li>
+				<li><a class="chapter-link" href="#trust">Earning trust</a></li>
+				<li><a class="chapter-link" href="#run">Running it</a></li>
+			</ol>
+		</nav>
 
-	<section class="border-neutral/10 border-t py-16 lg:py-20">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			A glossary first
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p>
-				I began with a couple of small compilations that other people had put together, then kept adding terms as I
-				encountered them. Those starting lists now make up a relatively small part of the catalogue, which later grew
-				through manual additions and LLM-assisted research.
-			</p>
-			<p>
-				Gahmen loves acronyms, and they do not always follow the tidy pattern of taking the first letter of every word.
-				GeBIZ compresses “Government Electronic Business”, while HRPS combines “HR” with “Payroll System”.
-			</p>
-			<p>
-				Then the collection moved beyond acronyms. Branded names such as ServiceSG, LifeSG and FormSG, along with
-				workplace expressions such as “seek a steer”, “take offline” and “first cut”, were also part of what a new
-				officer had to learn. So I widened the list and eventually renamed it Lingo, a glossary for the language of the
-				Singapore Public Service.
-			</p>
-		</div>
-		<ScreenshotGallery id="lingo-glossary-supporting" title="Inside the glossary" images={glossaryScreenshots} />
-	</section>
+		<section id="why" class="py-16 lg:py-24">
+			<div class="grid items-start gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+				<div>
+					<p class="chapter-kicker">Why it exists</p>
+					<h2 class="chapter-title">The glossary began with an onboarding problem.</h2>
+					<div class="body-copy">
+						<p class="text-xl leading-snug font-bold lg:text-2xl">
+							When I joined, documents and conversations were full of abbreviations I did not know.
+						</p>
+						<p>
+							Colleagues said the same, and internal employee surveys pointed to unfamiliar terminology as a particular
+							pain point during onboarding. The available references were scattered across PDFs, Word documents and
+							intranet pages, so I started collecting terms in one place.
+						</p>
+						<p>
+							The collection began with abbreviations, then widened to branded names such as ServiceSG and LifeSG, along
+							with workplace expressions such as “seek a steer”, “take offline” and “first cut”. Eventually I renamed it
+							Lingo, a glossary for the language of the Singapore Public Service.
+						</p>
+					</div>
+				</div>
 
-	<section class="border-neutral/10 border-t py-16 lg:py-24">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			Search that tolerates imperfect memory
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p>
-				Someone might remember only a few letters, part of a phrase or roughly how a name sounded, so I originally built
-				my own search using Jaro-Winkler and Metaphone to handle partial and phonetic matches.
-			</p>
-			<p>
-				It did a decent job, but as the list grew I spent more and more time fiddling with ranking. Eventually I moved
-				the main search to Meilisearch, which handles typos and ranking better than my home-grown version. The old
-				Jaro-Winkler and Metaphone search still kicks in if Meilisearch is unavailable.
-			</p>
-			<p>
-				As Lingo grew, search also had to work when someone knew what a term did but not what it was called. I added a
-				separate description search for that kind of query, then filled in all descriptions to explain it.
-			</p>
-			<p>
-				The home page still shows popular exact matches, but I now keep 90 days of searches submitted through the search
-				form, including the ones that return nothing. URLs, email addresses, identity numbers and long phone-like
-				numbers are redacted before storage, while IP addresses, user agents and session identifiers stay out of the
-				search log.
-			</p>
-			<p>
-				A short survey can appear after a search returns nothing or after someone has tried a few searches. It asks
-				whether they found what they needed, and a Partly or No answer can include what went wrong and what they
-				expected to find. That tells me more than a list of successful searches ever could.
-			</p>
-		</div>
-		<enhanced:img
-			src={LingoTermsSearch}
-			alt="Lingo search results showing multiple meanings of DC across Singapore Public Service domains"
-			class="border-neutral/20 mt-5 block w-full border-2 shadow-sm" />
-	</section>
+				<figure class="min-w-0">
+					<enhanced:img
+						src={LingoTermsDirectoryFull}
+						alt="Lingo directory showing Singapore public-service terms beginning with C"
+						class="border-neutral/20 block w-full border shadow-sm" />
+					<figcaption class="artifact-caption">
+						The list grew beyond acronyms into the language people meet at work.
+					</figcaption>
+				</figure>
+			</div>
+		</section>
 
-	<section class="border-neutral/10 border-t py-16 lg:py-24">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			Search only helps after someone has already run into a term they do not know.
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p>
-				The pain point had always been onboarding, so I started arranging the terms around how new officers actually
-				encounter the Public Service: starting work, attending meetings, writing papers, navigating the hierarchy,
-				handling procurement and working across agencies.
-			</p>
-			<p>
-				The newbie guide now pulls together 222 terms across eight situations. It starts with ten terms, then opens into
-				51 essentials and the wider collection. Entries can include a plain-language explanation, examples, other ways
-				the term is heard, context and a public source.
-			</p>
-			<p>
-				I also added Explore because the data could do more than sit behind a search box. It now has nine ways to
-				browse, including terms with several meanings, names built from within words, workplace language, acronym
-				families and terminology associated with different agencies. The quiz came after that, with ten-question rounds
-				and missed answers returning for review at the end.
-			</p>
-			<p>
-				I kept the quiz deliberately lightweight: no account, timer or leaderboard. Completed-round totals stay only in
-				the browser.
-			</p>
-		</div>
-		<enhanced:img
-			src={LingoNewbie}
-			alt="Lingo newbie guide organised around eight common Public Service workplace situations"
-			class="border-neutral/20 mt-5 block w-full border-2 shadow-sm" />
-		<ScreenshotGallery id="lingo-newbie-supporting" title="Inside the newbie guide" images={newbieScreenshots} />
-		<ScreenshotGallery id="lingo-explore-supporting" title="More ways into the glossary" images={exploreScreenshots} />
-		<ScreenshotGallery id="lingo-quiz-supporting" title="Quiz practice" images={quizScreenshots} />
-	</section>
+		<section id="find" class="border-neutral/15 border-t py-16 lg:py-24">
+			<div class="max-w-3xl">
+				<p class="chapter-kicker">Finding a term</p>
+				<h2 class="chapter-title">Search should tolerate imperfect memory.</h2>
+				<p class="body-lead">
+					Someone might remember a few letters, part of a phrase, roughly how a name sounded, or only what the term did.
+					Lingo has to make use of whichever fragment survived.
+				</p>
+			</div>
 
-	<section class="border-neutral/10 border-t py-14 lg:py-20">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			Accepting help without publishing blindly
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-xl leading-snug font-bold lg:text-2xl">
-				As the glossary grew, I needed a way to accept help without letting anything go straight into search.
-			</p>
-			<p>
-				A glossary this broad will always have gaps, especially when workplace language varies across agencies. I first
-				designed the suggestion form around separate fields for the term, meaning, agency, source and context. That made
-				the submissions easier to process, but also made suggesting something feel like filling in a form.
-			</p>
-			<p>
-				The default is now a single text box where someone can paste whatever they have, even if it is only an
-				unfamiliar term or a rough note. Structured details are still welcome for anyone who has them. I would rather
-				receive an incomplete lead that I can research than lose it because contributing felt like work.
-			</p>
-			<p>
-				People can also report a problem with an existing entry, mark whether it is wrong, incomplete or out of date,
-				and point to the exact fields that need attention. Suggestions, reports, survey responses and analytics now sit
-				in one private admin panel, while the public forms warn contributors to leave out classified, sensitive or
-				personal information.
-			</p>
-			<p>
-				The analytics view helps answer my "business" questions about the product. What are people searching for? How
-				often do searches match an entry exactly? Do visitors go on to search after reaching the home page? Are accounts
-				being used to save terms? Umami provides the broad traffic figures, while I am testing PostHog to understand
-				anonymous journeys and where people may be getting stuck.
-			</p>
-			<p>
-				I check the meaning, context and any public source before accepting a suggestion or closing a report. The panel
-				lets me review the evidence, amend the proposed entry and record the decision. An accepted suggestion becomes a
-				JSON draft I can copy into the glossary, while reports remain linked to the entry they concern. I still have to
-				make the change by hand, so the admin panel cannot publish directly into live search results.
-			</p>
-			<p>
-				Filling in definitions, examples and sources by hand got slow, so I use LLMs to help research new terms and find
-				missing context. I often ask one model to draft the entry and another to poke holes in it.
-			</p>
-			<p>
-				Everything still goes through review and a final scan from me. I track which entries have been checked against a
-				public reference, and the embedded JSON files remain the source of truth. The LLMs never answer live searches or
-				publish entries.
-			</p>
-		</div>
-	</section>
+			<div class="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(15rem,0.5fr)] lg:gap-10">
+				<figure class="min-w-0">
+					<enhanced:img
+						src={LingoTermsSearch}
+						alt="Lingo search results showing multiple meanings of DC across Singapore Public Service domains"
+						class="border-neutral/20 block w-full border shadow-sm" />
+					<figcaption class="artifact-caption">
+						A query can lead to several meanings, with context to separate them.
+					</figcaption>
+				</figure>
 
-	<section class="border-neutral/10 border-t py-16 lg:py-20">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			Built for constrained government devices
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p class="text-xl leading-snug font-bold lg:text-2xl">
-				A site intended for public officers also has to work reasonably well on government devices.
-			</p>
-			<p>
-				Many users reach Lingo through Menlo Security's remote browser isolation. The website is opened and processed in
-				a remote browser before being sent to the device, so extra browser-side work can become more noticeable than it
-				would be on a normal connection.
-			</p>
-			<p>
-				I kept the main experience server-rendered with Go and Templ, using HTMX for focused interactions instead of
-				turning the site into a large client-side application. JavaScript is divided into page-specific bundles, so
-				someone looking up a term does not have to download the code used by the quiz, admin panel or other parts of the
-				site.
-			</p>
-			<p>
-				Adding PostHog needed the same restraint. Its heavier behaviour and session-replay code is loaded separately and
-				only on selected public pages. Recording stops when someone starts typing a search, and pages containing a query
-				use event tracking without replay. Authentication, submissions and the private admin panel are left out.
-			</p>
-			<p>
-				The release process has also grown with the application. A self-hosted GitHub Actions runner performs the same
-				checks I use locally: generating code, building the application, running the Go and browser tests, linting and
-				checking formatting. Playwright covers a small set of important user journeys rather than trying to test every
-				implementation detail.
-			</p>
-			<p>
-				After the checks pass on the main branch, the runner synchronises the Meilisearch indexes before triggering the
-				Coolify deployment. That keeps changes to the application and its search data together.
-			</p>
-		</div>
-	</section>
+				<dl class="decision-ledger">
+					<div>
+						<dt>First version</dt>
+						<dd>Jaro-Winkler and Metaphone handled partial and phonetic matches.</dd>
+					</div>
+					<div>
+						<dt>Why it changed</dt>
+						<dd>Ranking became expensive to tune as the glossary grew.</dd>
+					</div>
+					<div>
+						<dt>Current approach</dt>
+						<dd>Meilisearch handles typo tolerance and ranking, with separate description search.</dd>
+					</div>
+					<div>
+						<dt>Fallback</dt>
+						<dd>The original search still takes over when Meilisearch is unavailable.</dd>
+					</div>
+				</dl>
+			</div>
 
-	<section class="border-neutral/15 bg-base-100 mt-8 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
-		<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-			Most people will use Lingo only when a term gets in their way, and that is fine.
-		</h2>
-		<div class="text-base-content/85 mt-6 grid max-w-3xl gap-4 leading-relaxed">
-			<p>
-				They look it up, find the explanation and get back to whatever they were doing. The newbie guide gives new
-				officers somewhere to start before that happens, with situations they recognise and a way to practise the terms.
-			</p>
-			<p>
-				I started with a glossary because that was the simplest answer to the onboarding problem. Over time it has
-				become much closer to the onboarding resource I wanted when I joined.
-			</p>
-		</div>
-	</section>
+			<div class="border-neutral/15 mt-10 grid gap-6 border-y py-7 md:grid-cols-2 md:gap-10">
+				<div>
+					<h3 class="text-sm font-bold">Learn from failed searches</h3>
+					<p class="text-base-content/75 mt-2 text-sm leading-relaxed">
+						Lingo keeps 90 days of submitted searches, including results that found nothing. A short survey can ask what
+						someone expected to find.
+					</p>
+				</div>
+				<div>
+					<h3 class="text-sm font-bold">Keep identity out of the log</h3>
+					<p class="text-base-content/75 mt-2 text-sm leading-relaxed">
+						URLs, emails, identity numbers and long phone-like numbers are redacted. IP addresses, user agents and
+						session identifiers are not stored with searches.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="learn" class="border-neutral/15 border-t py-16 lg:py-24">
+			<div class="grid gap-8 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16">
+				<div>
+					<p class="chapter-kicker">Learning earlier</p>
+					<h2 class="chapter-title">Search starts after a term gets in the way.</h2>
+				</div>
+				<div class="body-copy mt-0">
+					<p>
+						The original pain point was onboarding, so I arranged terms around how new officers encounter the Public
+						Service: starting work, attending meetings, writing papers, navigating the hierarchy, handling procurement
+						and working across agencies.
+					</p>
+					<p>
+						The newbie guide now brings together 222 terms across eight situations. It begins with ten starter terms,
+						then opens into 51 essentials and the wider glossary.
+					</p>
+				</div>
+			</div>
+
+			<figure class="mt-10 min-w-0">
+				<enhanced:img
+					src={LingoNewbie}
+					alt="Lingo newbie guide organised around eight common Public Service workplace situations"
+					class="border-neutral/20 block w-full border shadow-sm" />
+				<figcaption class="artifact-caption">
+					The guide follows situations a new officer can recognise before they know what to search for.
+				</figcaption>
+			</figure>
+
+			<div class="border-neutral/15 mt-10 grid gap-8 border-y py-8 lg:grid-cols-2 lg:gap-12">
+				<div>
+					<h3 class="text-lg font-bold">Explore the shape of the glossary</h3>
+					<p class="text-base-content/75 mt-3 leading-relaxed">
+						Nine views surface lookalikes, changing names, workplace language, acronym families and terms with several
+						meanings. The data can teach more than a search box alone.
+					</p>
+				</div>
+				<div>
+					<h3 class="text-lg font-bold">Practise without ceremony</h3>
+					<p class="text-base-content/75 mt-3 leading-relaxed">
+						The quiz uses ten-question rounds and returns missed answers for review. Completed-round totals stay in the
+						browser, with no account, timer or leaderboard.
+					</p>
+				</div>
+			</div>
+
+			<ScreenshotGallery id="lingo-newbie-supporting" title="Inside the newbie guide" images={newbieScreenshots} />
+			<ScreenshotGallery id="lingo-learning-supporting" title="Explore and quiz" images={learningScreenshots} />
+		</section>
+
+		<section id="trust" class="border-neutral/15 border-t py-16 lg:py-24">
+			<div class="max-w-3xl">
+				<p class="chapter-kicker">Earning trust</p>
+				<h2 class="chapter-title">Make contributing easy. Make publishing deliberate.</h2>
+				<p class="body-lead">
+					Workplace language varies across agencies, so Lingo needs help finding gaps. It also needs every public entry
+					to pass through research and review.
+				</p>
+			</div>
+
+			<div class="mt-12" aria-labelledby="trust-flow-title">
+				<h3 id="trust-flow-title" class="text-base font-bold">How an entry reaches search</h3>
+				<ol class="trust-flow mt-5">
+					<li>
+						<span>01</span>
+						<strong>A lead arrives</strong>
+						<p>A suggestion, report, survey response or failed query points to a gap.</p>
+					</li>
+					<li>
+						<span>02</span>
+						<strong>Research it</strong>
+						<p>I check the meaning, context and available public sources.</p>
+					</li>
+					<li>
+						<span>03</span>
+						<strong>Review and edit</strong>
+						<p>The private panel keeps evidence, proposed changes and the decision together.</p>
+					</li>
+					<li>
+						<span>04</span>
+						<strong>Prepare the draft</strong>
+						<p>An accepted suggestion becomes JSON for a final manual change.</p>
+					</li>
+					<li>
+						<span>05</span>
+						<strong>Release to search</strong>
+						<p>The embedded JSON remains the source of truth and the index updates with the release.</p>
+					</li>
+				</ol>
+			</div>
+
+			<div class="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(16rem,0.75fr)] lg:gap-14">
+				<div class="body-copy mt-0">
+					<p>
+						The first suggestion form asked separately for the term, meaning, agency, source and context. That made
+						submissions easier to process, but suggesting something felt like work. The default is now one text box
+						where someone can paste whatever they have, even if it is only a rough lead.
+					</p>
+					<p>
+						People can report a problem with an existing entry and point to the fields that need attention. Suggestions,
+						reports, survey responses and analytics sit in one private panel, while the public forms warn contributors
+						to leave out classified, sensitive or personal information.
+					</p>
+				</div>
+
+				<aside class="border-neutral/25 border-l-2 pl-5">
+					<p class="font-mono text-xs tracking-wide uppercase">Where LLMs help</p>
+					<p class="text-base-content/75 mt-3 text-sm leading-relaxed">
+						One model can draft an entry and another can critique it. I still review the result against public
+						references. The models do not answer live searches or publish entries.
+					</p>
+				</aside>
+			</div>
+		</section>
+
+		<section id="run" class="border-neutral/15 border-t py-16 lg:py-24">
+			<div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+				<div>
+					<p class="chapter-kicker">Running it</p>
+					<h2 class="chapter-title">Built for the browser people actually have.</h2>
+					<p class="body-lead">
+						Many users reach Lingo through Menlo Security's remote browser isolation, where extra client-side work can
+						become more noticeable than it would on a normal connection.
+					</p>
+				</div>
+
+				<dl class="technical-ledger">
+					<div>
+						<dt>Application</dt>
+						<dd>
+							Go and Templ render the main experience on the server. HTMX handles focused interactions, and JavaScript
+							is divided into page-specific bundles.
+						</dd>
+					</div>
+					<div>
+						<dt>Analytics</dt>
+						<dd>
+							PostHog loads only on selected public pages. Recording stops when someone types a search, and query pages
+							use event tracking without replay. Authentication, submissions and the admin panel are excluded.
+						</dd>
+					</div>
+					<div>
+						<dt>Release</dt>
+						<dd>
+							A self-hosted GitHub Actions runner generates code, builds the app, runs Go and browser tests, lints, and
+							checks formatting. It synchronises the Meilisearch indexes before triggering the Coolify deployment.
+						</dd>
+					</div>
+				</dl>
+			</div>
+		</section>
+
+		<section class="border-neutral/20 bg-base-100 mt-2 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
+			<h2
+				class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+				Most people will use Lingo when a term gets in their way, and that is fine.
+			</h2>
+			<div class="body-copy max-w-3xl">
+				<p>
+					They look it up, find the explanation and return to whatever they were doing. The newbie guide gives new
+					officers somewhere to start before that happens, with situations they recognise and a way to practise the
+					terms.
+				</p>
+				<p>
+					I started with a glossary because that was the simplest answer to the onboarding problem. Over time it has
+					become much closer to the onboarding resource I wanted when I joined.
+				</p>
+			</div>
+		</section>
+	</div>
 </ProjectShell>
+
+<style>
+	/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V4
+	 * macrostructure: Workbench · tone: civic field guide · anchor hue: slate
+	 */
+	.lingo-showcase {
+		--lingo-rule: color-mix(in oklab, var(--color-base-content) 15%, transparent);
+		--lingo-muted: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+		min-width: 0;
+	}
+
+	.lingo-showcase :global(section[id]) {
+		scroll-margin-top: 4rem;
+	}
+
+	.chapter-link {
+		color: var(--lingo-muted);
+		font-size: 0.8125rem;
+		line-height: 1.2;
+		text-decoration-color: transparent;
+		text-underline-offset: 0.25rem;
+		transition:
+			color 160ms ease,
+			text-decoration-color 160ms ease;
+	}
+
+	.chapter-link:hover,
+	.chapter-link:focus-visible {
+		color: var(--color-base-content);
+		text-decoration-color: currentColor;
+	}
+
+	.chapter-link:focus-visible {
+		outline: 2px solid currentColor;
+		outline-offset: 0.25rem;
+	}
+
+	.chapter-kicker {
+		color: var(--lingo-muted);
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 650;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.chapter-title {
+		margin-top: 0.75rem;
+		min-width: 0;
+		font-size: clamp(2rem, 4vw, 3rem);
+		font-weight: 750;
+		letter-spacing: -0.035em;
+		line-height: 1.05;
+		overflow-wrap: anywhere;
+	}
+
+	.body-copy {
+		color: var(--lingo-muted);
+		display: grid;
+		gap: 1rem;
+		margin-top: 1.5rem;
+		line-height: 1.7;
+	}
+
+	.body-lead {
+		color: var(--lingo-muted);
+		margin-top: 1.5rem;
+		font-size: 1.0625rem;
+		line-height: 1.65;
+	}
+
+	.artifact-caption {
+		color: var(--lingo-muted);
+		margin-top: 0.625rem;
+		font-size: 0.75rem;
+		line-height: 1.5;
+	}
+
+	.decision-ledger,
+	.technical-ledger {
+		border-top: 1px solid var(--lingo-rule);
+	}
+
+	.decision-ledger > div,
+	.technical-ledger > div {
+		border-bottom: 1px solid var(--lingo-rule);
+		padding-block: 1rem;
+	}
+
+	.decision-ledger dt,
+	.technical-ledger dt {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.decision-ledger dd,
+	.technical-ledger dd {
+		color: var(--lingo-muted);
+		margin-top: 0.4rem;
+		font-size: 0.875rem;
+		line-height: 1.55;
+	}
+
+	.trust-flow {
+		display: grid;
+		gap: 0;
+		list-style: none;
+	}
+
+	.trust-flow li {
+		border-top: 1px solid var(--lingo-rule);
+		padding-block: 1rem;
+	}
+
+	.trust-flow span {
+		color: var(--lingo-muted);
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+	}
+
+	.trust-flow strong {
+		display: block;
+		margin-top: 0.65rem;
+		font-size: 0.9375rem;
+	}
+
+	.trust-flow p {
+		color: var(--lingo-muted);
+		margin-top: 0.4rem;
+		font-size: 0.8125rem;
+		line-height: 1.5;
+	}
+
+	@media (min-width: 48rem) {
+		.trust-flow {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+
+		.trust-flow li {
+			border-right: 1px solid var(--lingo-rule);
+			border-bottom: 1px solid var(--lingo-rule);
+			padding: 1rem;
+		}
+
+		.trust-flow li:first-child {
+			border-left: 1px solid var(--lingo-rule);
+		}
+	}
+</style>

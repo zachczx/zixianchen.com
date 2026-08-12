@@ -1,0 +1,9 @@
+{
+	"scannedAt": "2026-08-12",
+	"framework": "SvelteKit 2 with Svelte 5",
+	"fontStack": ["Figtree Variable", "JetBrains Mono Variable"],
+	"paletteSource": "DaisyUI light and dark themes in src/app.css",
+	"motion": "GSAP and Anime.js are installed; the Lingo showcase uses no decorative motion",
+	"spacing": "Tailwind utility scale",
+	"preserved": ["portfolio palette", "font stack", "project shell", "real product screenshots"]
+}
