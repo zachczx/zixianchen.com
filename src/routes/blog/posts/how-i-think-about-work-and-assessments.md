@@ -7,7 +7,7 @@ category: 'Work'
 tags:
   - Career
 published: true
-listed: false
+listed: true
 slug: 'how-i-think-about-work-and-assessments'
 ---
 
