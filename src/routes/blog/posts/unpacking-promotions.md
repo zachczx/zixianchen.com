@@ -1,23 +1,19 @@
 ---
-title: 'Unpacking Promotions'
-description: 'Why strong officers plateau, how rapid promotions backfire, and the role of timing, trust, and time and space.'
-date: '2026-08-17'
+title: 'So You Want a Bigger Job'
+description: 'Why good officers get stuck, why bigger jobs can expose you, and why being ready is only half the story.'
+date: '2026-08-18'
 date_updated: ''
 category: 'Work'
 tags:
   - Career
   - Management
   - Promotions
-published: false
-listed: false
-slug: 'unpacking-promotions'
+published: true
+listed: true
+slug: 'so-you-want-bigger-job'
 ---
 
-# How I Think About Promotions
-
-Someone told me a story of a high achiever who progressed super fast. PSLP Gen, smart person, capable, on second posting, already an assistant director (then again not that rare in the past). The person flopped hard.
-
-The person struggled to manage the team, manage bosses, and eventually got overwhelmed like 99x combo hits (marvel vs capcom throwback). Idk the person, but I highly doubt the person was that lousy, PSLP gen ffs!
+Someone told me a story of a scholar, smart person, capable, who became an assistant director barely a couple years on the job. The person did poorly. Struggled to manage the team, manage bosses, and eventually got overwhelmed like 99x combo hits (marvel vs capcom throwback). Idk the person, but I highly doubt the person was that bad!
 
 In surveys, dialogs, and complaint sessions, promotions come up here and there. Surprisingly, I haven't encountered it much in appraisal or one-to-one chats with officers, and me as an officer. Maybe it's the fear of getting judged or laughed at? Maybe it's a public service thing?
 
@@ -27,7 +23,27 @@ I guess that's why promotions are so frustrating. Good performance matters a lot
 
 **Disclaimer:** These are my own views from what I've seen and experienced over the years. So this isn't some confidential sens high HR policy document.
 
-## A. Getting the opportunity
+## Before getting into management
+
+### Doing your job well still comes first
+
+Whatever else I say below, promotions obviously start with doing your current job well. You need enough performance, competency and trust for somebody to even consider giving you more scope, a higher grade, or a different appointment.
+
+The funny thing is that promotion can eventually move you away from the exact job you proved yourself good at. A great officer becomes a manager, then a good manager starts managing managers, and each jump introduces things you may have little experience doing.
+
+There's the [Peter Principle](https://en.wikipedia.org/wiki/Peter_principle) that says people get promoted till they reach a job they're incompetent at, which is perfectly logical.
+
+### Promotion can mean different things
+
+There's also a difference between being promoted in grade and being appointed into a bigger role. You can progress in grade while doing broadly similar work, whereas moving into management brings a much more obvious change in what you're actually responsible for.
+
+The criteria and mechanics also aren't particularly transparent, and sometimes supervisors themselves don't seem to have enough information to explain why somebody progressed or didn't. That's another reason promotions can feel so opaque, even to the people who are supposed to give officers useful career advice.
+
+### I'm mostly talking about moving into management
+
+The rest of this post is therefore mainly about the jumps where the job itself changes: senior officer into management, then manager into middle management. That's where readiness, team dynamics, managing bosses, relationships, timing and somebody being willing to take a punt become much more obvious.
+
+## Getting the opportunity
 
 ### There has to be a chair
 
@@ -61,7 +77,7 @@ People know your work, trust your judgment, pull you into difficult problems and
 
 Somebody eventually needs to put your name forward, argue for you, give you the stretch opportunity, or take the punt that you can handle the next job. The more useful you've been to the organization, and the more people who can credibly vouch for you, the easier that becomes.
 
-Of course politics can turn ugly with favourites, manipulation and people undermining one another. I'd separate that from the ordinary politics of working with humans and building relationships. ([Watch this](https://www.youtube.com/watch?v=Gf0pR4_bv-o) if you haven't, it's a pretty good take.)
+Of course politics can turn ugly with favorites, manipulation and people undermining one another. I'd separate that from the ordinary politics of working with humans and building relationships. ([Watch this](https://www.youtube.com/watch?v=Gf0pR4_bv-o) if you haven't, it's a pretty good take.)
 
 ### Somebody has to take a punt on you
 
@@ -81,7 +97,7 @@ Same for managers hovering below DD. Somebody else may fit the available role be
 
 These are very different problems even if the outcome looks exactly the same on paper: no promotion.
 
-## B. Are you actually ready?
+## Are you actually ready?
 
 ### High achiever doesn't automatically mean good manager
 
@@ -127,7 +143,7 @@ Sometimes circumstances force the issue anyway. Someone quits, goes on long MC, 
 
 These situations are probably the best test of readiness because you're doing the job for real, often with a bit more tolerance because everyone knows the circumstances you're stuck with (okay, maybe not all bosses care). If it goes well, you've also created actual evidence that you can handle the job when the permanent opportunity comes up.
 
-## C. Some things just need time
+## Some things just need time
 
 ### There's a reason fresh grads rarely manage teams
 
@@ -160,7 +176,7 @@ Sometimes you also need to screw something up yourself, realize your instinct wa
 
 Something something school of hard knocks.
 
-## D. Management is its own competency
+## Management is its own competency
 
 ### Can you actually guide someone?
 
@@ -197,7 +213,7 @@ These things don't disappear because we'd rather talk about deliverables and KPI
 
 Sometimes you get it wrong too. That's part of why experience and self-awareness matter.
 
-## E. A huge part of management is managing bosses
+## A huge part of management is managing bosses
 
 ### You need your bosses to trust you
 
@@ -240,7 +256,7 @@ This is why undermining your own managers is so destructive. Sometimes intervent
 
 Then we wonder why the person can't lead.
 
-## F. Yes, vibing with your bosses matters
+## Yes, vibing with your bosses matters
 
 ### Nobody wants a thorn in the side
 
@@ -270,7 +286,7 @@ If somebody knows you generally understand what they're trying to do, aren't bei
 
 Vibe comes down to whether the working relationship and shared assumptions remain compatible enough for productive disagreement.
 
-## G. What promoting you tells everybody else
+## What promoting you tells everybody else
 
 ### Promotion sends a signal
 
@@ -301,7 +317,7 @@ Nobody wants to promote someone who'll salt the earth upon taking the post.
 
 (Just check out salary.sg forums as a fun excursion. Not my views, just interesting to read about officers who are convinced and very public about their critiques.)
 
-## H. Why is promotion stuff so hush hush?
+## Why is promotion stuff so hush hush?
 
 ### Ask for the criteria and everything gets vague
 
@@ -310,7 +326,7 @@ Promotion is one of those topics where the conversation can become very abstract
 - Readiness
 - Potential
 - Competencies
-- Organisational needs
+- Organizational needs
 - Operating at the next level
 - Fit
 
@@ -383,7 +399,7 @@ These are v different answers.
 
 I think people should at least understand what would make their bosses more comfortable taking the punt, even if nobody can promise an exact outcome.
 
-## I. The actual opportunity matters too
+## The actual opportunity matters too
 
 ### Some promoted jobs suck
 
@@ -412,7 +428,7 @@ A messy job can teach you a lot because you're forced to deal with problems you 
 
 Just go in with your eyes open. A higher grade doesn't magically make every opportunity good.
 
-## J. Getting promoted too early
+## Getting promoted too early
 
 ### The flaws get magnified
 
@@ -444,7 +460,7 @@ But an extra year or two under a really good boss can give you a lot of examples
 
 You also get to make mistakes while somebody else still carries the ultimate accountability, which is actually quite a useful luxury.
 
-## K. Nobody really teaches you how to manage
+## Nobody really teaches you how to manage
 
 ### I learned mostly by osmosis
 
@@ -476,7 +492,7 @@ Ask those managers what to do and you may also get multiple answers.
 
 Eventually you choose one and see what happens. Being promoted means somebody thought you were ready enough to try, while actually becoming good at the job carries on for a long time after.
 
-## L. If you're feeling stuck
+## If you're feeling stuck
 
 ### If you're trying to get into management
 
