@@ -1,7 +1,7 @@
 ---
 title: 'Unpacking Promotions'
-description: 'Reflections on why good officers get stuck, why high achievers can still flop after promotion, and how timing, trust, experience and judgment all come into play.'
-date: '2026-08-21'
+description: 'Why strong officers plateau, how rapid promotions backfire, and the role of timing, trust, and time and space.'
+date: '2026-08-17'
 date_updated: ''
 category: 'Work'
 tags:
@@ -53,13 +53,15 @@ Somebody eventually has to form a (positive) judgment about you. It's much easie
 
 A very good officer who has somehow remained completely invisible is harder to take a bet on because there's simply less evidence.
 
-### Internal politics obviously exists
+### Internal politics matters too
 
-I don't think internal politics automatically means scheming, backstabbing, or sucking up to people. A lot of it is just human relationships and competing interests: several good officers want the same opportunity, bosses have limited jobs to give out, and naturally they'll have more confidence in people they know, trust, and find reasonable to work with.
+Internal politics mostly comes down to building bridges, cultivating allies, understanding how different parts of the organization work, and over time becoming embedded into its fabric as someone dependable and effective. Not the stereotype of scheming, backstabbing, sucking up.
 
-You can dislike that and insist your work should speak entirely for itself, but somebody still has to speak for you when you're not in the room, put your name forward, or decide you're the person they want to take a chance on.
+People know your work, trust your judgment, pull you into difficult problems and are willing to work with you across teams. That matters for promotion because nobody exists as an isolated performance score.
 
-Of course this can become ugly when people manipulate, play favourites, or undermine others, but ordinary influence and relationships are part of working with other humans. Pretending otherwise probably just means everybody else is participating while you aren't. ([Watch this](https://www.youtube.com/watch?v=Gf0pR4_bv-o) if you haven't, it's a pretty good take.)
+Somebody eventually needs to put your name forward, argue for you, give you the stretch opportunity, or take the punt that you can handle the next job. The more useful you've been to the organization, and the more people who can credibly vouch for you, the easier that becomes.
+
+Of course politics can turn ugly with favourites, manipulation and people undermining one another. I'd separate that from the ordinary politics of working with humans and building relationships. ([Watch this](https://www.youtube.com/watch?v=Gf0pR4_bv-o) if you haven't, it's a pretty good take.)
 
 ### Somebody has to take a punt on you
 
@@ -116,6 +118,14 @@ This was quite an adjustment for me too. You can personally produce a solid piec
 The team may look good because you're constantly rescuing everything, but take you away for a week and the weaknesses become much more obvious. (That's why a cliche phrase some bosses say is, "My goal is to make myself dispensable." There can be temptation to roll eyes a little but there is truth in the saying.)
 
 As you go higher, your own output becomes a smaller fraction of what you're accountable for. The capability of everyone around you starts mattering much more.
+
+### So how do you know you're ready?
+
+I don't think you ever know for sure. Some parts of management only become learnable after you actually do the job, so at some point either you take a leap of faith or somebody takes one on you.
+
+Sometimes circumstances force the issue anyway. Someone quits, goes on long MC, or you quietly step up because an underperforming boss isn't holding things together. Suddenly you're coordinating, managing upwards, fronting decisions that weren't officially yours.
+
+These situations are probably the best test of readiness because you're doing the job for real, often with a bit more tolerance because everyone knows the circumstances you're stuck with (okay, maybe not all bosses care). If it goes well, you've also created actual evidence that you can handle the job when the permanent opportunity comes up.
 
 ## C. Some things just need time
 
@@ -258,7 +268,7 @@ I've found it much easier to disagree with bosses once there's trust.
 
 If somebody knows you generally understand what they're trying to do, aren't being difficult for sport, and will execute properly once a decision is made, pushback becomes much less threatening.
 
-That's another reason vibe isn't really about whether you like each other. It's whether the working relationship and assumptions are compatible enough that disagreement can still be productive.
+Vibe comes down to whether the working relationship and shared assumptions remain compatible enough for productive disagreement.
 
 ## G. What promoting you tells everybody else
 
@@ -440,11 +450,13 @@ You also get to make mistakes while somebody else still carries the ultimate acc
 
 Management courses have helped me here and there. There're useful frameworks and sometimes a course gives you language for something you've already vaguely felt.
 
-Most of what I actually use came from watching bosses.
+Most of what I do came from watching bosses, both good and bad stuff (I've ended up long winded... unfortunately). I also learned from bad examples.
 
-I stole a bit from everyone: how someone ran meetings, how another person pushed back, how someone handled a difficult officer, how a boss protected the team without blindly defending everything the team did.
+### You can practice before you get the job
 
-I also learned from really bad examples because sometimes it's much easier to remember what never to do again.
+Ackchyually (lul) you don't need the formal appointment to start trying some of this. Lead a piece of work involving other people, cover your boss when they're away, guide a newer officer, deal with a difficult stakeholder, or take on something ambiguous where you need to make the call rather than wait for instructions.
+
+These don't recreate the full management job, but they give you some practice and your bosses better evidence than "this person is really good at their current job". You'll probably also discover pretty quickly which parts you're comfortable with and which ones you need more exposure to.
 
 ### You eventually make it your own
 
@@ -479,19 +491,21 @@ Can you:
 - produce work your boss trusts?
 - help people around you get better?
 
-You don't need the formal appointment to start showing some of this.
-
 And if you've got a really good manager now, watch carefully. There's a lot you can absorb before you're the person carrying final accountability.
 
 ### If you're trying to get into middle management
 
-The shift gets wider again.
+The shift gets wider again because you need to manage through other people instead of touching everything personally. Your bosses need to trust that you understand the larger context, can translate it for your own team, manage other managers, and aren't going to create some parallel kingdom heading in a totally different direction.
 
-You need to manage through other people instead of touching everything personally. Your bosses need to trust that you understand the larger context, can translate it for your own team, manage other managers, and aren't going to create some parallel kingdom heading in a totally different direction.
+Then supply and demand comes back again. Maybe you're ready and there still isn't a sensible DD job for you today, which is just part of the equation.
 
-Then supply and demand comes back again. Maybe you're ready and there's still no sensible DD job for you today.
+### Can you see beyond your own portfolio?
 
-That's just part of the equation.
+Another shift is being able to look beyond your own team's interests. Something can be great for your portfolio and lousy for another part of the organization, or create a problem somewhere else that you don't see if you're only optimizing for your own work.
+
+This is actually pretty explicit in [HCS Leo Yip's 2024 Public Service Leadership Ceremony speech](https://www.psd.gov.sg/newsroom/speech-by-mr-leo-yip-at-the-annual-public-service-leadership-ceremony-2024/). Middle managers are expected to reconcile different opinions and find opportunities to collaborate with counterparts, while leaders more broadly need to connect the work across agencies to the Government's wider objectives.
+
+I think breadth matters a lot more as you go up for this reason. Can you understand why another team wants something completely different, join the dots across issues, and occasionally accept that your own portfolio shouldn't win? If you're only ever optimizing for your own little kingdom, that's probably going to become a bigger problem as the kingdom gets bigger.
 
 ### If you've just been promoted super fast
 
@@ -501,4 +515,4 @@ Just pay attention to the things you haven't had much time to experience yet. Wh
 
 Fast progression means less time to accumulate some of this stuff by osmosis. That's manageable if you're aware of it and keep learning, and much harder if the rapid promotion itself convinces you that you've already mastered the level.
 
-Personally, I'd rather arrive a bit later and do well than get there early, flop hard and spend the next few years recovering from it. There's plenty of career left.
+Personally, I'd rather arrive a bit later and do well than get there early, flop hard and spend the next few years recovering from it. There's plenty of career left. If you flop, you might even have to leave the organization, because people remember, and rebuilding confidence after a bad stint can sadly take years.
