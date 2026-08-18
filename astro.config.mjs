@@ -1,9 +1,5 @@
 import { defineConfig } from 'astro/config';
-import svelte from '@astrojs/svelte';
-import { enhancedImages } from '@sveltejs/enhanced-img';
-import svg from '@poppanator/sveltekit-svg';
 import tailwindcss from '@tailwindcss/vite';
-import Icons from 'unplugin-icons/vite';
 import { pagefind } from 'vite-plugin-pagefind';
 import { visualizer } from 'rollup-plugin-visualizer';
 import {
@@ -13,6 +9,7 @@ import {
 } from '@shikijs/transformers';
 
 const isDevCommand = process.env.npm_lifecycle_event === 'dev';
+
 export default defineConfig({
 	site: 'https://zixianchen.com',
 	output: 'static',
@@ -24,7 +21,6 @@ export default defineConfig({
 	server: {
 		port: 6173,
 	},
-	integrations: [svelte()],
 	markdown: {
 		shikiConfig: {
 			theme: 'rose-pine-moon',
@@ -48,16 +44,7 @@ export default defineConfig({
 						}),
 					]
 				: []),
-			enhancedImages(),
 			tailwindcss(),
-			Icons({ compiler: 'svelte' }),
-			svg({
-				includePaths: ['./static/'],
-				svgoOptions: {
-					multipass: true,
-					plugins: [{ name: 'preset-default' }],
-				},
-			}),
 			...(process.env.ANALYZE === 'true'
 				? [
 						visualizer({

@@ -1,7 +1,6 @@
 import prettier from 'eslint-config-prettier';
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
-import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
@@ -15,7 +14,6 @@ export default defineConfig(
 			'dist/**',
 			'.astro/**',
 			'static/pagefind/**',
-			'.svelte-kit/**',
 			'package/**',
 			'.env',
 			'.env.*',
@@ -28,9 +26,7 @@ export default defineConfig(
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...astro.configs.recommended,
-	...svelte.configs.recommended,
 	prettier,
-	...svelte.configs.prettier,
 	{
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
@@ -47,19 +43,6 @@ export default defineConfig(
 					caughtErrorsIgnorePattern: '^_',
 				},
 			],
-			'svelte/no-navigation-without-resolve': 'off',
-			'svelte/prefer-svelte-reactivity': 'off',
-			'svelte/require-each-key': 'off',
-		},
-	},
-	{
-		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				extraFileExtensions: ['.svelte'],
-				parser: ts.parser,
-			},
 		},
 	},
 );

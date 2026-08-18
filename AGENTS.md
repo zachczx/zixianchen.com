@@ -2,39 +2,39 @@
 
 ## Project Structure & Module Organization
 
-This is an Astro personal website with a small number of Svelte islands. Public routes live in `src/pages`; shared Astro layouts and components live in `src/layouts` and `src/components`. Existing Svelte presentation components that are still useful during the migration live under `src/lib` and selected files under `src/routes`, but they do not define routes anymore. Blog Markdown posts remain in `src/routes/blog/posts` and are loaded through Astro Content Collections from `src/content.config.ts`. Shared project metadata, logos, screenshots, and imported assets live under `src/lib`. Public static files, favicons, robots.txt, redirects, and directly served SVGs live in `static`. Generated output (`dist`, `.astro`) should be treated as disposable build artifacts.
+This is a fully static Astro personal website. Public routes live in `src/pages`; shared layouts and components live in `src/layouts` and `src/components`. Blog Markdown posts remain in `src/routes/blog/posts` and are loaded through Astro Content Collections from `src/content.config.ts`. Shared project metadata, screenshots, imported assets, and build-time utilities live under `src/lib`. Public static files, favicons, robots.txt, redirects, and directly served SVGs live in `static`. Generated output (`dist`, `.astro`) is disposable.
 
 ## Build, Test, and Development Commands
 
 - `pnpm install`: install dependencies from `pnpm-lock.yaml`.
 - `pnpm dev`: run the Astro development server on port `6173`.
-- `pnpm build`: build the static Astro site to `dist`, generate the Pagefind index, and validate route/canonical/client-island boundaries.
+- `pnpm build`: build the static Astro site to `dist`, generate the Pagefind index, and validate routes, canonical URLs, and client boundaries.
 - `pnpm preview`: preview the built Astro site locally on port `6173`.
 - `pnpm check`: run Astro and TypeScript diagnostics.
 - `pnpm lint`: run Prettier in check mode and ESLint.
 - `pnpm format`: format the repository with Prettier.
 
-Before submitting JavaScript, TypeScript, Astro, or Svelte changes, run `pnpm check` and `pnpm lint`. Also run `pnpm build` for route, content, asset, integration, or deployment changes. Deployment changes should additionally pass `pnpm exec wrangler deploy --dry-run`.
+Before submitting JavaScript, TypeScript, or Astro changes, run `pnpm check` and `pnpm lint`. Also run `pnpm build` for route, content, asset, integration, or deployment changes. Deployment changes should additionally pass `pnpm exec wrangler deploy --dry-run`.
 
 ## Architecture & Client JavaScript
 
-The production site is fully static and is served from `dist` by Cloudflare Workers Static Assets. Do not add an Astro SSR adapter, a Worker `main` entry point, or server runtime code without a concrete product requirement.
+The production site is fully static and served from `dist` by Cloudflare Workers Static Assets. Do not add an Astro SSR adapter, Worker `main` entry point, server runtime, or client framework without a concrete product requirement.
 
-Astro should own routing, layouts, SEO, content rendering, and other static markup. Browser JavaScript should be scoped to the smallest useful feature. Prefer native HTML/CSS and small focused scripts before hydrating a framework component. Existing Svelte components may be rendered server-side without a `client:*` directive. Add a Svelte island only when the component genuinely needs browser state or lifecycle behavior.
+Astro owns routing, layouts, SEO, content rendering, and static markup. Browser JavaScript should stay scoped to the smallest useful feature. Prefer native HTML/CSS and focused DOM scripts. The current interactive features are navigation section tracking, blog theme persistence and Pagefind search/filtering, contact-form enhancement, screenshot galleries, and the animated code canvas.
 
-The build validators intentionally enforce this boundary: ordinary blog articles, the contact page, and static project pages should not gain framework islands accidentally.
+The build validators intentionally enforce this boundary: key routes and ordinary blog articles must not gain framework islands, and `.svelte` source files or Svelte dependencies are not allowed.
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript and established Astro/Svelte conventions. Prettier is configured for tabs, single quotes, trailing commas, `bracketSameLine`, and a `120` character print width, with Astro, Svelte, and Tailwind plugins enabled. ESLint covers TypeScript, Astro, and retained Svelte files.
+Use TypeScript and established Astro conventions. Prettier is configured for tabs, single quotes, trailing commas, `bracketSameLine`, and a `120` character print width, with Astro and Tailwind plugins enabled. ESLint covers JavaScript, TypeScript, and Astro files.
 
-Name Astro and Svelte components in PascalCase. Keep route and blog slugs kebab-case. Prefer shared UI and data in `src/lib` or focused Astro components/layouts over duplicating logic inside pages.
+Name Astro components in PascalCase. Keep route and blog slugs kebab-case. Prefer shared UI and data in `src/components` or `src/lib` over duplicating logic inside pages. Preserve existing markup and classes when doing framework or infrastructure work; design changes should be deliberate and separate.
 
 ## Testing Guidelines
 
-There is no general-purpose unit-test framework configured. Treat `pnpm check`, `pnpm lint`, and `pnpm build` as the required validation suite. `pnpm build` includes migration-specific static-output and client-boundary assertions. Keep those assertions focused on externally observable route/output guarantees rather than large generated-HTML snapshots.
+There is no general-purpose unit-test framework configured. Treat `pnpm check`, `pnpm lint`, and `pnpm build` as the required validation suite. `pnpm build` includes static-output and zero-framework client-boundary assertions. Keep those assertions focused on externally observable guarantees rather than large generated-HTML snapshots.
 
-If adding tests later, keep names explicit, such as `feature-name.test.ts`, and document the new command in `package.json` and this guide.
+For framework, rendering, or CSS changes, use the migration visual audit against `main` and treat meaningful geometry, typography, spacing, image, or responsive differences as regressions unless the task explicitly calls for a redesign.
 
 ## Commit & Pull Request Guidelines
 
@@ -42,8 +42,10 @@ Recent commits use Conventional Commit-style prefixes such as `feat:`, `fix:`, `
 
 Do not push commits or branches unless the user explicitly asks for a push. A request to commit does not imply permission to push.
 
-Pull requests should include a short summary, linked issue when applicable, commands run, and screenshots or screen recordings for visual changes. Call out content migrations, client-JavaScript changes, asset additions, and any deployment implications for Cloudflare or static output.
+Pull requests should include a short summary, linked issue when applicable, commands run, and screenshots or screen recordings for visual changes. Call out client-JavaScript changes, asset additions, and any deployment implications for Cloudflare or static output.
 
 ## Security & Configuration Tips
 
-Do not commit secrets, API keys, or local environment files. Review `astro.config.mjs`, `wrangler.jsonc`, Content Collection configuration, and deployment-related changes carefully because the production site is a static Astro build. Preserve the slashless URL contract and the explicit redirects in `static/_redirects`.
+Do not commit secrets, API keys, or local environment files. Review `astro.config.mjs`, `wrangler.jsonc`, Content Collection configuration, and deployment-related changes carefully because production is a static Astro build. Preserve the slashless URL contract and explicit redirects in `static/_redirects`.
+
+Historical blog posts may accurately mention Svelte or SvelteKit. Do not rewrite historical content merely to make repository-wide searches for old framework names empty.
