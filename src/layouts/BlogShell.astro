@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import CodeCanvas from '../components/CodeCanvas.astro';
+import WebsiteFooter from '../components/WebsiteFooter.astro';
 
 interface Props {
 	pathName: string;
@@ -72,7 +73,7 @@ const { pathName } = Astro.props;
 			</a>
 			<main><slot /></main>
 		</div>
-		<div class="mt-auto pt-10 pb-20 text-center text-xs md:text-sm xl:pb-28">© Zixian Chen</div>
+		<WebsiteFooter />
 	</div>
 	<Nav navCurrent="" {pathName} />
 </div>

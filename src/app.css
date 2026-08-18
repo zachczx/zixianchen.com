@@ -67,7 +67,7 @@
 	--font-sans: 'Figtree Variable', sans-serif;
 	--font-mono: 'JetBrains Mono Variable';
 
-	/* shadcn-svelte semantic colors mapped onto the existing DaisyUI themes */
+	/* shadcn semantic colors mapped onto the existing DaisyUI themes */
 	--color-background: var(--color-base-100);
 	--color-foreground: var(--color-base-content);
 	--color-card: var(--color-base-100);
