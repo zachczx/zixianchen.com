@@ -19,7 +19,7 @@ import LingoConfusablesUsageAndGrammar from '$lib/screenshots/lingo/confusables-
 import LingoConfusablesWordForms from '$lib/screenshots/lingo/confusables-word-forms.webp';
 
 const stack = [
-	{ role: 'Application', tools: 'Go, Templ, HTMX, Tailwind CSS' },
+	{ role: 'Application', tools: 'SvelteKit, Go' },
 	{ role: 'Search', tools: 'Meilisearch, semantic embeddings, Jaro-Winkler, Metaphone' },
 	{ role: 'Data and identity', tools: 'Embedded JSON, PostgreSQL, Stytch' },
 	{ role: 'Product analytics', tools: 'PostHog, Umami' },
@@ -219,8 +219,8 @@ const confusablesScreenshots = [
 					</div>
 					<div>
 						<dt>Fallback</dt><dd>
-							The embedded lexical search takes over when Meilisearch is unavailable; semantic search is isolated so it
-							can fail without taking ordinary lookup down.
+							The embedded lexical search takes over if Meilisearch is unavailable. Find by meaning can fail on its own
+							without breaking ordinary search.
 						</dd>
 					</div>
 				</dl>
@@ -386,8 +386,9 @@ const confusablesScreenshots = [
 					<div>
 						<dt>Application</dt>
 						<dd>
-							Go and Templ render the main experience on the server. HTMX handles focused interactions, and JavaScript
-							is divided into page-specific bundles.
+							Lingo started as a Go/Templ app. That worked well when it was smaller, but the template fragments got
+							unwieldy as more features were added. I moved the web app to SvelteKit and kept Go as a separate API. The
+							migration was mostly mechanical, with the existing design and behaviour left alone.
 						</dd>
 					</div>
 					<div>
@@ -399,10 +400,7 @@ const confusablesScreenshots = [
 					</div>
 					<div>
 						<dt>Release</dt>
-						<dd>
-							A self-hosted GitHub Actions runner generates code, builds the app, runs Go and browser tests, lints, and
-							checks formatting. It synchronises the Meilisearch indexes before triggering the Coolify deployment.
-						</dd>
+						<dd>A typical self-hosted GitHub Actions runner handles CI.</dd>
 					</div>
 				</dl>
 			</div>
@@ -411,7 +409,7 @@ const confusablesScreenshots = [
 		<section class="border-neutral/20 bg-base-100 mt-2 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
 			<h2
 				class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-				Most people will use Lingo when a term gets in their way, and that is fine.
+				Most people will use Lingo when a term gets in the way, and that is fine.
 			</h2>
 			<div class="body-copy max-w-3xl">
 				<p>
