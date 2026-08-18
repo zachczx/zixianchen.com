@@ -27,6 +27,7 @@ function readFrontmatter(filePath) {
 	return {
 		slug: get('slug'),
 		published: get('published') === 'true',
+		listed: get('listed') !== 'false',
 	};
 }
 
@@ -43,12 +44,12 @@ const canonicalRoutes = [
 for (const route of canonicalRoutes) requireFile(generatedHtmlForRoute(route));
 for (const file of ['404.html', 'rss.xml', 'sitemap.xml', '_redirects', 'pagefind/pagefind.js']) requireFile(file);
 
-const publishedSlugs = readdirSync(postsDirectory)
+const posts = readdirSync(postsDirectory)
 	.filter((name) => name.endsWith('.md'))
-	.map((name) => readFrontmatter(join(postsDirectory, name)))
-	.filter((post) => post.published)
-	.map((post) => post.slug)
-	.filter(Boolean);
+	.map((name) => readFrontmatter(join(postsDirectory, name)));
+const publishedPosts = posts.filter((post) => post.published && post.slug);
+const listedPublishedPosts = publishedPosts.filter((post) => post.listed);
+const publishedSlugs = publishedPosts.map((post) => post.slug);
 
 if (publishedSlugs.length === 0) throw new Error('No published blog posts were discovered.');
 for (const slug of publishedSlugs) requireFile(`blog/${slug}.html`);
@@ -77,9 +78,15 @@ for (const redirect of [
 }
 
 const sitemap = readFileSync(requireFile('sitemap.xml'), 'utf8');
-for (const slug of publishedSlugs) {
-	if (!sitemap.includes(`https://zixianchen.com/blog/${slug}`))
-		throw new Error(`Sitemap is missing published post: ${slug}`);
+for (const post of listedPublishedPosts) {
+	if (!sitemap.includes(`https://zixianchen.com/blog/${post.slug}`)) {
+		throw new Error(`Sitemap is missing listed published post: ${post.slug}`);
+	}
+}
+for (const post of publishedPosts.filter((post) => !post.listed)) {
+	if (sitemap.includes(`https://zixianchen.com/blog/${post.slug}`)) {
+		throw new Error(`Unlisted post leaked into sitemap: ${post.slug}`);
+	}
 }
 if (sitemap.includes('https://zixianchen.com/projects/rankamate'))
 	throw new Error('Redirect-only route leaked into sitemap.');
@@ -88,5 +95,5 @@ if (sitemap.includes('https://zixianchen.com/projects/btonomics-wordpress')) {
 }
 
 console.log(
-	`Static build validation passed: ${canonicalRoutes.length} canonical routes, ${publishedSlugs.length} published posts.`,
+	`Static build validation passed: ${canonicalRoutes.length} canonical routes, ${publishedSlugs.length} published posts, ${listedPublishedPosts.length} listed in sitemap.`,
 );
