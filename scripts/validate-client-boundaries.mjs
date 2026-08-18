@@ -23,7 +23,7 @@ requireIslandCount('/contact', 0);
 requireIslandCount('/projects/apptitude', 0);
 requireIslandCount('/projects/btonomics', 0);
 requireIslandCount('/projects/cubby', 0);
-requireIslandCount('/projects/lingo', 1);
+requireIslandCount('/projects/lingo', 0);
 
 const articleFiles = readdirSync(join(dist, 'blog'))
 	.filter((name) => name.endsWith('.html'))
