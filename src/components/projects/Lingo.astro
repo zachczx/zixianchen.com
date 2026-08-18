@@ -154,7 +154,9 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 						width={2400}
 						class="border-neutral/20 block w-full border shadow-sm"
 					/>
-					<figcaption class="artifact-caption">The list grew beyond acronyms into the language people meet at work.</figcaption>
+					<figcaption class="artifact-caption">
+						The list grew beyond acronyms into the language people meet at work.
+					</figcaption>
 				</figure>
 			</div>
 		</section>
@@ -177,13 +179,19 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 						width={1600}
 						class="border-neutral/20 block w-full border shadow-sm"
 					/>
-					<figcaption class="artifact-caption">A query can lead to several meanings, with context to separate them.</figcaption>
+					<figcaption class="artifact-caption">
+						A query can lead to several meanings, with context to separate them.
+					</figcaption>
 				</figure>
 
 				<dl class="decision-ledger">
 					<div><dt>First version</dt><dd>Jaro-Winkler and Metaphone handled partial and phonetic matches.</dd></div>
 					<div><dt>Why it changed</dt><dd>Ranking became expensive to tune as the glossary grew.</dd></div>
-					<div><dt>Current approach</dt><dd>Meilisearch handles typo tolerance and ranking, with separate description search.</dd></div>
+					<div>
+						<dt>Current approach</dt><dd>
+							Meilisearch handles typo tolerance and ranking, with separate description search.
+						</dd>
+					</div>
 					<div><dt>Fallback</dt><dd>The original search still takes over when Meilisearch is unavailable.</dd></div>
 				</dl>
 			</div>
@@ -271,11 +279,29 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 			<div class="mt-12" aria-labelledby="trust-flow-title">
 				<h3 id="trust-flow-title" class="text-base font-bold">How an entry reaches search</h3>
 				<ol class="trust-flow mt-5">
-					<li><span>01</span><strong>A lead arrives</strong><p>A suggestion, report, survey response or failed query points to a gap.</p></li>
-					<li><span>02</span><strong>Research it</strong><p>I check the meaning, context and available public sources.</p></li>
-					<li><span>03</span><strong>Review and edit</strong><p>The private panel keeps evidence, proposed changes and the decision together.</p></li>
-					<li><span>04</span><strong>Prepare the draft</strong><p>An accepted suggestion becomes JSON for a final manual change.</p></li>
-					<li><span>05</span><strong>Release to search</strong><p>The embedded JSON remains the source of truth and the index updates with the release.</p></li>
+					<li>
+						<span>01</span><strong>A lead arrives</strong><p>
+							A suggestion, report, survey response or failed query points to a gap.
+						</p>
+					</li>
+					<li>
+						<span>02</span><strong>Research it</strong><p>I check the meaning, context and available public sources.</p>
+					</li>
+					<li>
+						<span>03</span><strong>Review and edit</strong><p>
+							The private panel keeps evidence, proposed changes and the decision together.
+						</p>
+					</li>
+					<li>
+						<span>04</span><strong>Prepare the draft</strong><p>
+							An accepted suggestion becomes JSON for a final manual change.
+						</p>
+					</li>
+					<li>
+						<span>05</span><strong>Release to search</strong><p>
+							The embedded JSON remains the source of truth and the index updates with the release.
+						</p>
+					</li>
 				</ol>
 			</div>
 
@@ -341,7 +367,8 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 		</section>
 
 		<section class="border-neutral/20 bg-base-100 mt-2 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
-			<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			<h2
+				class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
 				Most people will use Lingo when a term gets in their way, and that is fine.
 			</h2>
 			<div class="body-copy max-w-3xl">
