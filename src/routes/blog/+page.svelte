@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { replaceState } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import dayjs from 'dayjs';
 	import { getBlogSeriesPosition } from '$lib/blogSeries';
@@ -60,7 +59,7 @@
 		if (activeCategory) url.searchParams.set('category', activeCategory);
 		else url.searchParams.delete('category');
 
-		replaceState(url, {});
+		history.replaceState({}, '', url);
 	}
 
 	function handleSearchInput(event: Event) {

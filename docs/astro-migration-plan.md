@@ -2,7 +2,7 @@
 
 ## Objective
 
-Migrate `zachczx/svelte-zixianchen` from SvelteKit to the current stable Astro 6 release.
+Migrate `zachczx/svelte-zixianchen` from SvelteKit to the current stable Astro 7 release.
 
 The migration should make the site a better fit for its actual architecture: a mostly static portfolio/blog with a small number of interactive features.
 
@@ -46,7 +46,7 @@ Before modifying implementation code, confirm that the environment has:
 
 1. A writable local checkout.
 2. Permission to create and use a dedicated Git worktree.
-3. Node and pnpm compatible with the repository and current stable Astro 6.
+3. Node and pnpm compatible with the repository and current stable Astro 7.
 4. Outbound network access required to install new packages.
 5. Permission to run the repository's complete validation suite.
 6. A browser-capable test environment suitable for validating the rendered site at desktop and mobile sizes.
@@ -254,7 +254,7 @@ There should be **no server-side Astro runtime in production**.
 
 ## 5. Astro foundation
 
-Use the current stable Astro 6 release and current supported APIs.
+Use the current stable Astro 7 release and current supported APIs.
 
 Prefer explicit manual configuration over running generators that rewrite the repository broadly.
 
@@ -407,7 +407,7 @@ Homepage section tracking should not require a Svelte page wrapper.
 
 ## 10. Blog content migration
 
-Use Astro 6's current Content Layer APIs.
+Use Astro 7's current Content Layer APIs.
 
 Define the collection in:
 
@@ -1101,7 +1101,7 @@ Do not mark the PR ready for review automatically.
 
 The migration is complete only when all of the following are true:
 
-- Astro 6 is the site framework.
+- Astro 7 is the site framework.
 - Production output is fully static.
 - Workers Static Assets serves `dist/`.
 - No Cloudflare SSR adapter is present.

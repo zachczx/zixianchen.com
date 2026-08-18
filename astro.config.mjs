@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import { enhancedImages } from '@sveltejs/enhanced-img';
@@ -14,8 +13,6 @@ import {
 } from '@shikijs/transformers';
 
 const isDevCommand = process.env.npm_lifecycle_event === 'dev';
-const navigationShim = fileURLToPath(new URL('./src/lib/sveltekit-navigation-shim.ts', import.meta.url));
-
 export default defineConfig({
 	site: 'https://zixianchen.com',
 	output: 'static',
@@ -39,11 +36,6 @@ export default defineConfig({
 		},
 	},
 	vite: {
-		resolve: {
-			alias: {
-				'$app/navigation': navigationShim,
-			},
-		},
 		plugins: [
 			...(isDevCommand
 				? [
