@@ -2,22 +2,25 @@
 import { Image } from 'astro:assets';
 import ProjectShell from '../ProjectShell.astro';
 import ScreenshotGallery from '../ScreenshotGallery.astro';
-import LingoHome from '$lib/screenshots/lingo/home.png';
-import LingoTermsDirectoryFull from '$lib/screenshots/lingo/terms-directory.png';
-import LingoTermsSearch from '$lib/screenshots/lingo/terms-search-dc.png';
-import LingoExploreConstruction from '$lib/screenshots/lingo/explore-built-from-within.png';
-import LingoExploreHistory from '$lib/screenshots/lingo/explore-then-and-now.png';
-import LingoExploreLookalikes from '$lib/screenshots/lingo/explore-lookalikes.png';
-import LingoExploreMeanings from '$lib/screenshots/lingo/explore-most-meanings.png';
-import LingoNewbie from '$lib/screenshots/lingo/newbie-overview.png';
-import LingoNewbieStarters from '$lib/screenshots/lingo/newbie-starter-terms.png';
-import LingoNewbieMeeting from '$lib/screenshots/lingo/newbie-attending-a-meeting.png';
-import LingoQuizRound from '$lib/screenshots/lingo/quiz-newbie-round.png';
-import LingoQuizOverview from '$lib/screenshots/lingo/quiz-overview.png';
+import LingoHome from '$lib/screenshots/lingo/home.webp';
+import LingoTermsDirectoryFull from '$lib/screenshots/lingo/terms-directory.webp';
+import LingoTermsSearch from '$lib/screenshots/lingo/terms-search-dc.webp';
+import LingoExploreChangeTrails from '$lib/screenshots/lingo/explore-change-trails.webp';
+import LingoExploreConstructionAndLookalikes from '$lib/screenshots/lingo/explore-built-from-within-and-lookalikes.webp';
+import LingoExploreDomainsAndLength from '$lib/screenshots/lingo/explore-most-domains-and-longest.webp';
+import LingoNewbie from '$lib/screenshots/lingo/newbie-overview.webp';
+import LingoNewbieStarters from '$lib/screenshots/lingo/newbie-starter-terms.webp';
+import LingoNewbieMeeting from '$lib/screenshots/lingo/newbie-attending-a-meeting.webp';
+import LingoQuizRound from '$lib/screenshots/lingo/quiz-starter-round.webp';
+import LingoQuizOverview from '$lib/screenshots/lingo/quiz-overview.webp';
+import LingoConfusablesOverview from '$lib/screenshots/lingo/confusables-overview.webp';
+import LingoConfusablesDifferentMeanings from '$lib/screenshots/lingo/confusables-different-meanings.webp';
+import LingoConfusablesUsageAndGrammar from '$lib/screenshots/lingo/confusables-usage-and-grammar.webp';
+import LingoConfusablesWordForms from '$lib/screenshots/lingo/confusables-word-forms.webp';
 
 const stack = [
 	{ role: 'Application', tools: 'Go, Templ, HTMX, Tailwind CSS' },
-	{ role: 'Search', tools: 'Meilisearch, Jaro-Winkler, Metaphone' },
+	{ role: 'Search', tools: 'Meilisearch, semantic embeddings, Jaro-Winkler, Metaphone' },
 	{ role: 'Data and identity', tools: 'Embedded JSON, PostgreSQL, Stytch' },
 	{ role: 'Product analytics', tools: 'PostHog, Umami' },
 	{ role: 'Observability', tools: 'Grafana Cloud, OpenTelemetry' },
@@ -26,28 +29,22 @@ const stack = [
 
 const exploreScreenshots = [
 	{
-		thumbnail: LingoExploreConstruction,
-		full: LingoExploreConstruction,
-		alt: 'Lingo Explore view showing how Singapore Public Service abbreviations are assembled from words',
-		caption: 'Some abbreviations hide their letters inside words.',
+		thumbnail: LingoExploreChangeTrails,
+		full: LingoExploreChangeTrails,
+		alt: 'Lingo Explore view tracing upcoming and historical changes to Singapore Public Service names',
+		caption: 'Change trails connect former, current and emerging names.',
 	},
 	{
-		thumbnail: LingoExploreHistory,
-		full: LingoExploreHistory,
-		alt: 'Lingo Explore view connecting former Singapore Public Service names with their successors',
-		caption: 'Old names and what replaced them.',
+		thumbnail: LingoExploreConstructionAndLookalikes,
+		full: LingoExploreConstructionAndLookalikes,
+		alt: 'Lingo Explore views showing abbreviations built from letters inside words and similar-looking terms',
+		caption: 'Hidden letter patterns and abbreviations that are easy to mix up.',
 	},
 	{
-		thumbnail: LingoExploreLookalikes,
-		full: LingoExploreLookalikes,
-		alt: 'Lingo Explore view comparing similar-looking abbreviations',
-		caption: 'Terms that look similar enough to mix up.',
-	},
-	{
-		thumbnail: LingoExploreMeanings,
-		full: LingoExploreMeanings,
-		alt: 'Lingo Explore view listing abbreviations with the most meanings',
-		caption: 'The terms with the most possible meanings.',
+		thumbnail: LingoExploreDomainsAndLength,
+		full: LingoExploreDomainsAndLength,
+		alt: 'Lingo Explore views listing abbreviations used across the most domains and the longest abbreviations',
+		caption: 'Terms spanning the most domains, alongside the longest abbreviations.',
 	},
 ];
 
@@ -70,8 +67,8 @@ const quizScreenshots = [
 	{
 		thumbnail: LingoQuizRound,
 		full: LingoQuizRound,
-		alt: 'A Lingo newbie quiz showing the correct abbreviation for Financial Year',
-		caption: 'A ten-question Newbie round.',
+		alt: 'A Lingo starter quiz showing a correct answer for the workplace term Staff',
+		caption: 'A ten-question Starter practice round.',
 	},
 	{
 		thumbnail: LingoQuizOverview,
@@ -82,6 +79,33 @@ const quizScreenshots = [
 ];
 
 const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
+
+const confusablesScreenshots = [
+	{
+		thumbnail: LingoConfusablesOverview,
+		full: LingoConfusablesOverview,
+		alt: 'Lingo Confusables overview with search and four browsable writing-guide categories',
+		caption: 'Search directly or browse by the kind of distinction you need.',
+	},
+	{
+		thumbnail: LingoConfusablesDifferentMeanings,
+		full: LingoConfusablesDifferentMeanings,
+		alt: 'Lingo Confusables list comparing words that look or sound alike but have different meanings',
+		caption: 'Short comparisons make different meanings scannable.',
+	},
+	{
+		thumbnail: LingoConfusablesUsageAndGrammar,
+		full: LingoConfusablesUsageAndGrammar,
+		alt: 'Lingo Confusables usage and grammar guides for commonly mixed-up workplace expressions',
+		caption: 'Usage and grammar guides cover distinctions that depend on the sentence.',
+	},
+	{
+		thumbnail: LingoConfusablesWordForms,
+		full: LingoConfusablesWordForms,
+		alt: 'Lingo Confusables word-form guides comparing singulars, plurals, nouns and verbs',
+		caption: 'Word-form guides separate nouns, verbs, singulars and plurals.',
+	},
+];
 ---
 
 <ProjectShell
@@ -92,7 +116,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 	heroLayout="split"
 	eyebrow="Language of the Singapore Public Service"
 	headline="The glossary I wish I had when I started work."
-	sub="A searchable glossary, onboarding guide, and lightweight quiz for people learning the abbreviations, service names, and workplace language of the Singapore Public Service."
+	sub="A searchable glossary, onboarding guide, Confusables reference, and lightweight quiz for people learning the abbreviations, service names, and workplace language of the Singapore Public Service."
 	url="https://lingo.zixian.dev"
 	{stack}>
 	<Fragment slot="wordmark">
@@ -104,7 +128,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 			<Image
 				src={LingoHome}
 				alt="Lingo landing page for searching Singapore public-service terminology"
-				width={1600}
+				width={1500}
 				class="border-neutral/20 block w-full border shadow-sm"
 			/>
 			<figcaption class="text-base-content/55 mt-2 text-xs leading-relaxed">
@@ -151,7 +175,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 					<Image
 						src={LingoTermsDirectoryFull}
 						alt="Lingo directory showing Singapore public-service terms beginning with C"
-						width={2400}
+						width={1500}
 						class="border-neutral/20 block w-full border shadow-sm"
 					/>
 					<figcaption class="artifact-caption">
@@ -176,7 +200,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 					<Image
 						src={LingoTermsSearch}
 						alt="Lingo search results showing multiple meanings of DC across Singapore Public Service domains"
-						width={1600}
+						width={1500}
 						class="border-neutral/20 block w-full border shadow-sm"
 					/>
 					<figcaption class="artifact-caption">
@@ -189,10 +213,16 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 					<div><dt>Why it changed</dt><dd>Ranking became expensive to tune as the glossary grew.</dd></div>
 					<div>
 						<dt>Current approach</dt><dd>
-							Meilisearch handles typo tolerance and ranking, with separate description search.
+							Exact matches come first. Semantic search then looks across descriptions and other indexed context for
+							glossary terms and Confusables, so a remembered idea can still lead to the right result.
 						</dd>
 					</div>
-					<div><dt>Fallback</dt><dd>The original search still takes over when Meilisearch is unavailable.</dd></div>
+					<div>
+						<dt>Fallback</dt><dd>
+							The embedded lexical search takes over when Meilisearch is unavailable; semantic search is isolated so it
+							can fail without taking ordinary lookup down.
+						</dd>
+					</div>
 				</dl>
 			</div>
 
@@ -227,8 +257,12 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 						and working across agencies.
 					</p>
 					<p>
-						The newbie guide now brings together 222 terms across eight situations. It begins with ten starter terms,
-						then opens into 51 essentials and the wider glossary.
+						The newbie guide begins with ten starter terms, then opens into 51 essentials, situation-based paths and the
+						wider glossary.
+					</p>
+					<p>
+						Confusables extends that help to words and phrases that are easy to mix up. Its source-checked guides cover
+						different meanings, word forms, usage and grammar, and Singapore usage.
 					</p>
 				</div>
 			</div>
@@ -237,7 +271,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 				<Image
 					src={LingoNewbie}
 					alt="Lingo newbie guide organised around eight common Public Service workplace situations"
-					width={1600}
+					width={1500}
 					class="border-neutral/20 block w-full border shadow-sm"
 				/>
 				<figcaption class="artifact-caption">
@@ -245,12 +279,19 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 				</figcaption>
 			</figure>
 
-			<div class="border-neutral/15 mt-10 grid gap-8 border-y py-8 lg:grid-cols-2 lg:gap-12">
+			<div class="border-neutral/15 mt-10 grid gap-8 border-y py-8 lg:grid-cols-3 lg:gap-10">
 				<div>
 					<h3 class="text-lg font-bold">Explore the shape of the glossary</h3>
 					<p class="text-base-content/75 mt-3 leading-relaxed">
-						Nine views surface lookalikes, changing names, workplace language, acronym families and terms with several
+						Ten views surface lookalikes, changing names, workplace language, acronym families and terms with several
 						meanings. The data can teach more than a search box alone.
+					</p>
+				</div>
+				<div>
+					<h3 class="text-lg font-bold">Choose the right word</h3>
+					<p class="text-base-content/75 mt-3 leading-relaxed">
+						Confusables compares similar words and phrases side by side, with concise guidance for the choice that fits
+						the sentence and Singapore workplace context.
 					</p>
 				</div>
 				<div>
@@ -263,6 +304,7 @@ const learningScreenshots = [...exploreScreenshots, ...quizScreenshots];
 			</div>
 
 			<ScreenshotGallery id="lingo-newbie-supporting" title="Inside the newbie guide" images={newbieScreenshots} />
+			<ScreenshotGallery id="lingo-confusables-supporting" title="Inside Confusables" images={confusablesScreenshots} />
 			<ScreenshotGallery id="lingo-learning-supporting" title="Explore and quiz" images={learningScreenshots} />
 		</section>
 
