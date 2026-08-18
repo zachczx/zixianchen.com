@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BlogShell from '../../../layouts/BlogShell.astro';
-import UnlistedPosts from '../../../routes/blog/unlisted/+page.svelte';
+import dayjs from 'dayjs';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogShell from '../../layouts/BlogShell.astro';
 
 const posts = (await getCollection('blog', ({ data }) => data.published && data.listed === false))
 	.map(({ data }) => data)
@@ -16,6 +16,69 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	noindex
 	theme="dark">
 	<BlogShell pathName={Astro.url.pathname}>
-		<UnlistedPosts data={{ posts }} />
+		<header class="border-base-content/10 border-b px-4 pt-2 pb-8 lg:px-6">
+			<a
+				href="/blog"
+				class="text-base-content/50 hover:text-base-content mb-5 inline-flex items-center gap-1.5 font-mono text-sm transition-colors">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-3.5"
+					aria-hidden="true">
+					<path d="m12 19-7-7 7-7"></path>
+					<path d="M19 12H5"></path>
+				</svg>
+				All listed posts
+			</a>
+			<div class="text-base-content/45 font-mono text-sm">{posts.length} unlisted posts</div>
+			<h1 class="text-base-content mt-3 text-3xl font-black sm:text-4xl">Unlisted writing</h1>
+			<p class="text-base-content/65 mt-3 max-w-2xl text-base leading-relaxed">
+				Published pieces kept outside the main blog index.
+			</p>
+		</header>
+
+		<main class="grid">
+			{posts.map((post, index) => (
+				<a
+					href={`/blog/${post.slug}`}
+					class:list={[
+						'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
+						{ 'border-t': index > 0 },
+					]}>
+					<article class="grid gap-2">
+						<h2 class="text-xl font-bold sm:text-2xl">
+							<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
+								<span class="text-base-content/55 font-mono text-[0.85em]">{index + 1}.</span>
+								{post.title}
+							</span>
+						</h2>
+						{post.description && <p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>}
+						<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
+							<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
+							{post.date_updated && (
+								<>
+									<span class="text-base-content/30">/</span>
+									<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
+								</>
+							)}
+						</div>
+						<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
+							{post.tags.map((tag, tagIndex) => (
+								<>{tagIndex > 0 && <span class="text-base-content/30">/</span>}<span>{tag}</span></>
+							))}
+						</div>
+					</article>
+				</a>
+			))}
+		</main>
+
+		<div class="text-base-content/30 mt-10 px-3 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">
+			— END OF LIST —
+		</div>
 	</BlogShell>
 </BaseLayout>

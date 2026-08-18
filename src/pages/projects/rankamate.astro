@@ -1,9 +1,0 @@
----
-import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
-import ProjectPage from '../../routes/projects/rankamate/+page.svelte';
-import { descriptions } from '$lib/ProjectDescriptions';
-const project = descriptions.rankamate;
----
-<ProjectPageLayout name={project.name} slug="rankamate" description={project.tldr ?? project.subtitle}>
-	<ProjectPage />
-</ProjectPageLayout>

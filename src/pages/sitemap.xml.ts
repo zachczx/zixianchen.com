@@ -7,10 +7,8 @@ const staticRoutes = [
 	'/contact',
 	'/projects/apptitude',
 	'/projects/btonomics',
-	'/projects/btonomics-wordpress',
 	'/projects/cubby',
 	'/projects/lingo',
-	'/projects/rankamate',
 ];
 
 export async function GET() {

@@ -63,7 +63,7 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, '\\
 		{noindex && <meta name="robots" content="noindex" />}
 		{type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
 		{type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
+		{jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
 
 		<script
 			is:inline

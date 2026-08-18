@@ -1,9 +1,0 @@
----
-import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
-import ProjectPage from '../../routes/projects/btonomics-wordpress/+page.svelte';
-import { descriptions } from '$lib/ProjectDescriptions';
-const project = descriptions['btonomics-wordpress'];
----
-<ProjectPageLayout name={project.name} slug="btonomics-wordpress" description={project.tldr ?? project.subtitle}>
-	<ProjectPage />
-</ProjectPageLayout>
