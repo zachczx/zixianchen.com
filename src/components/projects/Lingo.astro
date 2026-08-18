@@ -19,7 +19,7 @@ import LingoConfusablesUsageAndGrammar from '$lib/screenshots/lingo/confusables-
 import LingoConfusablesWordForms from '$lib/screenshots/lingo/confusables-word-forms.webp';
 
 const stack = [
-	{ role: 'Application', tools: 'Go, Templ, HTMX, Tailwind CSS' },
+	{ role: 'Application', tools: 'SvelteKit, Go' },
 	{ role: 'Search', tools: 'Meilisearch, semantic embeddings, Jaro-Winkler, Metaphone' },
 	{ role: 'Data and identity', tools: 'Embedded JSON, PostgreSQL, Stytch' },
 	{ role: 'Product analytics', tools: 'PostHog, Umami' },
@@ -386,8 +386,8 @@ const confusablesScreenshots = [
 					<div>
 						<dt>Application</dt>
 						<dd>
-							Go and Templ render the main experience on the server. HTMX handles focused interactions, and JavaScript
-							is divided into page-specific bundles.
+							SvelteKit owns the web application and server rendering, talking to a separate Go API. Stable public pages
+							are prerendered, while interactive parts progressively enhance in the browser.
 						</dd>
 					</div>
 					<div>
