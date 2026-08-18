@@ -10,11 +10,9 @@ export default defineConfig(
 		ignores: [
 			'.DS_Store',
 			'node_modules/**',
-			'build/**',
 			'dist/**',
 			'.astro/**',
 			'static/pagefind/**',
-			'package/**',
 			'.env',
 			'.env.*',
 			'!/.env.example',

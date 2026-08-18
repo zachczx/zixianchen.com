@@ -29,7 +29,6 @@ const links = [
 		label: 'Blog',
 		active: { type: 'prefixOrHash', key: '/blog', hash: 'musings' },
 	},
-	{ href: '/contact', label: 'Contact', active: { type: 'path', key: '/contact' } },
 ] as const satisfies readonly Link[];
 
 function isActive(rule: ActiveRule): boolean {
