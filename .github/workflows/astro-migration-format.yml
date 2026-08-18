@@ -1,3 +1,4 @@
+# Temporary formatter for the Astro migration branch; remove before merge.
 name: Astro migration formatter
 
 on:
