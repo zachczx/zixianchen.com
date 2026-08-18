@@ -1,0 +1,350 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import dayjs from 'dayjs';
+import { getBlogSeriesPosition } from '$lib/blogSeries';
+import Icon from './Icon.astro';
+
+type Post = CollectionEntry<'blog'>['data'];
+interface Props {
+	posts: Post[];
+}
+
+const { posts } = Astro.props;
+const categories = ['Work', 'Systems', 'Dev', 'Life'] as const;
+const filters = [
+	{ label: 'All', category: '', count: posts.length },
+	...categories
+		.map((category) => ({
+			label: category,
+			category,
+			count: posts.filter((post) => post.category === category).length,
+		}))
+		.filter((filter) => filter.count > 0),
+];
+---
+
+<div data-blog-index data-total-posts={posts.length}>
+	<header class="border-base-content/10 border-b px-4 pt-2 pb-8 lg:px-6">
+		<div data-blog-status class="text-base-content/60 font-mono text-sm" aria-live="polite">
+			{posts.length} listed posts
+		</div>
+		<h1 class="text-base-content mt-3 text-3xl font-black sm:text-4xl">Notes, fixes, and stray thoughts</h1>
+		<p class="text-base-content/65 mt-3 max-w-2xl text-base leading-relaxed">
+			Web development, infra, AI, writing, and odd problems worth writing down.
+		</p>
+		<div class="relative mt-6">
+			<label for="blog-search" class="sr-only">Search blog posts</label>
+			<Icon
+				name="search"
+				class="text-base-content/45 pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2"
+			/>
+			<input
+				id="blog-search"
+				data-blog-search
+				type="search"
+				placeholder="Search every post…"
+				autocomplete="off"
+				aria-controls="blog-post-list"
+				class="border-base-content/15 bg-base-100/65 text-base-content placeholder:text-base-content/60 focus:border-accent focus:ring-accent/30 focus:bg-base-100 min-h-12 w-full rounded-md border py-3 pr-12 pl-11 text-base transition-[border-color,box-shadow,background-color] outline-none focus:ring-3"
+			/>
+			<button
+				data-clear-search
+				type="button"
+				class="text-base-content/45 hover:bg-base-content/[0.07] hover:text-base-content focus-visible:outline-accent absolute top-1/2 right-2 hidden size-9 -translate-y-1/2 cursor-pointer place-items-center rounded focus-visible:outline-2 focus-visible:outline-offset-2"
+				aria-label="Clear blog search">
+				<Icon name="x" class="size-4" />
+			</button>
+		</div>
+		<p data-blog-search-error id="blog-search-error" class="text-warning mt-2 hidden text-sm">
+			Search could not load. Clear the search to browse all posts.
+		</p>
+		<nav class="mt-6 flex flex-wrap gap-1" aria-label="Filter blog posts by category">
+			{
+				filters.map((filter, index) => (
+					<button
+						data-blog-filter
+						data-category={filter.category}
+						type="button"
+						aria-pressed={index === 0 ? 'true' : 'false'}
+						class:list={[
+							'focus-visible:outline-accent inline-flex min-h-11 cursor-pointer items-center gap-2 rounded px-3 font-mono text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
+							index === 0
+								? 'bg-accent text-neutral'
+								: 'text-base-content/65 hover:bg-base-content/[0.06] hover:text-base-content',
+						]}>
+						<span>{filter.label}</span>
+						<span
+							data-filter-count
+							class:list={[
+								'min-w-5 rounded-sm px-1.5 py-0.5 text-center text-xs leading-none tabular-nums',
+								index === 0 ? 'bg-neutral/15 text-neutral/80' : 'bg-accent/20 text-base-content/75',
+							]}>{filter.count}</span
+						>
+					</button>
+				))
+			}
+		</nav>
+	</header>
+
+	<main id="blog-post-list" data-blog-post-list class="grid" aria-busy="false">
+		<div data-static-posts>
+			{
+				posts.map((post, index) => {
+					const series = getBlogSeriesPosition(post.slug);
+					return (
+						<a
+							data-blog-post
+							data-category={post.category ?? ''}
+							href={`/blog/${post.slug}`}
+							class:list={[
+								'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
+								{ 'border-t': index > 0 },
+							]}>
+							<article class="grid gap-2">
+								<h2 class="text-xl font-bold sm:text-2xl">
+									<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
+										<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">{index + 1}.</span>
+										{post.title}
+									</span>
+								</h2>
+								{post.description && (
+									<p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>
+								)}
+								<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
+									{post.category && <><span>{post.category}</span><span class="text-base-content/30">/</span></>}
+									{series && <><span>{series.title} · {series.position}/{series.total}</span><span class="text-base-content/30">/</span></>}
+									<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
+									{post.date_updated && <><span class="text-base-content/30">/</span><span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span></>}
+								</div>
+								<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
+									{post.tags.map((tag, tagIndex) => <>{tagIndex > 0 && <span class="text-base-content/30">/</span>}<span>{tag}</span></>)}
+								</div>
+							</article>
+						</a>
+					);
+				})
+			}
+		</div>
+		<div data-search-results class="hidden"></div>
+	</main>
+	<div class="text-base-content/30 mt-10 px-3 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">
+		— END OF LIST —
+	</div>
+</div>
+
+<script>
+	interface PagefindResultData {
+		url: string;
+		excerpt: string;
+		meta: Record<string, string>;
+	}
+	interface PagefindApi {
+		init: () => Promise<void>;
+		debouncedSearch: (
+			query: string,
+			options?: { filters?: Record<string, string> },
+		) => Promise<{ results: { data: () => Promise<PagefindResultData> }[] } | null>;
+	}
+
+	const categories = ['Work', 'Systems', 'Dev', 'Life'];
+	const formatDate = (value: string) => {
+		const date = new Date(`${value}T00:00:00`);
+		return Number.isNaN(date.getTime())
+			? value
+			: new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+	};
+	const escapeHtml = (value: string) =>
+		value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character] ?? character);
+
+	for (const root of document.querySelectorAll<HTMLElement>('[data-blog-index]')) {
+		const input = root.querySelector<HTMLInputElement>('[data-blog-search]');
+		const clearButton = root.querySelector<HTMLButtonElement>('[data-clear-search]');
+		const status = root.querySelector<HTMLElement>('[data-blog-status]');
+		const errorMessage = root.querySelector<HTMLElement>('[data-blog-search-error]');
+		const postList = root.querySelector<HTMLElement>('[data-blog-post-list]');
+		const staticPosts = root.querySelector<HTMLElement>('[data-static-posts]');
+		const searchResults = root.querySelector<HTMLElement>('[data-search-results]');
+		const filterButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-blog-filter]'));
+		const posts = Array.from(root.querySelectorAll<HTMLElement>('[data-blog-post]'));
+		const total = Number(root.dataset.totalPosts ?? posts.length);
+		if (!input || !clearButton || !status || !errorMessage || !postList || !staticPosts || !searchResults) continue;
+
+		let activeCategory = '';
+		let query = '';
+		let searchRequest = 0;
+		let pagefindPromise: Promise<PagefindApi> | undefined;
+
+		const updateUrl = () => {
+			const url = new URL(window.location.href);
+			if (query.trim()) url.searchParams.set('q', query.trim());
+			else url.searchParams.delete('q');
+			if (activeCategory) url.searchParams.set('category', activeCategory);
+			else url.searchParams.delete('category');
+			history.replaceState({}, '', url);
+		};
+
+		const syncFilters = () => {
+			for (const button of filterButtons) {
+				const active = (button.dataset.category ?? '') === activeCategory;
+				button.setAttribute('aria-pressed', String(active));
+				button.classList.toggle('bg-accent', active);
+				button.classList.toggle('text-neutral', active);
+				button.classList.toggle('text-base-content/65', !active);
+				button.classList.toggle('hover:bg-base-content/[0.06]', !active);
+				button.classList.toggle('hover:text-base-content', !active);
+				const count = button.querySelector<HTMLElement>('[data-filter-count]');
+				count?.classList.toggle('bg-neutral/15', active);
+				count?.classList.toggle('text-neutral/80', active);
+				count?.classList.toggle('bg-accent/20', !active);
+				count?.classList.toggle('text-base-content/75', !active);
+			}
+		};
+
+		const syncStaticPosts = () => {
+			let visible = 0;
+			for (const post of posts) {
+				const show = !activeCategory || post.dataset.category === activeCategory;
+				post.classList.toggle('hidden', !show);
+				post.classList.toggle('border-t', show && visible > 0);
+				if (show) {
+					visible += 1;
+					const number = post.querySelector<HTMLElement>('[data-post-number]');
+					if (number) number.textContent = `${visible}.`;
+				}
+			}
+			return visible;
+		};
+
+		const showBrowseMode = () => {
+			searchRequest += 1;
+			postList.setAttribute('aria-busy', 'false');
+			staticPosts.classList.remove('hidden');
+			searchResults.classList.add('hidden');
+			errorMessage.classList.add('hidden');
+			input.removeAttribute('aria-describedby');
+			const visible = syncStaticPosts();
+			status.textContent = activeCategory ? `${visible} of ${total} listed posts` : `${total} listed posts`;
+		};
+
+		const loadingMarkup = () => [0, 1, 2].map((index) => `
+			<div class="border-base-content/10 px-4 py-6 lg:px-6${index > 0 ? ' border-t' : ''}" aria-hidden="true">
+				<div class="grid gap-3 motion-safe:animate-pulse">
+					<div class="flex items-center gap-2"><div class="bg-base-content/10 h-5 w-6 shrink-0 rounded-sm"></div><div class="bg-base-content/10 h-6 rounded-sm ${index === 0 ? 'w-3/4' : index === 1 ? 'w-2/3' : 'w-4/5'}"></div></div>
+					<div class="grid max-w-2xl gap-2"><div class="bg-base-content/[0.07] h-4 w-full rounded-sm"></div><div class="bg-base-content/[0.07] h-4 rounded-sm ${index === 1 ? 'w-4/5' : 'w-3/5'}"></div></div>
+					<div class="flex items-center gap-2"><div class="bg-base-content/[0.07] h-3.5 w-14 rounded-sm"></div><div class="bg-base-content/[0.07] h-3.5 w-20 rounded-sm"></div></div>
+				</div>
+			</div>`).join('');
+
+		const loadPagefind = () => {
+			if (!pagefindPromise) {
+				const pagefindPath = '/pagefind/pagefind.js';
+				pagefindPromise = import(/* @vite-ignore */ pagefindPath).then(async (module) => {
+					const pagefind = module as PagefindApi;
+					await pagefind.init();
+					return pagefind;
+				});
+			}
+			return pagefindPromise;
+		};
+
+		const renderResults = (results: PagefindResultData[]) => {
+			if (results.length === 0) {
+				searchResults.innerHTML = `<div class="px-4 py-10 text-center lg:px-6"><p class="text-lg font-bold">Nothing matched “${escapeHtml(query.trim())}”.</p><p class="text-base-content/60 mt-2 text-sm">Try fewer words, another category, or browse the full list.</p><button data-search-empty-clear type="button" class="decoration-accent hover:text-accent focus-visible:outline-accent mt-4 cursor-pointer font-semibold underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Show every post</button></div>`;
+				return;
+			}
+			searchResults.innerHTML = results.map((result, index) => {
+				const category = result.meta.category ?? '';
+				const date = result.meta.date ?? '';
+				const meta = [category ? `<span>${escapeHtml(category)}</span>` : '', category && date ? '<span class="text-base-content/30">/</span>' : '', date ? `<span class="uppercase">${escapeHtml(formatDate(date))}</span>` : ''].join('');
+				const tags = result.meta.tags ? `<div class="text-base-content/50 font-mono text-sm">${escapeHtml(result.meta.tags)}</div>` : '';
+				return `<a href="${escapeHtml(result.url)}" class="group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6${index > 0 ? ' border-t' : ''}"><article class="grid gap-2"><h2 class="text-xl font-bold sm:text-2xl"><span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline"><span class="text-base-content/55 font-mono text-[0.85em]">${index + 1}.</span>${escapeHtml(result.meta.title ?? '')}</span></h2><p class="search-excerpt text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">${result.excerpt}</p><div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">${meta}</div>${tags}</article></a>`;
+			}).join('');
+		};
+
+		const runSearch = async () => {
+			const searchQuery = query.trim();
+			if (!searchQuery) {
+				showBrowseMode();
+				return;
+			}
+			const request = ++searchRequest;
+			staticPosts.classList.add('hidden');
+			searchResults.classList.remove('hidden');
+			searchResults.innerHTML = loadingMarkup();
+			postList.setAttribute('aria-busy', 'true');
+			errorMessage.classList.add('hidden');
+			input.removeAttribute('aria-describedby');
+			status.textContent = 'Searching the archive…';
+			try {
+				const pagefind = await loadPagefind();
+				const response = await pagefind.debouncedSearch(searchQuery, activeCategory ? { filters: { category: activeCategory } } : undefined);
+				if (!response || request !== searchRequest) return;
+				const results = await Promise.all(response.results.map((result) => result.data()));
+				if (request !== searchRequest) return;
+				renderResults(results);
+				status.textContent = `${results.length} ${results.length === 1 ? 'match' : 'matches'}${activeCategory ? ` in ${activeCategory}` : ''}`;
+				postList.setAttribute('aria-busy', 'false');
+			} catch (error) {
+				if (request !== searchRequest) return;
+				console.error('Unable to load the blog search index.', error);
+				searchResults.innerHTML = '';
+				status.textContent = 'Search unavailable';
+				errorMessage.classList.remove('hidden');
+				input.setAttribute('aria-describedby', 'blog-search-error');
+				postList.setAttribute('aria-busy', 'false');
+			}
+		};
+
+		const refresh = () => {
+			clearButton.classList.toggle('hidden', !query);
+			clearButton.classList.toggle('grid', Boolean(query));
+			syncFilters();
+			void runSearch();
+		};
+
+		const clearSearch = () => {
+			query = '';
+			input.value = '';
+			updateUrl();
+			refresh();
+		};
+
+		input.addEventListener('input', () => {
+			query = input.value;
+			updateUrl();
+			refresh();
+		});
+		clearButton.addEventListener('click', clearSearch);
+		for (const button of filterButtons) {
+			button.addEventListener('click', () => {
+				activeCategory = button.dataset.category ?? '';
+				updateUrl();
+				refresh();
+			});
+		}
+		searchResults.addEventListener('click', (event) => {
+			if ((event.target as Element).closest('[data-search-empty-clear]')) clearSearch();
+		});
+
+		const params = new URLSearchParams(window.location.search);
+		const requestedCategory = params.get('category') ?? '';
+		activeCategory = categories.includes(requestedCategory) ? requestedCategory : '';
+		query = params.get('q') ?? '';
+		input.value = query;
+		refresh();
+	}
+</script>
+
+<style>
+	#blog-search::-webkit-search-cancel-button {
+		display: none;
+		-webkit-appearance: none;
+		appearance: none;
+	}
+
+	.search-excerpt :global(mark) {
+		background: color-mix(in oklab, var(--color-accent) 55%, transparent);
+		color: var(--color-neutral);
+		font-weight: 700;
+	}
+</style>

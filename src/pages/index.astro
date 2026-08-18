@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import dayjs from 'dayjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CodeCanvas from '../components/CodeCanvas.astro';
-import Nav from '$lib/Nav.svelte';
+import Nav from '../components/Nav.astro';
 import WebsiteFooter from '$lib/WebsiteFooter.svelte';
 import Projects from '../routes/Projects.svelte';
 import Moon from '$lib/assets/luke-stackpoole-TRXSkmJb40c-unsplash.webp';
@@ -21,7 +21,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	title="Zixian Chen | Public-Sector Tech by Day, Questionable Side Projects by Night"
 	description="Public-sector tech by day, questionable side projects by night. Zixian Chen builds useful things, writes about what went wrong, and occasionally codes by hand."
 	pathname="/">
-	<Nav client:load navCurrent="header" pathName="/" trackSections />
+	<Nav navCurrent="header" pathName="/" trackSections />
 	<main class="bg-base-200 grid min-h-dvh justify-items-center 2xl:overflow-x-clip">
 		<header id="header" class="navItem grid min-h-dvh w-full place-items-center px-4 py-12 pb-24 xl:pb-28">
 			<div class="bg-base-200 grid w-full content-center justify-items-center gap-7">

@@ -17,8 +17,8 @@ function requireIslandCount(route, expected) {
 	if (actual !== expected) throw new Error(`${route} has ${actual} Astro islands; expected ${expected}`);
 }
 
-requireIslandCount('/', 1);
-requireIslandCount('/blog', 1);
+requireIslandCount('/', 0);
+requireIslandCount('/blog', 0);
 requireIslandCount('/contact', 0);
 requireIslandCount('/projects/apptitude', 0);
 requireIslandCount('/projects/btonomics', 0);
@@ -37,4 +37,4 @@ for (const articleFile of articleFiles) {
 		throw new Error(`/blog/${articleFile.replace(/\.html$/, '')} unexpectedly hydrates ${count} islands.`);
 }
 
-console.log(`Client-boundary validation passed: ${articleFiles.length} articles hydrate zero framework islands.`);
+console.log(`Client-boundary validation passed: key routes and ${articleFiles.length} articles hydrate zero framework islands.`);

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogShell from '../../layouts/BlogShell.astro';
-import BlogIndex from '../../routes/blog/+page.svelte';
+import BlogIndex from '../../components/BlogIndex.astro';
 
 const posts = (await getCollection('blog', ({ data }) => data.published && data.listed !== false))
 	.map(({ data }) => data)
@@ -15,6 +15,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	pathname="/blog"
 	theme="dark">
 	<BlogShell pathName={Astro.url.pathname}>
-		<BlogIndex client:load data={{ posts }} />
+		<BlogIndex {posts} />
 	</BlogShell>
 </BaseLayout>
