@@ -1,0 +1,330 @@
+---
+import { Image } from 'astro:assets';
+import ProjectShell from '../ProjectShell.astro';
+import consultProblem from '$lib/screenshots/apptitude/consult-problem.webp';
+import consultProblemBrief from '$lib/screenshots/apptitude/consult-problem3.webp';
+import loggedIn from '$lib/screenshots/apptitude/logged-in.webp';
+import learnUxResources from '$lib/screenshots/apptitude/learn-ux.webp';
+import learnUx from '$lib/screenshots/apptitude/learn-ux-2.webp';
+import techTrippin from '$lib/screenshots/apptitude/tech-trippin.webp';
+
+const stack = [
+	{ role: 'App', tools: 'SvelteKit, Tailwind' },
+	{ role: 'Data', tools: 'PostgreSQL, Kysely' },
+	{ role: 'Search', tools: 'Meilisearch' },
+	{ role: 'Auth', tools: 'Better Auth' },
+	{ role: 'Observability', tools: 'Axiom, OpenTelemetry' },
+];
+---
+
+<ProjectShell
+	name="Apptitude"
+	slug="apptitude"
+	accent="#0f766e"
+	accentInk="#0f766e"
+	eyebrow="Structured technology learning and decision support"
+	headline="Build technical judgment. Use it when decisions matter."
+	sub="Learn gives anyone a place to start and a structure to continue. Consult helps senior officers pressure-test live technology decisions."
+	url="https://titude.app/"
+	{stack}>
+	<Fragment slot="wordmark">
+		<div class="text-4xl font-extrabold tracking-tighter text-[#0f766e] lg:text-5xl">apptitude</div>
+	</Fragment>
+
+	<Fragment slot="hero">
+		<div class="space-y-6">
+			<div class="grid gap-3 sm:grid-cols-[auto_1fr] sm:items-end">
+				<h2 class="text-2xl font-black tracking-tight sm:text-3xl">Two needs. Two starting points.</h2>
+				<p class="text-base-content/60 max-w-xl text-sm leading-relaxed sm:justify-self-end sm:text-right">
+					Build foundations over time, or pressure-test a live decision now.
+				</p>
+			</div>
+
+			<figure class="w-full">
+				<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+					<Image
+						src={loggedIn}
+						alt="The signed-in Apptitude home offering separate starting points for working through a live situation or building technology foundations"
+						width={1500}
+						quality={90}
+						class="block h-auto w-full"
+					/>
+				</div>
+				<figcaption class="text-base-content/65 mt-3 text-sm leading-relaxed">
+					The signed-in home keeps the two jobs separate: Learn builds knowledge with continuity; Consult supports the
+					decision already on someone's desk.
+				</figcaption>
+			</figure>
+		</div>
+	</Fragment>
+
+	<section aria-label="Project facts" class="py-8 lg:py-10">
+		<dl class="border-base-content/15 grid border-y sm:grid-cols-2 lg:grid-cols-3">
+			<div class="border-base-content/15 border-t py-5 sm:border-t-0 sm:pl-6 lg:border-r">
+				<dt class="text-base-content/55 text-xs font-bold tracking-[0.16em] uppercase">Timeline</dt>
+				<dd class="mt-2 font-semibold">2024 to present</dd>
+			</div>
+			<div class="border-base-content/15 border-t py-5 sm:border-r sm:pr-6 lg:border-t-0 lg:pl-6">
+				<dt class="text-base-content/55 text-xs font-bold tracking-[0.16em] uppercase">Status</dt>
+				<dd class="mt-2 font-semibold">Live and evolving</dd>
+			</div>
+			<div class="border-base-content/15 border-t py-5 sm:pl-6 lg:border-t-0">
+				<dt class="text-base-content/55 text-xs font-bold tracking-[0.16em] uppercase">Audience</dt>
+				<dd class="mt-2 font-semibold">Learners and senior public-sector decision-makers</dd>
+			</div>
+		</dl>
+	</section>
+
+	<section class="grid gap-8 py-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:py-16">
+		<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">
+			Learning technology and governing it are different jobs.
+		</h2>
+		<div class="text-base-content/75 space-y-4 text-lg leading-relaxed">
+			<p>
+				Someone learning technology needs a clear starting point, an order that makes sense, and a way to continue
+				without rebuilding the map each time.
+			</p>
+			<p>
+				A senior officer with a proposal in front of them has a different need. They may not be the deepest specialist
+				in the room, but they remain accountable for approving, funding, defending, or inheriting the work.
+			</p>
+			<p>Apptitude serves both without pretending they are the same journey.</p>
+		</div>
+	</section>
+
+	<section class="border-base-content/15 border-y py-12 lg:py-16">
+		<div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+			<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">
+				I stopped asking one information architecture to do two jobs.
+			</h2>
+			<div class="text-base-content/75 space-y-4 text-lg leading-relaxed">
+				<p>
+					The first version organised learning by topic. That gave learners structure, but it did not help a senior
+					officer answer: "What should I challenge in the proposal in front of me?"
+				</p>
+				<p>
+					The redesign kept Learn's curriculum and progression, then created Consult as a separate situation-led entry
+					point. That split led to three product decisions.
+				</p>
+			</div>
+		</div>
+
+		<dl class="mt-10 grid gap-px overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--accent)_24%,transparent)] lg:grid-cols-3">
+			<div class="bg-base-100 p-6 lg:p-8">
+				<dt class="text-xl font-black">Learn for foundations</dt>
+				<dd class="text-base-content/65 mt-3 leading-relaxed">
+					Give newcomers clear entry points, guided paths, and a repeatable module structure.
+				</dd>
+			</div>
+			<div class="bg-base-100 p-6 lg:p-8">
+				<dt class="text-xl font-black">Consult for live decisions</dt>
+				<dd class="text-base-content/65 mt-3 leading-relaxed">
+					Begin with the proposal, system, or spending question already demanding attention.
+				</dd>
+			</div>
+			<div class="bg-base-100 p-6 lg:p-8">
+				<dt class="text-xl font-black">Judgment without theatre</dt>
+				<dd class="text-base-content/65 mt-3 leading-relaxed">
+					Track meaningful learning and expose evidence gaps without manufacturing mastery or a verdict.
+				</dd>
+			</div>
+		</dl>
+	</section>
+
+	<section class="py-12 lg:py-20">
+		<div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+			<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">
+				Learn gives anyone a place to start and structure to continue.
+			</h2>
+			<div class="text-base-content/70 space-y-4 text-lg leading-relaxed">
+				<p>
+					Guided paths provide sequence across technology foundations, data and AI, product, service design, and
+					delivery.
+				</p>
+				<p>
+					Each module repeats the same ladder: understand the idea, use it at work, challenge or govern it, and reflect
+					on confidence. Notes, bookmarks, and reviewed, practised, or used progress preserve continuity.
+				</p>
+				<p>
+					Where a concept is easier to absorb by watching or simply listening, Learn recommends selected YouTube videos
+					instead of rewriting the same explanation. Apptitude supplies the sequence, context, and prompts around them.
+				</p>
+			</div>
+		</div>
+
+		<div class="mt-10 grid gap-10">
+			<figure class="w-full">
+				<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+					<Image
+						src={learnUxResources}
+						alt="The UX Fundamentals Learn module recommending selected YouTube videos and reference articles as starting material"
+						width={1500}
+						quality={90}
+						class="block h-auto w-full"
+						loading="lazy"
+					/>
+				</div>
+				<figcaption class="text-base-content/65 mt-3 text-sm leading-relaxed">
+					<strong class="text-base-content">Start with material that fits the medium.</strong> Spent a lot of time curating
+					videos to make an unfamiliar concept easier to watch or listen to.
+				</figcaption>
+			</figure>
+
+			<figure class="w-full">
+				<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+					<Image
+						src={learnUx}
+						alt="The UX Fundamentals Learn module organised into understanding the idea, using it at work, challenging or governing it, and reflecting on confidence"
+						width={1500}
+						quality={90}
+						class="block h-auto w-full"
+						loading="lazy"
+					/>
+				</div>
+				<figcaption class="text-base-content/65 mt-3 text-sm leading-relaxed">
+					<strong class="text-base-content">Continue with structure.</strong> The same learning ladder carries the concept
+					from understanding to application, governance, and reflection.
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+
+	<section class="border-base-content/15 border-t py-12 lg:py-20">
+		<div class="max-w-3xl">
+			<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">
+				Consult is for the person accountable now.
+			</h2>
+			<p class="text-base-content/70 mt-4 text-lg leading-relaxed">
+				A senior officer does not need a curriculum in the middle of a live decision. A Consult makes uncertainty, weak
+				claims, evidence gaps, and the next action explicit without pretending to issue a verdict.
+			</p>
+		</div>
+
+		<div class="mt-10 grid gap-10">
+			<figure class="w-full">
+				<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+					<Image
+						src={consultProblem}
+						alt="An Apptitude Consult asking what is hardest to judge about a new technology proposal"
+						width={1500}
+						quality={90}
+						class="block h-auto w-full"
+						loading="lazy"
+					/>
+				</div>
+				<figcaption class="text-base-content/65 mt-3 flex gap-3 text-sm leading-relaxed">
+					<span class="font-bold text-(--accent-ink)">01</span>
+					<span><strong class="text-base-content">Name the uncertainty.</strong> Start with the decision, not a course catalogue.</span>
+				</figcaption>
+			</figure>
+
+			<figure class="w-full">
+				<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+					<Image
+						src={consultProblemBrief}
+						alt="An Apptitude Consult summarising proposal risks and the evidence needed for a decision brief"
+						width={1500}
+						quality={90}
+						class="block h-auto w-full"
+						loading="lazy"
+					/>
+				</div>
+				<figcaption class="text-base-content/65 mt-3 flex gap-3 text-sm leading-relaxed">
+					<span class="font-bold text-(--accent-ink)">02</span>
+					<span><strong class="text-base-content">Make the gap actionable.</strong> Leave with risks, evidence asks, and pause conditions.</span>
+				</figcaption>
+			</figure>
+		</div>
+
+		<ol class="border-base-content/15 mt-12 grid border-y sm:grid-cols-2 lg:grid-cols-4">
+			<li class="border-base-content/15 py-6 sm:border-r sm:pr-6">
+				<span class="text-sm font-bold text-(--accent-ink)">01</span>
+				<h3 class="mt-3 text-xl font-black">Frame the decision</h3>
+				<p class="text-base-content/65 mt-2 leading-relaxed">What is being proposed, and what is hardest to judge?</p>
+			</li>
+			<li class="border-base-content/15 border-t py-6 sm:border-t-0 sm:pl-6 lg:border-r">
+				<span class="text-sm font-bold text-(--accent-ink)">02</span>
+				<h3 class="mt-3 text-xl font-black">Locate the weak claim</h3>
+				<p class="text-base-content/65 mt-2 leading-relaxed">
+					Is the problem vague, the evidence thin, or the success measure missing?
+				</p>
+			</li>
+			<li class="border-base-content/15 border-t py-6 sm:border-r sm:pr-6 lg:border-t-0 lg:pl-6">
+				<span class="text-sm font-bold text-(--accent-ink)">03</span>
+				<h3 class="mt-3 text-xl font-black">Turn gaps into asks</h3>
+				<p class="text-base-content/65 mt-2 leading-relaxed">
+					Request the evidence, owner, measure, or constraint needed to proceed.
+				</p>
+			</li>
+			<li class="border-base-content/15 border-t py-6 sm:pl-6 lg:border-t-0">
+				<span class="text-sm font-bold text-(--accent-ink)">04</span>
+				<h3 class="mt-3 text-xl font-black">Carry it forward</h3>
+				<p class="text-base-content/65 mt-2 leading-relaxed">
+					Leave with a brief that can structure the next conversation.
+				</p>
+			</li>
+		</ol>
+	</section>
+
+	<section class="border-base-content/15 border-t py-12 lg:py-16">
+		<div class="max-w-3xl">
+			<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">
+				Tech Trippin turns a dubious claim into a useful question.
+			</h2>
+			<p class="text-base-content/70 mt-4 text-lg leading-relaxed">
+				For a learner, it connects familiar jargon to the underlying concept. For a decision-maker, it offers an
+				immediate question to ask. When one question is not enough, the pattern carries into a Consult.
+			</p>
+		</div>
+
+		<figure class="mt-10 w-full">
+			<div class="border-base-content/10 overflow-hidden rounded-xl border bg-white shadow-lg">
+				<Image
+					src={techTrippin}
+					alt="Tech Trippin claim library showing the signal, question, and practical takeaway behind a technology phrase"
+					width={1500}
+					quality={90}
+					class="block h-auto w-full"
+					loading="lazy"
+				/>
+			</div>
+			<figcaption class="text-base-content/65 mt-3 text-sm leading-relaxed">
+				Each entry turns a familiar claim into a signal to notice, a question to ask, and a practical takeaway.
+			</figcaption>
+		</figure>
+	</section>
+
+	<Fragment slot="outro">
+		<div class="grid gap-8 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-20">
+			<h2 class="text-3xl leading-tight font-black tracking-tight sm:text-4xl">What I can't claim.</h2>
+			<div>
+				<div class="text-base-content/75 space-y-4 text-lg leading-relaxed">
+					<p>
+						I can show that Apptitude now separates two real jobs: building technical judgment over time and applying
+						judgment to a live decision. I cannot yet show that learners return and continue, or that Consult changes
+						real decisions. The next step is to test both behaviours separately: whether Learn gives newcomers sustained
+						structure, and whether Consult changes the questions senior officers ask and the evidence they request.
+					</p>
+				</div>
+				<div class="mt-8 flex flex-wrap gap-3">
+					<a
+						href="https://titude.app/learn"
+						target="_blank"
+						rel="noreferrer"
+						class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-bold text-white transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]">
+						Explore Learn
+						<span class="sr-only">(opens in a new tab)</span>
+					</a>
+					<a
+						href="https://titude.app/explore/consult/cost"
+						target="_blank"
+						rel="noreferrer"
+						class="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--accent)] px-5 py-2.5 font-bold text-[var(--accent-ink)] transition-colors hover:bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]">
+						Try a Consult
+						<span class="sr-only">(opens in a new tab)</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</Fragment>
+</ProjectShell>
