@@ -1,0 +1,53 @@
+name: Astro migration formatter
+
+on:
+  push:
+    branches:
+      - feat/astro-migration
+
+permissions:
+  contents: write
+
+concurrency:
+  group: astro-migration-format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out migration branch
+        uses: actions/checkout@v6
+        with:
+          ref: feat/astro-migration
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.10.0
+          cache: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format migration files
+        run: pnpm exec prettier --write .
+
+      - name: Commit formatting when needed
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style: format Astro migration"
+          git push origin HEAD:feat/astro-migration
