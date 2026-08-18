@@ -23,7 +23,6 @@
 	];
 	const archive = archiveOrder.map((slug) => ({ slug, ...descriptions[slug] }));
 	type ArchiveProject = (typeof archive)[number];
-	let archiveOpen = $state(false);
 
 	type ProjectFact = {
 		label: string;
@@ -206,13 +205,14 @@
 			{/each}
 		</dl>
 		{#if archive.length > 3}
-			<details bind:open={archiveOpen} class="archive-disclosure border-b border-white/15">
+			<details class="archive-disclosure border-b border-white/15">
 				<summary
 					class="focus-visible:outline-accent text-neutral-content/65 hover:text-neutral-content flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-3 font-mono text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-					<span>{archiveOpen ? 'Hide' : 'Show'} {archive.length - 3} more retired builds</span>
-					<ChevronRightIcon
-						aria-hidden="true"
-						class={['size-4 shrink-0 transition-transform', archiveOpen && 'rotate-90']} />
+					<span>
+						<span class="archive-when-closed">Show</span><span class="archive-when-open">Hide</span>
+						{archive.length - 3} more retired builds
+					</span>
+					<ChevronRightIcon aria-hidden="true" class="archive-chevron size-4 shrink-0 transition-transform" />
 				</summary>
 				<dl>
 					{#each archive.slice(3) as a (a.slug)}
@@ -227,5 +227,21 @@
 <style>
 	.archive-disclosure summary::-webkit-details-marker {
 		display: none;
+	}
+
+	.archive-when-open {
+		display: none;
+	}
+
+	.archive-disclosure[open] .archive-when-closed {
+		display: none;
+	}
+
+	.archive-disclosure[open] .archive-when-open {
+		display: inline;
+	}
+
+	.archive-disclosure[open] :global(.archive-chevron) {
+		transform: rotate(90deg);
 	}
 </style>
