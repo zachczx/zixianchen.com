@@ -78,11 +78,15 @@ for (const redirect of [
 
 const sitemap = readFileSync(requireFile('sitemap.xml'), 'utf8');
 for (const slug of publishedSlugs) {
-	if (!sitemap.includes(`https://zixianchen.com/blog/${slug}`)) throw new Error(`Sitemap is missing published post: ${slug}`);
+	if (!sitemap.includes(`https://zixianchen.com/blog/${slug}`))
+		throw new Error(`Sitemap is missing published post: ${slug}`);
 }
-if (sitemap.includes('https://zixianchen.com/projects/rankamate')) throw new Error('Redirect-only route leaked into sitemap.');
+if (sitemap.includes('https://zixianchen.com/projects/rankamate'))
+	throw new Error('Redirect-only route leaked into sitemap.');
 if (sitemap.includes('https://zixianchen.com/projects/btonomics-wordpress')) {
 	throw new Error('Redirect-only route leaked into sitemap.');
 }
 
-console.log(`Static build validation passed: ${canonicalRoutes.length} canonical routes, ${publishedSlugs.length} published posts.`);
+console.log(
+	`Static build validation passed: ${canonicalRoutes.length} canonical routes, ${publishedSlugs.length} published posts.`,
+);

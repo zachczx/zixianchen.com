@@ -33,7 +33,8 @@ if (articleFiles.length === 0) throw new Error('No generated article files found
 for (const articleFile of articleFiles) {
 	const html = readFileSync(join(dist, 'blog', articleFile), 'utf8');
 	const count = (html.match(/<astro-island\b/g) ?? []).length;
-	if (count !== 0) throw new Error(`/blog/${articleFile.replace(/\.html$/, '')} unexpectedly hydrates ${count} islands.`);
+	if (count !== 0)
+		throw new Error(`/blog/${articleFile.replace(/\.html$/, '')} unexpectedly hydrates ${count} islands.`);
 }
 
 console.log(`Client-boundary validation passed: ${articleFiles.length} articles hydrate zero framework islands.`);
