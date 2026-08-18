@@ -386,8 +386,10 @@ const confusablesScreenshots = [
 					<div>
 						<dt>Application</dt>
 						<dd>
-							SvelteKit owns the web application and server rendering, talking to a separate Go API. Stable public pages
-							are prerendered, while interactive parts progressively enhance in the browser.
+							Lingo started as a Go/Templ application. As it grew, the template fragments became unwieldy, so I split the
+							web layer into SvelteKit and kept the domain and search logic behind a separate Go API. The migration
+							deliberately preserved the existing design and behaviour; stable public pages are prerendered, while
+							interactive parts progressively enhance in the browser.
 						</dd>
 					</div>
 					<div>
@@ -399,10 +401,7 @@ const confusablesScreenshots = [
 					</div>
 					<div>
 						<dt>Release</dt>
-						<dd>
-							A self-hosted GitHub Actions runner generates code, builds the app, runs Go and browser tests, lints, and
-							checks formatting. It synchronises the Meilisearch indexes before triggering the Coolify deployment.
-						</dd>
+						<dd>A typical self-hosted GitHub Actions runner handles CI.</dd>
 					</div>
 				</dl>
 			</div>
