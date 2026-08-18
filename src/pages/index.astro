@@ -290,19 +290,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		color: var(--color-base-content);
 	}
 
-	.job-row:hover .job-title {
-		background-size: 100% 100%;
-	}
-
 	.job-arrow {
 		transition: opacity 0.2s ease;
-	}
-
-	.job-title {
-		background-image: linear-gradient(var(--color-accent), var(--color-accent));
-		background-size: 0% 100%;
-		background-repeat: no-repeat;
-		background-position: left;
-		transition: background-size 0.25s ease;
 	}
 </style>
