@@ -37,4 +37,6 @@ for (const articleFile of articleFiles) {
 		throw new Error(`/blog/${articleFile.replace(/\.html$/, '')} unexpectedly hydrates ${count} islands.`);
 }
 
-console.log(`Client-boundary validation passed: key routes and ${articleFiles.length} articles hydrate zero framework islands.`);
+console.log(
+	`Client-boundary validation passed: key routes and ${articleFiles.length} articles hydrate zero framework islands.`,
+);

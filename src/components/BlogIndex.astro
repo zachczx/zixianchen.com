@@ -78,8 +78,9 @@ const filters = [
 							class:list={[
 								'min-w-5 rounded-sm px-1.5 py-0.5 text-center text-xs leading-none tabular-nums',
 								index === 0 ? 'bg-neutral/15 text-neutral/80' : 'bg-accent/20 text-base-content/75',
-							]}>{filter.count}</span
-						>
+							]}>
+							{filter.count}
+						</span>
 					</button>
 				))
 			}
@@ -103,7 +104,9 @@ const filters = [
 							<article class="grid gap-2">
 								<h2 class="text-xl font-bold sm:text-2xl">
 									<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
-										<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">{index + 1}.</span>
+										<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">
+											{index + 1}.
+										</span>
 										{post.title}
 									</span>
 								</h2>
@@ -111,13 +114,35 @@ const filters = [
 									<p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>
 								)}
 								<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
-									{post.category && <><span>{post.category}</span><span class="text-base-content/30">/</span></>}
-									{series && <><span>{series.title} · {series.position}/{series.total}</span><span class="text-base-content/30">/</span></>}
+									{post.category && (
+										<>
+											<span>{post.category}</span>
+											<span class="text-base-content/30">/</span>
+										</>
+									)}
+									{series && (
+										<>
+											<span>
+												{series.title} · {series.position}/{series.total}
+											</span>
+											<span class="text-base-content/30">/</span>
+										</>
+									)}
 									<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
-									{post.date_updated && <><span class="text-base-content/30">/</span><span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span></>}
+									{post.date_updated && (
+										<>
+											<span class="text-base-content/30">/</span>
+											<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
+										</>
+									)}
 								</div>
 								<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
-									{post.tags.map((tag, tagIndex) => <>{tagIndex > 0 && <span class="text-base-content/30">/</span>}<span>{tag}</span></>)}
+									{post.tags.map((tag, tagIndex) => (
+										<>
+											{tagIndex > 0 && <span class="text-base-content/30">/</span>}
+											<span>{tag}</span>
+										</>
+									))}
 								</div>
 							</article>
 						</a>
@@ -154,7 +179,10 @@ const filters = [
 			: new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
 	};
 	const escapeHtml = (value: string) =>
-		value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character] ?? character);
+		value.replace(
+			/[&<>'"]/g,
+			(character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character] ?? character,
+		);
 
 	for (const root of document.querySelectorAll<HTMLElement>('[data-blog-index]')) {
 		const input = root.querySelector<HTMLInputElement>('[data-blog-search]');
@@ -226,14 +254,19 @@ const filters = [
 			status.textContent = activeCategory ? `${visible} of ${total} listed posts` : `${total} listed posts`;
 		};
 
-		const loadingMarkup = () => [0, 1, 2].map((index) => `
+		const loadingMarkup = () =>
+			[0, 1, 2]
+				.map(
+					(index) => `
 			<div class="border-base-content/10 px-4 py-6 lg:px-6${index > 0 ? ' border-t' : ''}" aria-hidden="true">
 				<div class="grid gap-3 motion-safe:animate-pulse">
 					<div class="flex items-center gap-2"><div class="bg-base-content/10 h-5 w-6 shrink-0 rounded-sm"></div><div class="bg-base-content/10 h-6 rounded-sm ${index === 0 ? 'w-3/4' : index === 1 ? 'w-2/3' : 'w-4/5'}"></div></div>
 					<div class="grid max-w-2xl gap-2"><div class="bg-base-content/[0.07] h-4 w-full rounded-sm"></div><div class="bg-base-content/[0.07] h-4 rounded-sm ${index === 1 ? 'w-4/5' : 'w-3/5'}"></div></div>
 					<div class="flex items-center gap-2"><div class="bg-base-content/[0.07] h-3.5 w-14 rounded-sm"></div><div class="bg-base-content/[0.07] h-3.5 w-20 rounded-sm"></div></div>
 				</div>
-			</div>`).join('');
+			</div>`,
+				)
+				.join('');
 
 		const loadPagefind = () => {
 			if (!pagefindPromise) {
@@ -252,13 +285,21 @@ const filters = [
 				searchResults.innerHTML = `<div class="px-4 py-10 text-center lg:px-6"><p class="text-lg font-bold">Nothing matched “${escapeHtml(query.trim())}”.</p><p class="text-base-content/60 mt-2 text-sm">Try fewer words, another category, or browse the full list.</p><button data-search-empty-clear type="button" class="decoration-accent hover:text-accent focus-visible:outline-accent mt-4 cursor-pointer font-semibold underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Show every post</button></div>`;
 				return;
 			}
-			searchResults.innerHTML = results.map((result, index) => {
-				const category = result.meta.category ?? '';
-				const date = result.meta.date ?? '';
-				const meta = [category ? `<span>${escapeHtml(category)}</span>` : '', category && date ? '<span class="text-base-content/30">/</span>' : '', date ? `<span class="uppercase">${escapeHtml(formatDate(date))}</span>` : ''].join('');
-				const tags = result.meta.tags ? `<div class="text-base-content/50 font-mono text-sm">${escapeHtml(result.meta.tags)}</div>` : '';
-				return `<a href="${escapeHtml(result.url)}" class="group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6${index > 0 ? ' border-t' : ''}"><article class="grid gap-2"><h2 class="text-xl font-bold sm:text-2xl"><span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline"><span class="text-base-content/55 font-mono text-[0.85em]">${index + 1}.</span>${escapeHtml(result.meta.title ?? '')}</span></h2><p class="search-excerpt text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">${result.excerpt}</p><div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">${meta}</div>${tags}</article></a>`;
-			}).join('');
+			searchResults.innerHTML = results
+				.map((result, index) => {
+					const category = result.meta.category ?? '';
+					const date = result.meta.date ?? '';
+					const meta = [
+						category ? `<span>${escapeHtml(category)}</span>` : '',
+						category && date ? '<span class="text-base-content/30">/</span>' : '',
+						date ? `<span class="uppercase">${escapeHtml(formatDate(date))}</span>` : '',
+					].join('');
+					const tags = result.meta.tags
+						? `<div class="text-base-content/50 font-mono text-sm">${escapeHtml(result.meta.tags)}</div>`
+						: '';
+					return `<a href="${escapeHtml(result.url)}" class="group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6${index > 0 ? ' border-t' : ''}"><article class="grid gap-2"><h2 class="text-xl font-bold sm:text-2xl"><span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline"><span class="text-base-content/55 font-mono text-[0.85em]">${index + 1}.</span>${escapeHtml(result.meta.title ?? '')}</span></h2><p class="search-excerpt text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">${result.excerpt}</p><div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">${meta}</div>${tags}</article></a>`;
+				})
+				.join('');
 		};
 
 		const runSearch = async () => {
@@ -277,7 +318,10 @@ const filters = [
 			status.textContent = 'Searching the archive…';
 			try {
 				const pagefind = await loadPagefind();
-				const response = await pagefind.debouncedSearch(searchQuery, activeCategory ? { filters: { category: activeCategory } } : undefined);
+				const response = await pagefind.debouncedSearch(
+					searchQuery,
+					activeCategory ? { filters: { category: activeCategory } } : undefined,
+				);
 				if (!response || request !== searchRequest) return;
 				const results = await Promise.all(response.results.map((result) => result.data()));
 				if (request !== searchRequest) return;
