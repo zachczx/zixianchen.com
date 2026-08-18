@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogShell from '../../../layouts/BlogShell.astro';
+import UnlistedPosts from '../../../routes/blog/unlisted/+page.svelte';
+
+const posts = (await getCollection('blog', ({ data }) => data.published && data.listed === false))
+	.map(({ data }) => data)
+	.sort((first, second) => new Date(second.date).getTime() - new Date(first.date).getTime());
+---
+
+<BaseLayout
+	title="Unlisted Posts — Zixian's Blog"
+	description="Published posts kept outside the main blog index."
+	pathname="/blog/unlisted"
+	noindex
+	theme="dark">
+	<BlogShell pathName={Astro.url.pathname}>
+		<UnlistedPosts data={{ posts }} />
+	</BlogShell>
+</BaseLayout>

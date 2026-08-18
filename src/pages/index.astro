@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomePage from '../routes/+page.svelte';
+
+const posts = (await getCollection('blog', ({ data }) => data.published && data.listed !== false))
+	.map(({ data }) => data)
+	.sort((first, second) => new Date(second.date).getTime() - new Date(first.date).getTime())
+	.slice(0, 3);
+---
+
+<BaseLayout
+	title="Zixian Chen | Public-Sector Tech by Day, Questionable Side Projects by Night"
+	description="Public-sector tech by day, questionable side projects by night. Zixian Chen builds useful things, writes about what went wrong, and occasionally codes by hand."
+	pathname="/">
+	<HomePage client:load data={{ posts }} />
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DizzyCrayonPortrait from '$lib/assets/crayon-drawing-dizzy.webp';
+---
+
+<BaseLayout title="404 | Zixian Chen" description="This page isn't here." pathname="/404" noindex>
+	<main class="bg-base-200 grid min-h-dvh place-items-center px-4 py-16">
+		<div class="grid w-full max-w-3xl justify-items-center gap-8 text-center sm:grid-cols-[13.5rem_minmax(0,1fr)] sm:items-center sm:gap-12 sm:text-left">
+			<div class="border-base-content/15 bg-base-100 -rotate-2 border p-2 shadow-[0_14px_35px_rgba(0,0,0,0.12)]">
+				<Image
+					src={DizzyCrayonPortrait}
+					alt="Crayon portrait of Zixian looking dizzy and saying ‘Wrong page!’"
+					class="aspect-[0.89] w-44 object-cover sm:w-52" />
+			</div>
+			<div class="grid justify-items-center gap-4 sm:justify-items-start">
+				<h1 class="text-[clamp(6rem,18vw,10rem)] leading-none font-extrabold tracking-tight">404</h1>
+				<p class="max-w-lg text-xl font-semibold text-balance sm:text-2xl">This page isn’t here. The useful things still are.</p>
+				<nav aria-label="Error recovery" class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-sm sm:justify-start">
+					<a href="/" class="decoration-accent hover:text-base-content focus-visible:outline-accent text-base-content/70 inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">Go home</a>
+					<a href="/#projects" class="decoration-accent hover:text-base-content focus-visible:outline-accent text-base-content/70 inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">See projects</a>
+					<a href="/blog" class="decoration-accent hover:text-base-content focus-visible:outline-accent text-base-content/70 inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">Read the blog</a>
+				</nav>
+			</div>
+		</div>
+	</main>
+</BaseLayout>

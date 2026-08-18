@@ -1,5 +1,6 @@
 import prettier from 'eslint-config-prettier';
 import js from '@eslint/js';
+import astro from 'eslint-plugin-astro';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import ts from 'typescript-eslint';
@@ -11,6 +12,8 @@ export default defineConfig(
 			'.DS_Store',
 			'node_modules/**',
 			'build/**',
+			'dist/**',
+			'.astro/**',
 			'static/pagefind/**',
 			'.svelte-kit/**',
 			'package/**',
@@ -24,6 +27,7 @@ export default defineConfig(
 	},
 	js.configs.recommended,
 	...ts.configs.recommended,
+	...astro.configs.recommended,
 	...svelte.configs.recommended,
 	prettier,
 	...svelte.configs.prettier,

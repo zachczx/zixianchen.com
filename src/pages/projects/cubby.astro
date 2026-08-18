@@ -1,0 +1,9 @@
+---
+import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
+import ProjectPage from '../../routes/projects/cubby/+page.svelte';
+import { descriptions } from '$lib/ProjectDescriptions';
+const project = descriptions.cubby;
+---
+<ProjectPageLayout name={project.name} slug="cubby" description={project.tldr ?? project.subtitle}>
+	<ProjectPage />
+</ProjectPageLayout>

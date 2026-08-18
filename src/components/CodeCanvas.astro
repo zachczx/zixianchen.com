@@ -1,0 +1,26 @@
+---
+interface Props {
+	animated?: boolean;
+	class?: string;
+}
+
+const { animated = true, class: className = '' } = Astro.props;
+---
+
+<canvas data-code-canvas data-animated={animated ? 'true' : 'false'} aria-hidden="true" class={`block h-full w-full ${className}`}></canvas>
+
+<script>
+	import { codeCanvas } from '$lib/codeCanvas';
+
+	for (const canvas of document.querySelectorAll<HTMLCanvasElement>('canvas[data-code-canvas]')) {
+		if (canvas.dataset.initialized === 'true') continue;
+		canvas.dataset.initialized = 'true';
+		codeCanvas({ animated: canvas.dataset.animated === 'true' })(canvas);
+	}
+</script>
+
+<style>
+	canvas {
+		color: var(--color-primary-content);
+	}
+</style>

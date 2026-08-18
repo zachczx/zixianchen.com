@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import NavDock from '$lib/NavDock.svelte';
 
-	let { navCurrent }: { navCurrent: string } = $props();
+	let { navCurrent, pathName = '/' }: { navCurrent: string; pathName?: string } = $props();
 
 	type ActiveRule =
 		| { type: 'hash'; key: string }
@@ -20,15 +19,15 @@
 
 	function isActive(rule: ActiveRule): boolean {
 		if (rule.type === 'hash') return navCurrent === rule.key;
-		if (rule.type === 'path') return page.url.pathname === rule.key;
-		if (rule.type === 'prefixOrHash') return page.url.pathname.startsWith(rule.key) || navCurrent === rule.hash;
-		return page.url.pathname.startsWith(rule.key);
+		if (rule.type === 'path') return pathName === rule.key;
+		if (rule.type === 'prefixOrHash') return pathName.startsWith(rule.key) || navCurrent === rule.hash;
+		return pathName.startsWith(rule.key);
 	}
 
 	function ariaCurrent(rule: ActiveRule, active: boolean): 'location' | 'page' | undefined {
 		if (!active) return undefined;
 		if (rule.type === 'hash') return 'location';
-		if (rule.type === 'prefixOrHash' && !page.url.pathname.startsWith(rule.key)) return 'location';
+		if (rule.type === 'prefixOrHash' && !pathName.startsWith(rule.key)) return 'location';
 		return 'page';
 	}
 </script>
@@ -39,7 +38,7 @@
 	<div
 		style="view-transition-name: navdock;"
 		class="hidden h-20 w-fit min-w-120 items-center justify-center justify-self-center rounded border border-gray-400 bg-gray-900 px-2 shadow-sm backdrop-blur-md transition-all duration-300 ease-out xl:relative xl:flex">
-		<NavDock {navCurrent} pathName={page.url.pathname} />
+		<NavDock {navCurrent} {pathName} />
 	</div>
 </nav>
 

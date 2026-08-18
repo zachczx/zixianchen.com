@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogShell from '../../layouts/BlogShell.astro';
+import BlogIndex from '../../routes/blog/+page.svelte';
+
+const posts = (await getCollection('blog', ({ data }) => data.published && data.listed !== false))
+	.map(({ data }) => data)
+	.sort((first, second) => new Date(second.date).getTime() - new Date(first.date).getTime());
+---
+
+<BaseLayout
+	title="Zixian's Blog"
+	description="Zixian's blog on web dev, javascript, or random stuff."
+	pathname="/blog"
+	theme="dark">
+	<BlogShell pathName={Astro.url.pathname}>
+		<BlogIndex client:load data={{ posts }} />
+	</BlogShell>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
+import ProjectPage from '../../routes/projects/lingo/+page.svelte';
+import { descriptions } from '$lib/ProjectDescriptions';
+const project = descriptions.lingo;
+---
+<ProjectPageLayout name={project.name} slug="lingo" description={project.tldr ?? project.subtitle}>
+	<ProjectPage client:load />
+</ProjectPageLayout>
