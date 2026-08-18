@@ -1,0 +1,64 @@
+name: Astro migration JS audit
+
+on:
+  push:
+    branches:
+      - feat/astro-migration
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astro-js-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out migration branch
+        uses: actions/checkout@v6
+        with:
+          ref: feat/astro-migration
+          path: current
+
+      - name: Check out baseline main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: baseline
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.10.0
+          cache: false
+
+      - name: Build SvelteKit baseline
+        working-directory: baseline
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Build Astro migration
+        working-directory: current
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Measure initial client JavaScript
+        run: |
+          ROUTES='/,/blog,/blog/so-you-want-bigger-job,/contact,/projects/apptitude,/projects/lingo'
+          echo '## SvelteKit baseline'
+          node current/scripts/audit-js.mjs --label SvelteKit --root baseline/build --routes "$ROUTES"
+          echo
+          echo '## Astro migration'
+          node current/scripts/audit-js.mjs --label Astro --root current/dist --routes "$ROUTES"

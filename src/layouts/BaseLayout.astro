@@ -1,0 +1,85 @@
+---
+import '../app.css';
+
+interface Props {
+	title: string;
+	description: string;
+	pathname?: string;
+	type?: 'website' | 'article';
+	image?: string;
+	imageAlt?: string;
+	noindex?: boolean;
+	publishedTime?: string;
+	modifiedTime?: string;
+	structuredData?: Record<string, unknown> | Record<string, unknown>[];
+	theme?: 'light' | 'dark';
+}
+
+const {
+	title,
+	description,
+	pathname = Astro.url.pathname,
+	type = 'website',
+	image = '/android-chrome-512x512.png',
+	imageAlt = 'Zixian Chen',
+	noindex = false,
+	publishedTime,
+	modifiedTime,
+	structuredData,
+	theme = 'light',
+} = Astro.props;
+
+const origin = 'https://zixianchen.com';
+const canonicalPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+const canonicalUrl = `${origin}${canonicalPath}`;
+const imageUrl = new URL(image, origin).href;
+const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, '\\u003c') : undefined;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth" data-theme={theme === 'dark' ? undefined : theme}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Zixian Chen" />
+		<link rel="icon" href="/favicon-32x32.png" />
+		<link rel="alternate" type="application/rss+xml" title="Zixian Chen - Blog" href="/rss.xml" />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Zixian Chen" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
+		<meta property="og:image:alt" content={imageAlt} />
+		<meta name="twitter:card" content="summary" />
+
+		{noindex && <meta name="robots" content="noindex" />}
+		{type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+		{type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+		{jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
+
+		<script
+			is:inline
+			defer
+			src="https://u.zixianchen.com/x.js"
+			data-domains="zixianchen.com,www.zixianchen.com"
+			data-website-id="ef19138a-9e91-439e-a8d3-f680bf424ab7"></script>
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	@view-transition {
+		navigation: auto;
+	}
+</style>

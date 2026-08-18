@@ -1,9 +1,10 @@
-import type { Attachment } from 'svelte/attachments';
 import { codeSnippets } from '$lib/codeSnippets';
 
 interface CodeCanvasOptions {
 	animated: boolean;
 }
+
+type CodeCanvasAttachment = (canvas: HTMLCanvasElement) => void | (() => void);
 
 const snippets = codeSnippets.filter(Boolean);
 const staticText = snippets.join(' ');
@@ -17,7 +18,7 @@ function shuffledText() {
 	return shuffled.join(' ');
 }
 
-export function codeCanvas({ animated }: CodeCanvasOptions): Attachment<HTMLCanvasElement> {
+export function codeCanvas({ animated }: CodeCanvasOptions): CodeCanvasAttachment {
 	return (canvas) => {
 		const context = canvas.getContext('2d');
 		if (!context) return;

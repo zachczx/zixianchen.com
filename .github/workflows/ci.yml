@@ -41,14 +41,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check Svelte and TypeScript
+      - name: Check Astro and TypeScript
         run: pnpm check
 
       - name: Check formatting and linting
         run: pnpm lint
 
-      - name: Build site
-        run: pnpm exec vite build
+      - name: Build static site and Pagefind index
+        run: pnpm build
 
-      - name: Build search index
-        run: pnpm exec pagefind --site build
+      - name: Validate Workers static assets config
+        run: pnpm exec wrangler deploy --dry-run

@@ -1,0 +1,125 @@
+---
+import Nav from '../components/Nav.astro';
+import CodeCanvas from '../components/CodeCanvas.astro';
+
+interface Props {
+	pathName: string;
+}
+
+const { pathName } = Astro.props;
+---
+
+<div
+	id="blog-shell"
+	data-theme="dark"
+	class="blog-shell bg-base-200 text-base-content relative flex w-full flex-col items-center justify-center overflow-hidden transition-colors">
+	<script is:inline>
+		(() => {
+			const shell = document.currentScript?.parentElement;
+			const savedTheme = localStorage.getItem('blog-theme');
+			if (shell && (savedTheme === 'light' || savedTheme === 'dark')) shell.dataset.theme = savedTheme;
+		})();
+	</script>
+	<div id="container" class="z-10 grid min-h-dvh w-full max-w-3xl grid-cols-[minmax(0,1fr)] py-6">
+		<div class="w-full min-w-0">
+			<button
+				id="blog-theme-toggle"
+				type="button"
+				class="border-base-content/20 bg-base-100/80 text-base-content hover:bg-base-300 focus-visible:outline-accent absolute top-4 right-4 z-20 grid size-10 cursor-pointer place-items-center rounded-full border backdrop-blur transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:top-6 sm:right-6"
+				aria-label="Switch blog to light mode"
+				title="Switch to light mode">
+				<svg
+					data-theme-icon="light"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-5"
+					aria-hidden="true">
+					<circle cx="12" cy="12" r="4"></circle><path
+						d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+					></path>
+				</svg>
+				<svg
+					data-theme-icon="dark"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="hidden size-5"
+					aria-hidden="true">
+					<path
+						d="M20.985 12.486A9 9 0 1 1 11.514 3.015c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.801.4"
+					></path>
+				</svg>
+			</button>
+			<a
+				href="/"
+				class="flex justify-center pt-8 pb-12 transition-opacity hover:opacity-80"
+				aria-label="Zixian Chen — Home">
+				<div
+					class="code-z size-16 overflow-hidden bg-slate-900 lg:size-20"
+					style="view-transition-name: logo"
+					aria-hidden="true">
+					<CodeCanvas animated={false} />
+				</div>
+			</a>
+			<main><slot /></main>
+		</div>
+		<div class="mt-auto pt-10 pb-20 text-center text-xs md:text-sm xl:pb-28">© Zixian Chen</div>
+	</div>
+</div>
+
+<Nav navCurrent="" {pathName} />
+
+<script>
+	const shell = document.querySelector<HTMLElement>('#blog-shell');
+	const button = document.querySelector<HTMLButtonElement>('#blog-theme-toggle');
+	if (button && shell) {
+		const lightIcon = button.querySelector<SVGElement>('[data-theme-icon="light"]');
+		const darkIcon = button.querySelector<SVGElement>('[data-theme-icon="dark"]');
+
+		const syncButton = () => {
+			const theme = shell.dataset.theme === 'light' ? 'light' : 'dark';
+			lightIcon?.classList.toggle('hidden', theme !== 'dark');
+			darkIcon?.classList.toggle('hidden', theme !== 'light');
+			button.setAttribute('aria-label', theme === 'dark' ? 'Switch blog to light mode' : 'Switch blog to dark mode');
+			button.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+		};
+
+		syncButton();
+		button.addEventListener('click', () => {
+			const theme = shell.dataset.theme === 'dark' ? 'light' : 'dark';
+			shell.dataset.theme = theme;
+			localStorage.setItem('blog-theme', theme);
+			syncButton();
+		});
+	}
+</script>
+
+<style>
+	.code-z {
+		clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 25% 80%, 100% 80%, 100% 100%, 0% 100%, 0% 80%, 75% 20%, 0% 20%);
+	}
+
+	.blog-shell :global(.blog-prose) {
+		--tw-prose-body: var(--color-base-content);
+		--tw-prose-headings: var(--color-base-content);
+		--tw-prose-lead: color-mix(in oklab, var(--color-base-content) 80%, transparent);
+		--tw-prose-links: var(--color-base-content);
+		--tw-prose-bold: var(--color-base-content);
+		--tw-prose-counters: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+		--tw-prose-bullets: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+		--tw-prose-hr: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+		--tw-prose-quotes: color-mix(in oklab, var(--color-base-content) 80%, transparent);
+		--tw-prose-quote-borders: color-mix(in oklab, var(--color-base-content) 30%, transparent);
+		--tw-prose-captions: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+		--tw-prose-code: var(--color-base-content);
+	}
+</style>

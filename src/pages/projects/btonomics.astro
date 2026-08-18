@@ -1,0 +1,10 @@
+---
+import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
+import ProjectPage from '../../components/projects/Btonomics.astro';
+import { descriptions } from '$lib/ProjectDescriptions';
+const project = descriptions.btonomics;
+---
+
+<ProjectPageLayout name={project.name} slug="btonomics" description={project.tldr ?? project.subtitle}>
+	<ProjectPage />
+</ProjectPageLayout>

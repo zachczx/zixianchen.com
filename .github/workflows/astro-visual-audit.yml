@@ -1,0 +1,135 @@
+name: Astro migration visual audit
+
+on:
+  push:
+    branches:
+      - feat/astro-migration
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astro-visual-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Check out migration branch
+        uses: actions/checkout@v6
+        with:
+          ref: feat/astro-migration
+          path: current
+
+      - name: Check out baseline main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: baseline
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.10.0
+          cache: false
+
+      - name: Build baseline and migration
+        run: |
+          (cd baseline && pnpm install --frozen-lockfile && pnpm build)
+          (cd current && pnpm install --frozen-lockfile && pnpm build)
+
+      - name: Start preview servers
+        shell: bash
+        run: |
+          (cd baseline && pnpm exec vite preview --host 127.0.0.1 --port 4173 > /tmp/baseline-preview.log 2>&1 &)
+          (cd current && pnpm exec astro preview --host 127.0.0.1 --port 4174 > /tmp/current-preview.log 2>&1 &)
+          for port in 4173 4174; do
+            for attempt in $(seq 1 60); do
+              if curl -fsS "http://127.0.0.1:${port}/" >/dev/null; then break; fi
+              sleep 1
+            done
+            curl -fsS "http://127.0.0.1:${port}/" >/dev/null
+          done
+
+      - name: Capture representative screenshots
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          test -n "$CHROME"
+          mkdir -p screenshots/baseline screenshots/astro
+          declare -A ROUTES=(
+            [home]="/"
+            [blog]="/blog"
+            [article]="/blog/so-you-want-bigger-job"
+            [contact]="/contact"
+            [apptitude]="/projects/apptitude"
+            [lingo]="/projects/lingo"
+          )
+          for viewport in 390x844 768x1024 1440x1000; do
+            width="${viewport%x*}"
+            height="${viewport#*x}"
+            for name in home blog article contact apptitude lingo; do
+              route="${ROUTES[$name]}"
+              for target in baseline astro; do
+                port=4173
+                if [ "$target" = astro ]; then port=4174; fi
+                "$CHROME" \
+                  --headless=new \
+                  --no-sandbox \
+                  --disable-gpu \
+                  --hide-scrollbars \
+                  --force-device-scale-factor=1 \
+                  --force-prefers-reduced-motion=reduce \
+                  --run-all-compositor-stages-before-draw \
+                  --virtual-time-budget=3000 \
+                  --window-size="${width},${height}" \
+                  --screenshot="screenshots/${target}/${name}-${viewport}.png" \
+                  "http://127.0.0.1:${port}${route}"
+              done
+            done
+          done
+
+      - name: Compare screenshots
+        shell: bash
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageChops, ImageStat
+
+          rows = []
+          for baseline in sorted(Path('screenshots/baseline').glob('*.png')):
+              current = Path('screenshots/astro') / baseline.name
+              a = Image.open(baseline).convert('RGB')
+              b = Image.open(current).convert('RGB')
+              if a.size != b.size:
+                  rows.append((baseline.name, 'size-mismatch', a.size, b.size))
+                  continue
+              diff = ImageChops.difference(a, b)
+              mean = sum(ImageStat.Stat(diff).mean) / 3 / 255 * 100
+              changed = sum(1 for pixel in diff.getdata() if max(pixel) > 16) / (a.width * a.height) * 100
+              rows.append((baseline.name, f'{mean:.3f}%', f'{changed:.3f}%', f'{a.width}x{a.height}'))
+
+          print('Screenshot\tMean channel diff\tPixels >16 diff\tSize')
+          for row in rows:
+              print('\t'.join(map(str, row)))
+          Path('screenshots/visual-diff.tsv').write_text(
+              'Screenshot\tMean channel diff\tPixels >16 diff\tSize\n' + '\n'.join('\t'.join(map(str, row)) for row in rows) + '\n'
+          )
+          PY
+
+      - name: Upload visual audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-migration-visual-audit
+          path: screenshots
+          if-no-files-found: error

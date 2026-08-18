@@ -1,0 +1,10 @@
+---
+import ProjectPageLayout from '../../layouts/ProjectPageLayout.astro';
+import ProjectPage from '../../components/projects/Apptitude.astro';
+import { descriptions } from '$lib/ProjectDescriptions';
+const project = descriptions.apptitude;
+---
+
+<ProjectPageLayout name={project.name} slug="apptitude" description={project.tldr ?? project.subtitle}>
+	<ProjectPage />
+</ProjectPageLayout>
