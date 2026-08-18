@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /blog/unlisted
 
-Sitemap: https://zixianchen.com/sitemap.xml
+Sitemap: https://zixianchen.com/sitemap-index.xml

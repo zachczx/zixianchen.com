@@ -1,8 +1,8 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { readBlogPosts } from './blog-metadata.mjs';
 
 const dist = resolve('dist');
-const postsDirectory = resolve('src/routes/blog/posts');
 
 function requireFile(relativePath) {
 	const fullPath = join(dist, relativePath);
@@ -13,22 +13,6 @@ function requireFile(relativePath) {
 function generatedHtmlForRoute(route) {
 	if (route === '/') return 'index.html';
 	return `${route.replace(/^\//, '')}.html`;
-}
-
-function readFrontmatter(filePath) {
-	const source = readFileSync(filePath, 'utf8');
-	const match = source.match(/^---\s*\n([\s\S]*?)\n---/);
-	if (!match) return {};
-	const frontmatter = match[1];
-	const get = (key) => {
-		const field = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
-		return field?.[1]?.trim().replace(/^['"]|['"]$/g, '');
-	};
-	return {
-		slug: get('slug'),
-		published: get('published') === 'true',
-		listed: get('listed') !== 'false',
-	};
 }
 
 const canonicalRoutes = [
@@ -42,11 +26,18 @@ const canonicalRoutes = [
 ];
 
 for (const route of canonicalRoutes) requireFile(generatedHtmlForRoute(route));
-for (const file of ['404.html', 'rss.xml', 'sitemap.xml', '_redirects', 'pagefind/pagefind.js']) requireFile(file);
+for (const file of [
+	'404.html',
+	'rss.xml',
+	'sitemap-index.xml',
+	'sitemap-0.xml',
+	'_redirects',
+	'pagefind/pagefind.js',
+]) {
+	requireFile(file);
+}
 
-const posts = readdirSync(postsDirectory)
-	.filter((name) => name.endsWith('.md'))
-	.map((name) => readFrontmatter(join(postsDirectory, name)));
+const posts = readBlogPosts();
 const publishedPosts = posts.filter((post) => post.published && post.slug);
 const listedPublishedPosts = publishedPosts.filter((post) => post.listed);
 const publishedSlugs = publishedPosts.map((post) => post.slug);
@@ -71,17 +62,32 @@ if (sampleCanonical !== `https://zixianchen.com${sampleArticle}`) {
 
 const redirects = readFileSync(requireFile('_redirects'), 'utf8');
 for (const redirect of [
+	'/sitemap.xml /sitemap-index.xml 301',
 	'/projects/btonomics-wordpress /projects/btonomics 307',
 	'/projects/rankamate /#projects 307',
 ]) {
 	if (!redirects.includes(redirect)) throw new Error(`Missing redirect: ${redirect}`);
 }
 
-const sitemap = readFileSync(requireFile('sitemap.xml'), 'utf8');
+const sitemapIndex = readFileSync(requireFile('sitemap-index.xml'), 'utf8');
+if (!sitemapIndex.includes('https://zixianchen.com/sitemap-0.xml')) {
+	throw new Error('Sitemap index is missing the generated sitemap.');
+}
+
+const sitemap = readFileSync(requireFile('sitemap-0.xml'), 'utf8');
 for (const post of listedPublishedPosts) {
-	if (!sitemap.includes(`https://zixianchen.com/blog/${post.slug}`)) {
+	const url = `https://zixianchen.com/blog/${post.slug}`;
+	const entry = sitemap.match(new RegExp(`<url>\\s*<loc>${url}</loc>[\\s\\S]*?</url>`))?.[0];
+	if (!entry) {
 		throw new Error(`Sitemap is missing listed published post: ${post.slug}`);
 	}
+	const expectedLastModified = new Date(`${post.dateUpdated || post.date}T00:00:00.000Z`).toISOString();
+	if (!entry.includes(`<lastmod>${expectedLastModified}</lastmod>`)) {
+		throw new Error(`Sitemap has an unexpected lastmod for ${post.slug}; expected ${expectedLastModified}`);
+	}
+}
+if (sitemap.includes('https://zixianchen.com/blog/unlisted')) {
+	throw new Error('Unlisted blog index leaked into sitemap.');
 }
 for (const post of publishedPosts.filter((post) => !post.listed)) {
 	if (sitemap.includes(`https://zixianchen.com/blog/${post.slug}`)) {
