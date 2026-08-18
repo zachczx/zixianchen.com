@@ -113,7 +113,7 @@ const mobileLinks = links.slice(0, 5);
 				const active = isActive(link.active);
 				return (
 					<a
-						href={link.mobileHref ?? link.href}
+						href={'mobileHref' in link ? link.mobileHref : link.href}
 						aria-current={ariaCurrent(link.active, active)}
 						data-nav-link
 						data-nav-kind="mobile"
