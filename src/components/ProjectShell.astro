@@ -74,7 +74,9 @@ const hasOutro = Astro.slots.has('outro');
 						</a>
 					)}
 				</div>
-				<div class="min-w-0"><slot name="hero" /></div>
+				<div class="min-w-0">
+					<slot name="hero" />
+				</div>
 			</header>
 		) : (
 			<>
@@ -123,9 +125,7 @@ const hasOutro = Astro.slots.has('outro');
 						<dl class="mt-4 max-w-md">
 							{stack.map((row) => (
 								<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
-									<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">
-										{row.role}
-									</dt>
+									<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
 									<dd class="text-base-content/85 text-sm">{row.tools}</dd>
 								</div>
 							))}

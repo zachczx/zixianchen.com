@@ -79,10 +79,19 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 	aria-labelledby={`${id}-dialog-title`}
 	class="m-auto max-h-[96vh] w-[min(96vw,96rem)] max-w-none overflow-hidden rounded-none bg-neutral-950 p-0 text-white ring-1 ring-white/20">
 	<div class="flex items-center gap-3 border-b border-white/15 px-3 py-2 sm:px-4">
-		<p id={`${id}-dialog-title`} data-gallery-title class="min-w-0 flex-1 truncate text-sm leading-normal font-semibold">
+		<p
+			id={`${id}-dialog-title`}
+			data-gallery-title
+			class="min-w-0 flex-1 truncate text-sm leading-normal font-semibold">
 			{images[0]?.caption}
 		</p>
-		{images.length > 1 && <span data-gallery-count class="text-xs text-white/60">1 of {images.length}</span>}
+		{
+			images.length > 1 && (
+				<span data-gallery-count class="text-xs text-white/60">
+					1 of {images.length}
+				</span>
+			)
+		}
 		<form method="dialog">
 			<button
 				type="submit"
@@ -96,7 +105,11 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 	<div class="relative grid max-h-[calc(96vh-3.6rem)] place-items-center overflow-auto bg-neutral-900">
 		{
 			images.map((image, index) => (
-				<div data-gallery-slide data-gallery-index={index} class:list={{ hidden: index !== 0 }} aria-hidden={index !== 0}>
+				<div
+					data-gallery-slide
+					data-gallery-index={index}
+					class:list={{ hidden: index !== 0 }}
+					aria-hidden={index !== 0}>
 					<Image
 						src={image.full}
 						alt={image.alt}
