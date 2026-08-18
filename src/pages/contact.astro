@@ -11,11 +11,15 @@ import WebsiteFooter from '$lib/WebsiteFooter.svelte';
 			<section class="space-y-4 px-3 pb-2 xl:grid xl:min-w-[40rem]">
 				<div class="rounded-3xl p-4 xl:min-w-[35rem]">
 					<h1 class="mb-12 text-4xl font-bold lg:text-6xl">Tell Me Something</h1>
-					<p class="text-base-content/65 -mt-8 mb-10 max-w-xl leading-relaxed">Send a note, question, or project lead.</p>
+					<p class="text-base-content/65 -mt-8 mb-10 max-w-xl leading-relaxed">
+						Send a note, question, or project lead.
+					</p>
 					<form id="contact-form" class="grid w-full gap-y-4">
 						<input type="hidden" name="access_key" value="f29b8ecc-f01d-45b0-bb55-72005ec3975a" />
 						<div class="grid gap-1.5">
-							<label for="contact-name" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase">Name</label>
+							<label for="contact-name" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase"
+								>Name</label
+							>
 							<div class="input input-lg input-bordered flex w-full items-center gap-2">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -37,11 +41,14 @@ import WebsiteFooter from '$lib/WebsiteFooter.svelte';
 									name="name"
 									placeholder="Your name"
 									autocomplete="name"
-									required />
+									required
+								/>
 							</div>
 						</div>
 						<div class="grid gap-1.5">
-							<label for="contact-email" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase">Email</label>
+							<label for="contact-email" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase"
+								>Email</label
+							>
 							<div class="input input-lg input-bordered flex w-full items-center gap-2">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -63,11 +70,14 @@ import WebsiteFooter from '$lib/WebsiteFooter.svelte';
 									class="grow"
 									placeholder="you@example.com"
 									autocomplete="email"
-									required />
+									required
+								/>
 							</div>
 						</div>
 						<div class="grid gap-1.5">
-							<label for="contact-message" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase">Message</label>
+							<label for="contact-message" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase"
+								>Message</label
+							>
 							<textarea
 								id="contact-message"
 								name="message"
@@ -114,12 +124,18 @@ import WebsiteFooter from '$lib/WebsiteFooter.svelte';
 									stroke-linejoin="round"
 									class="me-1 mb-1 inline size-4"
 									aria-hidden="true">
-									<circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line>
+									<circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line
+										x1="12"
+										x2="12.01"
+										y1="16"
+										y2="16"></line>
 								</svg>
 								That didn’t go through. Try again, or
 								<a
 									href="https://www.linkedin.com/in/zixianchen/"
-									class="focus-visible:outline-accent font-semibold underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2">message me on LinkedIn</a>.
+									class="focus-visible:outline-accent font-semibold underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+									>message me on LinkedIn</a
+								>.
 							</p>
 						</div>
 					</form>
