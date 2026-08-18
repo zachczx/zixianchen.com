@@ -27,7 +27,7 @@ jobs:
         with:
           version: 11.10.0
           cache: false
-      - name: Remove dependency residue
+      - name: Remove migration dependency residue
         shell: bash
         run: |
           python3 - <<'PY'
@@ -38,16 +38,19 @@ jobs:
           path.write_text(text)
           PY
           rm -f src/lib/utils.ts
+          rm -f components.json
+          rm -f .github/workflows/refresh-astro-lockfile.yml
+          rm -f .github/workflows/finish-astro-dependency-cleanup.yml
       - name: Refresh lockfile
         run: pnpm install --lockfile-only
       - name: Commit cleanup if changed
         shell: bash
         run: |
-          git add -A src/app.css src/lib/utils.ts pnpm-lock.yaml
+          git add -A src/app.css src/lib/utils.ts components.json pnpm-lock.yaml .github/workflows/refresh-astro-lockfile.yml .github/workflows/finish-astro-dependency-cleanup.yml
           if git diff --cached --quiet; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: finish dependency cleanup"
+          git commit -m "chore: remove migration dependency residue"
           git push
