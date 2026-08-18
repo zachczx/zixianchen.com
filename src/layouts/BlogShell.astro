@@ -9,15 +9,17 @@ interface Props {
 const { pathName } = Astro.props;
 ---
 
-<script is:inline>
-	(() => {
-		const savedTheme = localStorage.getItem('blog-theme');
-		if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
-	})();
-</script>
-
 <div
+	id="blog-shell"
+	data-theme="dark"
 	class="blog-shell bg-base-200 text-base-content relative flex w-full flex-col items-center justify-center overflow-hidden transition-colors">
+	<script is:inline>
+		(() => {
+			const shell = document.currentScript?.parentElement;
+			const savedTheme = localStorage.getItem('blog-theme');
+			if (shell && (savedTheme === 'light' || savedTheme === 'dark')) shell.dataset.theme = savedTheme;
+		})();
+	</script>
 	<div id="container" class="z-10 grid min-h-dvh w-full max-w-3xl grid-cols-[minmax(0,1fr)] py-6">
 		<div class="w-full min-w-0">
 			<button
@@ -77,13 +79,14 @@ const { pathName } = Astro.props;
 <Nav navCurrent="" {pathName} />
 
 <script>
+	const shell = document.querySelector<HTMLElement>('#blog-shell');
 	const button = document.querySelector<HTMLButtonElement>('#blog-theme-toggle');
-	if (button) {
+	if (button && shell) {
 		const lightIcon = button.querySelector<SVGElement>('[data-theme-icon="light"]');
 		const darkIcon = button.querySelector<SVGElement>('[data-theme-icon="dark"]');
 
 		const syncButton = () => {
-			const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+			const theme = shell.dataset.theme === 'light' ? 'light' : 'dark';
 			lightIcon?.classList.toggle('hidden', theme !== 'dark');
 			darkIcon?.classList.toggle('hidden', theme !== 'light');
 			button.setAttribute('aria-label', theme === 'dark' ? 'Switch blog to light mode' : 'Switch blog to dark mode');
@@ -92,8 +95,8 @@ const { pathName } = Astro.props;
 
 		syncButton();
 		button.addEventListener('click', () => {
-			const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-			document.documentElement.dataset.theme = theme;
+			const theme = shell.dataset.theme === 'dark' ? 'light' : 'dark';
+			shell.dataset.theme = theme;
 			localStorage.setItem('blog-theme', theme);
 			syncButton();
 		});
