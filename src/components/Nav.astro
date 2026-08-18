@@ -14,11 +14,20 @@ type ActiveRule =
 	| { type: 'prefixOrHash'; key: string; hash: string }
 	| { type: 'none' };
 
+type NavIconName =
+	| 'house'
+	| 'circle-user-round'
+	| 'panels-top-left'
+	| 'notebook-text'
+	| 'send'
+	| 'linkedin'
+	| 'github';
+
 type Link = {
 	href: string;
 	mobileHref?: string;
 	label: string;
-	icon: Parameters<typeof Icon>[0] extends never ? never : string;
+	icon: NavIconName;
 	active: ActiveRule;
 };
 
@@ -92,7 +101,7 @@ const mobileLinks = links.slice(0, 5);
 											? 'border-accent bg-accent text-neutral'
 											: 'border-white/15 bg-white/10 text-white/80 group-hover/dock:border-white/30 group-hover/dock:bg-white/15 group-hover/dock:text-white',
 									]}>
-									<Icon name={item.icon as any} />
+									<Icon name={item.icon} />
 									<span class="bg-neutral pointer-events-none invisible absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/2 rounded-xs px-2 py-1 font-mono text-xs font-bold whitespace-nowrap text-white/90 opacity-0 transition-opacity duration-100 group-hover/dock:visible group-hover/dock:opacity-100 group-focus-visible/dock:visible group-focus-visible/dock:opacity-100">
 										{item.label}
 									</span>
