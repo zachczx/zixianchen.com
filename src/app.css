@@ -1,4 +1,9 @@
 @import 'tailwindcss';
+
+@view-transition {
+	navigation: auto;
+}
+
 @plugin '@tailwindcss/typography';
 @plugin 'daisyui' {
 	themes: false;
