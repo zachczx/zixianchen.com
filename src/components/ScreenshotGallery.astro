@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from './Icon.astro';
+
+export interface GalleryImage {
+	thumbnail: ImageMetadata;
+	full: ImageMetadata;
+	alt: string;
+	caption: string;
+}
+
+interface Props {
+	id: string;
+	title?: string;
+	images: GalleryImage[];
+}
+
+const { id, title = 'Supporting screenshots', images } = Astro.props;
+---
+
+<section class="mt-6" aria-labelledby={`${id}-title`} data-screenshot-gallery data-gallery-dialog-id={`${id}-dialog`}>
+	<div class="flex items-baseline justify-between gap-4">
+		<h3 id={`${id}-title`} class="text-base-content/80 text-sm font-semibold">{title}</h3>
+		<p class="text-base-content/50 text-xs">Select to enlarge</p>
+	</div>
+
+	<div class="mt-3 grid gap-3 sm:grid-cols-2">
+		{
+			images.map((image, index) => (
+				<button
+					type="button"
+					data-gallery-open={index}
+					class="group focus-visible:outline-base-content/70 border-neutral/20 bg-base-100 hover:border-neutral/45 cursor-pointer overflow-hidden border text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+					aria-label={`Open full-size screenshot: ${image.caption}`}>
+					<div class="relative aspect-video overflow-hidden">
+						<Image
+							src={image.thumbnail}
+							alt={image.alt}
+							loading="lazy"
+							width={800}
+							class="block h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015]"
+						/>
+						<span
+							class="absolute right-2 bottom-2 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100"
+							aria-hidden="true">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="size-4">
+								<path d="m15 15 6 6" />
+								<path d="m15 9 6-6" />
+								<path d="M21 16v5h-5" />
+								<path d="M21 8V3h-5" />
+								<path d="M3 16v5h5" />
+								<path d="m3 21 6-6" />
+								<path d="M3 8V3h5" />
+								<path d="M9 9 3 3" />
+							</svg>
+						</span>
+					</div>
+					<span class="text-base-content/70 border-neutral/15 block border-t px-3 py-2 text-xs leading-relaxed">
+						{image.caption}
+					</span>
+				</button>
+			))
+		}
+	</div>
+</section>
+
+<dialog
+	id={`${id}-dialog`}
+	data-gallery-dialog
+	aria-labelledby={`${id}-dialog-title`}
+	class="m-auto max-h-[96vh] w-[min(96vw,96rem)] max-w-none overflow-hidden rounded-none bg-neutral-950 p-0 text-white ring-1 ring-white/20">
+	<div class="flex items-center gap-3 border-b border-white/15 px-3 py-2 sm:px-4">
+		<p id={`${id}-dialog-title`} data-gallery-title class="min-w-0 flex-1 truncate text-sm leading-normal font-semibold">
+			{images[0]?.caption}
+		</p>
+		{images.length > 1 && <span data-gallery-count class="text-xs text-white/60">1 of {images.length}</span>}
+		<form method="dialog">
+			<button
+				type="submit"
+				class="grid size-10 cursor-pointer place-items-center border border-white/20 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+				aria-label="Close full-size screenshot">
+				<Icon name="x" class="size-5" />
+			</button>
+		</form>
+	</div>
+
+	<div class="relative grid max-h-[calc(96vh-3.6rem)] place-items-center overflow-auto bg-neutral-900">
+		{
+			images.map((image, index) => (
+				<div data-gallery-slide data-gallery-index={index} class:list={{ hidden: index !== 0 }} aria-hidden={index !== 0}>
+					<Image
+						src={image.full}
+						alt={image.alt}
+						loading="lazy"
+						width={2400}
+						class="block max-h-[calc(96vh-3.6rem)] max-w-full object-contain"
+					/>
+				</div>
+			))
+		}
+
+		{
+			images.length > 1 && (
+				<>
+					<button
+						type="button"
+						data-gallery-prev
+						class="absolute top-1/2 left-2 grid size-11 -translate-y-1/2 cursor-pointer place-items-center bg-neutral-950/85 transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:left-4"
+						aria-label="Previous screenshot">
+						<Icon name="chevron-left" class="size-6" />
+					</button>
+					<button
+						type="button"
+						data-gallery-next
+						class="absolute top-1/2 right-2 grid size-11 -translate-y-1/2 cursor-pointer place-items-center bg-neutral-950/85 transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-4"
+						aria-label="Next screenshot">
+						<Icon name="chevron-right" class="size-6" />
+					</button>
+				</>
+			)
+		}
+	</div>
+</dialog>
+
+<style>
+	dialog::backdrop {
+		background: rgb(10 10 10 / 85%);
+		backdrop-filter: blur(4px);
+	}
+</style>
