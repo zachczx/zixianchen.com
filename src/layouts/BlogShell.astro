@@ -20,12 +20,12 @@ const { pathName } = Astro.props;
 			if (shell && (savedTheme === 'light' || savedTheme === 'dark')) shell.dataset.theme = savedTheme;
 		})();
 	</script>
-	<div id="container" class="z-10 grid min-h-dvh w-full max-w-3xl grid-cols-[minmax(0,1fr)] py-6">
+	<div id="container" class="z-10 grid min-h-dvh w-full max-w-3xl grid-cols-[minmax(0,1fr)] pt-20 pb-6">
 		<div class="w-full min-w-0">
 			<button
 				id="blog-theme-toggle"
 				type="button"
-				class="border-base-content/20 bg-base-100/80 text-base-content hover:bg-base-300 focus-visible:outline-accent absolute top-4 right-4 z-20 grid size-10 cursor-pointer place-items-center rounded-full border backdrop-blur transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:top-6 sm:right-6"
+				class="border-base-content/20 bg-base-100/80 text-base-content hover:bg-base-300 focus-visible:outline-accent absolute top-16 right-4 z-20 grid size-10 cursor-pointer place-items-center rounded-full border backdrop-blur transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:top-16 sm:right-6"
 				aria-label="Switch blog to light mode"
 				title="Switch to light mode">
 				<svg
@@ -74,9 +74,8 @@ const { pathName } = Astro.props;
 		</div>
 		<div class="mt-auto pt-10 pb-20 text-center text-xs md:text-sm xl:pb-28">© Zixian Chen</div>
 	</div>
+	<Nav navCurrent="" {pathName} />
 </div>
-
-<Nav navCurrent="" {pathName} />
 
 <script>
 	const shell = document.querySelector<HTMLElement>('#blog-shell');
@@ -123,3 +122,4 @@ const { pathName } = Astro.props;
 		--tw-prose-code: var(--color-base-content);
 	}
 </style>
+

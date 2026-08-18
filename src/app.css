@@ -99,9 +99,15 @@
 	/* Underlines and overlines drawn across text (over y, q, etc) */
 	:root {
 		text-decoration-skip-ink: none;
+		scroll-padding-top: 3rem;
 
 		/* Reserve space for scrollbar to prevent layout jumping */
 		scrollbar-gutter: stable;
+	}
+
+	html,
+	body {
+		overflow-x: clip;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -221,3 +227,4 @@
 		color: red;
 	}
 }
+
