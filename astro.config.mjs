@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import { pagefind } from 'vite-plugin-pagefind';
-import { visualizer } from 'rollup-plugin-visualizer';
 import {
 	transformerCompactLineOptions,
 	transformerNotationDiff,
@@ -45,14 +44,6 @@ export default defineConfig({
 					]
 				: []),
 			tailwindcss(),
-			...(process.env.ANALYZE === 'true'
-				? [
-						visualizer({
-							emitFile: true,
-							filename: 'stats.html',
-						}),
-					]
-				: []),
 		],
 	},
 });
