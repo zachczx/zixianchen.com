@@ -37,7 +37,7 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, '\\
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth" data-theme={theme}>
+<html lang="en" class="scroll-smooth" data-theme={theme === 'dark' ? undefined : theme}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
