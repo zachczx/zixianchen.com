@@ -60,7 +60,7 @@ if (svelteSources.length > 0) {
 
 const packageJson = readFileSync(resolve('package.json'), 'utf8');
 for (const dependency of ['svelte', '@astrojs/svelte', '@sveltejs/vite-plugin-svelte']) {
-	if (packageJson.includes(`\"${dependency}\"`)) throw new Error(`Unexpected Svelte dependency remains: ${dependency}`);
+	if (packageJson.includes(`"${dependency}"`)) throw new Error(`Unexpected Svelte dependency remains: ${dependency}`);
 }
 
 for (const route of ['/', '/blog', '/blog/so-you-want-bigger-job']) {
