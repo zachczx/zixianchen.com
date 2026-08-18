@@ -26,10 +26,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		<header id="header" class="navItem grid min-h-dvh w-full place-items-center px-4 py-12 pb-24 xl:pb-28">
 			<div class="bg-base-200 grid w-full content-center justify-items-center gap-7">
 				<div class="grid justify-items-center" style="view-transition-name: logo">
-					<h1 class="text-[clamp(3.3rem,9vw,7.1rem)] leading-none font-black tracking-tight">
-						<span class="sr-only">Zixian Chen</span>
-						<span aria-hidden="true">ZIXIAN</span>
-					</h1>
+					<h1 class="sr-only">Zixian Chen</h1>
 					<div
 						class="code-z relative my-1 size-[clamp(11rem,40vw,24rem)] overflow-hidden bg-slate-900 lg:my-2"
 						aria-hidden="true">
@@ -39,7 +36,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 				<div class="grid justify-items-center gap-3 text-center">
 					<a
 						href="#projects"
-						class="group/hero-link text-base-content/65 hover:text-base-content focus-visible:outline-accent grid min-h-11 content-center justify-items-center gap-0.5 px-3 font-mono text-xs tracking-[0.08em] no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+						class="group/hero-link text-base-content/61 hover:text-base-content focus-visible:outline-accent grid min-h-11 content-center justify-items-center gap-0.5 px-3 text-sm font-medium tracking-[0.08em] no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
 						<span>Side projects</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
