@@ -1,4 +1,4 @@
-# Temporary formatter for the Astro migration branch; remove before merge.
+# Temporary formatter/codemod for the Astro migration branch; remove before merge.
 name: Astro migration formatter
 
 on:
@@ -38,10 +38,40 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Wire static Astro components
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const replacements = {
+            'src/pages/index.astro': [
+              ["import WebsiteFooter from '$lib/WebsiteFooter.svelte';", "import WebsiteFooter from '../components/WebsiteFooter.astro';"],
+              ["import Projects from '../routes/Projects.svelte';", "import Projects from '../components/Projects.astro';"],
+            ],
+            'src/layouts/BlogShell.astro': [
+              ["import Nav from '$lib/Nav.svelte';", "import Nav from '../components/Nav.astro';"],
+            ],
+            'src/layouts/ProjectPageLayout.astro': [
+              ["import Nav from '$lib/Nav.svelte';", "import Nav from '../components/Nav.astro';"],
+              ["import WebsiteFooter from '$lib/WebsiteFooter.svelte';", "import WebsiteFooter from '../components/WebsiteFooter.astro';"],
+            ],
+            'src/pages/contact.astro': [
+              ["import Nav from '$lib/Nav.svelte';", "import Nav from '../components/Nav.astro';"],
+              ["import WebsiteFooter from '$lib/WebsiteFooter.svelte';", "import WebsiteFooter from '../components/WebsiteFooter.astro';"],
+            ],
+          };
+
+          for (const [file, pairs] of Object.entries(replacements)) {
+            let source = fs.readFileSync(file, 'utf8');
+            for (const [from, to] of pairs) source = source.replace(from, to);
+            fs.writeFileSync(file, source);
+          }
+          NODE
+
       - name: Format migration files
         run: pnpm exec prettier --write .
 
-      - name: Commit formatting when needed
+      - name: Commit migration changes when needed
         shell: bash
         run: |
           if git diff --quiet; then
@@ -50,5 +80,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "style: format Astro migration"
+          git commit -m "refactor: wire Astro static components"
           git push origin HEAD:feat/astro-migration
