@@ -386,10 +386,9 @@ const confusablesScreenshots = [
 					<div>
 						<dt>Application</dt>
 						<dd>
-							Lingo started as a Go/Templ application. As it grew, the template fragments became unwieldy, so I split the
-							web layer into SvelteKit and kept the domain and search logic behind a separate Go API. The migration
-							deliberately preserved the existing design and behaviour; stable public pages are prerendered, while
-							interactive parts progressively enhance in the browser.
+							Lingo started as a Go/Templ app. That worked well when it was smaller, but the template fragments got
+							unwieldy as more features were added. I moved the web app to SvelteKit and kept Go as a separate API. The
+							migration was mostly mechanical, with the existing design and behaviour left alone.
 						</dd>
 					</div>
 					<div>
@@ -410,7 +409,7 @@ const confusablesScreenshots = [
 		<section class="border-neutral/20 bg-base-100 mt-2 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
 			<h2
 				class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
-				Most people will use Lingo when a term gets in their way, and that is fine.
+				Most people will use Lingo when a term gets in the way, and that is fine.
 			</h2>
 			<div class="body-copy max-w-3xl">
 				<p>
