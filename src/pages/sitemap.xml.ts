@@ -16,9 +16,7 @@ export async function GET() {
 		.map(({ data }) => data)
 		.sort((a, b) => a.slug.localeCompare(b.slug));
 
-	const staticEntries = staticRoutes
-		.map((route) => `\t<url><loc>${origin}${route}</loc></url>`)
-		.join('\n');
+	const staticEntries = staticRoutes.map((route) => `\t<url><loc>${origin}${route}</loc></url>`).join('\n');
 	const blogEntries = posts
 		.map(
 			(post) =>

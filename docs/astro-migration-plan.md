@@ -292,14 +292,14 @@ Final Wrangler configuration should be explicit and minimal, approximately:
 
 ```jsonc
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "zixianchen",
-  "compatibility_date": "<current tested date>",
-  "assets": {
-    "directory": "./dist/",
-    "not_found_handling": "404-page",
-    "html_handling": "drop-trailing-slash"
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "zixianchen",
+	"compatibility_date": "<current tested date>",
+	"assets": {
+		"directory": "./dist/",
+		"not_found_handling": "404-page",
+		"html_handling": "drop-trailing-slash",
+	},
 }
 ```
 

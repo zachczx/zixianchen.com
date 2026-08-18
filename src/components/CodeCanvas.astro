@@ -7,7 +7,11 @@ interface Props {
 const { animated = true, class: className = '' } = Astro.props;
 ---
 
-<canvas data-code-canvas data-animated={animated ? 'true' : 'false'} aria-hidden="true" class={`block h-full w-full ${className}`}></canvas>
+<canvas
+	data-code-canvas
+	data-animated={animated ? 'true' : 'false'}
+	aria-hidden="true"
+	class={`block h-full w-full ${className}`}></canvas>
 
 <script>
 	import { codeCanvas } from '$lib/codeCanvas';

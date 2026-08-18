@@ -4,6 +4,7 @@ import ProjectPage from '../../routes/projects/btonomics/+page.svelte';
 import { descriptions } from '$lib/ProjectDescriptions';
 const project = descriptions.btonomics;
 ---
+
 <ProjectPageLayout name={project.name} slug="btonomics" description={project.tldr ?? project.subtitle}>
 	<ProjectPage />
 </ProjectPageLayout>

@@ -43,38 +43,45 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		</header>
 
 		<main class="grid">
-			{posts.map((post, index) => (
-				<a
-					href={`/blog/${post.slug}`}
-					class:list={[
-						'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
-						{ 'border-t': index > 0 },
-					]}>
-					<article class="grid gap-2">
-						<h2 class="text-xl font-bold sm:text-2xl">
-							<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
-								<span class="text-base-content/55 font-mono text-[0.85em]">{index + 1}.</span>
-								{post.title}
-							</span>
-						</h2>
-						{post.description && <p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>}
-						<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
-							<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
-							{post.date_updated && (
-								<>
-									<span class="text-base-content/30">/</span>
-									<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
-								</>
+			{
+				posts.map((post, index) => (
+					<a
+						href={`/blog/${post.slug}`}
+						class:list={[
+							'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
+							{ 'border-t': index > 0 },
+						]}>
+						<article class="grid gap-2">
+							<h2 class="text-xl font-bold sm:text-2xl">
+								<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
+									<span class="text-base-content/55 font-mono text-[0.85em]">{index + 1}.</span>
+									{post.title}
+								</span>
+							</h2>
+							{post.description && (
+								<p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>
 							)}
-						</div>
-						<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
-							{post.tags.map((tag, tagIndex) => (
-								<>{tagIndex > 0 && <span class="text-base-content/30">/</span>}<span>{tag}</span></>
-							))}
-						</div>
-					</article>
-				</a>
-			))}
+							<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
+								<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
+								{post.date_updated && (
+									<>
+										<span class="text-base-content/30">/</span>
+										<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
+									</>
+								)}
+							</div>
+							<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
+								{post.tags.map((tag, tagIndex) => (
+									<>
+										{tagIndex > 0 && <span class="text-base-content/30">/</span>}
+										<span>{tag}</span>
+									</>
+								))}
+							</div>
+						</article>
+					</a>
+				))
+			}
 		</main>
 
 		<div class="text-base-content/30 mt-10 px-3 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">

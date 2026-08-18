@@ -4,6 +4,7 @@ import ProjectPage from '../../routes/projects/apptitude/+page.svelte';
 import { descriptions } from '$lib/ProjectDescriptions';
 const project = descriptions.apptitude;
 ---
+
 <ProjectPageLayout name={project.name} slug="apptitude" description={project.tldr ?? project.subtitle}>
 	<ProjectPage />
 </ProjectPageLayout>

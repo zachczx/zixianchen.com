@@ -16,7 +16,8 @@ const { pathName } = Astro.props;
 	})();
 </script>
 
-<div class="blog-shell bg-base-200 text-base-content relative flex w-full flex-col items-center justify-center overflow-hidden transition-colors">
+<div
+	class="blog-shell bg-base-200 text-base-content relative flex w-full flex-col items-center justify-center overflow-hidden transition-colors">
 	<div id="container" class="z-10 grid min-h-dvh w-full max-w-3xl grid-cols-[minmax(0,1fr)] py-6">
 		<div class="w-full min-w-0">
 			<button
@@ -25,15 +26,45 @@ const { pathName } = Astro.props;
 				class="border-base-content/20 bg-base-100/80 text-base-content hover:bg-base-300 focus-visible:outline-accent absolute top-4 right-4 z-20 grid size-10 cursor-pointer place-items-center rounded-full border backdrop-blur transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:top-6 sm:right-6"
 				aria-label="Switch blog to light mode"
 				title="Switch to light mode">
-				<svg data-theme-icon="light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true">
-					<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+				<svg
+					data-theme-icon="light"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-5"
+					aria-hidden="true">
+					<circle cx="12" cy="12" r="4"></circle><path
+						d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+					></path>
 				</svg>
-				<svg data-theme-icon="dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden size-5" aria-hidden="true">
-					<path d="M20.985 12.486A9 9 0 1 1 11.514 3.015c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.801.4"></path>
+				<svg
+					data-theme-icon="dark"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="hidden size-5"
+					aria-hidden="true">
+					<path
+						d="M20.985 12.486A9 9 0 1 1 11.514 3.015c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.801.4"
+					></path>
 				</svg>
 			</button>
-			<a href="/" class="flex justify-center pt-8 pb-12 transition-opacity hover:opacity-80" aria-label="Zixian Chen — Home">
-				<div class="code-z size-16 overflow-hidden bg-slate-900 lg:size-20" style="view-transition-name: logo" aria-hidden="true">
+			<a
+				href="/"
+				class="flex justify-center pt-8 pb-12 transition-opacity hover:opacity-80"
+				aria-label="Zixian Chen — Home">
+				<div
+					class="code-z size-16 overflow-hidden bg-slate-900 lg:size-20"
+					style="view-transition-name: logo"
+					aria-hidden="true">
 					<CodeCanvas animated={false} />
 				</div>
 			</a>
