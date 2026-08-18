@@ -189,7 +189,9 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			</div>
 		</section>
 
-		<div class="text-neutral-content grid w-full content-start justify-items-center bg-[#0E0E0E] lg:grid-cols-5">
+		<div
+			data-nav-tone-section="dark"
+			class="text-neutral-content grid w-full content-start justify-items-center bg-[#0E0E0E] lg:grid-cols-5">
 			<div class="grid w-full justify-items-center pt-8 lg:col-span-3 lg:pt-28">
 				<section
 					id="projects"
