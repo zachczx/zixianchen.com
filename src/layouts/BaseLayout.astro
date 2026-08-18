@@ -41,6 +41,11 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, '\\
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style is:inline>
+			@view-transition {
+				navigation: auto;
+			}
+		</style>
 		<meta name="author" content="Zixian Chen" />
 		<link rel="icon" href="/favicon-32x32.png" />
 		<link rel="alternate" type="application/rss+xml" title="Zixian Chen - Blog" href="/rss.xml" />
