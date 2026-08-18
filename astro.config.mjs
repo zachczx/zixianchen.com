@@ -12,7 +12,6 @@ import {
 	transformerNotationDiff,
 	transformerNotationHighlight,
 } from '@shikijs/transformers';
-import rehypeSlug from 'rehype-slug';
 
 const isDevCommand = process.env.npm_lifecycle_event === 'dev';
 const navigationShim = fileURLToPath(new URL('./src/lib/sveltekit-navigation-shim.ts', import.meta.url));
@@ -38,7 +37,6 @@ export default defineConfig({
 				transformerCompactLineOptions(),
 			],
 		},
-		rehypePlugins: [rehypeSlug],
 	},
 	vite: {
 		resolve: {
