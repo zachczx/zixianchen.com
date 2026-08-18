@@ -34,7 +34,7 @@ Name Astro components in PascalCase. Keep route and blog slugs kebab-case. Prefe
 
 There is no general-purpose unit-test framework configured. Treat `pnpm check`, `pnpm lint`, and `pnpm build` as the required validation suite. `pnpm build` includes static-output and zero-framework client-boundary assertions. Keep those assertions focused on externally observable guarantees rather than large generated-HTML snapshots.
 
-For framework, rendering, or CSS changes, use the migration visual audit against `main` and treat meaningful geometry, typography, spacing, image, or responsive differences as regressions unless the task explicitly calls for a redesign.
+For rendering or CSS changes, verify the affected routes at representative mobile, tablet, and desktop sizes and treat meaningful geometry, typography, spacing, image, or responsive differences as regressions unless the task explicitly calls for a redesign.
 
 ## Commit & Pull Request Guidelines
 
