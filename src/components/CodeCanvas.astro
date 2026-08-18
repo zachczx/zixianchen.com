@@ -1,15 +1,17 @@
 ---
 interface Props {
 	animated?: boolean;
+	glyphMask?: 'jost-z';
 	class?: string;
 }
 
-const { animated = true, class: className = '' } = Astro.props;
+const { animated = true, glyphMask, class: className = '' } = Astro.props;
 ---
 
 <canvas
 	data-code-canvas
 	data-animated={animated ? 'true' : 'false'}
+	data-glyph-mask={glyphMask}
 	aria-hidden="true"
 	class={`block h-full w-full ${className}`}></canvas>
 
@@ -19,7 +21,10 @@ const { animated = true, class: className = '' } = Astro.props;
 	for (const canvas of document.querySelectorAll<HTMLCanvasElement>('canvas[data-code-canvas]')) {
 		if (canvas.dataset.initialized === 'true') continue;
 		canvas.dataset.initialized = 'true';
-		codeCanvas({ animated: canvas.dataset.animated === 'true' })(canvas);
+		codeCanvas({
+			animated: canvas.dataset.animated === 'true',
+			glyphMask: canvas.dataset.glyphMask === 'jost-z' ? 'jost-z' : undefined,
+		})(canvas);
 	}
 </script>
 
