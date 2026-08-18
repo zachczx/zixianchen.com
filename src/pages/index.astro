@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import dayjs from 'dayjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CodeCanvas from '../components/CodeCanvas.astro';
+import Icon from '../components/Icon.astro';
 import Nav from '../components/Nav.astro';
 import WebsiteFooter from '../components/WebsiteFooter.astro';
 import Projects from '../components/Projects.astro';
@@ -27,10 +28,8 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			<div class="bg-base-200 grid w-full content-center justify-items-center gap-7">
 				<div class="grid justify-items-center" style="view-transition-name: logo">
 					<h1 class="sr-only">Zixian Chen</h1>
-					<div
-						class="code-z relative my-1 size-[clamp(11rem,40vw,24rem)] overflow-hidden bg-slate-900 lg:my-2"
-						aria-hidden="true">
-						<CodeCanvas />
+					<div class="relative my-1 size-[clamp(11rem,40vw,24rem)] lg:my-2" aria-hidden="true">
+						<CodeCanvas glyphMask="jost-z" />
 					</div>
 				</div>
 				<div class="grid justify-items-center gap-3 text-center">
@@ -51,47 +50,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 							<path d="m6 9 6 6 6-6"></path>
 						</svg>
 					</a>
-					<div class="flex items-center justify-center gap-8 xl:hidden">
-						<a
-							href="https://www.linkedin.com/in/zixianchen/"
-							aria-label="LinkedIn"
-							class="text-base-content/55 hover:text-base-content focus-visible:outline-accent grid size-11 place-items-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="size-6"
-								aria-hidden="true">
-								<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path>
-								<rect width="4" height="12" x="2" y="9"></rect>
-								<circle cx="4" cy="4" r="2"></circle>
-							</svg>
-						</a>
-						<a
-							href="https://github.com/zachczx?tab=repositories"
-							aria-label="GitHub"
-							class="text-base-content/55 hover:text-base-content focus-visible:outline-accent grid size-11 place-items-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="size-6"
-								aria-hidden="true">
-								<path
-									d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.28-.36 6.72-1.61 6.72-7A5.4 5.4 0 0 0 19.22 4 5.07 5.07 0 0 0 19.13.5S17.95.14 15 1.85a13.38 13.38 0 0 0-7 0C5.05.14 3.87.5 3.87.5A5.07 5.07 0 0 0 3.78 4a5.4 5.4 0 0 0-1.5 3.5c0 5.42 3.44 6.64 6.72 7A4.8 4.8 0 0 0 8 18v4"
-								></path>
-								<path d="M8 19c-3 .92-5-1.5-5-1.5"></path>
-							</svg>
-						</a>
-					</div>
 				</div>
 			</div>
 		</header>
@@ -153,6 +111,15 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 					<p class="text-base-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 						Public sector tech, policy, comms, and service delivery roles.
 					</p>
+					<a
+						href="https://www.linkedin.com/in/zixianchen/"
+						target="_blank"
+						rel="me noopener noreferrer"
+						aria-label="LinkedIn (opens in a new tab)"
+						class="border-base-content/20 text-base-content/70 hover:border-base-content/40 hover:bg-base-100 hover:text-base-content focus-visible:outline-accent mt-6 inline-flex min-h-11 items-center gap-2 border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
+						LinkedIn
+						<Icon name="external-link" class="size-3.5 opacity-60" />
+					</a>
 				</div>
 				<div class="grid content-start gap-y-10 lg:gap-y-16">
 					{
@@ -200,6 +167,15 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 						<p class="text-neutral-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 							Personal tools, experiments, and small products built outside the day job.
 						</p>
+						<a
+							href="https://github.com/zachczx?tab=repositories"
+							target="_blank"
+							rel="me noopener noreferrer"
+							aria-label="GitHub (opens in a new tab)"
+							class="text-neutral-content/70 hover:text-neutral-content focus-visible:outline-accent mt-6 inline-flex min-h-11 items-center gap-2 border border-white/20 px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2">
+							GitHub
+							<Icon name="external-link" class="size-3.5 opacity-60" />
+						</a>
 					</div>
 
 					<div
@@ -275,10 +251,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 </BaseLayout>
 
 <style>
-	.code-z {
-		clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 25% 80%, 100% 80%, 100% 100%, 0% 100%, 0% 80%, 75% 20%, 0% 20%);
-	}
-
 	.job-row:hover .job-arrow {
 		opacity: 1;
 	}

@@ -2,6 +2,7 @@ import { codeSnippets } from '$lib/codeSnippets';
 
 interface CodeCanvasOptions {
 	animated: boolean;
+	glyphMask?: 'jost-z';
 }
 
 type CodeCanvasAttachment = (canvas: HTMLCanvasElement) => void | (() => void);
@@ -18,7 +19,7 @@ function shuffledText() {
 	return shuffled.join(' ');
 }
 
-export function codeCanvas({ animated }: CodeCanvasOptions): CodeCanvasAttachment {
+export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanvasAttachment {
 	return (canvas) => {
 		const context = canvas.getContext('2d');
 		if (!context) return;
@@ -51,7 +52,12 @@ export function codeCanvas({ animated }: CodeCanvasOptions): CodeCanvasAttachmen
 			}
 
 			drawingContext.setTransform(bitmapWidth / renderWidth, 0, 0, bitmapHeight / renderHeight, 0, 0);
+			drawingContext.globalCompositeOperation = 'source-over';
 			drawingContext.clearRect(0, 0, renderWidth, renderHeight);
+			if (glyphMask === 'jost-z') {
+				drawingContext.fillStyle = '#0f172a';
+				drawingContext.fillRect(0, 0, renderWidth, renderHeight);
+			}
 
 			const fontSize = Math.min(11.2, Math.max(9, renderWidth * 0.06));
 			const lineHeight = fontSize * 1.3;
@@ -79,6 +85,36 @@ export function codeCanvas({ animated }: CodeCanvasOptions): CodeCanvasAttachmen
 				const cursorColumn = visibleCursor % charactersPerLine;
 				drawingContext.fillStyle = '#ffff00';
 				drawingContext.fillRect(cursorColumn * characterWidth, cursorLine * lineHeight, 3, lineHeight);
+			}
+
+			if (glyphMask === 'jost-z') {
+				const referenceFontSize = 100;
+				// Jost's natural uppercase Z reads narrow when isolated inside a square.
+				// Keep its contours while giving this display mark a small optical expansion.
+				const horizontalScale = 1.14;
+				drawingContext.font = `800 ${referenceFontSize}px "Jost Variable", sans-serif`;
+				const referenceMetrics = drawingContext.measureText('Z');
+				const referenceWidth = referenceMetrics.actualBoundingBoxLeft + referenceMetrics.actualBoundingBoxRight;
+				const referenceHeight = referenceMetrics.actualBoundingBoxAscent + referenceMetrics.actualBoundingBoxDescent;
+				const glyphFontSize =
+					referenceFontSize *
+					Math.min((renderWidth * 0.96) / (referenceWidth * horizontalScale), (renderHeight * 0.96) / referenceHeight);
+
+				drawingContext.save();
+				drawingContext.globalCompositeOperation = 'destination-in';
+				drawingContext.font = `800 ${glyphFontSize}px "Jost Variable", sans-serif`;
+				drawingContext.textAlign = 'left';
+				drawingContext.textBaseline = 'alphabetic';
+				drawingContext.fillStyle = '#000';
+
+				const metrics = drawingContext.measureText('Z');
+				const glyphWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+				const glyphHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+				const baselineY = (renderHeight - glyphHeight) / 2 + metrics.actualBoundingBoxAscent;
+				drawingContext.translate(renderWidth / 2, 0);
+				drawingContext.scale(horizontalScale, 1);
+				drawingContext.fillText('Z', -glyphWidth / 2 + metrics.actualBoundingBoxLeft, baselineY);
+				drawingContext.restore();
 			}
 
 			canvas.dataset.ready = 'true';

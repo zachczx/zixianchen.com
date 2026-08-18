@@ -1,6 +1,5 @@
 ---
 import Nav from '../components/Nav.astro';
-import CodeCanvas from '../components/CodeCanvas.astro';
 import WebsiteFooter from '../components/WebsiteFooter.astro';
 
 interface Props {
@@ -60,17 +59,6 @@ const { pathName } = Astro.props;
 					></path>
 				</svg>
 			</button>
-			<a
-				href="/"
-				class="flex justify-center pt-8 pb-12 transition-opacity hover:opacity-80"
-				aria-label="Zixian Chen — Home">
-				<div
-					class="code-z size-16 overflow-hidden bg-slate-900 lg:size-20"
-					style="view-transition-name: logo"
-					aria-hidden="true">
-					<CodeCanvas animated={false} />
-				</div>
-			</a>
 			<main><slot /></main>
 		</div>
 		<WebsiteFooter />
@@ -104,10 +92,6 @@ const { pathName } = Astro.props;
 </script>
 
 <style>
-	.code-z {
-		clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 25% 80%, 100% 80%, 100% 100%, 0% 100%, 0% 80%, 75% 20%, 0% 20%);
-	}
-
 	.blog-shell :global(.blog-prose) {
 		--tw-prose-body: var(--color-base-content);
 		--tw-prose-headings: var(--color-base-content);
