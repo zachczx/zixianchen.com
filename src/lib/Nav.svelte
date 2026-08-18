@@ -1,7 +1,13 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import NavDock from '$lib/NavDock.svelte';
 
-	let { navCurrent, pathName = '/' }: { navCurrent: string; pathName?: string } = $props();
+	let {
+		navCurrent: initialNavCurrent,
+		pathName = '/',
+		trackSections = false,
+	}: { navCurrent: string; pathName?: string; trackSections?: boolean } = $props();
+	let navCurrent = $state(initialNavCurrent);
 
 	type ActiveRule =
 		| { type: 'hash'; key: string }
@@ -16,6 +22,49 @@
 		{ href: '/blog', label: 'Blog', active: { type: 'prefixOrHash', key: '/blog', hash: 'musings' } },
 		{ href: '/contact', label: 'Contact', active: { type: 'path', key: '/contact' } },
 	];
+
+	onMount(() => {
+		if (!trackSections) return;
+
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('.navItem'));
+		let frame: number | undefined;
+
+		const syncCurrentSection = () => {
+			const viewportAnchor = window.innerHeight * 0.4;
+			let current = sections.find((section) => {
+				const rect = section.getBoundingClientRect();
+				return rect.top <= viewportAnchor && rect.bottom > viewportAnchor;
+			});
+
+			if (!current) {
+				current = sections.reduce<{ section: HTMLElement; distance: number } | undefined>((nearest, section) => {
+					const rect = section.getBoundingClientRect();
+					const distance = Math.min(Math.abs(rect.top - viewportAnchor), Math.abs(rect.bottom - viewportAnchor));
+					return !nearest || distance < nearest.distance ? { section, distance } : nearest;
+				}, undefined)?.section;
+			}
+
+			navCurrent = current?.id ?? initialNavCurrent;
+			frame = undefined;
+		};
+
+		const queueSync = () => {
+			if (frame !== undefined) return;
+			frame = window.requestAnimationFrame(syncCurrentSection);
+		};
+
+		syncCurrentSection();
+		window.addEventListener('scroll', queueSync, { passive: true });
+		window.addEventListener('resize', queueSync);
+		window.addEventListener('hashchange', queueSync);
+
+		return () => {
+			window.removeEventListener('scroll', queueSync);
+			window.removeEventListener('resize', queueSync);
+			window.removeEventListener('hashchange', queueSync);
+			if (frame !== undefined) window.cancelAnimationFrame(frame);
+		};
+	});
 
 	function isActive(rule: ActiveRule): boolean {
 		if (rule.type === 'hash') return navCurrent === rule.key;
