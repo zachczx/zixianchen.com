@@ -14,8 +14,13 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 					<p class="text-base-content/65 -mt-8 mb-10 max-w-xl leading-relaxed">
 						Send a note, question, or project lead.
 					</p>
-					<form id="contact-form" class="grid w-full gap-y-4">
-						<input type="hidden" name="access_key" value="f29b8ecc-f01d-45b0-bb55-72005ec3975a" />
+					<form id="contact-form" class="relative grid w-full gap-y-4">
+						<div
+							class="pointer-events-none absolute size-px overflow-hidden whitespace-nowrap [clip:rect(0,0,0,0)] [clip-path:inset(50%)]"
+							aria-hidden="true">
+							<label for="contact-website">Website</label>
+							<input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+						</div>
 						<div class="grid gap-1.5">
 							<label for="contact-name" class="text-base-content/65 ms-1 font-mono text-xs tracking-wide uppercase"
 								>Name</label
@@ -41,6 +46,7 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 									name="name"
 									placeholder="Your name"
 									autocomplete="name"
+									maxlength="100"
 									required
 								/>
 							</div>
@@ -70,6 +76,7 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 									class="grow"
 									placeholder="you@example.com"
 									autocomplete="email"
+									maxlength="254"
 									required
 								/>
 							</div>
@@ -83,12 +90,10 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 								name="message"
 								placeholder="What’s up?"
 								class="textarea textarea-bordered textarea-lg w-full"
+								maxlength="3000"
 								required
 								rows="5"></textarea>
 						</div>
-						<p class="text-base-content/65 ms-1 text-xs leading-relaxed">
-							This form uses Web3Forms. Don’t send anything sensitive.
-						</p>
 						<div class="w-full">
 							<button
 								id="contact-submit"
@@ -176,7 +181,7 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 		setSubmitting(true);
 
 		try {
-			const response = await fetch('https://api.web3forms.com/submit', {
+			const response = await fetch('/api/contact', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -184,8 +189,7 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 				},
 				body: JSON.stringify(Object.fromEntries(new FormData(form))),
 			});
-			const result = (await response.json()) as { success?: boolean; message?: string };
-			if (!response.ok || !result.success) throw new Error(result.message ?? 'Message could not be sent.');
+			if (!response.ok) throw new Error('Message could not be sent.');
 
 			form.reset();
 			success?.classList.remove('hidden');
