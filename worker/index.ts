@@ -13,6 +13,10 @@ interface ContactSubmission {
 	createdAt: string;
 }
 
+interface StoredContactSubmission extends ContactSubmission {
+	notifiedAt: string | null;
+}
+
 class HttpError extends Error {
 	constructor(public readonly status: number) {
 		super(`Contact request failed with status ${status}`);
@@ -154,19 +158,23 @@ async function persistAndNotify(submission: ContactSubmission, env: Env) {
 		.bind(submission.id, submission.name, submission.email, submission.message, submission.createdAt)
 		.run();
 
-	const stored = await env.CONTACT_DB.prepare('SELECT notified_at FROM contact_submissions WHERE id = ?')
+	const stored = await env.CONTACT_DB.prepare(
+		`SELECT id, name, email, message, created_at AS "createdAt", notified_at AS "notifiedAt"
+		 FROM contact_submissions
+		 WHERE id = ?`,
+	)
 		.bind(submission.id)
-		.first<{ notified_at: string | null }>();
+		.first<StoredContactSubmission>();
 	if (!stored) throw new Error('Queued submission was not persisted');
-	if (stored.notified_at) return;
+	if (stored.notifiedAt) return;
 
-	const telegramMessageId = await sendTelegram(submission, env);
+	const telegramMessageId = await sendTelegram(stored, env);
 	await env.CONTACT_DB.prepare(
 		`UPDATE contact_submissions
 		 SET notified_at = ?, telegram_message_id = ?
 		 WHERE id = ? AND notified_at IS NULL`,
 	)
-		.bind(new Date().toISOString(), telegramMessageId, submission.id)
+		.bind(new Date().toISOString(), telegramMessageId, stored.id)
 		.run();
 }
 
