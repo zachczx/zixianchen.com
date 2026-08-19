@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import dayjs from 'dayjs';
+import ArticleToc from '../../components/ArticleToc.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogShell from '../../layouts/BlogShell.astro';
 import { resolveBlogSeriesForPost, validateBlogSeriesPosts } from '$lib/blogSeries';
@@ -166,47 +167,7 @@ const structuredData = [
 			}
 		</div>
 
-		{
-			headings.length > 0 && (
-				<details
-					open={headings.length <= 8}
-					class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
-					<summary class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-3 text-xs font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2">
-						<span>
-							Contents · {headings.length} {headings.length === 1 ? 'section' : 'sections'}
-						</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="contents-chevron size-4 shrink-0 transition-transform"
-							aria-hidden="true">
-							<path d="m9 18 6-6-6-6" />
-						</svg>
-					</summary>
-					<nav aria-label="Article contents" class="border-base-content/10 border-t py-2">
-						<ol>
-							{headings.map((heading) => (
-								<li class={heading.depth === 3 ? 'ml-6' : ''}>
-									<a
-										href={`#${heading.slug}`}
-										class="group hover:text-base-content focus-visible:outline-accent flex min-h-11 items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-										<span class="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-											›
-										</span>
-										<span>{heading.text}</span>
-									</a>
-								</li>
-							))}
-						</ol>
-					</nav>
-				</details>
-			)
-		}
+		{headings.length > 1 && <ArticleToc {headings} />}
 
 		<article
 			data-pagefind-body={post.data.listed === false ? undefined : ''}
@@ -300,14 +261,6 @@ const structuredData = [
 </BaseLayout>
 
 <style>
-	.article-contents summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.article-contents[open] .contents-chevron {
-		transform: rotate(90deg);
-	}
-
 	article.numbered-paras {
 		counter-reset: para;
 	}

@@ -1,0 +1,327 @@
+---
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : 'sections'}`;
+---
+
+<div data-article-toc-root>
+	<details
+		data-article-toc-mobile
+		class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
+		<summary
+			class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2">
+			<span class="shrink-0 font-bold tracking-widest uppercase">Contents</span>
+			<span class="text-base-content/30" aria-hidden="true">·</span>
+			<span data-toc-current class="min-w-0 flex-1 truncate tracking-tight">{sectionLabel}</span>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="contents-chevron size-4 shrink-0 transition-transform"
+				aria-hidden="true">
+				<path d="m9 18 6-6-6-6"></path>
+			</svg>
+		</summary>
+		<nav aria-label="Article contents" class="border-base-content/10 border-t py-2">
+			<ol>
+				{
+					headings.map((heading) => (
+						<li class={heading.depth === 3 ? 'ml-6' : ''}>
+							<a
+								href={`#${heading.slug}`}
+								data-toc-link
+								data-toc-id={heading.slug}
+								class="group hover:text-base-content focus-visible:outline-accent flex min-h-11 items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+								<span class="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+									›
+								</span>
+								<span>{heading.text}</span>
+							</a>
+						</li>
+					))
+				}
+			</ol>
+		</nav>
+	</details>
+
+	<aside data-article-toc-desktop hidden aria-label="Article contents">
+		<div class="toc-heading">Contents</div>
+		<nav aria-label="Article contents">
+			<ol>
+				{
+					headings.map((heading) => (
+						<li class={heading.depth === 3 ? 'toc-h3' : undefined}>
+							<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
+								{heading.text}
+							</a>
+						</li>
+					))
+				}
+			</ol>
+		</nav>
+	</aside>
+</div>
+
+<script>
+	const tocRoot = document.querySelector<HTMLElement>('[data-article-toc-root]');
+
+	if (tocRoot) {
+		const article = tocRoot.nextElementSibling;
+		const mobileToc = tocRoot.querySelector<HTMLDetailsElement>('[data-article-toc-mobile]');
+		const mobilePanel = mobileToc?.querySelector<HTMLElement>('nav');
+		const mobileSummary = mobileToc?.querySelector<HTMLElement>('summary');
+		const currentLabel = mobileToc?.querySelector<HTMLElement>('[data-toc-current]');
+		const desktopToc = tocRoot.querySelector<HTMLElement>('[data-article-toc-desktop]');
+
+		if (
+			!(article instanceof HTMLElement) ||
+			!article.matches('article.blog-prose') ||
+			!mobileToc ||
+			!mobilePanel ||
+			!mobileSummary ||
+			!currentLabel ||
+			!desktopToc
+		) {
+			tocRoot.remove();
+		} else {
+			const headings = Array.from(article.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]'));
+			const mobileLinks = Array.from(mobileToc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+			const desktopLinks = Array.from(desktopToc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+			const allLinks = [...desktopLinks, ...mobileLinks];
+			const wideViewport = window.matchMedia('(min-width: 80rem)');
+			const defaultLabel = currentLabel.textContent?.trim() || `${headings.length} sections`;
+			let activeId: string | undefined;
+			let frame: number | undefined;
+
+			mobileToc.dataset.persistentToc = '';
+			mobileToc.open = false;
+			desktopToc.hidden = false;
+
+			const keepLinkVisible = (container: HTMLElement, link: HTMLAnchorElement) => {
+				const containerRect = container.getBoundingClientRect();
+				const linkRect = link.getBoundingClientRect();
+				const padding = 12;
+
+				if (linkRect.top < containerRect.top + padding) {
+					container.scrollTop -= containerRect.top + padding - linkRect.top;
+				} else if (linkRect.bottom > containerRect.bottom - padding) {
+					container.scrollTop += linkRect.bottom - (containerRect.bottom - padding);
+				}
+			};
+
+			const setCurrent = (id?: string) => {
+				if (activeId === id) return;
+				activeId = id;
+
+				for (const link of allLinks) {
+					if (id && link.dataset.tocId === id) link.setAttribute('aria-current', 'location');
+					else link.removeAttribute('aria-current');
+				}
+
+				const heading = id ? headings.find((candidate) => candidate.id === id) : undefined;
+				currentLabel.textContent = heading?.textContent?.trim() || defaultLabel;
+
+				if (wideViewport.matches && id) {
+					const activeLink = desktopLinks.find((link) => link.dataset.tocId === id);
+					if (activeLink) keepLinkVisible(desktopToc, activeLink);
+				}
+
+				if (mobileToc.open && id) {
+					const activeLink = mobileLinks.find((link) => link.dataset.tocId === id);
+					if (activeLink) keepLinkVisible(mobilePanel, activeLink);
+				}
+			};
+
+			const syncCurrent = () => {
+				const activationOffset = wideViewport.matches ? 72 : 96;
+				let current: HTMLHeadingElement | undefined;
+
+				for (const heading of headings) {
+					if (heading.getBoundingClientRect().top <= activationOffset) current = heading;
+					else break;
+				}
+
+				if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+					current = headings.at(-1);
+				}
+				setCurrent(current?.id);
+			};
+
+			const queueSync = () => {
+				if (frame !== undefined) return;
+				frame = window.requestAnimationFrame(() => {
+					syncCurrent();
+					frame = undefined;
+				});
+			};
+
+			for (const link of allLinks) {
+				link.addEventListener('click', () => {
+					setCurrent(link.dataset.tocId);
+					if (mobileToc.contains(link)) mobileToc.open = false;
+				});
+			}
+
+			mobileToc.addEventListener('toggle', () => {
+				if (!mobileToc.open || !activeId) return;
+				const activeLink = mobileLinks.find((link) => link.dataset.tocId === activeId);
+				if (activeLink) keepLinkVisible(mobilePanel, activeLink);
+			});
+
+			document.addEventListener('click', (event) => {
+				if (mobileToc.open && !mobileToc.contains(event.target as Node)) mobileToc.open = false;
+			});
+
+			window.addEventListener('keydown', (event) => {
+				if (event.key !== 'Escape' || !mobileToc.open) return;
+				const hadFocus = mobileToc.contains(document.activeElement);
+				mobileToc.open = false;
+				if (hadFocus) mobileSummary.focus();
+			});
+
+			window.addEventListener('scroll', queueSync, { passive: true });
+			window.addEventListener('resize', queueSync);
+			window.addEventListener('hashchange', queueSync);
+			wideViewport.addEventListener('change', () => {
+				mobileToc.open = false;
+				queueSync();
+			});
+
+			syncCurrent();
+		}
+	}
+</script>
+
+<style>
+	[data-article-toc-root] {
+		display: contents;
+	}
+
+	[data-article-toc-desktop] {
+		display: none;
+	}
+
+	.article-contents summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.article-contents[open] .contents-chevron {
+		transform: rotate(90deg);
+	}
+
+	.article-contents[data-persistent-toc] {
+		position: sticky;
+		z-index: 40;
+		top: 2.75rem;
+		background: color-mix(in oklab, var(--color-base-200) 94%, transparent);
+		backdrop-filter: blur(12px);
+	}
+
+	.article-contents[data-persistent-toc] nav {
+		position: absolute;
+		top: calc(100% - 1px);
+		inset-inline: 0;
+		max-height: min(65vh, 32rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		background: var(--color-base-200);
+		box-shadow: 0 1rem 2rem color-mix(in oklab, black 22%, transparent);
+	}
+
+	.article-contents a[aria-current='location'],
+	[data-article-toc-desktop] a[aria-current='location'] {
+		color: var(--color-base-content);
+	}
+
+	.article-contents a[aria-current='location'] > span:last-child,
+	[data-article-toc-desktop] a[aria-current='location'] {
+		text-decoration: underline;
+		text-decoration-color: var(--color-accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.25rem;
+	}
+
+	[data-article-toc-desktop] ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	[data-article-toc-desktop] .toc-h3 {
+		margin-inline-start: 0.75rem;
+	}
+
+	[data-article-toc-desktop] a {
+		display: block;
+		padding: 0.3rem 0.5rem;
+		color: color-mix(in oklab, var(--color-base-content) 52%, transparent);
+		font-size: 0.75rem;
+		line-height: 1.35;
+		text-decoration: none;
+	}
+
+	[data-article-toc-desktop] a:hover,
+	[data-article-toc-desktop] a:focus-visible {
+		color: var(--color-base-content);
+	}
+
+	[data-article-toc-desktop] a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: -2px;
+	}
+
+	:global(article.blog-prose h2[id]),
+	:global(article.blog-prose h3[id]) {
+		scroll-margin-top: 6.5rem;
+	}
+
+	@media (min-width: 80rem) {
+		.article-contents[data-persistent-toc] {
+			display: none;
+		}
+
+		[data-article-toc-desktop] {
+			display: block;
+			position: fixed;
+			z-index: 30;
+			top: 7.25rem;
+			left: calc(50% + 26rem);
+			width: min(17rem, calc(50vw - 27.5rem));
+			max-height: calc(100vh - 8.75rem);
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+			padding-inline-start: 0.75rem;
+			font-family: var(--font-mono);
+			scrollbar-width: thin;
+		}
+
+		.toc-heading {
+			margin-bottom: 0.5rem;
+			padding-inline: 0.5rem;
+			color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+			font-size: 0.6875rem;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+
+		:global(article.blog-prose h2[id]),
+		:global(article.blog-prose h3[id]) {
+			scroll-margin-top: 5rem;
+		}
+	}
+</style>
