@@ -1,9 +1,7 @@
 name: Format preview
 
 on:
-  push:
-    branches:
-      - feat/sticky-blog-toc
+  pull_request:
 
 permissions:
   contents: read
