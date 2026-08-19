@@ -1,0 +1,391 @@
+<div data-article-toc-root>
+	<aside data-article-toc-desktop hidden aria-label="Article contents">
+		<div class="toc-heading">Contents</div>
+		<nav aria-label="Article contents" data-toc-desktop-list></nav>
+	</aside>
+
+	<div data-article-toc-mobile hidden>
+		<details data-toc-mobile-details>
+			<summary>
+				<span class="toc-mobile-label">Contents</span>
+				<span class="toc-mobile-separator" aria-hidden="true">·</span>
+				<span class="toc-mobile-current" data-toc-current>Sections</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="toc-chevron"
+					aria-hidden="true">
+					<path d="m9 18 6-6-6-6" />
+				</svg>
+			</summary>
+			<div class="toc-mobile-panel" data-toc-mobile-panel>
+				<nav aria-label="Article contents" data-toc-mobile-list></nav>
+			</div>
+		</details>
+	</div>
+</div>
+
+<script>
+	const tocRoot = document.querySelector<HTMLElement>('[data-article-toc-root]');
+	const article = document.querySelector<HTMLElement>('article.blog-prose');
+
+	if (tocRoot && article) {
+		const headings = Array.from(article.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]'));
+		const fallbackToc = document.querySelector<HTMLElement>('.article-contents');
+		const desktopToc = tocRoot.querySelector<HTMLElement>('[data-article-toc-desktop]');
+		const desktopList = tocRoot.querySelector<HTMLElement>('[data-toc-desktop-list]');
+		const mobileToc = tocRoot.querySelector<HTMLElement>('[data-article-toc-mobile]');
+		const mobileDetails = mobileToc?.querySelector<HTMLDetailsElement>('[data-toc-mobile-details]');
+		const mobilePanel = mobileToc?.querySelector<HTMLElement>('[data-toc-mobile-panel]');
+		const mobileList = mobileToc?.querySelector<HTMLElement>('[data-toc-mobile-list]');
+		const currentLabel = mobileToc?.querySelector<HTMLElement>('[data-toc-current]');
+
+		if (
+			headings.length <= 1 ||
+			!desktopToc ||
+			!desktopList ||
+			!mobileToc ||
+			!mobileDetails ||
+			!mobilePanel ||
+			!mobileList ||
+			!currentLabel
+		) {
+			fallbackToc?.remove();
+			tocRoot.remove();
+		} else {
+			const createTocLink = (heading: HTMLHeadingElement) => {
+				const link = document.createElement('a');
+				link.href = `#${heading.id}`;
+				link.textContent = heading.textContent?.trim() || heading.id;
+				link.dataset.tocLink = '';
+				link.dataset.tocId = heading.id;
+				link.className = heading.tagName === 'H3' ? 'toc-link toc-link--h3' : 'toc-link';
+				return link;
+			};
+
+			const buildTocList = () => {
+				const list = document.createElement('ol');
+				list.className = 'toc-list';
+				let currentParent: HTMLLIElement | undefined;
+				let currentChildren: HTMLOListElement | undefined;
+
+				for (const heading of headings) {
+					const item = document.createElement('li');
+					item.append(createTocLink(heading));
+
+					if (heading.tagName === 'H2') {
+						list.append(item);
+						currentParent = item;
+						currentChildren = undefined;
+						continue;
+					}
+
+					if (!currentParent) {
+						list.append(item);
+						continue;
+					}
+
+					if (!currentChildren) {
+						currentChildren = document.createElement('ol');
+						currentChildren.className = 'toc-children';
+						currentParent.append(currentChildren);
+					}
+					currentChildren.append(item);
+				}
+
+				return list;
+			};
+
+			desktopList.append(buildTocList());
+			mobileList.append(buildTocList());
+
+			const defaultLabel = `${headings.length} ${headings.length === 1 ? 'section' : 'sections'}`;
+			currentLabel.textContent = defaultLabel;
+
+			if (fallbackToc) fallbackToc.replaceWith(mobileToc);
+			else article.before(mobileToc);
+			mobileToc.hidden = false;
+			desktopToc.hidden = false;
+
+			const desktopLinks = Array.from(desktopToc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+			const mobileLinks = Array.from(mobileToc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+			const wideViewport = window.matchMedia('(min-width: 80rem)');
+			let activeId: string | undefined;
+			let frame: number | undefined;
+
+			const keepLinkVisible = (container: HTMLElement, link: HTMLAnchorElement) => {
+				const containerRect = container.getBoundingClientRect();
+				const linkRect = link.getBoundingClientRect();
+				const padding = 12;
+
+				if (linkRect.top < containerRect.top + padding) {
+					container.scrollTop -= containerRect.top + padding - linkRect.top;
+				} else if (linkRect.bottom > containerRect.bottom - padding) {
+					container.scrollTop += linkRect.bottom - (containerRect.bottom - padding);
+				}
+			};
+
+			const setCurrent = (id?: string) => {
+				if (activeId === id) return;
+				activeId = id;
+
+				for (const link of [...desktopLinks, ...mobileLinks]) {
+					if (id && link.dataset.tocId === id) link.setAttribute('aria-current', 'location');
+					else link.removeAttribute('aria-current');
+				}
+
+				const heading = id ? headings.find((candidate) => candidate.id === id) : undefined;
+				currentLabel.textContent = heading?.textContent?.trim() || defaultLabel;
+
+				if (wideViewport.matches && id) {
+					const activeLink = desktopLinks.find((link) => link.dataset.tocId === id);
+					if (activeLink) keepLinkVisible(desktopToc, activeLink);
+				}
+
+				if (mobileDetails.open && id) {
+					const activeLink = mobileLinks.find((link) => link.dataset.tocId === id);
+					if (activeLink) keepLinkVisible(mobilePanel, activeLink);
+				}
+			};
+
+			const syncCurrent = () => {
+				const activationOffset = wideViewport.matches ? 72 : 96;
+				let current: HTMLHeadingElement | undefined;
+
+				for (const heading of headings) {
+					if (heading.getBoundingClientRect().top <= activationOffset) current = heading;
+					else break;
+				}
+
+				const atPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+				if (atPageBottom) current = headings.at(-1);
+				setCurrent(current?.id);
+			};
+
+			const queueSync = () => {
+				if (frame !== undefined) return;
+				frame = window.requestAnimationFrame(() => {
+					syncCurrent();
+					frame = undefined;
+				});
+			};
+
+			for (const link of [...desktopLinks, ...mobileLinks]) {
+				link.addEventListener('click', () => {
+					setCurrent(link.dataset.tocId);
+					if (mobileDetails.contains(link)) mobileDetails.open = false;
+				});
+			}
+
+			mobileDetails.addEventListener('toggle', () => {
+				if (!mobileDetails.open || !activeId) return;
+				const activeLink = mobileLinks.find((link) => link.dataset.tocId === activeId);
+				if (activeLink) keepLinkVisible(mobilePanel, activeLink);
+			});
+
+			document.addEventListener('click', (event) => {
+				if (mobileDetails.open && !mobileDetails.contains(event.target as Node)) mobileDetails.open = false;
+			});
+
+			window.addEventListener('keydown', (event) => {
+				if (event.key !== 'Escape' || !mobileDetails.open) return;
+				const hadFocus = mobileDetails.contains(document.activeElement);
+				mobileDetails.open = false;
+				if (hadFocus) mobileDetails.querySelector<HTMLElement>('summary')?.focus();
+			});
+
+			window.addEventListener('scroll', queueSync, { passive: true });
+			window.addEventListener('resize', queueSync);
+			window.addEventListener('hashchange', queueSync);
+			wideViewport.addEventListener('change', () => {
+				mobileDetails.open = false;
+				queueSync();
+			});
+
+			syncCurrent();
+		}
+	} else {
+		tocRoot?.remove();
+	}
+</script>
+
+<style>
+	[data-article-toc-root] {
+		display: contents;
+	}
+
+	[data-article-toc-desktop] {
+		display: none;
+	}
+
+	[data-article-toc-mobile] {
+		position: sticky;
+		z-index: 40;
+		top: 2.75rem;
+		margin-top: 1.5rem;
+		border-block: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+		background: color-mix(in oklab, var(--color-base-200) 94%, transparent);
+		font-family: var(--font-mono);
+		backdrop-filter: blur(12px);
+	}
+
+	[data-article-toc-mobile] summary {
+		display: grid;
+		grid-template-columns: max-content max-content minmax(0, 1fr) max-content;
+		align-items: center;
+		min-height: 2.75rem;
+		padding-inline: 0.75rem;
+		cursor: pointer;
+		list-style: none;
+		font-size: 0.75rem;
+		letter-spacing: -0.025em;
+	}
+
+	[data-article-toc-mobile] summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.toc-mobile-label {
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.toc-mobile-separator {
+		margin-inline: 0.5rem;
+		opacity: 0.35;
+	}
+
+	.toc-mobile-current {
+		overflow: hidden;
+		color: color-mix(in oklab, var(--color-base-content) 68%, transparent);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.toc-chevron {
+		width: 1rem;
+		height: 1rem;
+		margin-inline-start: 0.75rem;
+		opacity: 0.6;
+		transition: transform 150ms ease;
+	}
+
+	[data-toc-mobile-details][open] .toc-chevron {
+		transform: rotate(90deg);
+	}
+
+	.toc-mobile-panel {
+		position: absolute;
+		top: calc(100% - 1px);
+		inset-inline: 0;
+		max-height: min(65vh, 32rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		border-bottom: 1px solid color-mix(in oklab, var(--color-base-content) 12%, transparent);
+		background: var(--color-base-200);
+		box-shadow: 0 1rem 2rem color-mix(in oklab, black 22%, transparent);
+	}
+
+	[data-toc-mobile-list] {
+		padding-block: 0.5rem;
+	}
+
+	[data-article-toc-desktop] :global(.toc-list),
+	[data-article-toc-desktop] :global(.toc-children),
+	[data-article-toc-mobile] :global(.toc-list),
+	[data-article-toc-mobile] :global(.toc-children) {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	[data-article-toc-desktop] :global(.toc-children),
+	[data-article-toc-mobile] :global(.toc-children) {
+		margin-inline-start: 0.75rem;
+	}
+
+	[data-article-toc-desktop] :global(.toc-link),
+	[data-article-toc-mobile] :global(.toc-link) {
+		display: block;
+		border-inline-start: 2px solid transparent;
+		color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+		text-decoration: none;
+		transition:
+			color 120ms ease,
+			border-color 120ms ease;
+	}
+
+	[data-article-toc-desktop] :global(.toc-link) {
+		padding: 0.3rem 0.5rem;
+		font-size: 0.75rem;
+		line-height: 1.35;
+	}
+
+	[data-article-toc-mobile] :global(.toc-link) {
+		min-height: 2.75rem;
+		padding: 0.7rem 0.75rem;
+		font-size: 0.8125rem;
+		line-height: 1.3;
+	}
+
+	[data-article-toc-desktop] :global(.toc-link--h3),
+	[data-article-toc-mobile] :global(.toc-link--h3) {
+		color: color-mix(in oklab, var(--color-base-content) 45%, transparent);
+	}
+
+	[data-article-toc-desktop] :global(.toc-link:hover),
+	[data-article-toc-mobile] :global(.toc-link:hover) {
+		color: var(--color-base-content);
+	}
+
+	[data-article-toc-desktop] :global(.toc-link[aria-current='location']),
+	[data-article-toc-mobile] :global(.toc-link[aria-current='location']) {
+		border-inline-start-color: var(--color-accent);
+		color: var(--color-base-content);
+	}
+
+	@media (min-width: 40rem) {
+		[data-article-toc-mobile] summary,
+		[data-article-toc-mobile] :global(.toc-link) {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 80rem) {
+		[data-article-toc-mobile] {
+			display: none;
+		}
+
+		[data-article-toc-desktop] {
+			display: block;
+			position: fixed;
+			z-index: 30;
+			top: 5rem;
+			left: calc(50% + 26rem);
+			width: min(17rem, calc(50vw - 27.5rem));
+			max-height: calc(100vh - 6.5rem);
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+			padding-inline-start: 0.75rem;
+			font-family: var(--font-mono);
+			scrollbar-width: thin;
+		}
+
+		.toc-heading {
+			margin-bottom: 0.5rem;
+			padding-inline: 0.5rem;
+			color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+			font-size: 0.6875rem;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+	}
+</style>
