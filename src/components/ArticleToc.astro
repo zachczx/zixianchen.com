@@ -250,6 +250,13 @@
 		display: none;
 	}
 
+	[data-article-toc-mobile] summary:focus-visible,
+	[data-article-toc-desktop] :global(.toc-link:focus-visible),
+	[data-article-toc-mobile] :global(.toc-link:focus-visible) {
+		outline: 2px solid var(--color-accent);
+		outline-offset: -2px;
+	}
+
 	.toc-mobile-label {
 		font-weight: 700;
 		letter-spacing: 0.08em;
@@ -350,6 +357,11 @@
 		color: var(--color-base-content);
 	}
 
+	:global(article.blog-prose h2[id]),
+	:global(article.blog-prose h3[id]) {
+		scroll-margin-top: 6.5rem;
+	}
+
 	@media (min-width: 40rem) {
 		[data-article-toc-mobile] summary,
 		[data-article-toc-mobile] :global(.toc-link) {
@@ -366,10 +378,10 @@
 			display: block;
 			position: fixed;
 			z-index: 30;
-			top: 5rem;
+			top: 7.25rem;
 			left: calc(50% + 26rem);
 			width: min(17rem, calc(50vw - 27.5rem));
-			max-height: calc(100vh - 6.5rem);
+			max-height: calc(100vh - 8.75rem);
 			overflow-y: auto;
 			overscroll-behavior: contain;
 			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
@@ -386,6 +398,11 @@
 			font-weight: 700;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
+		}
+
+		:global(article.blog-prose h2[id]),
+		:global(article.blog-prose h3[id]) {
+			scroll-margin-top: 5rem;
 		}
 	}
 </style>
