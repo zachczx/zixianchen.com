@@ -16,6 +16,7 @@
 		"check:watch": "pnpm cf-typegen && astro check --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
+		"queue:create": "wrangler queues create zixianchen-contact",
 		"db:migrate:local": "wrangler d1 migrations apply CONTACT_DB --local",
 		"db:migrate:remote": "wrangler d1 migrations apply CONTACT_DB --remote",
 		"deploy": "pnpm db:migrate:remote && wrangler deploy"
