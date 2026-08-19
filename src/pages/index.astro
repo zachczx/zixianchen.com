@@ -155,16 +155,16 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 
 		<div
 			data-nav-tone-section="dark"
-			class="text-neutral-content grid w-full content-start justify-items-center bg-[#0E0E0E] lg:grid-cols-5">
+			class="text-night-content bg-night-background grid w-full content-start justify-items-center lg:grid-cols-5">
 			<div class="grid w-full justify-items-center pt-8 lg:col-span-3 lg:pt-28">
 				<section
 					id="projects"
 					aria-labelledby="projects-heading"
 					class="navItem grid w-full max-w-250 justify-items-start px-4 pb-8 lg:grid-cols-3 lg:justify-self-end lg:pb-28">
 					<div class="justify-self-start pb-8 lg:col-span-3 lg:pb-24">
-						<p class="text-inverse-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Side projects</p>
+						<p class="text-night-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Side projects</p>
 						<h2 id="projects-heading" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Night</h2>
-						<p class="text-neutral-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
+						<p class="text-night-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 							Personal tools, experiments, and small products built outside the day job.
 						</p>
 						<a
@@ -172,7 +172,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 							target="_blank"
 							rel="me noopener noreferrer"
 							aria-label="GitHub (opens in a new tab)"
-							class="text-neutral-content/70 hover:text-neutral-content focus-visible:outline-accent mt-6 inline-flex min-h-11 items-center gap-2 border border-white/20 px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2">
+							class="text-night-content/70 hover:text-night-content focus-visible:outline-accent border-night-overlay/20 hover:border-night-overlay/40 hover:bg-night-overlay/5 mt-6 inline-flex min-h-11 items-center gap-2 border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
 							GitHub
 							<Icon name="external-link" class="size-3.5 opacity-60" />
 						</a>
@@ -193,28 +193,26 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 				id="musings"
 				aria-labelledby="musings-heading"
 				class="navItem grid w-full justify-items-center px-4 py-20 lg:col-span-5 lg:py-32">
-				<div class="w-full max-w-3xl border border-white/15 bg-white/5">
-					<div class="border-b border-white/15 px-6 py-5 sm:px-8">
+				<div class="border-night-overlay/15 bg-night-overlay/5 w-full max-w-3xl border">
+					<div class="border-night-overlay/15 border-b px-6 py-5 sm:px-8">
 						<h2 id="musings-heading" class="text-2xl font-bold tracking-tight lg:text-3xl">Musings</h2>
-						<p class="text-neutral-content/55 mt-2 text-sm leading-relaxed lg:text-base">
-							Recent writing from the blog.
-						</p>
+						<p class="text-night-content/55 mt-2 text-sm leading-relaxed lg:text-base">Recent writing from the blog.</p>
 					</div>
-					<div class="divide-y divide-white/10 px-6 sm:px-8">
+					<div class="divide-night-overlay/10 divide-y px-6 sm:px-8">
 						{
 							posts.map((post) => (
 								<a href={`/blog/${post.slug}`} class="group grid gap-x-8 gap-y-1.5 py-5 sm:grid-cols-[7rem_1fr]">
-									<span class="text-inverse-muted-foreground font-mono text-xs tracking-[0.18em] uppercase sm:pt-1.5">
+									<span class="text-night-muted-foreground font-mono text-xs tracking-[0.18em] uppercase sm:pt-1.5">
 										{dayjs(post.date).format('D MMM YYYY')}
 									</span>
 									<span class="block">
 										<span class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-hover:underline lg:text-lg">
 											{post.title}
 										</span>
-										<span class="text-inverse-muted-foreground mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">
+										<span class="text-night-muted-foreground mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">
 											{post.tags.map((tag, index) => (
 												<>
-													{index > 0 && <span class="text-neutral-content/25">/</span>}
+													{index > 0 && <span class="text-night-content/25">/</span>}
 													<span>{tag}</span>
 												</>
 											))}
@@ -225,7 +223,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 						}
 						<a
 							href="/blog"
-							class="text-neutral-content/60 hover:text-neutral-content flex items-center justify-end gap-1 py-5 font-mono text-sm tracking-tight transition-colors">
+							class="text-night-content/60 hover:text-night-content flex items-center justify-end gap-1 py-5 font-mono text-sm tracking-tight transition-colors">
 							All musings
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
