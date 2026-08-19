@@ -39,7 +39,7 @@
 			mobileToc.open = false;
 
 			const defaultLabel = currentLabel.textContent?.trim() || `Contents · ${mobileLinks.length} sections`;
-			desktopList.append(sourceList.cloneNode(true));
+			desktopList.appendChild(sourceList.cloneNode(true));
 			desktopToc.hidden = false;
 
 			const desktopLinks = Array.from(desktopToc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
