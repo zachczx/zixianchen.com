@@ -47,8 +47,11 @@ jobs:
       - name: Check formatting and linting
         run: pnpm lint
 
+      - name: Validate local D1 migrations
+        run: pnpm db:migrate:local
+
       - name: Build static site and Pagefind index
         run: pnpm build
 
-      - name: Validate Workers static assets config
+      - name: Validate Workers deployment config
         run: pnpm exec wrangler deploy --dry-run
