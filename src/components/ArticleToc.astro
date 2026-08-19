@@ -17,7 +17,8 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 	<details
 		data-article-toc-mobile
 		class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
-		<summary class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2">
+		<summary
+			class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2">
 			<span class="shrink-0 font-bold tracking-widest uppercase">Contents</span>
 			<span class="text-base-content/30" aria-hidden="true">·</span>
 			<span data-toc-current class="min-w-0 flex-1 truncate tracking-tight">{sectionLabel}</span>
@@ -31,25 +32,27 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 				stroke-linejoin="round"
 				class="contents-chevron size-4 shrink-0 transition-transform"
 				aria-hidden="true">
-				<path d="m9 18 6-6-6-6" />
+				<path d="m9 18 6-6-6-6"></path>
 			</svg>
 		</summary>
 		<nav aria-label="Article contents" class="border-base-content/10 border-t py-2">
 			<ol>
-				{headings.map((heading) => (
-					<li class={heading.depth === 3 ? 'ml-6' : ''}>
-						<a
-							href={`#${heading.slug}`}
-							data-toc-link
-							data-toc-id={heading.slug}
-							class="group hover:text-base-content focus-visible:outline-accent flex min-h-11 items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-							<span class="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-								›
-							</span>
-							<span>{heading.text}</span>
-						</a>
-					</li>
-				))}
+				{
+					headings.map((heading) => (
+						<li class={heading.depth === 3 ? 'ml-6' : ''}>
+							<a
+								href={`#${heading.slug}`}
+								data-toc-link
+								data-toc-id={heading.slug}
+								class="group hover:text-base-content focus-visible:outline-accent flex min-h-11 items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+								<span class="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+									›
+								</span>
+								<span>{heading.text}</span>
+							</a>
+						</li>
+					))
+				}
 			</ol>
 		</nav>
 	</details>
@@ -58,13 +61,15 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 		<div class="toc-heading">Contents</div>
 		<nav aria-label="Article contents">
 			<ol>
-				{headings.map((heading) => (
-					<li class={heading.depth === 3 ? 'toc-h3' : undefined}>
-						<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
-							{heading.text}
-						</a>
-					</li>
-				))}
+				{
+					headings.map((heading) => (
+						<li class={heading.depth === 3 ? 'toc-h3' : undefined}>
+							<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
+								{heading.text}
+							</a>
+						</li>
+					))
+				}
 			</ol>
 		</nav>
 	</aside>
