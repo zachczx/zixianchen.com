@@ -72,7 +72,9 @@
 				}
 
 				const heading = id ? headings.find((candidate) => candidate.id === id) : undefined;
-				currentLabel.textContent = heading?.textContent?.trim() ? `Contents · ${heading.textContent.trim()}` : defaultLabel;
+				currentLabel.textContent = heading?.textContent?.trim()
+					? `Contents · ${heading.textContent.trim()}`
+					: defaultLabel;
 
 				if (wideViewport.matches && id) {
 					const activeLink = desktopLinks.find((link) => getLinkId(link) === id);
