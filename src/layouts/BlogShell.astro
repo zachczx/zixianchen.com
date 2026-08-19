@@ -1,4 +1,5 @@
 ---
+import ArticleToc from '../components/ArticleToc.astro';
 import Nav from '../components/Nav.astro';
 import WebsiteFooter from '../components/WebsiteFooter.astro';
 
@@ -60,6 +61,7 @@ const { pathName } = Astro.props;
 				</svg>
 			</button>
 			<main><slot /></main>
+			<ArticleToc />
 		</div>
 		<WebsiteFooter />
 	</div>
