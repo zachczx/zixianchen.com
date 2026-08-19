@@ -127,14 +127,19 @@ function formatTelegramMessage(submission: ContactSubmission) {
 }
 
 async function sendTelegram(submission: ContactSubmission, env: Env): Promise<number> {
-	const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({
-			chat_id: env.TELEGRAM_CHAT_ID,
-			text: formatTelegramMessage(submission),
-		}),
-	});
+	let response: Response;
+	try {
+		response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				chat_id: env.TELEGRAM_CHAT_ID,
+				text: formatTelegramMessage(submission),
+			}),
+		});
+	} catch {
+		throw new Error('Telegram request failed');
+	}
 
 	let body: unknown;
 	try {
