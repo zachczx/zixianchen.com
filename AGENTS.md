@@ -16,9 +16,10 @@ This is a statically rendered Astro personal website with a narrow Cloudflare Wo
 - `pnpm check:watch`: regenerate Worker types, then run diagnostics in watch mode.
 - `pnpm lint`: run Prettier in check mode and ESLint.
 - `pnpm format`: format the repository with Prettier.
+- `pnpm queue:create`: create the production `zixianchen-contact` Queue. This is a one-time bootstrap command; ordinary Queue bindings are not auto-created by Worker deployment.
 - `pnpm db:migrate:local`: apply D1 migrations to the local Wrangler database.
 - `pnpm db:migrate:remote`: apply D1 migrations to the deployed database.
-- `pnpm deploy`: apply remote D1 migrations and deploy through Wrangler.
+- `pnpm deploy`: apply remote D1 migrations and deploy through Wrangler. The production Queue must already exist.
 
 Before submitting JavaScript, TypeScript, Astro, or Worker changes, run `pnpm check` and `pnpm lint`. Also run `pnpm build` for route, content, asset, integration, or deployment changes. Deployment changes should additionally pass `pnpm exec wrangler deploy --dry-run`.
 
