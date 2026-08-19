@@ -155,7 +155,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 
 		<div
 			data-nav-tone-section="dark"
-			class="text-night-content grid w-full content-start justify-items-center bg-night-background lg:grid-cols-5">
+			class="text-night-content bg-night-background grid w-full content-start justify-items-center lg:grid-cols-5">
 			<div class="grid w-full justify-items-center pt-8 lg:col-span-3 lg:pt-28">
 				<section
 					id="projects"
@@ -172,7 +172,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 							target="_blank"
 							rel="me noopener noreferrer"
 							aria-label="GitHub (opens in a new tab)"
-							class="text-night-content/70 hover:text-night-content focus-visible:outline-accent mt-6 inline-flex min-h-11 items-center gap-2 border border-night-overlay/20 px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] hover:border-night-overlay/40 hover:bg-night-overlay/5 focus-visible:outline-2 focus-visible:outline-offset-2">
+							class="text-night-content/70 hover:text-night-content focus-visible:outline-accent border-night-overlay/20 hover:border-night-overlay/40 hover:bg-night-overlay/5 mt-6 inline-flex min-h-11 items-center gap-2 border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
 							GitHub
 							<Icon name="external-link" class="size-3.5 opacity-60" />
 						</a>
@@ -193,14 +193,12 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 				id="musings"
 				aria-labelledby="musings-heading"
 				class="navItem grid w-full justify-items-center px-4 py-20 lg:col-span-5 lg:py-32">
-				<div class="w-full max-w-3xl border border-night-overlay/15 bg-night-overlay/5">
-					<div class="border-b border-night-overlay/15 px-6 py-5 sm:px-8">
+				<div class="border-night-overlay/15 bg-night-overlay/5 w-full max-w-3xl border">
+					<div class="border-night-overlay/15 border-b px-6 py-5 sm:px-8">
 						<h2 id="musings-heading" class="text-2xl font-bold tracking-tight lg:text-3xl">Musings</h2>
-						<p class="text-night-content/55 mt-2 text-sm leading-relaxed lg:text-base">
-							Recent writing from the blog.
-						</p>
+						<p class="text-night-content/55 mt-2 text-sm leading-relaxed lg:text-base">Recent writing from the blog.</p>
 					</div>
-					<div class="divide-y divide-night-overlay/10 px-6 sm:px-8">
+					<div class="divide-night-overlay/10 divide-y px-6 sm:px-8">
 						{
 							posts.map((post) => (
 								<a href={`/blog/${post.slug}`} class="group grid gap-x-8 gap-y-1.5 py-5 sm:grid-cols-[7rem_1fr]">
