@@ -189,7 +189,6 @@ const mobileLinks = links.slice(0, 5);
 	[data-site-nav] {
 		--nav-surface: var(--color-base-200);
 		--nav-overlay: oklch(0% 0 0 / 0.03);
-		--nav-active-indicator: var(--color-secondary);
 		--nav-ink: var(--color-base-content);
 		--nav-muted: color-mix(in oklab, var(--color-base-content) 65%, transparent);
 		--nav-rule: color-mix(in oklab, var(--color-base-content) 10%, transparent);
@@ -198,14 +197,9 @@ const mobileLinks = links.slice(0, 5);
 	[data-site-nav][data-nav-tone='dark'] {
 		--nav-surface: var(--color-neutral);
 		--nav-overlay: oklch(100% 0 0 / 0.1);
-		--nav-active-indicator: var(--color-accent);
 		--nav-ink: var(--color-neutral-content);
 		--nav-muted: color-mix(in oklab, var(--color-neutral-content) 65%, transparent);
 		--nav-rule: color-mix(in oklab, var(--color-neutral-content) 16%, transparent);
-	}
-
-	:global(#blog-shell[data-theme='dark']) [data-site-nav] {
-		--nav-active-indicator: var(--color-accent);
 	}
 
 	[data-site-nav] nav {
@@ -226,22 +220,5 @@ const mobileLinks = links.slice(0, 5);
 	[data-site-nav] .top-nav-link[data-active='true'],
 	[data-site-nav] .top-nav-brand:hover {
 		color: var(--nav-ink);
-	}
-
-	.top-nav-link::after {
-		position: absolute;
-		right: 0.5rem;
-		bottom: 0;
-		left: 0.5rem;
-		height: 0.125rem;
-		border-radius: 999px;
-		background-color: var(--nav-active-indicator);
-		content: '';
-		opacity: 0;
-		transition: opacity 100ms linear;
-	}
-
-	.top-nav-link[data-active='true']::after {
-		opacity: 1;
 	}
 </style>
