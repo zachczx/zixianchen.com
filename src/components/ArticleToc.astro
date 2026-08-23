@@ -16,7 +16,7 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 <div data-article-toc-root>
 	<details
 		data-article-toc-mobile
-		class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
+		class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 text-sm tracking-tight sm:px-6 xl:px-14">
 		<summary
 			class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2">
 			<span class="shrink-0 font-bold tracking-widest uppercase">Contents</span>
@@ -57,8 +57,8 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 		</nav>
 	</details>
 
-	<aside data-article-toc-desktop hidden aria-label="Article contents">
-		<div class="toc-heading">Contents</div>
+	<aside data-article-toc-desktop hidden aria-labelledby="article-contents-heading">
+		<h2 id="article-contents-heading" class="toc-heading">Contents</h2>
 		<nav aria-label="Article contents">
 			<ol>
 				{
@@ -305,7 +305,6 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 			overscroll-behavior: contain;
 			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
 			padding-inline-start: 0.75rem;
-			font-family: var(--font-mono);
 			scrollbar-width: thin;
 		}
 

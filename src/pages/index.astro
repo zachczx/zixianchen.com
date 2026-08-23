@@ -24,46 +24,32 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	pathname="/">
 	<Nav navCurrent="header" pathName="/" trackSections />
 	<main class="bg-base-200 grid min-h-dvh justify-items-center 2xl:overflow-x-clip">
-		<header
-			id="header"
-			data-nav-section
-			class="grid min-h-dvh w-full items-center px-4 pt-24 pb-16 sm:px-6 lg:px-8 xl:pb-20">
-			<div
-				class="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)] lg:gap-16">
-				<div class="max-w-2xl justify-self-start">
-					<h1 class="max-w-xl text-5xl leading-[0.98] font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-						Public-sector tech by day, questionable side projects by night.
-					</h1>
-					<p class="text-base-content/70 mt-6 max-w-xl text-lg leading-relaxed lg:text-xl">
-						Zixian Chen builds useful things, writes about what went wrong, and occasionally codes by hand.
-					</p>
-					<nav class="mt-8 flex flex-wrap gap-2" aria-label="Explore Zixian's work">
-						<a
-							href="#day"
-							class="border-base-content/20 text-base-content/75 hover:border-base-content/45 hover:bg-base-100 hover:text-base-content focus-visible:outline-accent inline-flex min-h-11 items-center border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
-							Day
-						</a>
-						<a
-							href="#projects"
-							class="border-primary/55 text-primary hover:bg-primary/8 focus-visible:outline-accent inline-flex min-h-11 items-center border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
-							Night
-						</a>
-						<a
-							href="/blog"
-							class="border-base-content/20 text-base-content/75 hover:border-base-content/45 hover:bg-base-100 hover:text-base-content focus-visible:outline-accent inline-flex min-h-11 items-center border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
-							Musings
-						</a>
-						<a
-							href="/contact"
-							class="border-base-content/20 text-base-content/75 hover:border-base-content/45 hover:bg-base-100 hover:text-base-content focus-visible:outline-accent inline-flex min-h-11 items-center border px-3.5 text-sm font-semibold no-underline transition-[border-color,background-color,color] focus-visible:outline-2 focus-visible:outline-offset-2">
-							Contact
-						</a>
-					</nav>
-				</div>
-				<div class="grid justify-items-center lg:justify-self-end" style="view-transition-name: logo">
+		<header id="header" class="navItem grid min-h-dvh w-full place-items-center px-4 py-12 pb-24 xl:pb-28">
+			<div class="bg-base-200 grid w-full content-center justify-items-center gap-7">
+				<div class="grid justify-items-center" style="view-transition-name: logo">
+					<h1 class="sr-only">Zixian Chen</h1>
 					<div class="relative my-1 size-[clamp(11rem,40vw,24rem)] lg:my-2" aria-hidden="true">
 						<CodeCanvas glyphMask="jost-z" />
 					</div>
+				</div>
+				<div class="grid justify-items-center gap-3 text-center">
+					<a
+						href="#projects"
+						class="group/hero-link text-base-content/61 hover:text-base-content focus-visible:outline-accent grid min-h-11 content-center justify-items-center gap-0.5 px-3 text-sm font-medium tracking-[0.08em] no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+						<span>Side projects</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="size-4 transition-transform duration-200 group-hover/hero-link:translate-y-0.5 group-focus-visible/hero-link:translate-y-0.5"
+							aria-hidden="true">
+							<path d="m6 9 6 6 6-6"></path>
+						</svg>
+					</a>
 				</div>
 			</div>
 		</header>
@@ -117,10 +103,8 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		</section>
 
 		<section
-			id="day"
-			data-nav-section
 			aria-labelledby="jobs"
-			class="bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
+			class="navItem bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
 			<div class="grid w-full max-w-250 content-start gap-y-12 lg:gap-y-24">
 				<div class="justify-self-start">
 					<h2 id="jobs" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Day</h2>
@@ -159,9 +143,8 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			<div class="grid w-full justify-items-center pt-8 lg:col-span-3 lg:pt-28">
 				<section
 					id="projects"
-					data-nav-section
 					aria-labelledby="projects-heading"
-					class="grid w-full max-w-250 justify-items-start px-4 pb-8 lg:grid-cols-3 lg:justify-self-end lg:pb-28">
+					class="navItem grid w-full max-w-250 justify-items-start px-4 pb-8 lg:grid-cols-3 lg:justify-self-end lg:pb-28">
 					<div class="justify-self-start pb-8 lg:col-span-3 lg:pb-24">
 						<h2 id="projects-heading" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Night</h2>
 						<p class="text-night-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
@@ -191,7 +174,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			</div>
 			<section
 				id="musings"
-				data-nav-section
 				aria-labelledby="musings-heading"
 				class="navItem grid w-full justify-items-center px-4 py-20 lg:col-span-5 lg:py-32">
 				<div class="border-night-overlay/15 bg-night-overlay/5 w-full max-w-3xl border">

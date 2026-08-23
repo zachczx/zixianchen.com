@@ -21,14 +21,14 @@ type Link = {
 
 const { navCurrent, pathName = '/', trackSections = false } = Astro.props;
 const links = [
-	{ href: '/#day', label: 'Day', active: { type: 'hash', key: 'day' } },
-	{ href: '/#projects', label: 'Night', active: { type: 'prefixOrHash', key: '/projects', hash: 'projects' } },
+	{ href: '/#header', mobileHref: '/', label: 'Home', active: { type: 'hash', key: 'header' } },
+	{ href: '/#about', label: 'About', active: { type: 'hash', key: 'about' } },
+	{ href: '/#projects', label: 'Projects', active: { type: 'hash', key: 'projects' } },
 	{
 		href: '/blog',
-		label: 'Musings',
+		label: 'Blog',
 		active: { type: 'prefixOrHash', key: '/blog', hash: 'musings' },
 	},
-	{ href: '/contact', label: 'Contact', active: { type: 'path', key: '/contact' } },
 ] as const satisfies readonly Link[];
 
 function isActive(rule: ActiveRule): boolean {
@@ -46,7 +46,7 @@ function ariaCurrent(rule: ActiveRule, active: boolean): 'location' | 'page' | u
 	return 'page';
 }
 
-const mobileLinks = links;
+const mobileLinks = links.slice(0, 5);
 ---
 
 <div data-site-nav data-path-name={pathName} data-track-sections={trackSections ? 'true' : 'false'}>
@@ -87,7 +87,7 @@ const mobileLinks = links;
 						const active = isActive(link.active);
 						return (
 							<a
-								href={link.href}
+								href={'mobileHref' in link ? link.mobileHref : link.href}
 								aria-current={ariaCurrent(link.active, active)}
 								data-nav-link
 								data-active-rule={link.active.type}
@@ -111,7 +111,7 @@ const mobileLinks = links;
 <script>
 	for (const root of document.querySelectorAll<HTMLElement>('[data-site-nav][data-track-sections="true"]')) {
 		const pathName = root.dataset.pathName ?? '/';
-		const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-section]'));
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('.navItem'));
 		const nav = root.querySelector<HTMLElement>('nav');
 		const darkSurfaceSections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone-section="dark"]'));
 		const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
@@ -238,15 +238,10 @@ const mobileLinks = links;
 		background-color: var(--nav-active-indicator);
 		content: '';
 		opacity: 0;
-		transform: scaleX(0.7);
-		transform-origin: center;
-		transition:
-			opacity var(--motion-duration-micro) linear,
-			transform var(--motion-duration-short) var(--motion-ease-out);
+		transition: opacity 100ms linear;
 	}
 
 	.top-nav-link[data-active='true']::after {
 		opacity: 1;
-		transform: scaleX(1);
 	}
 </style>
