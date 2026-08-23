@@ -19,3 +19,45 @@ const { name, slug, description } = Astro.props;
 		<WebsiteFooter />
 	</div>
 </BaseLayout>
+
+<script>
+	for (const root of document.querySelectorAll<HTMLElement>('[data-case-study-section-nav]')) {
+		const pairs = Array.from(root.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'))
+			.map((link) => ({ link, section: document.getElementById(link.getAttribute('href')?.slice(1) ?? '') }))
+			.filter((pair): pair is { link: HTMLAnchorElement; section: HTMLElement } => pair.section instanceof HTMLElement);
+		if (pairs.length === 0) continue;
+
+		let frame: number | undefined;
+		const syncCurrent = () => {
+			const viewportAnchor = window.innerHeight * 0.35;
+			let current = pairs.find(({ section }) => {
+				const rect = section.getBoundingClientRect();
+				return rect.top <= viewportAnchor && rect.bottom > viewportAnchor;
+			});
+
+			if (!current) {
+				current = pairs.reduce<{ pair: (typeof pairs)[number]; distance: number } | undefined>((nearest, pair) => {
+					const rect = pair.section.getBoundingClientRect();
+					const distance = Math.min(Math.abs(rect.top - viewportAnchor), Math.abs(rect.bottom - viewportAnchor));
+					return !nearest || distance < nearest.distance ? { pair, distance } : nearest;
+				}, undefined)?.pair;
+			}
+
+			for (const { link, section } of pairs) {
+				if (section === current?.section) link.setAttribute('aria-current', 'location');
+				else link.removeAttribute('aria-current');
+			}
+			frame = undefined;
+		};
+
+		const queueSync = () => {
+			if (frame !== undefined) return;
+			frame = window.requestAnimationFrame(syncCurrent);
+		};
+
+		syncCurrent();
+		window.addEventListener('scroll', queueSync, { passive: true });
+		window.addEventListener('resize', queueSync);
+		window.addEventListener('hashchange', queueSync);
+	}
+</script>

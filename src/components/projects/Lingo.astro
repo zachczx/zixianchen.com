@@ -138,7 +138,10 @@ const confusablesScreenshots = [
 	</Fragment>
 
 	<div class="lingo-showcase">
-		<nav class="border-neutral/15 grid border-y py-5 lg:grid-cols-[12rem_1fr] lg:gap-8" aria-label="Inside Lingo">
+			<nav
+				data-case-study-section-nav
+				class="border-neutral/15 grid border-y py-5 lg:grid-cols-[12rem_1fr] lg:gap-8"
+				aria-label="Inside Lingo">
 			<p class="text-base-content/55 font-mono text-xs tracking-wide uppercase">Inside Lingo</p>
 			<ol class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-5">
 				<li><a class="chapter-link" href="#why">Why it exists</a></li>
@@ -449,9 +452,15 @@ const confusablesScreenshots = [
 	}
 
 	.chapter-link:hover,
-	.chapter-link:focus-visible {
+	.chapter-link:focus-visible,
+	.chapter-link[aria-current='location'] {
 		color: var(--color-base-content);
 		text-decoration-color: currentColor;
+	}
+
+	.chapter-link[aria-current='location'] {
+		font-weight: 650;
+		text-decoration-color: var(--color-accent);
 	}
 
 	.chapter-link:focus-visible {
