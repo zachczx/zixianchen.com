@@ -10,18 +10,18 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : 'sections'}`;
+const sectionLabel = headings.length
+	? `On this page · ${headings.length} ${headings.length === 1 ? 'section' : 'sections'}`
+	: 'On this page';
 ---
 
 <div data-article-toc-root>
-	<details
-		data-article-toc-mobile
-		class="article-contents text-base-content/55 border-base-content/10 mt-6 border-y px-3 text-sm tracking-tight sm:px-6 xl:px-14">
+	<details data-article-toc-mobile class="article-contents border-base-content/10 mt-6 border-y px-3 sm:px-6 xl:px-14">
 		<summary
-			class="focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2">
-			<span class="shrink-0 font-bold tracking-widest uppercase">Contents</span>
-			<span class="text-base-content/30" aria-hidden="true">·</span>
-			<span data-toc-current class="min-w-0 flex-1 truncate tracking-tight">{sectionLabel}</span>
+			class="flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2">
+			<span class="contents-label shrink-0">Contents</span>
+			<span class="contents-separator" aria-hidden="true">·</span>
+			<span data-toc-current class="contents-current min-w-0 flex-1 truncate">{sectionLabel}</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
-				class="contents-chevron size-4 shrink-0 transition-transform"
+				class="contents-chevron size-4 shrink-0"
 				aria-hidden="true">
 				<path d="m9 18 6-6-6-6"></path>
 			</svg>
@@ -39,13 +39,13 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 			<ol>
 				{
 					headings.map((heading) => (
-						<li class={heading.depth === 3 ? 'ml-6' : ''}>
+						<li class:list={{ 'toc-mobile-h3': heading.depth === 3 }}>
 							<a
 								href={`#${heading.slug}`}
 								data-toc-link
 								data-toc-id={heading.slug}
-								class="group hover:text-base-content focus-visible:outline-accent flex min-h-11 items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-								<span class="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+								class="group flex min-h-11 items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+								<span class="toc-link-marker size-3 shrink-0" aria-hidden="true">
 									›
 								</span>
 								<span>{heading.text}</span>
@@ -63,7 +63,7 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 			<ol>
 				{
 					headings.map((heading) => (
-						<li class={heading.depth === 3 ? 'toc-h3' : undefined}>
+						<li class:list={{ 'toc-h2': heading.depth === 2, 'toc-h3': heading.depth === 3 }}>
 							<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
 								{heading.text}
 							</a>
@@ -154,6 +154,8 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 					else break;
 				}
 
+				if (!current && window.scrollY < 2) current = headings[0];
+
 				if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
 					current = headings.at(-1);
 				}
@@ -206,6 +208,10 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 </script>
 
 <style>
+	/* Hallmark · component: marginalia contents rail · genre: editorial · theme: portfolio
+	 * states: default · hover · focus · active · current-location
+	 * contrast: pass (40–41) · mobile: pass (34, 49–56) · pre-emit critique: P4 H5 E4 S5 R5 V4
+	 */
 	[data-article-toc-root] {
 		display: contents;
 	}
@@ -218,6 +224,29 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 		display: none;
 	}
 
+	.article-contents summary {
+		color: var(--color-base-content);
+		font-size: 1rem;
+		line-height: 1.35;
+	}
+
+	.contents-label {
+		font-weight: 600;
+		letter-spacing: 0.01em;
+	}
+
+	.contents-separator {
+		color: color-mix(in oklab, var(--color-base-content) 36%, transparent);
+	}
+
+	.contents-current {
+		color: color-mix(in oklab, var(--color-base-content) 82%, transparent);
+	}
+
+	.contents-chevron {
+		transition: transform var(--motion-duration-micro) var(--motion-ease-out);
+	}
+
 	.article-contents[open] .contents-chevron {
 		transform: rotate(90deg);
 	}
@@ -226,7 +255,8 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 		position: sticky;
 		z-index: 40;
 		top: 2.75rem;
-		background: color-mix(in oklab, var(--color-base-200) 94%, transparent);
+		background: color-mix(in oklab, var(--color-base-100) 96%, transparent);
+		color: var(--color-base-content);
 		backdrop-filter: blur(12px);
 	}
 
@@ -237,50 +267,119 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 		max-height: min(65vh, 32rem);
 		overflow-y: auto;
 		overscroll-behavior: contain;
-		background: var(--color-base-200);
-		box-shadow: 0 1rem 2rem color-mix(in oklab, black 22%, transparent);
-	}
-
-	.article-contents a[aria-current='location'],
-	[data-article-toc-desktop] a[aria-current='location'] {
+		border-block-end: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
+		background: var(--color-base-100);
 		color: var(--color-base-content);
 	}
 
-	.article-contents a[aria-current='location'] > span:last-child,
-	[data-article-toc-desktop] a[aria-current='location'] {
-		text-decoration: underline;
-		text-decoration-color: var(--color-accent);
-		text-decoration-thickness: 2px;
-		text-underline-offset: 0.25rem;
-	}
-
+	.article-contents ol,
 	[data-article-toc-desktop] ol {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
+	.article-contents .toc-mobile-h3 {
+		margin-inline-start: 1rem;
+	}
+
+	.article-contents a {
+		color: var(--color-base-content);
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.4;
+		padding-inline: 0.75rem;
+		text-decoration: none;
+		transition:
+			color var(--motion-duration-micro) var(--motion-ease-out),
+			opacity var(--motion-duration-micro) var(--motion-ease-out);
+	}
+
+	.article-contents .toc-link-marker {
+		width: 0.125rem;
+		height: 1rem;
+		background: currentColor;
+		font-size: 0;
+		opacity: 0;
+		transition: opacity var(--motion-duration-micro) var(--motion-ease-out);
+	}
+
+	.article-contents a[aria-current='location'],
+	[data-article-toc-desktop] a[aria-current='location'] {
+		color: var(--color-base-content);
+		font-weight: 400;
+	}
+
+	.article-contents a[aria-current='location'] .toc-link-marker {
+		opacity: 1;
+	}
+
+	.article-contents a:active,
+	[data-article-toc-desktop] a:active {
+		opacity: 0.72;
+	}
+
+	.article-contents a:focus-visible,
+	.article-contents summary:focus-visible,
+	[data-article-toc-desktop] a:focus-visible {
+		outline-color: var(--color-ring);
+	}
+
 	[data-article-toc-desktop] .toc-h3 {
-		margin-inline-start: 0.75rem;
+		margin-inline-start: 1rem;
+	}
+
+	[data-article-toc-desktop] .toc-h2:not(:first-child) {
+		margin-block-start: 0.5rem;
 	}
 
 	[data-article-toc-desktop] a {
 		display: block;
-		padding: 0.3rem 0.5rem;
-		color: color-mix(in oklab, var(--color-base-content) 52%, transparent);
-		font-size: 0.75rem;
-		line-height: 1.35;
+		padding: 0.25rem 0.75rem;
+		color: color-mix(in oklab, var(--color-base-content) 82%, transparent);
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.4;
 		text-decoration: none;
+		transition:
+			color var(--motion-duration-micro) var(--motion-ease-out),
+			opacity var(--motion-duration-micro) var(--motion-ease-out);
 	}
 
-	[data-article-toc-desktop] a:hover,
-	[data-article-toc-desktop] a:focus-visible {
-		color: var(--color-base-content);
+	[data-article-toc-desktop] .toc-h3 > a {
+		color: color-mix(in oklab, var(--color-base-content) 74%, transparent);
+		font-size: 0.9375rem;
+	}
+
+	[data-article-toc-desktop] a[aria-current='location'] {
+		position: relative;
+	}
+
+	[data-article-toc-desktop] a[aria-current='location']::before {
+		position: absolute;
+		inset-block-start: 50%;
+		inset-inline-start: -0.75rem;
+		width: 0.125rem;
+		height: 1rem;
+		background: var(--color-base-content);
+		content: '';
+		transform: translateY(-50%);
 	}
 
 	[data-article-toc-desktop] a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-ring);
 		outline-offset: -2px;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.article-contents a:hover,
+		[data-article-toc-desktop] a:hover {
+			color: var(--color-base-content);
+		}
+
+		.article-contents a:hover .toc-link-marker {
+			opacity: 0.7;
+		}
 	}
 
 	:global(article.blog-prose h2[id]),
@@ -299,28 +398,38 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 			z-index: 30;
 			top: 7.25rem;
 			left: calc(50% + 26rem);
-			width: min(17rem, calc(50vw - 27.5rem));
+			width: min(19rem, calc(50vw - 26.5rem));
 			max-height: calc(100vh - 8.75rem);
 			overflow-y: auto;
 			overscroll-behavior: contain;
-			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
-			padding-inline-start: 0.75rem;
+			border-inline-start: 1px solid color-mix(in oklab, var(--color-base-content) 18%, transparent);
+			background: var(--color-base-100);
+			color: var(--color-base-content);
+			padding: 0.75rem;
 			scrollbar-width: thin;
 		}
 
 		.toc-heading {
-			margin-bottom: 0.5rem;
-			padding-inline: 0.5rem;
-			color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
-			font-size: 0.6875rem;
-			font-weight: 700;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
+			margin: 0 0 0.5rem;
+			padding-inline: 0.75rem;
+			color: var(--color-base-content);
+			font-size: 0.875rem;
+			font-weight: 600;
+			letter-spacing: 0.06em;
 		}
 
 		:global(article.blog-prose h2[id]),
 		:global(article.blog-prose h3[id]) {
 			scroll-margin-top: 5rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.contents-chevron,
+		.article-contents a,
+		.article-contents .toc-link-marker,
+		[data-article-toc-desktop] a {
+			transition-duration: 0ms;
 		}
 	}
 </style>
