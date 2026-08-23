@@ -2,7 +2,7 @@
 title: 'Staff Work, Part 2: The Small Stuff Is Still Part of Staff Work'
 description: 'A practical guide to preparing papers, emails, slides and records, and checking the actual package before it goes up.'
 date: '2026-07-22'
-date_updated: ''
+date_updated: '2026-08-23'
 category: 'Work'
 tags:
   - Staff work
@@ -80,6 +80,14 @@ If the paper is going to a forum, include that too:
 ```
 
 "For approval pls" and "Update" become useless once the inbox contains several thousand emails with the same title.
+
+### If you've left clearance too late
+
+Don't immediately make your deadline your boss' deadline. Send it up, then keep checking with the PA. If your delay means checking over the weekend, so be it. It may clear on Saturday, you close it on Sunday, and nobody else needs to know there was a problem.
+
+If it's still pending on the deadline, be resourceful. Speak to the meeting secretary and see if you can negotiate more time. This is where relationships and persuasion matter. Escalate only when you have to.
+
+Never impose your own deadlines on your bosses unless warranted. It's double-edged: it may get attention, but it also advertises that you probably mismanaged yours. Of course, if something is genuinely urgent or consequential, endure the scolding and remind them anyway. Better to take a hit to your ranking than let something important fail.
 
 ### Give PAs a complete request
 
