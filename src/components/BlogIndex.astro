@@ -384,6 +384,41 @@ const filters = [
 </script>
 
 <style>
+	[data-blog-index] header {
+		border-color: var(--blog-night-rule);
+	}
+
+	[data-blog-index] h1 {
+		min-width: 0;
+		letter-spacing: -0.025em;
+		overflow-wrap: anywhere;
+		text-wrap: balance;
+	}
+
+	[data-blog-post] {
+		border-color: var(--blog-night-rule);
+	}
+
+	[data-blog-post] h2 {
+		letter-spacing: -0.012em;
+		text-wrap: pretty;
+	}
+
+	[data-blog-post] [data-post-number] {
+		color: var(--blog-night-accent);
+	}
+
+	[data-blog-search] {
+		border-color: var(--blog-night-rule);
+		background: var(--blog-night-surface);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		[data-blog-post]:hover {
+			background: color-mix(in oklab, var(--blog-night-surface-hover) 54%, transparent);
+		}
+	}
+
 	#blog-search::-webkit-search-cancel-button {
 		display: none;
 		-webkit-appearance: none;

@@ -1,5 +1,12 @@
 [
 	{
+		"date": "2026-08-24",
+		"macrostructure": "Existing Index + Long Document",
+		"theme": "Muted Night refinement",
+		"enrichment": "none",
+		"brief": "Incremental warmth, hierarchy, and reading-rhythm touches for the existing blog design"
+	},
+	{
 		"date": "2026-08-12",
 		"macrostructure": "Workbench",
 		"theme": "incumbent civic slate",

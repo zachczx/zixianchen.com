@@ -103,17 +103,20 @@ const structuredData = [
 	<meta slot="head" data-pagefind-filter="category[content]" content={post.data.category ?? ''} />
 
 	<BlogShell pathName={Astro.url.pathname}>
-		<div class="px-3 pb-3 sm:px-6 xl:px-14">
+		<div class="px-5 pb-3 sm:px-6 xl:px-14">
 			<a
 				href="/blog"
 				class="text-base-content/50 hover:text-base-content font-mono text-sm tracking-tight transition-colors"
 				>[back to main]</a
 			>
 		</div>
-		<h1 class="px-3 py-1 text-2xl font-extrabold sm:px-6 sm:text-3xl lg:text-4xl xl:px-14 xl:text-5xl xl:font-black">
+		<h1 class="px-5 py-1 text-2xl font-extrabold sm:px-6 sm:text-3xl lg:text-4xl xl:px-14 xl:text-5xl xl:font-black">
 			{post.data.title}
 		</h1>
-		<div class="text-base-content/50 px-3 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
+		<p class="article-dek px-5 pt-4 text-base leading-relaxed sm:px-6 sm:text-lg xl:px-14">
+			{post.data.description}
+		</p>
+		<div class="text-base-content/50 mt-3 px-5 font-mono text-sm tracking-tight sm:px-6 xl:px-14">
 			<div class="flex flex-wrap items-baseline gap-x-1.5">
 				<span class="uppercase">{dayjs(post.data.date).format('D MMM YYYY')}</span>
 				{
@@ -173,12 +176,12 @@ const structuredData = [
 			data-article-content
 			data-pagefind-body={post.data.listed === false ? undefined : ''}
 			class:list={[
-				'blog-prose prose prose-a:font-semibold prose-a:decoration-1 prose-a:underline-offset-3 prose-a:hover:text-accent prose-blockquote:my-8 prose-blockquote:ms-8 prose-h2:text-2xl prose-h2:font-bold prose-p:leading-relaxed prose-li:leading-relaxed prose-p:my-6 prose-code:font-mono prose-pre:px-0 prose-pre:py-3 mt-6 w-full max-w-none px-3 sm:px-6 lg:mt-10 xl:px-14',
+				'blog-prose prose prose-a:font-semibold prose-a:decoration-1 prose-a:underline-offset-3 prose-a:hover:text-accent prose-blockquote:my-8 prose-blockquote:ms-8 prose-h2:text-2xl prose-h2:font-bold prose-p:leading-relaxed prose-li:leading-relaxed prose-p:my-6 prose-code:font-mono prose-pre:px-0 prose-pre:py-3 mt-4 w-full max-w-none px-5 sm:px-6 xl:mt-8 xl:px-14',
 				{ 'numbered-paras': post.data.category === 'Work' },
 			]}>
 			<Content />
 		</article>
-		<div class="text-base-content/30 mt-10 px-3 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">
+		<div class="text-base-content/30 mt-10 px-5 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">
 			— END OF POST —
 		</div>
 
@@ -187,7 +190,7 @@ const structuredData = [
 				<nav
 					id="series-navigation"
 					aria-label={`${series.title} series`}
-					class="border-base-content/10 mt-8 border-y px-3 py-6 sm:px-6 xl:px-14">
+					class="border-base-content/10 mt-8 border-y px-5 py-6 sm:px-6 xl:px-14">
 					<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 						<h2 class="text-xl font-bold">{series.title}</h2>
 						<span class="text-base-content/50 font-mono text-sm">
@@ -241,7 +244,7 @@ const structuredData = [
 
 		{
 			relatedPosts.length > 0 && (
-				<nav aria-label="Related posts" class="border-base-content/10 mt-8 border-y px-3 py-6 sm:px-6 xl:px-14">
+				<nav aria-label="Related posts" class="border-base-content/10 mt-8 border-y px-5 py-6 sm:px-6 xl:px-14">
 					<h2 class="text-xl font-bold">Related notes</h2>
 					<ul class="divide-base-content/10 mt-3 divide-y">
 						{relatedPosts.map((relatedPost) => (
@@ -262,6 +265,57 @@ const structuredData = [
 </BaseLayout>
 
 <style>
+	h1 {
+		min-width: 0;
+		letter-spacing: -0.015em;
+		overflow-wrap: anywhere;
+		text-wrap: pretty;
+	}
+
+	.article-dek {
+		max-width: 44rem;
+		color: var(--blog-night-muted);
+		text-wrap: pretty;
+	}
+
+	article.blog-prose :global(h2) {
+		margin-top: 2.75rem;
+		border-top: 1px solid var(--blog-night-rule);
+		padding-top: 1rem;
+		letter-spacing: -0.015em;
+		text-wrap: pretty;
+	}
+
+	article.blog-prose > :global(:first-child) {
+		margin-top: 0;
+	}
+
+	article.blog-prose :global(h3) {
+		margin-top: 2.25rem;
+		margin-bottom: 0.75rem;
+		letter-spacing: -0.01em;
+		text-wrap: pretty;
+	}
+
+	article.blog-prose :global(h3 + p) {
+		margin-top: 0;
+	}
+
+	article.blog-prose :global(h2:has(+ h3)) {
+		margin-bottom: 0;
+	}
+
+	article.blog-prose :global(h2 + h3) {
+		margin-top: 1rem;
+	}
+
+	article.blog-prose :global(blockquote) {
+		border-color: var(--blog-night-accent);
+		background: color-mix(in oklab, var(--blog-night-surface) 72%, transparent);
+		padding-block: 0.75rem;
+		padding-inline-end: 1rem;
+	}
+
 	article.numbered-paras {
 		counter-reset: para;
 	}
@@ -280,12 +334,26 @@ const structuredData = [
 
 	article :global(ul),
 	article :global(ol) {
-		padding-left: 3em;
+		padding-left: 2em;
 	}
 
 	article :global(li)::marker {
 		font-family: var(--font-mono);
 		font-size: 0.85em;
 		opacity: 0.75;
+	}
+
+	@media (min-width: 40rem) {
+		article :global(ul),
+		article :global(ol) {
+			padding-left: 2.5em;
+		}
+	}
+
+	@media (min-width: 80rem) {
+		article :global(ul),
+		article :global(ol) {
+			padding-left: 3em;
+		}
 	}
 </style>

@@ -1,9 +1,9 @@
 {
-	"scannedAt": "2026-08-18",
+	"scannedAt": "2026-08-24",
 	"framework": "Astro 7 static output",
-	"fontStack": ["Figtree Variable", "JetBrains Mono Variable"],
-	"paletteSource": "DaisyUI light and dark themes in src/app.css",
+	"fontStack": ["Jost Variable", "JetBrains Mono Variable"],
+	"paletteSource": "DaisyUI light and dark themes with blog-scoped OKLCH refinements in src/app.css",
 	"motion": "No motion library; focused native DOM scripts only",
 	"spacing": "Tailwind utility scale",
-	"preserved": ["portfolio palette", "font stack", "project shell", "real product screenshots"]
+	"preserved": ["portfolio palette", "font stack", "project shell", "compact blog structure"]
 }
