@@ -3,6 +3,7 @@
 @plugin 'daisyui' {
 	themes: false;
 }
+
 @plugin 'daisyui/theme' {
 	name: 'light';
 	default: true;
@@ -105,6 +106,11 @@
 	:root {
 		text-decoration-skip-ink: none;
 		scroll-padding-top: 3rem;
+		--motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+		--motion-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+		--motion-duration-micro: 120ms;
+		--motion-duration-short: 220ms;
+		--motion-duration-overlay: 360ms;
 
 		/* Reserve space for scrollbar to prevent layout jumping */
 		scrollbar-gutter: stable;
@@ -119,8 +125,13 @@
 		*,
 		*::before,
 		*::after {
-			animation: none !important;
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
 			scroll-behavior: auto !important;
+		}
+
+		[data-motion='spatial'] {
+			transform: none !important;
 			transition: none !important;
 		}
 	}
@@ -230,5 +241,17 @@
 		content: '-';
 		margin-right: 1em;
 		color: red;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	::view-transition-old(root),
+	::view-transition-new(root),
+	::view-transition-old(navrail),
+	::view-transition-new(navrail),
+	::view-transition-old(logo),
+	::view-transition-new(logo) {
+		animation-duration: var(--motion-duration-short);
+		animation-timing-function: var(--motion-ease-out);
 	}
 }

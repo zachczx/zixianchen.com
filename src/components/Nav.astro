@@ -21,14 +21,14 @@ type Link = {
 
 const { navCurrent, pathName = '/', trackSections = false } = Astro.props;
 const links = [
-	{ href: '/#header', mobileHref: '/', label: 'Home', active: { type: 'hash', key: 'header' } },
-	{ href: '/#about', label: 'About', active: { type: 'hash', key: 'about' } },
-	{ href: '/#projects', label: 'Projects', active: { type: 'hash', key: 'projects' } },
+	{ href: '/#day', label: 'Day', active: { type: 'hash', key: 'day' } },
+	{ href: '/#projects', label: 'Night', active: { type: 'prefixOrHash', key: '/projects', hash: 'projects' } },
 	{
 		href: '/blog',
-		label: 'Blog',
+		label: 'Musings',
 		active: { type: 'prefixOrHash', key: '/blog', hash: 'musings' },
 	},
+	{ href: '/contact', label: 'Contact', active: { type: 'path', key: '/contact' } },
 ] as const satisfies readonly Link[];
 
 function isActive(rule: ActiveRule): boolean {
@@ -46,7 +46,7 @@ function ariaCurrent(rule: ActiveRule, active: boolean): 'location' | 'page' | u
 	return 'page';
 }
 
-const mobileLinks = links.slice(0, 5);
+const mobileLinks = links;
 ---
 
 <div data-site-nav data-path-name={pathName} data-track-sections={trackSections ? 'true' : 'false'}>
@@ -111,7 +111,7 @@ const mobileLinks = links.slice(0, 5);
 <script>
 	for (const root of document.querySelectorAll<HTMLElement>('[data-site-nav][data-track-sections="true"]')) {
 		const pathName = root.dataset.pathName ?? '/';
-		const sections = Array.from(document.querySelectorAll<HTMLElement>('.navItem'));
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-section]'));
 		const nav = root.querySelector<HTMLElement>('nav');
 		const darkSurfaceSections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone-section="dark"]'));
 		const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
@@ -238,10 +238,15 @@ const mobileLinks = links.slice(0, 5);
 		background-color: var(--nav-active-indicator);
 		content: '';
 		opacity: 0;
-		transition: opacity 100ms linear;
+		transform: scaleX(0.7);
+		transform-origin: center;
+		transition:
+			opacity var(--motion-duration-micro) linear,
+			transform var(--motion-duration-short) var(--motion-ease-out);
 	}
 
 	.top-nav-link[data-active='true']::after {
 		opacity: 1;
+		transform: scaleX(1);
 	}
 </style>
