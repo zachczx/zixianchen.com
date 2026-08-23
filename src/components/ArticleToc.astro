@@ -79,7 +79,7 @@ const sectionLabel = `${headings.length} ${headings.length === 1 ? 'section' : '
 	const tocRoot = document.querySelector<HTMLElement>('[data-article-toc-root]');
 
 	if (tocRoot) {
-		const article = tocRoot.nextElementSibling;
+		const article = document.querySelector<HTMLElement>('[data-article-content]');
 		const mobileToc = tocRoot.querySelector<HTMLDetailsElement>('[data-article-toc-mobile]');
 		const mobilePanel = mobileToc?.querySelector<HTMLElement>('nav');
 		const mobileSummary = mobileToc?.querySelector<HTMLElement>('summary');
