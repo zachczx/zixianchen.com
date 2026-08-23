@@ -50,7 +50,7 @@ const filters = [
 			<button
 				data-clear-search
 				type="button"
-				class="text-base-content/45 hover:bg-base-content/[0.07] hover:text-base-content focus-visible:outline-accent absolute top-1/2 right-2 hidden size-9 -translate-y-1/2 cursor-pointer place-items-center rounded focus-visible:outline-2 focus-visible:outline-offset-2"
+				class="text-base-content/45 hover:bg-base-content/[0.07] hover:text-base-content focus-visible:outline-accent absolute top-1/2 right-2 hidden size-11 -translate-y-1/2 cursor-pointer place-items-center rounded focus-visible:outline-2 focus-visible:outline-offset-2"
 				aria-label="Clear blog search">
 				<Icon name="x" class="size-4" />
 			</button>
@@ -103,7 +103,7 @@ const filters = [
 							]}>
 							<article class="grid gap-2">
 								<h2 class="text-xl font-bold sm:text-2xl">
-									<span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline">
+									<span class="decoration-accent decoration-2 underline-offset-4 group-focus-within:underline group-hover:underline">
 										<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">
 											{index + 1}.
 										</span>
@@ -248,6 +248,7 @@ const filters = [
 			postList.setAttribute('aria-busy', 'false');
 			staticPosts.classList.remove('hidden');
 			searchResults.classList.add('hidden');
+			searchResults.classList.remove('is-refreshing');
 			errorMessage.classList.add('hidden');
 			input.removeAttribute('aria-describedby');
 			const visible = syncStaticPosts();
@@ -297,7 +298,7 @@ const filters = [
 					const tags = result.meta.tags
 						? `<div class="text-base-content/50 font-mono text-sm">${escapeHtml(result.meta.tags)}</div>`
 						: '';
-					return `<a href="${escapeHtml(result.url)}" class="group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6${index > 0 ? ' border-t' : ''}"><article class="grid gap-2"><h2 class="text-xl font-bold sm:text-2xl"><span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline"><span class="text-base-content/55 font-mono text-[0.85em]">${index + 1}.</span>${escapeHtml(result.meta.title ?? '')}</span></h2><p class="search-excerpt text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">${result.excerpt}</p><div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">${meta}</div>${tags}</article></a>`;
+					return `<a href="${escapeHtml(result.url)}" class="group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6${index > 0 ? ' border-t' : ''}"><article class="grid gap-2"><h2 class="text-xl font-bold sm:text-2xl"><span class="decoration-accent decoration-2 underline-offset-4 group-hover:underline group-focus-within:underline"><span class="text-base-content/55 font-mono text-[0.85em]">${index + 1}.</span>${escapeHtml(result.meta.title ?? '')}</span></h2><p class="search-excerpt text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">${result.excerpt}</p><div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">${meta}</div>${tags}</article></a>`;
 				})
 				.join('');
 		};
@@ -311,6 +312,7 @@ const filters = [
 			const request = ++searchRequest;
 			staticPosts.classList.add('hidden');
 			searchResults.classList.remove('hidden');
+			searchResults.classList.add('is-refreshing');
 			searchResults.innerHTML = loadingMarkup();
 			postList.setAttribute('aria-busy', 'true');
 			errorMessage.classList.add('hidden');
@@ -326,12 +328,14 @@ const filters = [
 				const results = await Promise.all(response.results.map((result) => result.data()));
 				if (request !== searchRequest) return;
 				renderResults(results);
+				requestAnimationFrame(() => searchResults.classList.remove('is-refreshing'));
 				status.textContent = `${results.length} ${results.length === 1 ? 'match' : 'matches'}${activeCategory ? ` in ${activeCategory}` : ''}`;
 				postList.setAttribute('aria-busy', 'false');
 			} catch (error) {
 				if (request !== searchRequest) return;
 				console.error('Unable to load the blog search index.', error);
 				searchResults.innerHTML = '';
+				searchResults.classList.remove('is-refreshing');
 				status.textContent = 'Search unavailable';
 				errorMessage.classList.remove('hidden');
 				input.setAttribute('aria-describedby', 'blog-search-error');
@@ -390,5 +394,14 @@ const filters = [
 		background: color-mix(in oklab, var(--color-accent) 55%, transparent);
 		color: var(--color-neutral);
 		font-weight: 700;
+	}
+
+	[data-search-results] {
+		opacity: 1;
+		transition: opacity var(--motion-duration-short) var(--motion-ease-out);
+	}
+
+	[data-search-results].is-refreshing {
+		opacity: 0.45;
 	}
 </style>

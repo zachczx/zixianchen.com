@@ -12,6 +12,7 @@ const { animated = true, glyphMask, class: className = '' } = Astro.props;
 	data-code-canvas
 	data-animated={animated ? 'true' : 'false'}
 	data-glyph-mask={glyphMask}
+	data-motion="ambient"
 	aria-hidden="true"
 	class={`block h-full w-full ${className}`}></canvas>
 
@@ -21,15 +22,19 @@ const { animated = true, glyphMask, class: className = '' } = Astro.props;
 	for (const canvas of document.querySelectorAll<HTMLCanvasElement>('canvas[data-code-canvas]')) {
 		if (canvas.dataset.initialized === 'true') continue;
 		canvas.dataset.initialized = 'true';
-		codeCanvas({
+		const cleanup = codeCanvas({
 			animated: canvas.dataset.animated === 'true',
 			glyphMask: canvas.dataset.glyphMask === 'jost-z' ? 'jost-z' : undefined,
 		})(canvas);
+		if (cleanup) document.addEventListener('astro:before-swap', cleanup, { once: true });
 	}
 </script>
 
 <style>
 	canvas {
 		color: var(--color-primary-content);
+		--code-canvas-background: #0f172a;
+		--code-canvas-cursor: var(--color-accent);
+		--code-canvas-mask: #000;
 	}
 </style>

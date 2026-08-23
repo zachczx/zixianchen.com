@@ -39,10 +39,11 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 							alt={image.alt}
 							loading="lazy"
 							width={Math.min(800, image.thumbnail.width)}
-							class="block h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015]"
+							data-motion="spatial"
+							class="block h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] group-focus-visible:scale-[1.015]"
 						/>
 						<span
-							class="absolute right-2 bottom-2 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100"
+							class="absolute right-2 bottom-2 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
 							aria-hidden="true">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -95,14 +96,16 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 		<form method="dialog">
 			<button
 				type="submit"
-				class="grid size-10 cursor-pointer place-items-center border border-white/20 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+				class="grid size-11 cursor-pointer place-items-center border border-white/20 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 				aria-label="Close full-size screenshot">
 				<Icon name="x" class="size-5" />
 			</button>
 		</form>
 	</div>
 
-	<div class="relative grid max-h-[calc(96vh-3.6rem)] place-items-center overflow-auto bg-neutral-900">
+	<div
+		data-gallery-stage
+		class="gallery-stage relative grid max-h-[calc(96vh-3.6rem)] place-items-center overflow-auto bg-neutral-900">
 		{
 			images.map((image, index) => (
 				<div
@@ -148,5 +151,42 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 	dialog::backdrop {
 		background: rgb(10 10 10 / 85%);
 		backdrop-filter: blur(4px);
+	}
+
+	dialog[data-gallery-dialog] {
+		opacity: 0;
+		transform: scale(0.985);
+		transition:
+			opacity var(--motion-duration-overlay) var(--motion-ease-out),
+			transform var(--motion-duration-overlay) var(--motion-ease-out);
+		transition-behavior: allow-discrete;
+	}
+
+	dialog[data-gallery-dialog][open] {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.gallery-stage {
+		transition: opacity var(--motion-duration-short) var(--motion-ease-out);
+	}
+
+	.gallery-stage.is-changing {
+		opacity: 0.45;
+	}
+
+	@starting-style {
+		dialog[data-gallery-dialog][open] {
+			opacity: 0;
+			transform: scale(0.985);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		dialog[data-gallery-dialog],
+		.gallery-stage {
+			transform: none;
+			transition: none;
+		}
 	}
 </style>

@@ -32,6 +32,13 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 		let animationTimer: ReturnType<typeof setInterval> | undefined;
 		let animationFrame: number | undefined;
 		let disposed = false;
+		let isVisible = true;
+		let pageVisible = document.visibilityState === 'visible';
+		const shouldAnimate = animated && !reducedMotion;
+		const canvasStyles = getComputedStyle(canvas);
+		const canvasBackground = canvasStyles.getPropertyValue('--code-canvas-background').trim();
+		const canvasCursor = canvasStyles.getPropertyValue('--code-canvas-cursor').trim();
+		const canvasMask = canvasStyles.getPropertyValue('--code-canvas-mask').trim();
 
 		function draw() {
 			animationFrame = undefined;
@@ -55,7 +62,7 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 			drawingContext.globalCompositeOperation = 'source-over';
 			drawingContext.clearRect(0, 0, renderWidth, renderHeight);
 			if (glyphMask === 'jost-z') {
-				drawingContext.fillStyle = '#0f172a';
+				drawingContext.fillStyle = canvasBackground || '#0f172a';
 				drawingContext.fillRect(0, 0, renderWidth, renderHeight);
 			}
 
@@ -78,12 +85,12 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 				drawingContext.fillText(displayText.slice(start, start + charactersPerLine), 0, line * lineHeight);
 			}
 
-			if (animated && !reducedMotion) {
+			if (shouldAnimate) {
 				const visibleCharacters = charactersPerLine * visibleLines;
 				const visibleCursor = cursorPosition % visibleCharacters;
 				const cursorLine = Math.floor(visibleCursor / charactersPerLine);
 				const cursorColumn = visibleCursor % charactersPerLine;
-				drawingContext.fillStyle = '#ffff00';
+				drawingContext.fillStyle = canvasCursor || '#ffff00';
 				drawingContext.fillRect(cursorColumn * characterWidth, cursorLine * lineHeight, 3, lineHeight);
 			}
 
@@ -105,7 +112,7 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 				drawingContext.font = `800 ${glyphFontSize}px "Jost Variable", sans-serif`;
 				drawingContext.textAlign = 'left';
 				drawingContext.textBaseline = 'alphabetic';
-				drawingContext.fillStyle = '#000';
+				drawingContext.fillStyle = canvasMask || '#000';
 
 				const metrics = drawingContext.measureText('Z');
 				const glyphWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
@@ -139,8 +146,21 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 		void document.fonts.ready.then(requestDraw);
 		requestDraw();
 
-		if (animated && !reducedMotion) {
+		const visibilityObserver = new IntersectionObserver(([entry]) => {
+			isVisible = entry?.isIntersecting ?? true;
+			if (isVisible) requestDraw();
+		});
+		visibilityObserver.observe(canvas);
+
+		const handleVisibilityChange = () => {
+			pageVisible = document.visibilityState === 'visible';
+			if (pageVisible) requestDraw();
+		};
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		if (shouldAnimate) {
 			animationTimer = setInterval(() => {
+				if (!isVisible || !pageVisible) return;
 				cursorPosition += 1;
 				if (cursorPosition >= currentText.length) {
 					currentText = nextText;
@@ -148,13 +168,15 @@ export function codeCanvas({ animated, glyphMask }: CodeCanvasOptions): CodeCanv
 					cursorPosition = 0;
 				}
 				requestDraw();
-			}, 70);
+			}, 100);
 		}
 
 		return () => {
 			disposed = true;
 			resizeObserver.disconnect();
 			themeObserver.disconnect();
+			visibilityObserver.disconnect();
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
 			if (animationFrame !== undefined) cancelAnimationFrame(animationFrame);
 			if (animationTimer) clearInterval(animationTimer);
 		};

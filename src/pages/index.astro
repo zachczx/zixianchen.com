@@ -61,7 +61,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			<div class="border-base-content/15 bg-base-100 w-full max-w-3xl border">
 				<div class="border-base-content/15 flex items-baseline justify-between border-b px-6 py-5 sm:px-8">
 					<h2 id="about-heading" class="text-2xl font-bold tracking-tight lg:text-3xl">Interests</h2>
-					<span class="text-muted-foreground text-[0.7rem] tracking-[0.25em] uppercase">Profile</span>
 				</div>
 				<div class="sm:flex">
 					<div class="border-base-content/10 border-b px-4 py-4">
@@ -103,10 +102,11 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			</div>
 		</section>
 
-		<section aria-labelledby="jobs" class="bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
+		<section
+			aria-labelledby="jobs"
+			class="navItem bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
 			<div class="grid w-full max-w-250 content-start gap-y-12 lg:gap-y-24">
 				<div class="justify-self-start">
-					<p class="text-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Work history</p>
 					<h2 id="jobs" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Day</h2>
 					<p class="text-base-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 						Public sector tech, policy, comms, and service delivery roles.
@@ -124,27 +124,11 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 				<div class="grid content-start gap-y-10 lg:gap-y-16">
 					{
 						jobs.map((job) => (
-							<div class="job-row grid gap-y-1 lg:grid-cols-[5rem_minmax(0,1fr)]">
+							<div class="grid gap-y-1 lg:grid-cols-[5rem_minmax(0,1fr)]">
 								<div class="text-base-content/70 items-baseline text-sm lg:pt-1.5 lg:text-base">{job.year}</div>
 								<div>
-									<h3 class="job-title relative w-fit text-lg font-bold lg:text-2xl">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="job-arrow absolute top-1/2 -left-5 size-[0.7em] -translate-y-1/2 opacity-0"
-											aria-hidden="true">
-											<path d="m9 18 6-6-6-6" />
-										</svg>
-										{job.title}
-									</h3>
-									<p class="job-desc text-base-content/70 text-sm leading-relaxed transition-colors duration-200 lg:text-base">
-										{job.desc}
-									</p>
+									<h3 class="text-lg font-bold lg:text-2xl">{job.title}</h3>
+									<p class="text-base-content/70 text-sm leading-relaxed lg:text-base">{job.desc}</p>
 								</div>
 							</div>
 						))
@@ -162,7 +146,6 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 					aria-labelledby="projects-heading"
 					class="navItem grid w-full max-w-250 justify-items-start px-4 pb-8 lg:grid-cols-3 lg:justify-self-end lg:pb-28">
 					<div class="justify-self-start pb-8 lg:col-span-3 lg:pb-24">
-						<p class="text-night-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">Side projects</p>
 						<h2 id="projects-heading" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Night</h2>
 						<p class="text-night-content/65 mt-3 max-w-xl text-sm leading-relaxed lg:text-base">
 							Personal tools, experiments, and small products built outside the day job.
@@ -201,12 +184,14 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 					<div class="divide-night-overlay/10 divide-y px-6 sm:px-8">
 						{
 							posts.map((post) => (
-								<a href={`/blog/${post.slug}`} class="group grid gap-x-8 gap-y-1.5 py-5 sm:grid-cols-[7rem_1fr]">
+								<a
+									href={`/blog/${post.slug}`}
+									class="group focus-visible:outline-accent grid gap-x-8 gap-y-1.5 py-5 focus-visible:outline-2 focus-visible:outline-offset-[-2px] sm:grid-cols-[7rem_1fr]">
 									<span class="text-night-muted-foreground font-mono text-xs tracking-[0.18em] uppercase sm:pt-1.5">
 										{dayjs(post.date).format('D MMM YYYY')}
 									</span>
 									<span class="block">
-										<span class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-hover:underline lg:text-lg">
+										<span class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-focus-within:underline group-hover:underline lg:text-lg">
 											{post.title}
 										</span>
 										<span class="text-night-muted-foreground mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">
@@ -247,17 +232,3 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		</div>
 	</main>
 </BaseLayout>
-
-<style>
-	.job-row:hover .job-arrow {
-		opacity: 1;
-	}
-
-	.job-row:hover .job-desc {
-		color: var(--color-base-content);
-	}
-
-	.job-arrow {
-		transition: opacity 0.2s ease;
-	}
-</style>

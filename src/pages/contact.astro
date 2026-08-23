@@ -82,7 +82,11 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 								<span id="contact-spinner" class="loading loading-dots loading-md text-base-100 hidden"></span>
 								<span id="contact-submit-label">Send message</span>
 							</button>
-							<p id="contact-success" aria-live="polite" class="contact-status contact-status-success hidden text-sm">
+							<p
+								id="contact-success"
+								aria-live="polite"
+								tabindex="-1"
+								class="contact-status contact-status-success hidden text-sm">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -97,7 +101,11 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 								</svg>
 								Message sent successfully.
 							</p>
-							<p id="contact-error" aria-live="polite" class="contact-status contact-status-error hidden text-sm">
+							<p
+								id="contact-error"
+								aria-live="polite"
+								tabindex="-1"
+								class="contact-status contact-status-error hidden text-sm">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -140,10 +148,6 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 		--contact-rule: color-mix(in oklab, var(--color-base-content) 16%, transparent);
 		--contact-muted: color-mix(in oklab, var(--color-base-content) 78%, transparent);
 		--contact-success-ink: color-mix(in oklab, var(--color-success) 45%, var(--color-base-content));
-		--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-		--ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-		--dur-micro: 120ms;
-		--dur-short: 220ms;
 	}
 
 	.contact-title {
@@ -177,9 +181,9 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 		outline: 2px solid transparent;
 		outline-offset: 2px;
 		transition:
-			background-color var(--dur-short) var(--ease-out),
-			border-color var(--dur-short) var(--ease-out),
-			transform var(--dur-micro) var(--ease-out);
+			background-color var(--motion-duration-short) var(--motion-ease-out),
+			border-color var(--motion-duration-short) var(--motion-ease-out),
+			transform var(--motion-duration-micro) var(--motion-ease-out);
 	}
 
 	.contact-input-shell {
@@ -259,10 +263,10 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 		border-radius: 0.75rem;
 		white-space: nowrap;
 		transition:
-			background-color var(--dur-short) var(--ease-out),
-			border-color var(--dur-short) var(--ease-out),
-			color var(--dur-short) var(--ease-out),
-			transform var(--dur-micro) var(--ease-out);
+			background-color var(--motion-duration-short) var(--motion-ease-out),
+			border-color var(--motion-duration-short) var(--motion-ease-out),
+			color var(--motion-duration-short) var(--motion-ease-out),
+			transform var(--motion-duration-micro) var(--motion-ease-out);
 	}
 
 	.contact-submit:focus-visible {
@@ -351,7 +355,6 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 	const submitLabel = document.querySelector<HTMLElement>('#contact-submit-label');
 	const success = document.querySelector<HTMLElement>('#contact-success');
 	const error = document.querySelector<HTMLElement>('#contact-error');
-	let successTimer: ReturnType<typeof setTimeout> | undefined;
 
 	function setSubmitting(isSubmitting: boolean) {
 		if (!submit || !spinner || !submitLabel) return;
@@ -368,7 +371,6 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 			return;
 		}
 
-		if (successTimer) clearTimeout(successTimer);
 		success?.classList.add('hidden');
 		error?.classList.add('hidden');
 		setSubmitting(true);
@@ -386,9 +388,10 @@ import WebsiteFooter from '../components/WebsiteFooter.astro';
 
 			form.reset();
 			success?.classList.remove('hidden');
-			successTimer = setTimeout(() => success?.classList.add('hidden'), 4000);
+			success?.focus();
 		} catch {
 			error?.classList.remove('hidden');
+			error?.focus();
 		} finally {
 			setSubmitting(false);
 		}
