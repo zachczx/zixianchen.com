@@ -16,7 +16,7 @@ const sectionLabel = headings.length
 ---
 
 <div data-article-toc-root>
-	<details data-article-toc-mobile class="article-contents border-base-content/10 mt-6 border-y px-3 sm:px-6 xl:px-14">
+	<details data-article-toc-mobile class="article-contents border-base-content/10 mt-4 border-y px-5 sm:px-6 xl:px-14">
 		<summary
 			class="flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2">
 			<span class="contents-label shrink-0">Contents</span>
@@ -264,7 +264,7 @@ const sectionLabel = headings.length
 		position: absolute;
 		top: calc(100% - 1px);
 		inset-inline: 0;
-		max-height: min(65vh, 32rem);
+		max-height: min(50dvh, 28rem);
 		overflow-y: auto;
 		overscroll-behavior: contain;
 		border-block-end: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
@@ -311,6 +311,7 @@ const sectionLabel = headings.length
 	}
 
 	.article-contents a[aria-current='location'] .toc-link-marker {
+		color: var(--blog-night-accent);
 		opacity: 1;
 	}
 
@@ -335,11 +336,11 @@ const sectionLabel = headings.length
 
 	[data-article-toc-desktop] a {
 		display: block;
-		padding: 0.25rem 0.75rem;
+		padding: 0.1875rem 0.75rem;
 		color: color-mix(in oklab, var(--color-base-content) 82%, transparent);
-		font-size: 1rem;
+		font-size: 0.875rem;
 		font-weight: 400;
-		line-height: 1.4;
+		line-height: 1.35;
 		text-decoration: none;
 		transition:
 			color var(--motion-duration-micro) var(--motion-ease-out),
@@ -348,7 +349,7 @@ const sectionLabel = headings.length
 
 	[data-article-toc-desktop] .toc-h3 > a {
 		color: color-mix(in oklab, var(--color-base-content) 74%, transparent);
-		font-size: 0.9375rem;
+		font-size: 0.8125rem;
 	}
 
 	[data-article-toc-desktop] a[aria-current='location'] {
@@ -361,7 +362,7 @@ const sectionLabel = headings.length
 		inset-inline-start: -0.75rem;
 		width: 0.125rem;
 		height: 1rem;
-		background: var(--color-base-content);
+		background: var(--blog-night-accent);
 		content: '';
 		transform: translateY(-50%);
 	}

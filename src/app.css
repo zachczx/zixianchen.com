@@ -116,6 +116,37 @@
 		scrollbar-gutter: stable;
 	}
 
+	/* Hallmark · genre: editorial · tone: muted Night · anchor: warm amber
+	 * macrostructure: existing index + long document · pre-emit critique: P5 H4 E5 S5 R5 V5
+	 * contrast: pass (40–41) · mobile: pass (34, 49–57) · tokens: pass (48)
+	 */
+	.blog-shell {
+		--blog-night-background: oklch(17% 0.012 270);
+		--blog-night-surface: oklch(20.5% 0.014 270);
+		--blog-night-surface-hover: oklch(23% 0.016 270);
+		--blog-night-text: oklch(91% 0.009 82);
+		--blog-night-muted: oklch(66% 0.018 78);
+		--blog-night-rule: oklch(33% 0.018 270);
+		--blog-night-accent: oklch(76% 0.075 78);
+
+		--color-base-100: var(--blog-night-surface);
+		--color-base-200: var(--blog-night-background);
+		--color-base-300: var(--blog-night-surface-hover);
+		--color-base-content: var(--blog-night-text);
+		--color-accent: var(--blog-night-accent);
+		--color-ring: var(--blog-night-accent);
+	}
+
+	.blog-shell[data-theme='light'] {
+		--blog-night-background: oklch(96% 0.01 82);
+		--blog-night-surface: oklch(98.5% 0.007 82);
+		--blog-night-surface-hover: oklch(93.5% 0.017 82);
+		--blog-night-text: oklch(27% 0.018 270);
+		--blog-night-muted: oklch(48% 0.025 270);
+		--blog-night-rule: oklch(82% 0.025 82);
+		--blog-night-accent: oklch(57% 0.1 66);
+	}
+
 	html,
 	body {
 		overflow-x: clip;

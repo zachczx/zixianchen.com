@@ -34,7 +34,7 @@ export default defineConfig({
 
 	markdown: {
 		shikiConfig: {
-			theme: 'rose-pine-moon',
+			theme: 'dark-plus',
 			transformers: [
 				transformerNotationHighlight({ matchAlgorithm: 'v3' }),
 				transformerNotationDiff({ matchAlgorithm: 'v3' }),
