@@ -16,12 +16,20 @@ const project = descriptions.lingo;
 		if (!(dialog instanceof HTMLDialogElement)) continue;
 
 		const slides = [...dialog.querySelectorAll<HTMLElement>('[data-gallery-slide]')];
+		const stage = dialog.querySelector<HTMLElement>('[data-gallery-stage]');
 		const title = dialog.querySelector<HTMLElement>('[data-gallery-title]');
 		const count = dialog.querySelector<HTMLElement>('[data-gallery-count]');
 		let selectedIndex = 0;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 		const select = (index: number) => {
 			if (slides.length === 0) return;
+			if (dialog.open && stage && !reducedMotion.matches) {
+				stage.classList.remove('is-changing');
+				void stage.offsetWidth;
+				stage.classList.add('is-changing');
+				window.setTimeout(() => stage.classList.remove('is-changing'), 140);
+			}
 			selectedIndex = (index + slides.length) % slides.length;
 			for (const [slideIndex, slide] of slides.entries()) {
 				const selected = slideIndex === selectedIndex;

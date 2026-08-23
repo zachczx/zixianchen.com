@@ -24,8 +24,12 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	pathname="/">
 	<Nav navCurrent="header" pathName="/" trackSections />
 	<main class="bg-base-200 grid min-h-dvh justify-items-center 2xl:overflow-x-clip">
-		<header id="header" data-nav-section class="grid min-h-dvh w-full items-center px-4 pt-24 pb-16 sm:px-6 lg:px-8 xl:pb-20">
-			<div class="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)] lg:gap-16">
+		<header
+			id="header"
+			data-nav-section
+			class="grid min-h-dvh w-full items-center px-4 pt-24 pb-16 sm:px-6 lg:px-8 xl:pb-20">
+			<div
+				class="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)] lg:gap-16">
 				<div class="max-w-2xl justify-self-start">
 					<h1 class="max-w-xl text-5xl leading-[0.98] font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
 						Public-sector tech by day, questionable side projects by night.
@@ -112,7 +116,11 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			</div>
 		</section>
 
-		<section id="day" data-nav-section aria-labelledby="jobs" class="bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
+		<section
+			id="day"
+			data-nav-section
+			aria-labelledby="jobs"
+			class="bg-base-200 grid min-h-dvh w-full justify-items-center px-4 py-20 lg:py-28">
 			<div class="grid w-full max-w-250 content-start gap-y-12 lg:gap-y-24">
 				<div class="justify-self-start">
 					<h2 id="jobs" class="text-5xl font-extrabold sm:text-6xl lg:text-9xl">Day</h2>
@@ -136,9 +144,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 								<div class="text-base-content/70 items-baseline text-sm lg:pt-1.5 lg:text-base">{job.year}</div>
 								<div>
 									<h3 class="text-lg font-bold lg:text-2xl">{job.title}</h3>
-									<p class="text-base-content/70 text-sm leading-relaxed lg:text-base">
-										{job.desc}
-									</p>
+									<p class="text-base-content/70 text-sm leading-relaxed lg:text-base">{job.desc}</p>
 								</div>
 							</div>
 						))
@@ -203,7 +209,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 										{dayjs(post.date).format('D MMM YYYY')}
 									</span>
 									<span class="block">
-										<span class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-hover:underline group-focus-within:underline lg:text-lg">
+										<span class="decoration-accent block leading-snug font-bold decoration-2 underline-offset-4 transition-colors group-focus-within:underline group-hover:underline lg:text-lg">
 											{post.title}
 										</span>
 										<span class="text-night-muted-foreground mt-1.5 flex flex-wrap gap-x-1.5 font-mono text-xs tracking-tight">

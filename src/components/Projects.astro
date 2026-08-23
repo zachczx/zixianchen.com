@@ -115,7 +115,9 @@ const featured: FeaturedProject[] = [
 						class="group focus-visible:outline-accent grid items-stretch gap-7 text-start focus-visible:outline-2 focus-visible:outline-offset-6 lg:grid-cols-2 lg:gap-14">
 						<div>
 							{project.kind === 'mobile' ? (
-								<div data-motion="spatial" class="flex items-end justify-center gap-2 transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-within:scale-[1.02]">
+								<div
+									data-motion="spatial"
+									class="flex items-end justify-center gap-2 transition-transform duration-500 ease-out group-focus-within:scale-[1.02] group-hover:scale-[1.02]">
 									{(project.shots ?? []).map((shot, shotIndex) => (
 										<div class="border-night-overlay/10 w-[30%] border">
 											<Image
@@ -135,7 +137,7 @@ const featured: FeaturedProject[] = [
 											alt={`${meta.name} screenshot`}
 											loading="lazy"
 											data-motion="spatial"
-											class="aspect-video w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] group-focus-within:scale-[1.03]"
+											class="aspect-video w-full object-cover transition-transform duration-500 ease-out group-focus-within:scale-[1.03] group-hover:scale-[1.03]"
 											style={`object-position: ${project.pos};`}
 										/>
 									</div>
@@ -145,7 +147,7 @@ const featured: FeaturedProject[] = [
 						<div class="flex flex-col">
 							<div class="flex items-baseline gap-4">
 								<span class="text-night-content/55 text-sm">{String(index + 1).padStart(2, '0')}</span>
-									<h3 class="decoration-accent text-2xl font-bold tracking-tight decoration-4 underline-offset-4 transition-colors group-hover:underline group-focus-within:underline lg:text-4xl">
+								<h3 class="decoration-accent text-2xl font-bold tracking-tight decoration-4 underline-offset-4 transition-colors group-focus-within:underline group-hover:underline lg:text-4xl">
 									{meta.name}
 								</h3>
 							</div>
@@ -202,7 +204,11 @@ const featured: FeaturedProject[] = [
 							<span class="archive-when-closed">Show</span>
 							<span class="archive-when-open">Hide</span> {archive.length - 3} more retired builds
 						</span>
-						<Icon name="chevron-right" data-motion="spatial" class="archive-chevron size-4 shrink-0 transition-transform" />
+						<Icon
+							name="chevron-right"
+							data-motion="spatial"
+							class="archive-chevron size-4 shrink-0 transition-transform"
+						/>
 					</summary>
 					<dl>
 						{archive.slice(3).map((item) => (
