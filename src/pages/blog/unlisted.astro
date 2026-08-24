@@ -10,7 +10,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 ---
 
 <BaseLayout
-	title="Unlisted Posts — Zixian's Blog"
+	title="Unlisted Posts | Zixian's Blog"
 	description="Published posts kept outside the main blog index."
 	pathname="/blog/unlisted"
 	noindex
@@ -85,7 +85,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		</main>
 
 		<div class="text-base-content/30 mt-10 px-3 text-center font-mono text-xs tracking-widest sm:px-6 xl:px-14">
-			— END OF LIST —
+			END OF LIST
 		</div>
 	</BlogShell>
 </BaseLayout>
