@@ -2,11 +2,10 @@
 	overflow: clip;
 }
 
-/* Hero: keep the restrained site shell, but let the product screens behave more like editorial objects. */
+/* Keep the opening typographic. The product appears once the story starts. */
 .cubby-case-study > header {
-	position: relative;
 	padding-top: 5rem;
-	padding-bottom: 3rem;
+	padding-bottom: 5rem;
 }
 
 .cubby-case-study > header h1 {
@@ -21,54 +20,12 @@
 	font-size: clamp(1.05rem, 2vw, 1.25rem);
 }
 
+/* The old dashboard/shelf pair made the hero feel staged. Remove that beat entirely. */
 .cubby-case-study > header + div {
-	position: relative;
-	padding-bottom: 4rem;
+	display: none;
 }
 
-.cubby-case-study > header + div > div {
-	position: relative;
-	display: block;
-	min-height: 34rem;
-	max-width: 34rem;
-	margin-inline: auto;
-}
-
-.cubby-case-study > header + div figure {
-	position: absolute;
-	width: min(65vw, 17rem);
-	max-width: none;
-	margin: 0;
-}
-
-.cubby-case-study > header + div figure:first-child {
-	top: 1rem;
-	left: 4%;
-}
-
-.cubby-case-study > header + div figure:last-child {
-	top: 5rem;
-	right: 4%;
-	z-index: 2;
-}
-
-.cubby-case-study > header + div figure:first-child img {
-	transform: rotate(-1.75deg);
-	transform-origin: 80% 20%;
-}
-
-.cubby-case-study > header + div figure:last-child img {
-	transform: rotate(2deg);
-	transform-origin: 20% 20%;
-}
-
-.cubby-case-study > header + div figcaption {
-	max-width: 15rem;
-	margin-inline: auto;
-	font-size: 0.75rem;
-}
-
-/* Contents becomes a quiet editorial index rather than another dense navigation block. */
+/* Contents stays quiet and editorial. */
 .cubby-case-study nav[data-case-study-section-nav] a {
 	align-items: flex-start;
 	flex-direction: column;
@@ -83,7 +40,7 @@
 	line-height: 1.4;
 }
 
-/* Chapter openers. */
+/* Chapter openers provide the strong rhythm instead of decorative imagery. */
 .cubby-case-study main > section {
 	position: relative;
 	padding-top: 7rem;
@@ -143,11 +100,14 @@
 	line-height: 1.5;
 }
 
-/* Feature stories: alternate the composition and periodically let a screen take more visual weight. */
+/*
+ * Feature stories use one stable reading axis: copy on the left, product on the right.
+ * Variation comes from scale, vertical offset and whitespace rather than zig-zagging the reader.
+ */
 .cubby-case-study main article {
-	align-items: center;
+	align-items: start;
 	gap: 3rem;
-	padding-block: 4.5rem;
+	padding-block: 5rem;
 	border-color: color-mix(in srgb, currentColor 9%, transparent);
 }
 
@@ -175,38 +135,32 @@
 }
 
 .cubby-case-study main article > div:last-child {
-	position: relative;
-	width: min(72vw, 17rem);
+	width: min(68vw, 15rem);
 	justify-self: center;
 }
 
-.cubby-case-study main article > div:last-child::before {
-	content: '';
-	position: absolute;
-	z-index: 0;
-	inset: 7% -0.85rem -4% 0.85rem;
-	border: 1px solid color-mix(in srgb, var(--cubby-accent) 22%, transparent);
-}
-
 .cubby-case-study main article > div:last-child > figure {
-	position: relative;
-	z-index: 1;
 	max-width: none;
 }
 
+/* A few screens get more visual weight, but they stay on the same side. */
+.cubby-case-study main article:nth-child(3n + 1) > div:last-child {
+	width: min(72vw, 17rem);
+}
+
+.cubby-case-study main article:nth-child(3n + 2) > div:last-child {
+	width: min(64vw, 14rem);
+}
+
 .cubby-case-study main article:nth-child(3n) {
-	padding-block: 6rem;
+	padding-block: 6.5rem;
 }
 
 .cubby-case-study main article:nth-child(3n) > div:last-child {
-	width: min(78vw, 19rem);
+	width: min(76vw, 19rem);
 }
 
-.cubby-case-study main article:nth-child(3n) > div:last-child::before {
-	inset: -4% 0.9rem 8% -0.9rem;
-}
-
-/* Design notes become one essay-like spread instead of three equal cards. */
+/* Design notes read like an essay rather than three equal cards. */
 .cubby-case-study #notes {
 	margin-top: 9rem;
 }
@@ -248,7 +202,7 @@
 	grid-column: 2;
 }
 
-/* The recap gets its own closing beat instead of reading like one more feature row. */
+/* Recap gets a distinct closing beat. */
 .cubby-case-study #recap {
 	max-width: none;
 	margin-top: 5rem;
@@ -301,40 +255,45 @@
 	.cubby-case-study main article {
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		gap: 2rem 3rem;
+		min-height: 35rem;
 		padding-block: 6rem;
 	}
 
 	.cubby-case-study main article > div:first-child {
 		grid-column: 1 / span 7;
+		align-self: center;
 	}
 
 	.cubby-case-study main article > div:last-child {
 		grid-column: 9 / -1;
-		width: min(100%, 17rem);
+		width: min(100%, 15rem);
 		justify-self: end;
+		align-self: center;
 	}
 
-	.cubby-case-study main article:nth-child(even) > div:first-child {
-		grid-column: 6 / -1;
-		grid-row: 1;
+	.cubby-case-study main article:nth-child(3n + 1) > div:last-child {
+		width: min(100%, 17rem);
+		transform: translateY(-1.5rem);
 	}
 
-	.cubby-case-study main article:nth-child(even) > div:last-child {
-		grid-column: 1 / span 4;
-		grid-row: 1;
-		justify-self: start;
+	.cubby-case-study main article:nth-child(3n + 2) > div:last-child {
+		width: min(100%, 14rem);
+		transform: translateY(2rem);
 	}
 
 	.cubby-case-study main article:nth-child(3n) {
+		min-height: 42rem;
 		padding-block: 8rem;
 	}
 
 	.cubby-case-study main article:nth-child(3n) > div:first-child {
-		grid-column-end: span 6;
+		grid-column: 1 / span 6;
 	}
 
 	.cubby-case-study main article:nth-child(3n) > div:last-child {
+		grid-column: 8 / -1;
 		width: min(100%, 20rem);
+		transform: translateY(1rem);
 	}
 
 	.cubby-case-study #notes > div {
@@ -386,35 +345,7 @@
 
 @media (min-width: 64rem) {
 	.cubby-case-study > header {
-		min-height: 42rem;
 		padding-top: 7rem;
-		padding-right: 30rem;
-		padding-bottom: 5rem;
-	}
-
-	.cubby-case-study > header + div {
-		min-height: 38rem;
-		margin-top: -38rem;
-		padding-bottom: 0;
-	}
-
-	.cubby-case-study > header + div > div {
-		min-height: 36rem;
-		max-width: 29rem;
-		margin-right: 0;
-	}
-
-	.cubby-case-study > header + div figure {
-		width: 17rem;
-	}
-
-	.cubby-case-study > header + div figure:first-child {
-		top: 1rem;
-		left: 0;
-	}
-
-	.cubby-case-study > header + div figure:last-child {
-		top: 6rem;
-		right: 0;
+		padding-bottom: 7rem;
 	}
 }
