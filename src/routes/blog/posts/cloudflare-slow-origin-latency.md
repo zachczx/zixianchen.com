@@ -2,7 +2,7 @@
 title: "Cloudflare's Proxy Slowed My Sites at Night"
 description: 'My sites kept getting multi-second TTFB through Cloudflare while the origins stayed fast. I eventually reproduced the problem from the origin server itself.'
 date: '2026-08-24'
-date_updated: ''
+date_updated: '2026-08-24'
 category: 'Systems'
 tags:
   - Cloudflare
@@ -64,6 +64,8 @@ cfEdge:    21ms
 ```
 
 Almost the entire delay was in the origin transaction as measured by Cloudflare.
+
+I had also seen a [Reddit report](https://www.reddit.com/r/CloudFlare/s/DGw6o7J3Ff) of a very similar problem: direct requests to a Singapore origin stayed under 100ms, while Cloudflare-proxied requests sometimes jumped to 15–30s.
 
 ## What I Ruled Out
 
@@ -201,3 +203,5 @@ I still needed Cloudflare. Lingo had been getting hit by bots and scrapers from 
 Toggling the proxy off and back on sometimes seemed to clear the problem temporarily. In fact, after doing it at the end of this episode, everything became fast again and has stayed that way for the past week.
 
 I don't know whether that reset some connection state, changed Cloudflare's routing, or was just coincidental. For what I'm using, nothing comes close to Cloudflare at $0.
+
+**Afternote:** I later found a [Cloudflare Community report](https://community.cloudflare.com/t/network-performance-issue-in-singapore/950628) about a network performance issue in Singapore too.
