@@ -17,7 +17,7 @@ slug: google-photos-20k-photos-album-limit-workaround
 
 Once you hit the limit, new photos stop being added automatically. I don't usually keep track, so it can be a month or so till I realize the album wasn't adding new photos.
 
-Creating a new album only captures photos from that point forward—missing everything between the old album's cutoff and the new one's start.
+Creating a new album only captures photos from that point forward, missing everything between the old album's cutoff and the new one's start.
 
 ## The Workaround
 
