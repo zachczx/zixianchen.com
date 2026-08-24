@@ -12,7 +12,7 @@ interface Props {
 const { name, slug, description } = Astro.props;
 ---
 
-<BaseLayout title={`${name} — Project Case Study | Zixian Chen`} {description} pathname={`/projects/${slug}`}>
+<BaseLayout title={`${name} | Project Case Study | Zixian Chen`} {description} pathname={`/projects/${slug}`}>
 	<Nav navCurrent="projects" pathName={Astro.url.pathname} />
 	<div class="bg-base-200 grid min-h-dvh content-start">
 		<section id="projects"><slot /></section>
