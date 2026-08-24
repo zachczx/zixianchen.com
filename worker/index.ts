@@ -123,7 +123,7 @@ async function recordSpam(database: D1Database, reason: 'honeypot') {
 }
 
 function formatTelegramMessage(submission: ContactSubmission) {
-	return `New message — zixianchen.com\n\nFrom: ${submission.name}\nEmail: ${submission.email}\n\n${submission.message}`;
+	return `New message: zixianchen.com\n\nFrom: ${submission.name}\nEmail: ${submission.email}\n\n${submission.message}`;
 }
 
 async function sendTelegram(submission: ContactSubmission, env: Env): Promise<number> {
