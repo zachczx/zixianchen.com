@@ -2,7 +2,7 @@
 title: 'Migrating a Static SvelteKit Site from Cloudflare Pages to Workers'
 description: 'I moved an adapter-static SvelteKit site from Cloudflare Pages to Workers with a static-assets Wrangler config and three deployment settings.'
 date: '2025-09-29'
-date_updated: ''
+date_updated: '2026-08-24'
 category: 'Dev'
 tags:
   - Cloudflare
@@ -21,18 +21,23 @@ After some digging, it turns out all I needed is to:
 
 ## The Migration
 
-1. Add the static assets config (not the full-fledged one) of `wrangler.jsonc` to the root of the SvelteKit project
+1. Add a `wrangler.jsonc` to the root of the SvelteKit project. For a purely static site, this is what I'd use now:
 
-```json
+```jsonc
 // wrangler.jsonc
 {
+	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "your-name",
-	"compatibility_date": "2025-01-01",
+	"compatibility_date": "2026-08-24",
 	"assets": {
-		"directory": "./build/"
-	}
+		"directory": "./build/",
+		"not_found_handling": "404-page",
+		"html_handling": "drop-trailing-slash",
+	},
 }
 ```
+
+`$schema` gives you editor validation. `404-page` tells Workers to use the generated 404 page, while `drop-trailing-slash` makes `/about` canonical rather than `/about/`. I pair that with `export const trailingSlash = 'never'` in the root SvelteKit layout.
 
 2. You'll need to do largely the same configs like connected domain within the Workers project settings (Compute (Workers) > project-name > Settings)
 
@@ -40,7 +45,7 @@ After some digging, it turns out all I needed is to:
 
 ```
 - Build command: pnpm build
-- Deploy command: pnpx wrangler deploy
+- Deploy command: pnpm exec wrangler deploy
 - Root directory: /
 ```
 
@@ -50,8 +55,31 @@ After some digging, it turns out all I needed is to:
 
 All good! Everything's deployed as static assets. When I first tried it using adapter-cloudflare I still ended up invoking page functions for some reason.
 
+## Adding Worker Code Later
+
+If you later need an API route, you can extend the same deployment instead of moving away from static assets:
+
+```jsonc
+// wrangler.jsonc
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "your-name",
+	"main": "./worker/index.ts",
+	"compatibility_date": "2026-08-24",
+	"assets": {
+		"directory": "./build/",
+		"binding": "ASSETS",
+		"not_found_handling": "404-page",
+		"html_handling": "drop-trailing-slash",
+		"run_worker_first": ["/api/*"],
+	},
+}
+```
+
+Normal pages and files stay asset-first. `/api/*` is forced through the Worker first, and the Worker can fall back to `env.ASSETS.fetch(request)`. Don't add `binding` to the assets-only config; it only makes sense once `main` points to Worker code.
+
 Overall, it was an easy config change. I still very much prefer the Pages UI and settings, which are much more straightforward. Cloudflare Workers' graphs, charts, dashboard are very cluttered imo and not enjoyable to work with.
 
 But Cloudflare services are free, so I'm not complaining. I'd still use this even though I've VPSes for deploying more complex projects.
 
-[See also: Other Workers config here](https://developers.cloudflare.com/workers/configuration/)
+[See also: Workers Static Assets configuration](https://developers.cloudflare.com/workers/static-assets/binding/)
