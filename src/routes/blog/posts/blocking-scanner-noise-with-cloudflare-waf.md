@@ -2,7 +2,7 @@
 title: 'Blocking Scanner Noise with Cloudflare WAF'
 description: "I don't run PHP or WordPress, so I used Cloudflare WAF to stop those probes from reaching my server and cluttering its logs."
 date: '2026-08-01'
-date_updated: ''
+date_updated: '2026-08-26'
 category: 'Systems'
 tags:
   - Cloudflare
@@ -61,9 +61,7 @@ I expanded the original idea to cover the other useless probes I was seeing:
   (http.request.uri.path wildcard "*/.git/*") or
   (http.request.uri.path wildcard "*/.aws") or
   (http.request.uri.path wildcard "*/.aws/*") or
-  (http.request.uri.path wildcard "*/.env") or
-  (http.request.uri.path wildcard "*/.env.*") or
-  (http.request.uri.path wildcard "*/.env/*") or
+  (http.request.uri.path wildcard "*/.env*") or
   (http.request.uri.path wildcard "*/laravel") or
   (http.request.uri.path wildcard "*/laravel/*") or
   (http.request.uri.path wildcard "*/wp-*") or
@@ -77,6 +75,8 @@ I expanded the original idea to cover the other useless probes I was seeing:
 The action is **Block**.
 
 I used `http.request.uri.path` instead of the full URI. The path excludes the query string, so `/index.php?anything=1` still matches `*.php`. Cloudflare's [`wildcard` operator](https://developers.cloudflare.com/ruleset-engine/rules-language/operators/) is case-insensitive and matches the whole field.
+
+The `*/.env*` check also catches common variants such as `.env.local`, `.env.production`, and nested `.env` paths.
 
 The extra `*.php/*` (didn't receive so dropped `*.php7/*`) checks catch path-info variations such as `/index.php/admin` too.
 
