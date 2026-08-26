@@ -2,7 +2,7 @@
 title: 'So You Want a Bigger Job'
 description: 'Why good officers get stuck, why bigger jobs can expose you, and why being ready is only half the story.'
 date: '2026-08-18'
-date_updated: ''
+date_updated: '2026-08-26'
 category: 'Work'
 tags:
   - Career
@@ -493,6 +493,14 @@ Ask those managers what to do and you may also get multiple answers.
 Eventually you choose one and see what happens. Being promoted means somebody thought you were ready enough to try, while actually becoming good at the job carries on for a long time after.
 
 ## If you're feeling stuck
+
+### It all evens out
+
+Careers are super long, especially now that retirement age is 64 and set to go up further. It's easy to forget this when you're thinking about the next promotion, especially when your peers seem to be moving faster.
+
+I get it, I get FOMO too. Your peer gets promoted earlier, gets that big title, suddenly you're a laggard. But take a step back, it really doesn't matter that much. Over an entire career, 1–2 years here and there isn't much. It'll even out. (I won't pretend this came from me — I'm not so enlightened. I picked this up from Minister Chan Chun Sing at a dialogue session a long time back.)
+
+I'd focus much more on the fundamentals. Get sheet done, build judgment, learn to work with people, understand the organization, seize good opportunities.
 
 ### If you're trying to get into management
 
