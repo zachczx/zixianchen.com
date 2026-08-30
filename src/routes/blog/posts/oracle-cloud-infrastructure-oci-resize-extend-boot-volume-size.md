@@ -2,7 +2,7 @@
 title: 'Extending an OCI Ubuntu Boot Volume with growpart'
 description: 'I resized my boot volume on Oracle Cloud using growpart, not oci-growfs.'
 date: '2024-07-07'
-date_updated: ''
+date_updated: '2026-08-30'
 category: 'Systems'
 tags:
   - Coolify
@@ -29,11 +29,12 @@ Oracle's docs were all about Oracle Linux. I tried Googling and every blog post 
 
 1. Edit the boot volume size from the OCI user
 
-2. Paste into your CLI the command that OCI gives you after a successful edit, like
+2. OCI gives you commands to rescan the disk after resizing it. Run them separately:
 
 ```bash
-$ sudo dd iflag=direct if=/dev/oracleoci/oraclevda of=/dev/null count=1
-echo “1” | sudo tee /sys/class/block/`readlink /dev/oracleoci/oraclevda | cut -d’/’ -f 2`/device/rescan
+sudo dd iflag=direct if=/dev/oracleoci/oraclevda of=/dev/null count=1
+
+echo "1" | sudo tee /sys/class/block/$(readlink /dev/oracleoci/oraclevda | cut -d'/' -f 2)/device/rescan
 ```
 
 3. Do _lsblk_ to see the partition number/name
@@ -50,8 +51,10 @@ $ sudo growpart /dev/sda 1
 
 5. One last thing is to resize the filesystem, otherwise [the system info for _/_ will still show the old size](https://serverfault.com/questions/701296/ive-just-increased-the-disks-size-but-the-old-size-is-still-display-what-coul).
 
+Don't be like me: I initially ran `resize2fs /dev/sda 1`, which is the `growpart` syntax and is wrong here. `resize2fs` takes the partition device itself:
+
 ```bash
-$ sudo resize2fs /dev/sda 1
+$ sudo resize2fs /dev/sda1
 ```
 
 6. That's all, the OCI Utils thing made it 10x longer than needed. 😔
