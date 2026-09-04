@@ -48,6 +48,7 @@
 		"@fontsource-variable/jetbrains-mono": "^5.3.0",
 		"@fontsource-variable/jost": "^5.3.0",
 		"@tailwindcss/vite": "4.3.3",
+		"animejs": "^4.5.0",
 		"dayjs": "^1.11.23",
 		"sharp": "^0.35.4",
 		"wrangler": "^4.127.0"

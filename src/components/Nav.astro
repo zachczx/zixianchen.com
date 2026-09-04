@@ -109,13 +109,44 @@ const mobileLinks = links.slice(0, 5);
 </div>
 
 <script>
-	for (const root of document.querySelectorAll<HTMLElement>('[data-site-nav][data-track-sections="true"]')) {
+	import { waapi } from 'animejs/waapi';
+
+	type NavTone = 'light' | 'dark';
+	const toneProperties = ['--nav-surface', '--nav-overlay', '--nav-ink', '--nav-muted', '--nav-rule'] as const;
+	type ToneProperty = (typeof toneProperties)[number];
+	const trackedRoots = Array.from(
+		document.querySelectorAll<HTMLElement>('[data-site-nav][data-track-sections="true"]'),
+	);
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const canAnimateTone = trackedRoots.length > 0 && !reducedMotion && 'registerProperty' in CSS;
+
+	if (canAnimateTone) {
+		for (const property of toneProperties) {
+			try {
+				CSS.registerProperty({ name: property, syntax: '<color>', inherits: true, initialValue: 'transparent' });
+			} catch {
+				// The property may already be registered by another nav instance.
+			}
+		}
+	}
+
+	for (const root of trackedRoots) {
 		const pathName = root.dataset.pathName ?? '/';
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('.navItem'));
 		const nav = root.querySelector<HTMLElement>('nav');
 		const darkSurfaceSections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone-section="dark"]'));
 		const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
 		let frame: number | undefined;
+		let toneAnimation: ReturnType<typeof waapi.animate> | undefined;
+		let toneAnimationVersion = 0;
+		let toneInitialized = false;
+
+		const readTone = (): Record<ToneProperty, string> => {
+			const styles = getComputedStyle(root);
+			return Object.fromEntries(
+				toneProperties.map((property) => [property, styles.getPropertyValue(property).trim()]),
+			) as Record<ToneProperty, string>;
+		};
 
 		const ruleIsActive = (link: HTMLAnchorElement, current: string) => {
 			const rule = link.dataset.activeRule;
@@ -145,12 +176,50 @@ const mobileLinks = links.slice(0, 5);
 			}
 		};
 
+		const applyNavTone = (tone: NavTone) => {
+			if (!toneInitialized) {
+				root.dataset.navTone = tone;
+				toneInitialized = true;
+				return;
+			}
+
+			if (root.dataset.navTone === tone) return;
+
+			if (!canAnimateTone) {
+				root.dataset.navTone = tone;
+				return;
+			}
+
+			const current = readTone();
+			toneAnimation?.cancel();
+			const palette = tone === 'dark' ? 'night' : 'day';
+			const version = ++toneAnimationVersion;
+			root.dataset.navTone = tone;
+
+			const animation = waapi.animate(root, {
+				'--nav-surface': [current['--nav-surface'], `var(--nav-${palette}-surface)`],
+				'--nav-overlay': [current['--nav-overlay'], `var(--nav-${palette}-overlay)`],
+				'--nav-ink': [current['--nav-ink'], `var(--nav-${palette}-ink)`],
+				'--nav-muted': [current['--nav-muted'], `var(--nav-${palette}-muted)`],
+				'--nav-rule': [current['--nav-rule'], `var(--nav-${palette}-rule)`],
+				duration: 120,
+				ease: 'linear',
+			});
+			toneAnimation = animation;
+
+			void animation.then(() => {
+				if (version !== toneAnimationVersion) return;
+				animation.cancel();
+				toneAnimation = undefined;
+			});
+		};
+
 		const syncNavTone = () => {
 			if (!nav || darkSurfaceSections.length === 0) return;
 			const navBottom = nav.getBoundingClientRect().bottom;
 			const target = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight - 1, navBottom + 1));
 			const isDark = Boolean(target?.closest('[data-nav-tone-section="dark"]'));
-			root.dataset.navTone = isDark ? 'dark' : 'light';
+			applyNavTone(isDark ? 'dark' : 'light');
 		};
 
 		const syncCurrentSection = () => {
@@ -187,19 +256,29 @@ const mobileLinks = links.slice(0, 5);
 
 <style>
 	[data-site-nav] {
-		--nav-surface: var(--color-base-200);
-		--nav-overlay: oklch(0% 0 0 / 0.03);
-		--nav-ink: var(--color-base-content);
-		--nav-muted: color-mix(in oklab, var(--color-base-content) 65%, transparent);
-		--nav-rule: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+		--nav-day-surface: var(--color-base-200);
+		--nav-day-overlay: oklch(0% 0 0 / 0.03);
+		--nav-day-ink: var(--color-base-content);
+		--nav-day-muted: color-mix(in oklab, var(--color-base-content) 65%, transparent);
+		--nav-day-rule: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+		--nav-night-surface: var(--color-neutral);
+		--nav-night-overlay: oklch(100% 0 0 / 0.1);
+		--nav-night-ink: var(--color-neutral-content);
+		--nav-night-muted: color-mix(in oklab, var(--color-neutral-content) 65%, transparent);
+		--nav-night-rule: color-mix(in oklab, var(--color-neutral-content) 16%, transparent);
+		--nav-surface: var(--nav-day-surface);
+		--nav-overlay: var(--nav-day-overlay);
+		--nav-ink: var(--nav-day-ink);
+		--nav-muted: var(--nav-day-muted);
+		--nav-rule: var(--nav-day-rule);
 	}
 
 	[data-site-nav][data-nav-tone='dark'] {
-		--nav-surface: var(--color-neutral);
-		--nav-overlay: oklch(100% 0 0 / 0.1);
-		--nav-ink: var(--color-neutral-content);
-		--nav-muted: color-mix(in oklab, var(--color-neutral-content) 65%, transparent);
-		--nav-rule: color-mix(in oklab, var(--color-neutral-content) 16%, transparent);
+		--nav-surface: var(--nav-night-surface);
+		--nav-overlay: var(--nav-night-overlay);
+		--nav-ink: var(--nav-night-ink);
+		--nav-muted: var(--nav-night-muted);
+		--nav-rule: var(--nav-night-rule);
 	}
 
 	[data-site-nav] nav {
