@@ -30,7 +30,6 @@ jobs:
         with:
           version: 11.10.0
           runtime: node@26
-          cache: true
 
       - name: Check Astro and TypeScript
         run: pnpm check
