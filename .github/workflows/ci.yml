@@ -37,7 +37,7 @@ jobs:
       - name: Check Astro, TypeScript, formatting and linting
         run: |
           status=0
-          pnpm exec astro check &
+          pnpm check:astro &
           astro_pid=$!
           pnpm lint &
           lint_pid=$!
