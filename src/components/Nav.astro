@@ -112,8 +112,17 @@ const mobileLinks = links.slice(0, 5);
 	import { waapi } from 'animejs/waapi';
 
 	type NavTone = 'light' | 'dark';
+	type HomeTone = 'day' | 'night';
 	const toneProperties = ['--nav-surface', '--nav-overlay', '--nav-ink', '--nav-muted', '--nav-rule'] as const;
+	const homeToneProperties = [
+		'--home-surface',
+		'--home-card',
+		'--home-content',
+		'--home-muted',
+		'--home-overlay',
+	] as const;
 	type ToneProperty = (typeof toneProperties)[number];
+	type HomeToneProperty = (typeof homeToneProperties)[number];
 	const trackedRoots = Array.from(
 		document.querySelectorAll<HTMLElement>('[data-site-nav][data-track-sections="true"]'),
 	);
@@ -121,11 +130,11 @@ const mobileLinks = links.slice(0, 5);
 	const canAnimateTone = trackedRoots.length > 0 && !reducedMotion && 'registerProperty' in CSS;
 
 	if (canAnimateTone) {
-		for (const property of toneProperties) {
+		for (const property of [...toneProperties, ...homeToneProperties]) {
 			try {
 				CSS.registerProperty({ name: property, syntax: '<color>', inherits: true, initialValue: 'transparent' });
 			} catch {
-				// The property may already be registered by another nav instance.
+				// The property may already be registered after a view transition.
 			}
 		}
 	}
@@ -135,11 +144,17 @@ const mobileLinks = links.slice(0, 5);
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('.navItem'));
 		const nav = root.querySelector<HTMLElement>('nav');
 		const darkSurfaceSections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone-section="dark"]'));
+		const nightStart = darkSurfaceSections[0];
+		const homeRoot = nightStart ? document.querySelector<HTMLElement>('main') : null;
 		const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
 		let frame: number | undefined;
 		let toneAnimation: ReturnType<typeof waapi.animate> | undefined;
+		let homeToneAnimation: ReturnType<typeof waapi.animate> | undefined;
 		let toneAnimationVersion = 0;
+		let homeToneAnimationVersion = 0;
 		let toneInitialized = false;
+		let dayPalette: Record<HomeToneProperty, string> | undefined;
+		let nightPalette: Record<HomeToneProperty, string> | undefined;
 
 		const readTone = (): Record<ToneProperty, string> => {
 			const styles = getComputedStyle(root);
@@ -147,6 +162,54 @@ const mobileLinks = links.slice(0, 5);
 				toneProperties.map((property) => [property, styles.getPropertyValue(property).trim()]),
 			) as Record<ToneProperty, string>;
 		};
+
+		const readHomeTone = (): Record<HomeToneProperty, string> => {
+			if (!homeRoot) throw new Error('Homepage tone root is unavailable');
+			const styles = getComputedStyle(homeRoot);
+			return Object.fromEntries(
+				homeToneProperties.map((property) => [property, styles.getPropertyValue(property).trim()]),
+			) as Record<HomeToneProperty, string>;
+		};
+
+		const setHomePalette = (palette: Record<HomeToneProperty, string>) => {
+			if (!homeRoot) return;
+			for (const property of homeToneProperties) {
+				homeRoot.style.setProperty(property, palette[property]);
+			}
+		};
+
+		if (homeRoot && nightStart) {
+			const colorProbe = document.createElement('span');
+			colorProbe.style.cssText = 'position:absolute;width:0;height:0;visibility:hidden;pointer-events:none;';
+			homeRoot.appendChild(colorProbe);
+			const resolveHomeColor = (property: string) => {
+				colorProbe.style.color = `var(${property})`;
+				return getComputedStyle(colorProbe).color;
+			};
+
+			const dayContent = resolveHomeColor('--color-base-content');
+			dayPalette = {
+				'--home-surface': resolveHomeColor('--color-base-200'),
+				'--home-card': resolveHomeColor('--color-base-100'),
+				'--home-content': dayContent,
+				'--home-muted': resolveHomeColor('--color-muted-foreground'),
+				'--home-overlay': dayContent,
+			};
+			nightPalette = {
+				'--home-surface': resolveHomeColor('--color-night-background'),
+				'--home-card': resolveHomeColor('--color-night-background'),
+				'--home-content': resolveHomeColor('--color-night-content'),
+				'--home-muted': resolveHomeColor('--color-night-muted-foreground'),
+				'--home-overlay': resolveHomeColor('--color-night-overlay'),
+			};
+			colorProbe.remove();
+
+			const initialTone: HomeTone =
+				nightStart.getBoundingClientRect().top <= window.innerHeight * 0.45 ? 'night' : 'day';
+			setHomePalette(initialTone === 'night' ? nightPalette : dayPalette);
+			homeRoot.dataset.homeTone = initialTone;
+			homeRoot.dataset.homeColorsReady = 'true';
+		}
 
 		const ruleIsActive = (link: HTMLAnchorElement, current: string) => {
 			const rule = link.dataset.activeRule;
@@ -202,7 +265,7 @@ const mobileLinks = links.slice(0, 5);
 				'--nav-ink': [current['--nav-ink'], `var(--nav-${palette}-ink)`],
 				'--nav-muted': [current['--nav-muted'], `var(--nav-${palette}-muted)`],
 				'--nav-rule': [current['--nav-rule'], `var(--nav-${palette}-rule)`],
-				duration: 120,
+				duration: 300,
 				ease: 'linear',
 			});
 			toneAnimation = animation;
@@ -214,8 +277,56 @@ const mobileLinks = links.slice(0, 5);
 			});
 		};
 
+		const applyHomeTone = (tone: HomeTone) => {
+			if (!homeRoot || !dayPalette || !nightPalette || homeRoot.dataset.homeTone === tone) return;
+			const palette = tone === 'night' ? nightPalette : dayPalette;
+			const navTone: NavTone = tone === 'night' ? 'dark' : 'light';
+			homeRoot.dataset.homeTone = tone;
+
+			if (!canAnimateTone) {
+				homeToneAnimation?.cancel();
+				homeToneAnimation = undefined;
+				setHomePalette(palette);
+				applyNavTone(navTone);
+				return;
+			}
+
+			const current = readHomeTone();
+			homeToneAnimation?.cancel();
+			const version = ++homeToneAnimationVersion;
+			const animation = waapi.animate(homeRoot, {
+				'--home-surface': [current['--home-surface'], palette['--home-surface']],
+				'--home-card': [current['--home-card'], palette['--home-card']],
+				'--home-content': [current['--home-content'], palette['--home-content']],
+				'--home-muted': [current['--home-muted'], palette['--home-muted']],
+				'--home-overlay': [current['--home-overlay'], palette['--home-overlay']],
+				duration: 300,
+				ease: 'linear',
+			});
+			homeToneAnimation = animation;
+			applyNavTone(navTone);
+
+			void animation.then(() => {
+				if (version !== homeToneAnimationVersion) return;
+				animation.cancel();
+				homeToneAnimation = undefined;
+				setHomePalette(palette);
+			});
+		};
+
+		const syncHomeTone = () => {
+			if (!nightStart || !homeRoot) return;
+			const isNight = nightStart.getBoundingClientRect().top <= window.innerHeight * 0.45;
+			applyHomeTone(isNight ? 'night' : 'day');
+		};
+
 		const syncNavTone = () => {
-			if (!nav || darkSurfaceSections.length === 0) return;
+			if (!nav) return;
+			if (homeRoot?.dataset.homeTone) {
+				applyNavTone(homeRoot.dataset.homeTone === 'night' ? 'dark' : 'light');
+				return;
+			}
+			if (darkSurfaceSections.length === 0) return;
 			const navBottom = nav.getBoundingClientRect().bottom;
 			const target = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight - 1, navBottom + 1));
 			const isDark = Boolean(target?.closest('[data-nav-tone-section="dark"]'));
@@ -238,6 +349,7 @@ const mobileLinks = links.slice(0, 5);
 			}
 
 			applyActive(current?.id ?? 'header');
+			syncHomeTone();
 			syncNavTone();
 			frame = undefined;
 		};
@@ -255,6 +367,17 @@ const mobileLinks = links.slice(0, 5);
 </script>
 
 <style>
+	:global(main[data-home-colors-ready='true']) {
+		--color-base-100: var(--home-card);
+		--color-base-200: var(--home-surface);
+		--color-base-content: var(--home-content);
+		--color-muted-foreground: var(--home-muted);
+		--color-night-background: var(--home-surface);
+		--color-night-content: var(--home-content);
+		--color-night-muted-foreground: var(--home-muted);
+		--color-night-overlay: var(--home-overlay);
+	}
+
 	[data-site-nav] {
 		--nav-day-surface: var(--color-base-200);
 		--nav-day-overlay: oklch(0% 0 0 / 0.03);
