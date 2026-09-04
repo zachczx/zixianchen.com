@@ -31,17 +31,30 @@ jobs:
           version: 11.10.0
           runtime: node@26
 
-      - name: Check Astro and TypeScript
-        run: pnpm check
+      - name: Generate Cloudflare types
+        run: pnpm cf-typegen
 
-      - name: Check formatting and linting
-        run: pnpm lint
+      - name: Check Astro, TypeScript, formatting and linting
+        run: |
+          status=0
+          pnpm exec astro check &
+          astro_pid=$!
+          pnpm lint &
+          lint_pid=$!
+          wait "$astro_pid" || status=$?
+          wait "$lint_pid" || status=$?
+          exit "$status"
 
-      - name: Validate local D1 migrations
-        run: pnpm db:migrate:local
-
-      - name: Build static site and Pagefind index
-        run: pnpm build
+      - name: Validate migrations and build static site
+        run: |
+          status=0
+          pnpm db:migrate:local &
+          migration_pid=$!
+          pnpm build &
+          build_pid=$!
+          wait "$migration_pid" || status=$?
+          wait "$build_pid" || status=$?
+          exit "$status"
 
       - name: Validate Workers deployment config
         run: pnpm exec wrangler deploy --dry-run
