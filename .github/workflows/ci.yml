@@ -25,21 +25,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 26
-          package-manager-cache: false
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v6
+      - name: Set up pnpm and Node.js
+        uses: pnpm/setup@v2
         with:
           version: 11.10.0
-          cache: true
-          cache_dependency_path: pnpm-lock.yaml
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          runtime: node@26
 
       - name: Check Astro and TypeScript
         run: pnpm check
