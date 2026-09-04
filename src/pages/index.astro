@@ -23,7 +23,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 	description="Public-sector tech by day, questionable side projects by night. Zixian Chen builds useful things, writes about what went wrong, and occasionally codes by hand."
 	pathname="/">
 	<Nav navCurrent="header" pathName="/" trackSections />
-	<main class="bg-base-200 grid min-h-dvh justify-items-center 2xl:overflow-x-clip">
+	<main class="group bg-base-200 grid min-h-dvh justify-items-center 2xl:overflow-x-clip">
 		<header id="header" class="navItem grid min-h-dvh w-full place-items-center px-4 py-12 pb-24 xl:pb-28">
 			<div class="bg-base-200 grid w-full content-center justify-items-center gap-7">
 				<div class="grid justify-items-center" style="view-transition-name: logo">
@@ -169,7 +169,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 			</div>
 			<div
 				id="moon"
-				class="hidden h-full w-full overflow-hidden bg-black lg:col-span-2 lg:grid"
+				class="moon-reveal hidden h-full w-full overflow-hidden bg-black lg:col-span-2 lg:grid"
 				style={`background-image:url(${Moon.src}); background-size: cover; background-position: center;`}>
 			</div>
 			<section
@@ -232,3 +232,24 @@ const posts = (await getCollection('blog', ({ data }) => data.published && data.
 		</div>
 	</main>
 </BaseLayout>
+
+<style>
+	.moon-reveal {
+		opacity: 0;
+	}
+
+	:global(main[data-home-tone='night']) .moon-reveal {
+		animation: moon-night-settle 520ms var(--motion-ease-out) forwards;
+	}
+
+	@keyframes moon-night-settle {
+		0%,
+		57.692% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+</style>
