@@ -7,8 +7,8 @@ import LingoHome from '$lib/screenshots/lingo/home.webp';
 import ApptitudeMain from '$lib/screenshots/apptitude/main.webp';
 import BtonomicsMain from '$lib/screenshots/btonomics/main.webp';
 import CubbyDashboard from '$lib/screenshots/cubby/dashboard.webp';
-import CubbyGym from '$lib/screenshots/cubby/gym-workout.webp';
-import CubbyCoffee from '$lib/screenshots/cubby/coffee.webp';
+import CubbyDashboardRoutines from '$lib/screenshots/cubby/dashboard-routines.webp';
+import CubbyDashboardFamily from '$lib/screenshots/cubby/dashboard-family.webp';
 
 const archiveOrder = [
 	'cancelninja',
@@ -45,7 +45,7 @@ const featured: FeaturedProject[] = [
 		kind: 'mobile',
 		pos: 'top',
 		stack: 'Go · SvelteKit · Postgres · Grafana Cloud',
-		shots: [CubbyDashboard, CubbyGym, CubbyCoffee],
+		shots: [CubbyDashboard, CubbyDashboardRoutines, CubbyDashboardFamily],
 		facts: [
 			{ label: 'Status', value: 'Active household app' },
 			{ label: 'Problem', value: 'Daily routines scattered across memory, chat, and calendars' },
@@ -123,6 +123,8 @@ const featured: FeaturedProject[] = [
 											<Image
 												src={shot}
 												alt={`${meta.name} screenshot ${shotIndex + 1}`}
+												width={300}
+												densities={[1, 2, 3]}
 												loading="lazy"
 												class="block h-auto w-full object-cover"
 											/>

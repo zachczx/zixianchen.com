@@ -1,14 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
 import ScreenshotSpecimen from '../ScreenshotSpecimen.astro';
 import dashboard from '$lib/screenshots/cubby/dashboard.webp';
-import shelf from '$lib/screenshots/cubby/shelf.webp';
+import dashboardRoutines from '$lib/screenshots/cubby/dashboard-routines.webp';
+import dashboardFamily from '$lib/screenshots/cubby/dashboard-family.webp';
 import tasks from '$lib/screenshots/cubby/tasks.webp';
 import limits from '$lib/screenshots/cubby/limits.webp';
 import market from '$lib/screenshots/cubby/market.webp';
 import finance from '$lib/screenshots/cubby/finance.webp';
 import expiry from '$lib/screenshots/cubby/expiry.webp';
-import gymExercise from '$lib/screenshots/cubby/gym-exercise.webp';
 import gymWorkout from '$lib/screenshots/cubby/gym-workout.webp';
 import coffee from '$lib/screenshots/cubby/coffee.webp';
 import meals from '$lib/screenshots/cubby/meals.webp';
@@ -75,15 +76,6 @@ const groups = [
 					"I never trained with much structure, just gut feel and whatever I could vaguely recall from last time. For cable machines I couldn't remember which plate I used, so it was agar agar the rough position of the pin. Rest timings, lift volume, whether I hit failure or did a dropset or a warmup, none of it was tracked, and I had no way to know which exercises I was actually progressing on.",
 				solution:
 					"Every set is logged with weight, reps, rest time, and notes on failure or dropsets, so before each set I can see exactly what I did last time and what to aim for. No more guessing the pin position on cable machines. There's also a lock screen so sweaty hands mid-set don't accidentally hit a destructive button.",
-			},
-			{
-				src: gymExercise,
-				alt: 'Cubby gym exercise',
-				headline: 'Am I actually getting stronger?',
-				problem:
-					'Even while lifting regularly I never really tracked progress, just noticed the odd milestone shift on bench or squat, and for machines, free weights, kettlebell rows, everything else, it was just too much to remember.',
-				solution:
-					"PR tracking with a progress chart per exercise so I can see whether I'm moving or stalling, and exercises come from an open-source dataset pulled once so the whole app stays consistent.",
 			},
 			{
 				src: illness,
@@ -256,29 +248,47 @@ const stack = [
 	</header>
 
 	<div class="mx-auto max-w-5xl px-5 pb-10">
-		<div class="mx-auto flex max-w-2xl flex-col items-start justify-center gap-10 sm:flex-row">
-			<figure class="mx-auto w-full max-w-[300px]">
-				<img
-					src={dashboard.src}
+		<div class="mx-auto grid max-w-4xl items-start gap-10 sm:grid-cols-3 sm:gap-8">
+			<figure class="mx-auto w-full max-w-[280px]">
+				<Image
+					src={dashboard}
 					alt="Cubby home screen"
+					width={280}
+					densities={[1, 2, 3]}
 					loading="lazy"
 					decoding="async"
-					class="border-neutral/20 block w-full border-2 shadow-sm"
+					class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
 				/>
 				<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
-					The home screen up top: a pinned daily set, plus whatever needs attention now.
+					Pinned routines and limits put what needs doing first.
 				</figcaption>
 			</figure>
-			<figure class="mx-auto w-full max-w-[300px]">
-				<img
-					src={shelf.src}
-					alt="Cubby home screen scrolled down"
+			<figure class="mx-auto w-full max-w-[280px]">
+				<Image
+					src={dashboardRoutines}
+					alt="Cubby home screen showing health, routines, and finance"
+					width={280}
+					densities={[1, 2, 3]}
 					loading="lazy"
 					decoding="async"
-					class="border-neutral/20 block w-full border-2 shadow-sm"
+					class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
 				/>
 				<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
-					One scroll down, the rest of the house, every tracker as a tile.
+					Health, schedules, and finances surface when they need attention.
+				</figcaption>
+			</figure>
+			<figure class="mx-auto w-full max-w-[280px]">
+				<Image
+					src={dashboardFamily}
+					alt="Cubby home screen showing family moments, meals, and travel"
+					width={280}
+					densities={[1, 2, 3]}
+					loading="lazy"
+					decoding="async"
+					class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
+				/>
+				<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
+					Family moments, meals, and travel stay together in the same scroll.
 				</figcaption>
 			</figure>
 		</div>

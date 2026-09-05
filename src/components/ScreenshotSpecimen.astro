@@ -1,5 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 
 interface Props {
 	src: ImageMetadata;
@@ -11,5 +12,13 @@ const { src, alt, max } = Astro.props;
 ---
 
 <figure class:list={['mx-auto w-full', max]}>
-	<img src={src.src} {alt} loading="lazy" decoding="async" class="border-neutral/20 block w-full border-2 shadow-sm" />
+	<Image
+		{src}
+		{alt}
+		width={230}
+		densities={[1, 2, 3]}
+		loading="lazy"
+		decoding="async"
+		class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
+	/>
 </figure>
