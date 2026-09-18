@@ -1,0 +1,129 @@
+<div class="border-neutral/15 bg-base-100 border-t">
+	<div class="mx-auto max-w-5xl px-5 py-12 sm:py-16">
+		<header class="max-w-2xl">
+			<p class="cubby-accent text-xs tracking-wide">Home</p>
+			<h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Getting Home right</h2>
+			<div class="text-base-content/85 mt-5 grid gap-4 leading-relaxed">
+				<p>
+					Home kept getting harder because Cubby kept getting more useful. I wanted the things I did every day within
+					roughly one scroll and one tap, even if that made the information architecture less neat. But every useful
+					thing I kept on Home made the next one harder to fit.
+				</p>
+				<p>
+					This wasn't a neat redesign from A to B. I kept changing my mind as I used it, usually because a compromise
+					that looked reasonable in isolation became annoying once the whole dashboard had to live with it.
+				</p>
+			</div>
+		</header>
+
+		<dl class="mt-10 grid gap-6 sm:grid-cols-3">
+			<div class="border-neutral/15 border-t pt-4">
+				<dt class="font-semibold">One stop or progressive disclosure?</dt>
+				<dd class="text-base-content/70 mt-2 text-sm leading-relaxed">
+					A clean summary is less useful if I have to leave it every time I log a task or add to a Limit. Keeping
+					common actions on Home is faster, but more things start competing for attention.
+				</dd>
+			</div>
+			<div class="border-neutral/15 border-t pt-4">
+				<dt class="font-semibold">One responsive Home or two compositions?</dt>
+				<dd class="text-base-content/70 mt-2 text-sm leading-relaxed">
+					For a long time mobile and desktop showed the same things in different arrangements. Eventually I was using
+					the phone for now, next and quick logging, while desktop was better for overview and browsing.
+				</dd>
+			</div>
+			<div class="border-neutral/15 border-t pt-4">
+				<dt class="font-semibold">Personality or cleanliness?</dt>
+				<dd class="text-base-content/70 mt-2 text-sm leading-relaxed">
+					Soft colours, illustrations and squircles made Cubby feel warmer than an admin panel. Enough of them
+					together made the page noisier and gave too many things the same visual weight.
+				</dd>
+			</div>
+		</dl>
+
+		<div class="mt-14 max-w-2xl">
+			<h3 class="text-2xl font-bold lg:text-3xl">Four answers to the same problem</h3>
+			<p class="text-base-content/75 mt-4 leading-relaxed">
+				The versions below weren't a march towards an obvious final design. Each one leaned harder into a different
+				part of those trade-offs, then exposed a different problem.
+			</p>
+		</div>
+
+		<div class="mt-8 grid gap-x-8 gap-y-12 lg:grid-cols-2">
+			<article>
+				<!-- Screenshot TODO: 1440x900 desktop, zachczx/cubby@5b483fddbdeccc130ea6f645323a06fed8c79581 -->
+				<div
+					class="border-neutral/25 bg-base-200 text-base-content/45 grid aspect-[16/10] place-items-center border border-dashed text-sm">
+					Desktop screenshot to add
+				</div>
+				<p class="cubby-accent mt-4 text-xs font-semibold tracking-wide">01 · One long page</p>
+				<h4 class="mt-1 text-xl font-bold">Put the everyday stuff in front of me</h4>
+				<p class="text-base-content/75 mt-3 leading-relaxed">
+					The early dashboard was a fairly conventional vertical page. Tasks, Limits and the other useful bits sat in
+					one long flow, with the wider app launcher at the end. The argument was simple: I shouldn't need to open a
+					feature page for something I did several times a day.
+				</p>
+			</article>
+
+			<article>
+				<!-- Screenshot TODO: 1440x900 desktop, zachczx/cubby@bf3462911a2bc54d52efb097a65a48e123644e28 -->
+				<div
+					class="border-neutral/25 bg-base-200 text-base-content/45 grid aspect-[16/10] place-items-center border border-dashed text-sm">
+					Desktop screenshot to add
+				</div>
+				<p class="cubby-accent mt-4 text-xs font-semibold tracking-wide">02 · Coloured chapters</p>
+				<h4 class="mt-1 text-xl font-bold">Make the density easier to scan</h4>
+				<p class="text-base-content/75 mt-3 leading-relaxed">
+					As Home grew, I grouped it into Manage, Health, Routines and Family &amp; Fun. The large soft colour fields
+					gave a long page obvious landmarks and made Cubby feel more like itself. They also made each group feel like
+					another container around the cards inside it.
+				</p>
+			</article>
+
+			<article>
+				<!-- Screenshot TODO: 1440x900 desktop, zachczx/cubby@ab713495f094224d675ae04b46fb13beb1914666 -->
+				<div
+					class="border-neutral/25 bg-base-200 text-base-content/45 grid aspect-[16/10] place-items-center border border-dashed text-sm">
+					Desktop screenshot to add
+				</div>
+				<p class="cubby-accent mt-4 text-xs font-semibold tracking-wide">03 · Flat again</p>
+				<h4 class="mt-1 text-xl font-bold">The containers became part of the noise</h4>
+				<p class="text-base-content/75 mt-3 leading-relaxed">
+					I stripped the category backgrounds, borders, radii and shadows back out and let spacing, headings and
+					illustrations carry more of the hierarchy. It was cleaner, but that didn't settle the question either:
+					without enough grouping, the categories could start running into each other again.
+				</p>
+			</article>
+
+			<article>
+				<!-- Screenshot TODO: 1440x900 desktop, current main; 2dc9a4a0b9818e86e15df1dbdebf91890bd4ffac is the first Needs You + tabs baseline -->
+				<div
+					class="border-neutral/25 bg-base-200 text-base-content/45 grid aspect-[16/10] place-items-center border border-dashed text-sm">
+					Desktop screenshot to add
+				</div>
+				<p class="cubby-accent mt-4 text-xs font-semibold tracking-wide">04 · Different composition</p>
+				<h4 class="mt-1 text-xl font-bold">Stop making one Home do both jobs</h4>
+				<p class="text-base-content/75 mt-3 leading-relaxed">
+					The bigger change was to stop treating mobile and desktop as the same dashboard at different widths.
+					Desktop now starts with Needs You and puts the rest behind predictable category tabs. Mobile has its own
+					Today, Recent and Apps composition instead of squeezing that desktop model onto a phone.
+				</p>
+			</article>
+		</div>
+
+		<div class="border-neutral/20 mt-14 max-w-2xl border-t pt-8">
+			<h3 class="text-2xl font-bold">Where it has landed for now</h3>
+			<div class="text-base-content/85 mt-4 grid gap-4 leading-relaxed">
+				<p>
+					I still don't want a perfectly tidy Home if tidy means making the common things slower. But I also don't
+					need every useful feature visible at once. Needs You is a way to surface the few things that deserve
+					attention, while the tabs keep everything else somewhere predictable.
+				</p>
+				<p>
+					Splitting the compositions also gives mobile and desktop different visual budgets. I can keep some of the
+					colour and personality without asking every domain to shout at once. The data and actions underneath are
+					still shared; what changes is what each screen puts in front of me.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
