@@ -1,9 +1,9 @@
 {
-	"scannedAt": "2026-08-24",
+	"scannedAt": "2026-09-19",
 	"framework": "Astro 7 static output",
 	"fontStack": ["Jost Variable", "JetBrains Mono Variable"],
 	"paletteSource": "DaisyUI light and dark themes with blog-scoped OKLCH refinements in src/app.css",
-	"motion": "No motion library; focused native DOM scripts only",
+	"motion": "Anime.js plus focused native DOM scripts and view transitions",
 	"spacing": "Tailwind utility scale",
-	"preserved": ["portfolio palette", "font stack", "project shell", "compact blog structure"]
+	"preserved": ["portfolio palette", "font stack", "project shell", "Cubby cream and forest palette"]
 }
