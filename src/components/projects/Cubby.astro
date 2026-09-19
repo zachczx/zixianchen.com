@@ -193,12 +193,27 @@ const stack = [
 ---
 
 <div class="cubby-case-study text-base-content bg-base-200">
-	<div class="border-neutral/15 bg-base-100 border-b">
-		<div class="text-base-content/50 mx-auto flex max-w-5xl items-center justify-between px-5 py-2.5 text-xs">
-			<a href="/#projects" class="hover:text-base-content flex items-center gap-1.5">
-				<Icon name="arrow-left" class="size-[1.2em]" /> Projects
-			</a>
-			<span>Cubby</span>
+	<div class="bg-base-200">
+		<div class="text-base-content/65 mx-auto max-w-5xl px-5 text-sm">
+			<div class="flex min-h-11 items-center justify-between lg:hidden">
+				<a
+					href="/#projects"
+					class="hover:text-base-content inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap">
+					<Icon name="arrow-left" class="size-[1.2em]" /> Projects
+				</a>
+				<span>Cubby</span>
+			</div>
+			<nav aria-label="Breadcrumb" class="hidden min-h-11 items-center lg:flex">
+				<ol class="flex items-center gap-1.5 whitespace-nowrap">
+					<li>
+						<a href="/#projects" class="hover:text-base-content inline-flex min-h-11 items-center whitespace-nowrap"
+							>Projects</a
+						>
+					</li>
+					<li aria-hidden="true"><Icon name="chevron-right" class="size-[1.1em]" /></li>
+					<li aria-current="page" class="text-base-content/85">Cubby</li>
+				</ol>
+			</nav>
 		</div>
 	</div>
 
