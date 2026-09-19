@@ -3,6 +3,7 @@ interface Props {
 	navCurrent: string;
 	pathName?: string;
 	trackSections?: boolean;
+	position?: 'fixed' | 'static';
 }
 
 type ActiveRule =
@@ -19,7 +20,7 @@ type Link = {
 	active: ActiveRule;
 };
 
-const { navCurrent, pathName = '/', trackSections = false } = Astro.props;
+const { navCurrent, pathName = '/', trackSections = false, position = 'fixed' } = Astro.props;
 const links = [
 	{ href: '/#header', mobileHref: '/', label: 'Home', active: { type: 'hash', key: 'header' } },
 	{ href: '/#about', label: 'About', active: { type: 'hash', key: 'about' } },
@@ -50,7 +51,10 @@ const mobileLinks = links.slice(0, 5);
 ---
 
 <div data-site-nav data-path-name={pathName} data-track-sections={trackSections ? 'true' : 'false'}>
-	<nav aria-label="Primary" style="view-transition-name: navrail;" class="fixed inset-x-0 top-0 z-50 border-b">
+	<nav
+		aria-label="Primary"
+		style="view-transition-name: navrail;"
+		class:list={['border-b', position === 'fixed' ? 'fixed inset-x-0 top-0 z-50' : 'relative z-20']}>
 		<div class="relative flex min-h-11 w-full items-center justify-center px-4 sm:px-6 lg:px-8">
 			<a
 				href="/"

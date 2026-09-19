@@ -1,0 +1,314 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import ScreenshotDialog from '../ScreenshotDialog.astro';
+import homeClassic from '$lib/screenshots/cubby/home-classic.webp';
+import homeBubbly from '$lib/screenshots/cubby/home-bubbly.webp';
+import homeFlat from '$lib/screenshots/cubby/home-flat.webp';
+import homeCurrent from '$lib/screenshots/cubby/home-current.webp';
+
+// Historical provenance: Classic 5b483fdd, Bubbly 1d728caf, Flat ab713495.
+// Current uses Cubby main; 2dc9a4a0 is the first Needs You + desktop-tabs baseline.
+const homeScreenshots = [
+	{
+		full: homeClassic,
+		alt: 'Classic Cubby desktop Home with stacked Tasks, Limits and Expiry in the old operational dashboard.',
+		caption: 'Classic — one long operational Home',
+	},
+	{
+		full: homeBubbly,
+		alt: 'Bubbly Cubby desktop Home with a green Daily Life chapter and yellow Household chapter containing white cards.',
+		caption: 'Bubbly — colored chapter containers',
+	},
+	{
+		full: homeFlat,
+		alt: 'Flat Cubby desktop Home with the colorless Wellbeing and Family areas, including Gym and Coffee among the longer surface.',
+		caption: 'Flat — cleaner, but harder to find things',
+	},
+	{
+		full: homeCurrent,
+		alt: 'Current Cubby desktop Home with Needs You cards and predictable category tabs.',
+		caption: 'Current — Needs You and category tabs',
+	},
+];
+---
+
+<section class="home-evolution border-neutral/15 border-t">
+	<div class="mx-auto max-w-5xl px-5 pt-12 pb-16 sm:pt-16 sm:pb-24">
+		<header class="home-prose">
+			<h2 class="min-w-0 text-3xl font-bold tracking-tight sm:text-4xl">Getting Home right</h2>
+			<div class="text-base-content/85 grid min-w-0 gap-4 leading-relaxed">
+				<p>
+					Home kept getting harder because Cubby kept getting more useful. I wanted the things I did every day within
+					roughly one scroll and one tap, even if that made the information architecture less neat. But every useful
+					thing I kept on Home made the next one harder to fit.
+				</p>
+				<p>
+					This wasn't a neat redesign from A to B. More than once I thought I'd finally made Home better, then spent the
+					next few days using it and found something else annoying. Some of the choices were also hard to let go because
+					they looked like what a "proper" app was supposed to do.
+				</p>
+			</div>
+		</header>
+
+		<section class="mt-16 sm:mt-20" aria-labelledby="home-tensions-title">
+			<h3 id="home-tensions-title" class="max-w-md text-xl font-bold sm:text-2xl">
+				What kept pulling Home in different directions
+			</h3>
+			<dl class="home-tensions mt-7">
+				<div class="home-tension">
+					<dt class="font-semibold">One stop or progressive disclosure?</dt>
+					<dd class="text-base-content/70 text-sm leading-relaxed">
+						A clean summary is less useful if I have to leave it every time I log a Task or add to a Limit. Those
+						one-click actions were some of the most-used parts of Cubby. Keeping them on Home was clearly worth it; the
+						harder question was what else deserved to sit beside them.
+					</dd>
+				</div>
+				<div class="home-tension">
+					<dt class="font-semibold">One responsive Home or two compositions?</dt>
+					<dd class="text-base-content/70 text-sm leading-relaxed">
+						For a long time mobile and desktop showed the same things in different arrangements. Eventually I was using
+						the phone for now, next and quick logging, while desktop was better for overview and browsing.
+					</dd>
+				</div>
+				<div class="home-tension">
+					<dt class="font-semibold">Personality or cleanliness?</dt>
+					<dd class="text-base-content/70 text-sm leading-relaxed">
+						I wanted Cubby to feel warm and a little playful, not like an admin panel. But pastel sections full of white
+						cards started to look like a design trope I was following because every app seemed to do it.
+					</dd>
+				</div>
+			</dl>
+		</section>
+
+		<header class="home-prose mt-20 sm:mt-28">
+			<h3 class="min-w-0 text-2xl font-bold lg:text-3xl">Four answers to the same problem</h3>
+			<p class="text-base-content/75 min-w-0 leading-relaxed">
+				The versions below weren't a march towards an obvious final design. Each one leaned harder into a different part
+				of those trade-offs, then exposed a different problem.
+			</p>
+		</header>
+
+		<div class="home-stages mt-8" data-screenshot-gallery data-gallery-dialog-id="cubby-home-evolution-dialog">
+			<article class="home-stage">
+				<button
+					type="button"
+					data-gallery-open="0"
+					data-gallery-caption={homeScreenshots[0].caption}
+					class="home-shot group border-neutral/20 hover:border-neutral/45 focus-visible:outline-base-content/70 bg-base-200 active:bg-base-300 relative block w-full cursor-pointer overflow-hidden border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
+					aria-label={`Open full-size screenshot: ${homeScreenshots[0].caption}`}>
+					<Image
+						src={homeScreenshots[0].full}
+						alt={homeScreenshots[0].alt}
+						loading="lazy"
+						width={1200}
+						densities={[1, 2]}
+						class="block h-auto w-full"
+					/>
+					<span
+						class="absolute right-2 bottom-2 grid size-9 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+						aria-hidden="true">
+						<Icon name="expand" class="size-4" />
+					</span>
+				</button>
+				<div class="home-stage-copy">
+					<p class="cubby-accent text-sm font-semibold">#1 One long page</p>
+					<h4 class="mt-1 text-xl font-bold sm:text-2xl">Put the everyday stuff in front of me</h4>
+					<p class="text-base-content/75 mt-4 leading-relaxed">
+						The late classic dashboard was still one long operational page. Tasks and Limits sat near the top because I
+						used their one-click logs constantly; Expiry, Enrichment, Illness, Finance and Jobs followed further down,
+						with the quieter stuff collected at the end. The argument was simple: I shouldn't need to open a feature
+						page for something I did several times a day.
+					</p>
+				</div>
+			</article>
+
+			<article class="home-stage">
+				<button
+					type="button"
+					data-gallery-open="1"
+					data-gallery-caption={homeScreenshots[1].caption}
+					class="home-shot group border-neutral/20 hover:border-neutral/45 focus-visible:outline-base-content/70 bg-base-200 active:bg-base-300 relative block w-full cursor-pointer overflow-hidden border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
+					aria-label={`Open full-size screenshot: ${homeScreenshots[1].caption}`}>
+					<Image
+						src={homeScreenshots[1].full}
+						alt={homeScreenshots[1].alt}
+						loading="lazy"
+						width={1200}
+						densities={[1, 2]}
+						class="block h-auto w-full"
+					/>
+					<span
+						class="absolute right-2 bottom-2 grid size-9 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+						aria-hidden="true">
+						<Icon name="expand" class="size-4" />
+					</span>
+				</button>
+				<div class="home-stage-copy">
+					<p class="cubby-accent text-sm font-semibold">#2 Bubbly containers</p>
+					<h4 class="mt-1 text-xl font-bold sm:text-2xl">Make the dashboard feel like an app</h4>
+					<div class="text-base-content/75 mt-4 grid gap-3 leading-relaxed">
+						<p>
+							I really thought this was better. The big soft-color sections and bubbly cards looked like the kind of
+							Material-ish, flat pastel treatment I kept seeing in other apps. It finally felt less like a plain list.
+						</p>
+						<p>
+							Using it was less convincing. Tasks and Limits were fine because I used their one-click logs all the time;
+							they earned the space. Illness took a bit more finding, but when someone was sick I had a reason to go
+							looking for the extra context. Jobs was easy to spot when there was a photo. Coffee and Gym were hopeless.
+							Screen Timer wasn't much better. I kept scrolling around looking for them in the middle, and I couldn't
+							remember which color was supposed to mean what.
+						</p>
+						<p>
+							Worse, I didn't actually like how many white cards were sitting on pastel containers. I still wanted to
+							make it work because it looked like what every app seemed to do.
+						</p>
+					</div>
+				</div>
+			</article>
+
+			<article class="home-stage">
+				<button
+					type="button"
+					data-gallery-open="2"
+					data-gallery-caption={homeScreenshots[2].caption}
+					class="home-shot group border-neutral/20 hover:border-neutral/45 focus-visible:outline-base-content/70 bg-base-200 active:bg-base-300 relative block w-full cursor-pointer overflow-hidden border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
+					aria-label={`Open full-size screenshot: ${homeScreenshots[2].caption}`}>
+					<Image
+						src={homeScreenshots[2].full}
+						alt={homeScreenshots[2].alt}
+						loading="lazy"
+						width={1200}
+						densities={[1, 2]}
+						class="block h-auto w-full"
+					/>
+					<span
+						class="absolute right-2 bottom-2 grid size-9 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+						aria-hidden="true">
+						<Icon name="expand" class="size-4" />
+					</span>
+				</button>
+				<div class="home-stage-copy">
+					<p class="cubby-accent text-sm font-semibold">#3 Flat again</p>
+					<h4 class="mt-1 text-xl font-bold sm:text-2xl">Containers became part of the noise</h4>
+					<div class="text-base-content/75 mt-4 grid gap-3 leading-relaxed">
+						<p>
+							So I went back the other way. I stripped out the category backgrounds, borders, rounded corners, and
+							shadows and let spacing, headings and illustrations do more of the work.
+						</p>
+						<p>
+							It was cleaner, but now Home was just a long list again. Coffee and Gym were technically right there, but
+							that didn't mean I could find them quickly. On a phone, scroll position was at least a rough landmark.
+							Desktop was worse: much more was visible at once, so everything was just in my face.
+						</p>
+					</div>
+				</div>
+			</article>
+
+			<article class="home-stage">
+				<button
+					type="button"
+					data-gallery-open="3"
+					data-gallery-caption={homeScreenshots[3].caption}
+					class="home-shot group border-neutral/20 hover:border-neutral/45 focus-visible:outline-base-content/70 bg-base-200 active:bg-base-300 relative block w-full cursor-pointer overflow-hidden border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
+					aria-label={`Open full-size screenshot: ${homeScreenshots[3].caption}`}>
+					<Image
+						src={homeScreenshots[3].full}
+						alt={homeScreenshots[3].alt}
+						loading="lazy"
+						width={1200}
+						densities={[1, 2]}
+						class="block h-auto w-full"
+					/>
+					<span
+						class="absolute right-2 bottom-2 grid size-9 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+						aria-hidden="true">
+						<Icon name="expand" class="size-4" />
+					</span>
+				</button>
+				<div class="home-stage-copy">
+					<p class="cubby-accent text-sm font-semibold">#4 Different compositions</p>
+					<h4 class="mt-1 text-xl font-bold sm:text-2xl">Stop making one Home do both jobs</h4>
+					<div class="text-base-content/75 mt-4 grid gap-3 leading-relaxed">
+						<p>
+							I'd resisted tabs because they felt very SaaS-dashboard to me, and I liked the idea that Home was one
+							place I could simply scroll through. But once I took the color containers away, the weakness of that
+							approach was hard to ignore.
+						</p>
+						<p>
+							So desktop now starts with Needs You and puts the rest behind predictable category tabs. Mobile went a
+							different way again, with its own Today, Recent and Apps composition. That was the bigger change: stop
+							pretending the same Home just needed better breakpoints.
+						</p>
+					</div>
+				</div>
+			</article>
+
+			<ScreenshotDialog id="cubby-home-evolution" images={homeScreenshots} />
+		</div>
+
+		<footer class="home-prose home-afterword mt-20 border-t pt-8 sm:mt-28 sm:pt-10">
+			<h3 class="min-w-0 text-2xl font-bold">Where it has landed for now</h3>
+			<div class="text-base-content/85 grid min-w-0 gap-4 leading-relaxed">
+				<p>
+					I still don't want a perfectly tidy Home if tidy means making the common things slower. That was why I kept
+					trying to make the one-stop dashboard work. But I also don't need every useful feature visible at once. Needs
+					You is the compromise: put the few things that deserve attention in front of me, and keep the rest somewhere
+					predictable.
+				</p>
+				<p>
+					Splitting the compositions also gives mobile and desktop different visual budgets. I can keep some of the
+					color and personality without asking every domain to shout at once. The data and actions underneath are still
+					shared; what changes is what each screen puts in front of me.
+				</p>
+			</div>
+		</footer>
+	</div>
+</section>
+
+<style>
+	/* Hallmark · genre: editorial · tone: restrained · palette: warm cream + forest · macrostructure: Photographic · theme: incumbent Cubby · enrichment: supplied screenshots · pre-emit critique: P5 H5 E5 S5 R5 V5 · contrast: pass (40–41) · nav: incumbent · footer: incumbent · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50–57) */
+	.home-evolution :where(h2, h3, h4) {
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.home-prose {
+		display: grid;
+		gap: 1.5rem;
+		max-width: 72ch;
+	}
+
+	.home-tension {
+		display: grid;
+		gap: 0.5rem;
+		padding-block: 1.25rem;
+		border-block-start: 1px solid color-mix(in srgb, var(--color-base-content) 15%, transparent);
+	}
+
+	.home-stage + .home-stage {
+		margin-block-start: clamp(4rem, 10vw, 7rem);
+	}
+
+	.home-stage-copy {
+		max-width: 72ch;
+		margin-block-start: 1.5rem;
+	}
+
+	.home-afterword {
+		border-color: color-mix(in srgb, var(--color-base-content) 20%, transparent);
+	}
+
+	@media (min-width: 48rem) {
+		.home-tension {
+			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+			gap: 3rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-shot span {
+			transition: none;
+		}
+	}
+</style>

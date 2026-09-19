@@ -13,7 +13,8 @@ interface Props {
 		| 'chevron-right'
 		| 'chevron-left'
 		| 'arrow-left'
-		| 'external-link';
+		| 'external-link'
+		| 'expand';
 	class?: string;
 	ariaHidden?: boolean;
 }
@@ -150,6 +151,20 @@ const { name, class: className = '', ariaHidden = true } = Astro.props;
 					<path d="M10 14 21 3" />
 					<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
 				</>
+			</>
+		)
+	}
+	{
+		name === 'expand' && (
+			<>
+				<path d="m15 15 6 6" />
+				<path d="m15 9 6-6" />
+				<path d="M21 16v5h-5" />
+				<path d="M21 8V3h-5" />
+				<path d="M3 16v5h5" />
+				<path d="m3 21 6-6" />
+				<path d="M3 8V3h5" />
+				<path d="M9 9 3 3" />
 			</>
 		)
 	}

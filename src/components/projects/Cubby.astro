@@ -2,11 +2,10 @@
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
 import CubbyStory from './CubbyStory.astro';
+import CubbyHomeEvolution from './CubbyHomeEvolution.astro';
 import CubbyDecisions from './CubbyDecisions.astro';
 import ScreenshotSpecimen from '../ScreenshotSpecimen.astro';
 import dashboard from '$lib/screenshots/cubby/dashboard.webp';
-import dashboardRoutines from '$lib/screenshots/cubby/dashboard-routines.webp';
-import dashboardFamily from '$lib/screenshots/cubby/dashboard-family.webp';
 import tasks from '$lib/screenshots/cubby/tasks.webp';
 import limits from '$lib/screenshots/cubby/limits.webp';
 import market from '$lib/screenshots/cubby/market.webp';
@@ -175,7 +174,6 @@ const groups = [
 ];
 
 const contents = [
-	{ id: 'notes', label: 'Dashboard', note: 'what belongs here' },
 	...groups.map((group) => ({
 		id: group.label === 'Household' ? 'home' : group.label.toLowerCase(),
 		label: group.label,
@@ -195,7 +193,7 @@ const stack = [
 ---
 
 <div class="cubby-case-study text-base-content bg-base-200">
-	<div class="border-neutral/15 bg-base-100 sticky top-0 z-10 border-b">
+	<div class="border-neutral/15 bg-base-100 border-b">
 		<div class="text-base-content/50 mx-auto flex max-w-5xl items-center justify-between px-5 py-2.5 text-xs">
 			<a href="/#projects" class="hover:text-base-content flex items-center gap-1.5">
 				<Icon name="arrow-left" class="size-[1.2em]" /> Projects
@@ -244,6 +242,7 @@ const stack = [
 		<nav aria-label="Case study chapters" class="chapter-navigation">
 			<a id="chapter-overview" href="#overview">Overview</a>
 			<a id="chapter-features" href="#features">Features</a>
+			<a id="chapter-home" href="#home-design">Home</a>
 			<a id="chapter-decisions" href="#decisions">Decisions</a>
 		</nav>
 	</div>
@@ -255,29 +254,33 @@ const stack = [
 				<div class="grid gap-5 leading-relaxed">
 					<p>
 						I designed and built Cubby around our household: recurring tasks, weekly limits, meals, health records,
-						bills, trips, and the moments I want to keep. It’s a web app we can install on our phones.
+						bills, trips, and the moments I want to keep. It's a web app we can install on our phones.
 					</p>
 					<p>
 						Home puts frequent actions and today's information within reach. Each feature keeps the detail it needs,
 						while a shared recap brings the records back together.
 					</p>
 					<p>
-						I keep changing it as I use it. Sometimes I’ve made a common action too troublesome, and sometimes a feature
+						I keep changing it as I use it. Sometimes I've made a common action too troublesome, and sometimes a feature
 						that works well for me turns out to be something my wife would rather leave to me.
 					</p>
 					<div class="flex flex-wrap gap-x-6 gap-y-3 pt-2 font-semibold">
-						<a href="#features" class="underline underline-offset-4"
-							>Explore the features <span aria-hidden="true">→</span></a
-						>
-						<a href="#decisions" class="underline underline-offset-4"
-							>Read the product decisions <span aria-hidden="true">→</span></a
-						>
+						<a
+							href="#features"
+							class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
+							Explore the features <Icon name="chevron-right" class="size-4 shrink-0" />
+						</a>
+						<a
+							href="#decisions"
+							class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
+							Read the product decisions <Icon name="chevron-right" class="size-4 shrink-0" />
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<section class="border-neutral/15 bg-base-100 border-t">
-			<div class="mx-auto max-w-5xl px-5 pb-12">
+		<section>
+			<div class="mx-auto max-w-5xl px-5 py-12">
 				<div>
 					<p class="text-base-content/55 text-xs tracking-wide">Built with</p>
 					<dl class="mt-4 max-w-md">
@@ -374,63 +377,6 @@ const stack = [
 			</ul>
 		</nav>
 
-		<section id="notes" class="border-neutral/15 bg-base-100 scroll-mt-20 border-t">
-			<div class="mx-auto max-w-5xl px-5 py-16">
-				<div class="max-w-2xl">
-					<h2 class="text-2xl font-bold lg:text-3xl">What belongs on the dashboard</h2>
-					<p class="text-base-content/85 mt-4 leading-relaxed">
-						I can log a task or add to a Limit from Home. Today's pickup time is there too, along with the other
-						information I want to check without opening each feature. The screens below show the dashboard as I scroll
-						through it.
-					</p>
-				</div>
-				<div class="mx-auto mt-10 grid max-w-4xl items-start gap-10 sm:grid-cols-3 sm:gap-8">
-					<figure class="mx-auto w-full max-w-[280px]">
-						<Image
-							src={dashboard}
-							alt="Cubby home screen"
-							width={280}
-							densities={[1, 2, 3]}
-							loading="lazy"
-							decoding="async"
-							class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
-						/>
-						<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
-							Pinned routines and limits put what needs doing first.
-						</figcaption>
-					</figure>
-					<figure class="mx-auto w-full max-w-[280px]">
-						<Image
-							src={dashboardRoutines}
-							alt="Cubby home screen showing health, routines, and finance"
-							width={280}
-							densities={[1, 2, 3]}
-							loading="lazy"
-							decoding="async"
-							class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
-						/>
-						<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
-							Health, schedules, and finances surface when they need attention.
-						</figcaption>
-					</figure>
-					<figure class="mx-auto w-full max-w-[280px]">
-						<Image
-							src={dashboardFamily}
-							alt="Cubby home screen showing family moments, meals, and travel"
-							width={280}
-							densities={[1, 2, 3]}
-							loading="lazy"
-							decoding="async"
-							class="border-neutral/20 block h-auto w-full border-2 shadow-sm"
-						/>
-						<figcaption class="text-base-content/55 mt-3 text-center text-sm leading-relaxed">
-							Family moments, meals, and travel stay together in the same scroll.
-						</figcaption>
-					</figure>
-				</div>
-			</div>
-		</section>
-
 		<div class="mx-auto max-w-5xl px-5">
 			{
 				groups.map((group) => (
@@ -476,6 +422,10 @@ const stack = [
 		</section>
 
 		<CubbyStory section="timeline" />
+	</section>
+
+	<section id="home-design" data-cubby-chapter aria-labelledby="chapter-home" class="scroll-mt-20">
+		<CubbyHomeEvolution />
 	</section>
 
 	<section id="decisions" data-cubby-chapter aria-labelledby="chapter-decisions" class="scroll-mt-20">
@@ -562,7 +512,7 @@ const stack = [
 
 	.cubby-chapters {
 		position: sticky;
-		top: 2.5rem;
+		top: 0;
 		z-index: 9;
 		padding-block: 0.75rem;
 		background: var(--color-base-200);
@@ -573,8 +523,8 @@ const stack = [
 	 */
 	.chapter-navigation {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		width: min(100%, 34rem);
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		width: min(100%, 42rem);
 		gap: 0.25rem;
 		padding: 0.25rem;
 		border: 1px solid var(--cubby-control-border);
@@ -598,7 +548,8 @@ const stack = [
 		text-decoration: none;
 		transition:
 			background-color 120ms ease-out,
-			color 120ms ease-out;
+			color 120ms ease-out,
+			transform 120ms ease-out;
 	}
 
 	@media (hover: hover) {
@@ -639,10 +590,12 @@ const stack = [
 	}
 
 	.cubby-accent,
+	.cubby-action,
 	.cubby-visit {
 		color: var(--cubby-accent);
 	}
 
+	.cubby-action,
 	.cubby-visit {
 		border-color: color-mix(in srgb, var(--cubby-accent) 45%, transparent);
 		outline-color: var(--cubby-accent);
