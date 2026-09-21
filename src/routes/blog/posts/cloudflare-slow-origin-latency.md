@@ -204,6 +204,6 @@ Toggling the proxy off and back on sometimes seemed to clear the problem tempora
 
 I don't know whether that reset some connection state, changed Cloudflare's routing, or was just coincidental. For what I'm using, nothing comes close to Cloudflare at $0.
 
-**21 Sep 2026:** Happened again, much worse this time. Uptime Kuma caught failures at least 12 separate times between 3.18pm and midnight. Direct-origin requests stayed at 6–9ms, while the Cloudflare path intermittently took 6–10+s or timed out.
+**21 Sep 2026:** Happened again, much worse this time. Uptime Kuma caught failures at least 12 separate times between 3.18pm and midnight, and still counting. Direct-origin requests stayed at 6–9ms, while the Cloudflare path intermittently took 6–10+s or timed out.
 
 **Afternote:** I later found a [Cloudflare Community report](https://community.cloudflare.com/t/network-performance-issue-in-singapore/950628) about a network performance issue in Singapore too.
