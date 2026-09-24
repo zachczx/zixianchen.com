@@ -204,6 +204,6 @@ Toggling the proxy off and back on sometimes seemed to clear the problem tempora
 
 I don't know whether that reset some connection state, changed Cloudflare's routing, or was just coincidental. For what I'm using, nothing comes close to Cloudflare at $0.
 
-**21–24 Sep 2026:** Happened again, much worse this time. Uptime Kuma kept catching repeated failures over the next few days. Direct-origin requests stayed at 6–9ms, while the Cloudflare path intermittently took 6–10+s or timed out. By 24 Sep, I'd finally had enough. I turned off Cloudflare proxying for the Cubby and Lingo API hostnames and left them DNS-only. The difference was immediate: Cubby's API timings went back to being effectively instant, and Lingo stopped showing the same intermittent stalls. The frontends are still on Cloudflare; the APIs no longer are. Everything has been fine since.
+**21–24 Sep 2026:** Happened again, much worse this time. Uptime Kuma caught repeated failures over several days. Direct-origin requests stayed at 6–9ms, while the Cloudflare path intermittently took 6–10+s or timed out. Cloudflare's [status page](https://www.cloudflarestatus.com/incidents/8wmvkv5jkf15) says multiple subsea cable outages had caused congestion between its Tokyo and Singapore datacenters since 21 Sep.
 
-**Afternote:** I later found a [Cloudflare Community report](https://community.cloudflare.com/t/network-performance-issue-in-singapore/950628) about a network performance issue in Singapore too.
+By 24 Sep, I'd had enough. I turned off Cloudflare proxying for the Cubby and Lingo API hostnames and left them DNS-only. Both went back to normal immediately. The frontends are still on Cloudflare; the APIs aren't. Everything has been fine since.
