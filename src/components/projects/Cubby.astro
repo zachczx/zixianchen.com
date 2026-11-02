@@ -16,7 +16,6 @@ import gymWorkout from '$lib/screenshots/cubby/gym-workout.webp';
 import coffee from '$lib/screenshots/cubby/coffee.webp';
 import meals from '$lib/screenshots/cubby/meals.webp';
 import illness from '$lib/screenshots/cubby/illness.webp';
-import travel from '$lib/screenshots/cubby/travel.webp';
 import journalRecap from '$lib/screenshots/cubby/journal-recap.webp';
 import growingUp from '$lib/screenshots/cubby/growing-up.webp';
 import enrichment from '$lib/screenshots/cubby/enrichment.webp';
@@ -76,7 +75,7 @@ const groups = [
 		items: [
 			{
 				src: gymWorkout,
-				alt: 'Cubby gym workout',
+				alt: 'Cubby workout',
 				headline: 'What should I aim for today',
 				paragraphs: [
 					'At the gym I mostly went by whatever I remembered from the last session. On cable machines, that meant agar agar the position of the pin. I started logging weights, reps, rest times, and notes on failure or dropsets so I could check the previous set before the next one.',
@@ -151,16 +150,8 @@ const groups = [
 	{
 		label: 'Life',
 		note: 'the things worth keeping',
-		intro: 'Once we were using Cubby for the everyday things, I brought in trips and the moments I wanted to keep.',
+		intro: 'Once we were using Cubby for the everyday things, I brought in the moments I wanted to keep.',
 		items: [
-			{
-				src: travel,
-				alt: 'Cubby travel planner',
-				headline: 'Every trip, scattered everywhere',
-				paragraphs: [
-					"Trips brought a different pile of things to find: emails, Telegram messages, browser tabs, and PDFs, including password-protected insurance documents. I'd already built Roamichi as a travel planner, so I folded it into Cubby. It still needs manual entry and isn't a full itinerary planner, but the trip details are together.",
-				],
-			},
 			{
 				src: growingUp,
 				alt: 'Cubby growing up',
@@ -227,9 +218,8 @@ const stack = [
 					It started with my towels and ended up managing our home.
 				</h1>
 				<p class="text-base-content/80 mt-6 max-w-2xl text-lg leading-relaxed">
-					We kept medicine timings and class schedules in Telegram, trip details in emails, and washing routines mostly
-					in our heads. I started with a towel reminder and kept adding things we needed. Now a household of four and a
-					dog uses Cubby.
+					We kept medicine timings and class schedules in Telegram, and washing routines mostly in our heads. I started
+					with a towel reminder and kept adding things we needed. Now a household of four and a dog uses Cubby.
 				</p>
 				<a
 					href="https://cubby.dev"
@@ -282,7 +272,7 @@ const stack = [
 				<div class="grid gap-5 leading-relaxed">
 					<p>
 						I designed and built Cubby around our household: recurring tasks, weekly limits, meals, health records,
-						bills, trips, and the moments I want to keep. It's a web app we can install on our phones.
+						bills, and the moments I want to keep. It's a web app we can install on our phones.
 					</p>
 					<p>
 						Home puts frequent actions and today's information within reach. Each feature keeps the detail it needs,
@@ -323,7 +313,7 @@ const stack = [
 					</dl>
 					<p class="text-base-content/55 mt-4 max-w-md text-sm leading-relaxed">
 						Sentry used to be in here too, but it slowed builds more than it was worth, so it came out. A self-hosted
-						GitHub Actions runner checks the web app, main API and retained Roamichi service before changes ship.
+						GitHub Actions runner checks the web app and API before changes ship.
 					</p>
 				</div>
 				<details class="border-neutral/20 mt-10 max-w-3xl border-t pt-5">
