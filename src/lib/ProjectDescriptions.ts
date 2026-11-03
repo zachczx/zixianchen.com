@@ -84,7 +84,7 @@ export const descriptions: ProjectDescriptions = {
 	roamichi: {
 		name: 'Roamichi',
 		subtitle: 'Trip management & travel planner',
-		tldr: 'Trip management app with LLM-powered itinerary parsing, flight and hotel tracking, and a country info service. Absorbed into Cubby.',
+		tldr: 'Trip management app with LLM-powered itinerary parsing, flight and hotel tracking, and a country info service. Folded into Cubby for a while, then moved back out.',
 		url: 'https://roamichi.com',
 		archived: true,
 		stack: 'SvelteKit, Go, Postgres, Stytch',
