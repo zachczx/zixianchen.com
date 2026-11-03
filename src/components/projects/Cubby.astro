@@ -20,6 +20,9 @@ import journalRecap from '$lib/screenshots/cubby/journal-recap.webp';
 import growingUp from '$lib/screenshots/cubby/growing-up.webp';
 import enrichment from '$lib/screenshots/cubby/enrichment.webp';
 import screentimer from '$lib/screenshots/cubby/screentimer.webp';
+import schedule from '$lib/screenshots/cubby/schedule.webp';
+import sleep from '$lib/screenshots/cubby/sleep.webp';
+import jobs from '$lib/screenshots/cubby/jobs.webp';
 import CubbyLogo from '$lib/assets/cubby-logo.webp';
 
 const groups = [
@@ -65,6 +68,15 @@ const groups = [
 					"I put today's schedule on the dashboard, with make-up sessions marked. Pickup time was something we needed every day, so it belonged on the first screen.",
 				],
 			},
+			{
+				src: schedule,
+				alt: 'Cubby schedule',
+				headline: 'One plan for the whole household',
+				paragraphs: [
+					'We wanted to organize our schedule as a household: who drops our kid off at class, who picks him up, and who walks the dog. Those lived across Enrichment, Tasks and a few other places, so I abstracted them into Schedule and put them in one plan.',
+					'Each responsibility has a usual owner, and any of us can claim it, ask for cover, or mark it done. A pickup linked to a class moves with that class, and anything that needs someone in the next couple of days shows up on Home.',
+				],
+			},
 		],
 	},
 	{
@@ -75,7 +87,7 @@ const groups = [
 		items: [
 			{
 				src: gymWorkout,
-				alt: 'Cubby workout',
+				alt: 'Cubby workouts',
 				headline: 'What should I aim for today',
 				paragraphs: [
 					'At the gym I mostly went by whatever I remembered from the last session. On cable machines, that meant agar agar the position of the pin. I started logging weights, reps, rest times, and notes on failure or dropsets so I could check the previous set before the next one.',
@@ -92,6 +104,15 @@ const groups = [
 				],
 			},
 			{
+				src: sleep,
+				alt: 'Cubby sleep',
+				headline: 'How often, and how bad',
+				paragraphs: [
+					"When our kid started sleepwalking, we wanted to understand how severe it was and whether there was a pattern to it. I log each episode in one tap while it's happening, against the night it happened, and fill in sleep and wake times later.",
+					'Looking across the weeks, we found that it usually happened when he was very tired, especially on days he skipped his nap. Having every episode in one place also meant we could pull it up when we spoke to the doctors.',
+				],
+			},
+			{
 				src: coffee,
 				alt: 'Cubby coffee recipes',
 				headline: 'Which brew actually tasted better',
@@ -103,7 +124,7 @@ const groups = [
 	},
 	{
 		label: 'Household',
-		note: 'what comes in and what runs out',
+		note: 'what comes in, runs out, and gets done',
 		intro: 'The smaller things stayed too, because I kept running into them at home.',
 		items: [
 			{
@@ -112,6 +133,15 @@ const groups = [
 				headline: 'What did we eat yesterday?',
 				paragraphs: [
 					"We were just as bad at remembering meals, sometimes even what we'd had that afternoon. Now I log them at the table before we leave, with a photo, so I can look back at what we've eaten over the week.",
+				],
+			},
+			{
+				src: jobs,
+				alt: 'Cubby jobs',
+				headline: "A photo when the job's done",
+				paragraphs: [
+					"Jobs started as a tally of the chores I did around the house, like laundry or fixing a loose cabinet hinge. I modelled it on delivery apps, where the driver takes a photo once a job is complete, so each chore gets a photo when it's finished.",
+					'It also turned out to be useful for recording the chores our kid did. Each job is credited to whoever did it, so when he sets the dinner table, it goes down as his.',
 				],
 			},
 			{
@@ -124,7 +154,7 @@ const groups = [
 			},
 			{
 				src: market,
-				alt: 'Cubby market prices',
+				alt: 'Cubby prices',
 				headline: 'Which price is actually worth it',
 				paragraphs: [
 					"I had a rough sense of supermarket prices, but wine promotions and my Just Wine Club subscription made comparisons harder. I started recording prices by item, shop, and promotion, with unit prices to make different pack sizes comparable. The useful part is knowing which price I'd buy at again.",
@@ -235,7 +265,7 @@ const stack = [
 				<div class="border-neutral/15 bg-base-100 overflow-hidden rounded-2xl border shadow-xl">
 					<Image
 						src={dashboard}
-						alt="Cubby Home dashboard with today's tasks, illness, limits, and enrichment schedule"
+						alt="Cubby Home with the day's timeline and a Needs you list of expiring food and due bills"
 						width={645}
 						densities={[1, 2]}
 						loading="eager"
@@ -245,7 +275,7 @@ const stack = [
 				<div class="border-neutral/15 bg-base-100 overflow-hidden rounded-2xl border shadow-xl">
 					<Image
 						src={dashboardRecent}
-						alt="Cubby Recent view with meals, household jobs, and app shortcuts"
+						alt="Cubby Home's quick log for coffee, meals, and prices, with recent meals and household jobs"
 						width={645}
 						densities={[1, 2]}
 						loading="eager"
