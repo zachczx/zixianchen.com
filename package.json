@@ -6,6 +6,7 @@
 		"npm": ">=10.0"
 	},
 	"private": true,
+	"packageManager": "pnpm@11.10.0",
 	"scripts": {
 		"dev": "astro dev",
 		"dev:worker": "pnpm build && pnpm db:migrate:local && wrangler dev",
