@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+	slug: string;
+	name: string;
+	subtitle: string;
+	stack?: string;
+	lineage?: string;
+	caseStudy?: boolean;
+}
+
+const { slug, name, subtitle, stack, lineage, caseStudy } = Astro.props;
+---
+
+<div class="border-night-overlay/15 grid gap-x-6 gap-y-1 border-b py-4 sm:grid-cols-[11rem_1fr_auto] sm:items-baseline">
+	<dt class="text-sm font-semibold lg:text-base">{name}</dt>
+	<dd>
+		<span class="text-night-content/70 text-sm lg:text-base">{subtitle}</span>
+		{stack && <span class="text-night-muted-foreground mt-0.5 block text-xs">{stack}</span>}
+	</dd>
+	<dd class="text-night-content/65 text-xs sm:text-right">
+		{caseStudy ? (
+			<a
+				href={`/projects/${slug}`}
+				class="focus-visible:outline-accent text-night-content/75 hover:text-night-content decoration-accent inline-flex items-center gap-1 font-mono underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2">
+				Read case study<span class="sr-only">: {name}</span>
+				<Icon name="chevron-right" class="size-3.5" />
+			</a>
+		) : (
+			(lineage ?? '')
+		)}
+	</dd>
+</div>

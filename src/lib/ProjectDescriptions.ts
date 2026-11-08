@@ -7,6 +7,7 @@ interface ProjectDescriptions {
 		archived?: boolean;
 		lineage?: string;
 		stack?: string;
+		caseStudy?: boolean;
 	};
 }
 
@@ -28,6 +29,9 @@ export const descriptions: ProjectDescriptions = {
 		name: 'Apptitude',
 		subtitle: 'Structured technology learning and decision support',
 		url: 'https://titude.app/',
+		archived: true,
+		stack: 'SvelteKit, Postgres, Meilisearch, Axiom',
+		caseStudy: true,
 	},
 	btonomics: {
 		name: 'BTOnomics',
