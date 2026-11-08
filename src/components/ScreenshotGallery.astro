@@ -22,40 +22,40 @@ const { id, title = 'Supporting screenshots', images } = Astro.props;
 
 <section class="mt-6" aria-labelledby={`${id}-title`} data-screenshot-gallery data-gallery-dialog-id={`${id}-dialog`}>
 	<div class="flex items-baseline justify-between gap-4">
-		<h3 id={`${id}-title`} class="text-base-content/80 text-sm font-semibold">{title}</h3>
+		<h3 id={`${id}-title`} class="text-base-content/80 text-sm font-semibold">
+			{title}
+		</h3>
 		<p class="text-base-content/50 text-xs">Select to enlarge</p>
 	</div>
 
 	<div class="mt-3 grid gap-3 sm:grid-cols-2">
-		{
-			images.map((image, index) => (
-				<button
-					type="button"
-					data-gallery-open={index}
-					data-gallery-caption={image.caption}
-					class="group focus-visible:outline-base-content/70 border-neutral/20 bg-base-100 hover:border-neutral/45 active:bg-base-200 cursor-pointer overflow-hidden border text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-					aria-label={`Open full-size screenshot: ${image.caption}`}>
-					<div class="relative aspect-video overflow-hidden">
-						<Image
-							src={image.thumbnail}
-							alt={image.alt}
-							loading="lazy"
-							width={Math.min(800, image.thumbnail.width)}
-							data-motion="spatial"
-							class="block h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] group-focus-visible:scale-[1.015]"
-						/>
-						<span
-							class="absolute right-2 bottom-2 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
-							aria-hidden="true">
-							<Icon name="expand" class="size-4" />
-						</span>
-					</div>
-					<span class="text-base-content/70 border-neutral/15 block border-t px-3 py-2 text-xs leading-relaxed">
-						{image.caption}
+		{images.map((image, index) => (
+			<button
+				type="button"
+				data-gallery-open={index}
+				data-gallery-caption={image.caption}
+				class="group focus-visible:outline-base-content/70 border-neutral/20 bg-base-100 hover:border-neutral/45 active:bg-base-200 cursor-pointer overflow-hidden border text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+				aria-label={`Open full-size screenshot: ${image.caption}`}>
+				<div class="relative aspect-video overflow-hidden">
+					<Image
+						src={image.thumbnail}
+						alt={image.alt}
+						loading="lazy"
+						width={Math.min(800, image.thumbnail.width)}
+						data-motion="spatial"
+						class="block h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] group-focus-visible:scale-[1.015]"
+					/>
+					<span
+						class="absolute right-2 bottom-2 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-85 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+						aria-hidden="true">
+						<Icon name="expand" class="size-4" />
 					</span>
-				</button>
-			))
-		}
+				</div>
+				<span class="text-base-content/70 border-neutral/15 block border-t px-3 py-2 text-xs leading-relaxed">
+					{image.caption}
+				</span>
+			</button>
+		))}
 	</div>
 	<ScreenshotDialog id={id} images={images} />
 </section>

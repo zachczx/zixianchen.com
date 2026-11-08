@@ -56,20 +56,53 @@ const usesSplitHero = heroLayout === 'split' && hasHero;
 					<li>
 						<a
 							href="/#projects"
-							class="hover:text-base-content focus-visible:outline-accent active:text-base-content/80 inline-flex min-h-11 items-center whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-[-2px]"
-							>Projects</a
-						>
+							class="hover:text-base-content focus-visible:outline-accent active:text-base-content/80 inline-flex min-h-11 items-center whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+							Projects
+						</a>
 					</li>
-					<li aria-hidden="true"><Icon name="chevron-right" class="size-[1.1em]" /></li>
-					<li aria-current="page" class="text-base-content/85">{name}</li>
+					<li aria-hidden="true">
+						<Icon name="chevron-right" class="size-[1.1em]" />
+					</li>
+					<li aria-current="page" class="text-base-content/85">
+						{name}
+					</li>
 				</ol>
 			</nav>
 		</div>
 	</div>
 
-	{
-		usesSplitHero ? (
-			<header class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-14 lg:py-20">
+	{usesSplitHero ? (
+		<header class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-14 lg:py-20">
+			<div class="max-w-3xl">
+				{hasWordmark && <slot name="wordmark" />}
+				{eyebrow && (
+					<p class="mt-8 text-xs tracking-wide" style="color: var(--accent-ink)">
+						{eyebrow}
+					</p>
+				)}
+				<h1 class="mt-4 min-w-0 text-4xl leading-[1.05] font-black tracking-tight text-balance [overflow-wrap:anywhere] sm:text-5xl lg:text-6xl">
+					{headline}
+				</h1>
+				{sub && <p class="text-base-content/80 mt-6 text-lg leading-relaxed">{sub}</p>}
+				{url && (
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener"
+						class="hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+						style="color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 45%, transparent); outline-color: var(--accent-ink)">
+						Visit site <Icon name="external-link" class="size-[1.1em]" />
+						<span class="sr-only">(opens in a new tab)</span>
+					</a>
+				)}
+			</div>
+			<div class="min-w-0" style={`view-transition-name: project-hero-${slug};`}>
+				<slot name="hero" />
+			</div>
+		</header>
+	) : (
+		<>
+			<header class="mx-auto max-w-5xl px-5 pt-14 pb-12 lg:pt-20">
 				<div class="max-w-3xl">
 					{hasWordmark && <slot name="wordmark" />}
 					{eyebrow && (
@@ -93,76 +126,43 @@ const usesSplitHero = heroLayout === 'split' && hasHero;
 						</a>
 					)}
 				</div>
-				<div class="min-w-0" style={`view-transition-name: project-hero-${slug};`}>
+			</header>
+			{hasHero && (
+				<div class="mx-auto max-w-5xl px-5 pb-4" style={`view-transition-name: project-hero-${slug};`}>
 					<slot name="hero" />
 				</div>
-			</header>
-		) : (
-			<>
-				<header class="mx-auto max-w-5xl px-5 pt-14 pb-12 lg:pt-20">
-					<div class="max-w-3xl">
-						{hasWordmark && <slot name="wordmark" />}
-						{eyebrow && (
-							<p class="mt-8 text-xs tracking-wide" style="color: var(--accent-ink)">
-								{eyebrow}
-							</p>
-						)}
-						<h1 class="mt-4 min-w-0 text-4xl leading-[1.05] font-black tracking-tight text-balance [overflow-wrap:anywhere] sm:text-5xl lg:text-6xl">
-							{headline}
-						</h1>
-						{sub && <p class="text-base-content/80 mt-6 text-lg leading-relaxed">{sub}</p>}
-						{url && (
-							<a
-								href={url}
-								target="_blank"
-								rel="noopener"
-								class="hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-								style="color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 45%, transparent); outline-color: var(--accent-ink)">
-								Visit site <Icon name="external-link" class="size-[1.1em]" />
-								<span class="sr-only">(opens in a new tab)</span>
-							</a>
-						)}
-					</div>
-				</header>
-				{hasHero && (
-					<div class="mx-auto max-w-5xl px-5 pb-4" style={`view-transition-name: project-hero-${slug};`}>
-						<slot name="hero" />
-					</div>
-				)}
-			</>
-		)
-	}
+			)}
+		</>
+	)}
 
-	<main class="mx-auto max-w-5xl px-5"><slot /></main>
+	<main class="mx-auto max-w-5xl px-5">
+		<slot />
+	</main>
 
 	<section class="border-neutral/15 bg-base-100 mt-20 border-t">
 		<div class="mx-auto max-w-5xl px-5 py-12">
-			{
-				stack.length > 0 && (
-					<>
-						<p class="text-base-content/55 text-xs tracking-wide">Built with</p>
-						<dl class="mt-4 max-w-md">
-							{stack.map((row) => (
-								<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
-									<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
-									<dd class="text-base-content/85 text-sm">{row.tools}</dd>
-								</div>
-							))}
-						</dl>
-					</>
-				)
-			}
+			{stack.length > 0 && (
+				<>
+					<p class="text-base-content/55 text-xs tracking-wide">Built with</p>
+					<dl class="mt-4 max-w-md">
+						{stack.map((row) => (
+							<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
+								<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
+								<dd class="text-base-content/85 text-sm">{row.tools}</dd>
+							</div>
+						))}
+					</dl>
+				</>
+			)}
 			{removed && <p class="text-base-content/55 mt-4 max-w-md text-sm leading-relaxed">{removed}</p>}
 		</div>
 	</section>
 
-	{
-		hasOutro && (
-			<section class="border-neutral/15 border-t">
-				<div class="mx-auto max-w-5xl px-5">
-					<slot name="outro" />
-				</div>
-			</section>
-		)
-	}
+	{hasOutro && (
+		<section class="border-neutral/15 border-t">
+			<div class="mx-auto max-w-5xl px-5">
+				<slot name="outro" />
+			</div>
+		</section>
+	)}
 </div>

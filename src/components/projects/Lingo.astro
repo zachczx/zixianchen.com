@@ -144,11 +144,31 @@ const confusablesScreenshots = [
 			aria-label="Inside Lingo">
 			<p class="text-base-content/55 font-mono text-xs tracking-wide uppercase">Inside Lingo</p>
 			<ol class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-5">
-				<li><a class="chapter-link" href="#why">Why it exists</a></li>
-				<li><a class="chapter-link" href="#find">Finding a term</a></li>
-				<li><a class="chapter-link" href="#learn">Learning earlier</a></li>
-				<li><a class="chapter-link" href="#trust">Earning trust</a></li>
-				<li><a class="chapter-link" href="#run">Running it</a></li>
+				<li>
+					<a class="chapter-link" href="#why">
+						Why it exists
+					</a>
+				</li>
+				<li>
+					<a class="chapter-link" href="#find">
+						Finding a term
+					</a>
+				</li>
+				<li>
+					<a class="chapter-link" href="#learn">
+						Learning earlier
+					</a>
+				</li>
+				<li>
+					<a class="chapter-link" href="#trust">
+						Earning trust
+					</a>
+				</li>
+				<li>
+					<a class="chapter-link" href="#run">
+						Running it
+					</a>
+				</li>
 			</ol>
 		</nav>
 
@@ -212,16 +232,24 @@ const confusablesScreenshots = [
 				</figure>
 
 				<dl class="decision-ledger">
-					<div><dt>First version</dt><dd>Jaro-Winkler and Metaphone handled partial and phonetic matches.</dd></div>
-					<div><dt>Why it changed</dt><dd>Ranking became expensive to tune as the glossary grew.</dd></div>
 					<div>
-						<dt>Current approach</dt><dd>
+						<dt>First version</dt>
+						<dd>Jaro-Winkler and Metaphone handled partial and phonetic matches.</dd>
+					</div>
+					<div>
+						<dt>Why it changed</dt>
+						<dd>Ranking became expensive to tune as the glossary grew.</dd>
+					</div>
+					<div>
+						<dt>Current approach</dt>
+						<dd>
 							Exact matches come first. Semantic search then looks across descriptions and other indexed context for
 							glossary terms and Confusables, so a remembered idea can still lead to the right result.
 						</dd>
 					</div>
 					<div>
-						<dt>Fallback</dt><dd>
+						<dt>Fallback</dt>
+						<dd>
 							The embedded lexical search takes over if Meilisearch is unavailable. Find by meaning can fail on its own
 							without breaking ordinary search.
 						</dd>
@@ -322,30 +350,34 @@ const confusablesScreenshots = [
 			</div>
 
 			<div class="mt-12" aria-labelledby="trust-flow-title">
-				<h3 id="trust-flow-title" class="text-base font-bold">How an entry reaches search</h3>
+				<h3 id="trust-flow-title" class="text-base font-bold">
+					How an entry reaches search
+				</h3>
 				<ol class="trust-flow mt-5">
 					<li>
-						<span>01</span><strong>A lead arrives</strong><p>
-							A suggestion, report, survey response or failed query points to a gap.
-						</p>
+						<span>01</span>
+						<strong>A lead arrives</strong>
+						<p>A suggestion, report, survey response or failed query points to a gap.</p>
 					</li>
 					<li>
-						<span>02</span><strong>Research it</strong><p>I check the meaning, context and available public sources.</p>
+						<span>02</span>
+						<strong>Research it</strong>
+						<p>I check the meaning, context and available public sources.</p>
 					</li>
 					<li>
-						<span>03</span><strong>Review and edit</strong><p>
-							The private panel keeps evidence, proposed changes and the decision together.
-						</p>
+						<span>03</span>
+						<strong>Review and edit</strong>
+						<p>The private panel keeps evidence, proposed changes and the decision together.</p>
 					</li>
 					<li>
-						<span>04</span><strong>Prepare the draft</strong><p>
-							An accepted suggestion becomes JSON for a final manual change.
-						</p>
+						<span>04</span>
+						<strong>Prepare the draft</strong>
+						<p>An accepted suggestion becomes JSON for a final manual change.</p>
 					</li>
 					<li>
-						<span>05</span><strong>Release to search</strong><p>
-							The embedded JSON remains the source of truth and the index updates with the release.
-						</p>
+						<span>05</span>
+						<strong>Release to search</strong>
+						<p>The embedded JSON remains the source of truth and the index updates with the release.</p>
 					</li>
 				</ol>
 			</div>
@@ -410,8 +442,7 @@ const confusablesScreenshots = [
 		</section>
 
 		<section class="border-neutral/20 bg-base-100 mt-2 border-y px-6 py-14 sm:px-10 sm:py-16 lg:py-20">
-			<h2
-				class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
+			<h2 class="max-w-3xl min-w-0 text-3xl leading-tight font-bold tracking-tight [overflow-wrap:anywhere] lg:text-4xl">
 				Most people will use Lingo when a term gets in the way, and that is fine.
 			</h2>
 			<div class="body-copy max-w-3xl">

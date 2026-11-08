@@ -33,7 +33,9 @@ const filters = [
 			Web development, infra, AI, writing, and odd problems worth writing down.
 		</p>
 		<div class="relative mt-6">
-			<label for="blog-search" class="sr-only">Search blog posts</label>
+			<label for="blog-search" class="sr-only">
+				Search blog posts
+			</label>
 			<Icon
 				name="search"
 				class="text-base-content/45 pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2"
@@ -59,96 +61,92 @@ const filters = [
 			Search could not load. Clear the search to browse all posts.
 		</p>
 		<nav class="mt-6 flex flex-wrap gap-1" aria-label="Filter blog posts by category">
-			{
-				filters.map((filter, index) => (
-					<button
-						data-blog-filter
-						data-category={filter.category}
-						type="button"
-						aria-pressed={index === 0 ? 'true' : 'false'}
+			{filters.map((filter, index) => (
+				<button
+					data-blog-filter
+					data-category={filter.category}
+					type="button"
+					aria-pressed={index === 0 ? 'true' : 'false'}
+					class:list={[
+						'focus-visible:outline-accent inline-flex min-h-11 cursor-pointer items-center gap-2 rounded px-3 font-mono text-sm transition-[background-color,color] duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2',
+						index === 0
+							? 'bg-accent text-neutral'
+							: 'text-base-content/65 hover:bg-base-content/[0.06] hover:text-base-content',
+					]}>
+					<span>{filter.label}</span>
+					<span
+						data-filter-count
 						class:list={[
-							'focus-visible:outline-accent inline-flex min-h-11 cursor-pointer items-center gap-2 rounded px-3 font-mono text-sm transition-[background-color,color] duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2',
-							index === 0
-								? 'bg-accent text-neutral'
-								: 'text-base-content/65 hover:bg-base-content/[0.06] hover:text-base-content',
+							'min-w-5 rounded-sm px-1.5 py-0.5 text-center text-xs leading-none tabular-nums transition-[background-color,color] duration-150 ease-out',
+							index === 0 ? 'bg-neutral/15 text-neutral/80' : 'bg-accent/20 text-base-content/75',
 						]}>
-						<span>{filter.label}</span>
-						<span
-							data-filter-count
-							class:list={[
-								'min-w-5 rounded-sm px-1.5 py-0.5 text-center text-xs leading-none tabular-nums transition-[background-color,color] duration-150 ease-out',
-								index === 0 ? 'bg-neutral/15 text-neutral/80' : 'bg-accent/20 text-base-content/75',
-							]}>
-							{filter.count}
-						</span>
-					</button>
-				))
-			}
+						{filter.count}
+					</span>
+				</button>
+			))}
 		</nav>
 	</header>
 
 	<main id="blog-post-list" data-blog-post-list class="grid" aria-busy="false">
 		<div data-static-posts>
-			{
-				posts.map((post, index) => {
-					const series = getBlogSeriesPosition(post.slug);
-					return (
-						<a
-							data-blog-post
-							data-category={post.category ?? ''}
-							href={`/blog/${post.slug}`}
-							class:list={[
-								'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
-								{ 'border-t': index > 0 },
-							]}>
-							<article class="grid gap-2">
-								<h2 class="text-xl font-bold sm:text-2xl">
-									<span class="decoration-accent decoration-2 underline-offset-4 group-focus-within:underline group-hover:underline">
-										<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">
-											{index + 1}.
-										</span>
-										{post.title}
+			{posts.map((post, index) => {
+				const series = getBlogSeriesPosition(post.slug);
+				return (
+					<a
+						data-blog-post
+						data-category={post.category ?? ''}
+						href={`/blog/${post.slug}`}
+						class:list={[
+							'group border-base-content/10 hover:bg-base-content/[0.03] focus-visible:outline-accent block px-4 py-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] lg:px-6',
+							{ 'border-t': index > 0 },
+						]}>
+						<article class="grid gap-2">
+							<h2 class="text-xl font-bold sm:text-2xl">
+								<span class="decoration-accent decoration-2 underline-offset-4 group-focus-within:underline group-hover:underline">
+									<span data-post-number class="text-base-content/55 font-mono text-[0.85em]">
+										{index + 1}.
 									</span>
-								</h2>
-								{post.description && (
-									<p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>
+									{post.title}
+								</span>
+							</h2>
+							{post.description && (
+								<p class="text-base-content/70 max-w-2xl text-sm leading-relaxed sm:text-base">{post.description}</p>
+							)}
+							<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
+								{post.category && (
+									<>
+										<span>{post.category}</span>
+										<span class="text-base-content/30">/</span>
+									</>
 								)}
-								<div class="text-base-content/50 flex flex-wrap items-center gap-x-1.5 font-mono text-sm">
-									{post.category && (
-										<>
-											<span>{post.category}</span>
-											<span class="text-base-content/30">/</span>
-										</>
-									)}
-									{series && (
-										<>
-											<span>
-												{series.title} · {series.position}/{series.total}
-											</span>
-											<span class="text-base-content/30">/</span>
-										</>
-									)}
-									<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
-									{post.date_updated && (
-										<>
-											<span class="text-base-content/30">/</span>
-											<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
-										</>
-									)}
-								</div>
-								<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
-									{post.tags.map((tag, tagIndex) => (
-										<>
-											{tagIndex > 0 && <span class="text-base-content/30">/</span>}
-											<span>{tag}</span>
-										</>
-									))}
-								</div>
-							</article>
-						</a>
-					);
-				})
-			}
+								{series && (
+									<>
+										<span>
+											{series.title} · {series.position}/{series.total}
+										</span>
+										<span class="text-base-content/30">/</span>
+									</>
+								)}
+								<span class="uppercase">{dayjs(post.date).format('D MMM YYYY')}</span>
+								{post.date_updated && (
+									<>
+										<span class="text-base-content/30">/</span>
+										<span class="uppercase">updated {dayjs(post.date_updated).format('D MMM YYYY')}</span>
+									</>
+								)}
+							</div>
+							<div class="text-base-content/50 flex flex-wrap gap-x-1.5 font-mono text-sm">
+								{post.tags.map((tag, tagIndex) => (
+									<>
+										{tagIndex > 0 && <span class="text-base-content/30">/</span>}
+										<span>{tag}</span>
+									</>
+								))}
+							</div>
+						</article>
+					</a>
+				);
+			})}
 		</div>
 		<div data-search-results class="hidden"></div>
 	</main>
