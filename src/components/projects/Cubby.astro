@@ -228,12 +228,16 @@ const stack = [
 			<nav aria-label="Breadcrumb" class="hidden min-h-11 items-center lg:flex">
 				<ol class="flex items-center gap-1.5 whitespace-nowrap">
 					<li>
-						<a href="/#projects" class="hover:text-base-content inline-flex min-h-11 items-center whitespace-nowrap"
-							>Projects</a
-						>
+						<a href="/#projects" class="hover:text-base-content inline-flex min-h-11 items-center whitespace-nowrap">
+							Projects
+						</a>
 					</li>
-					<li aria-hidden="true"><Icon name="chevron-right" class="size-[1.1em]" /></li>
-					<li aria-current="page" class="text-base-content/85">Cubby</li>
+					<li aria-hidden="true">
+						<Icon name="chevron-right" class="size-[1.1em]" />
+					</li>
+					<li aria-current="page" class="text-base-content/85">
+						Cubby
+					</li>
 				</ol>
 			</nav>
 		</div>
@@ -243,8 +247,7 @@ const stack = [
 		<div>
 			<div class="max-w-3xl">
 				<img src={CubbyLogo.src} alt="Cubby" class="h-12" />
-				<h1
-					class="mt-6 max-w-4xl text-4xl leading-[1.05] font-black tracking-tight text-balance sm:text-5xl lg:text-6xl">
+				<h1 class="mt-6 max-w-4xl text-4xl leading-[1.05] font-black tracking-tight text-balance sm:text-5xl lg:text-6xl">
 					It started with my towels and ended up managing our home.
 				</h1>
 				<p class="text-base-content/80 mt-6 max-w-2xl text-lg leading-relaxed">
@@ -288,10 +291,18 @@ const stack = [
 
 	<div class="cubby-chapters mx-auto max-w-5xl px-5" id="case-study-chapters">
 		<nav aria-label="Case study chapters" class="chapter-navigation">
-			<a id="chapter-overview" href="#overview">Overview</a>
-			<a id="chapter-features" href="#features">Features</a>
-			<a id="chapter-home" href="#home-design">Home</a>
-			<a id="chapter-decisions" href="#decisions">Decisions</a>
+			<a id="chapter-overview" href="#overview">
+				Overview
+			</a>
+			<a id="chapter-features" href="#features">
+				Features
+			</a>
+			<a id="chapter-home" href="#home-design">
+				Home
+			</a>
+			<a id="chapter-decisions" href="#decisions">
+				Decisions
+			</a>
 		</nav>
 	</div>
 
@@ -332,14 +343,12 @@ const stack = [
 				<div>
 					<p class="text-base-content/55 text-xs tracking-wide">Built with</p>
 					<dl class="mt-4 max-w-md">
-						{
-							stack.map((row) => (
-								<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
-									<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
-									<dd class="text-base-content/85 text-sm">{row.tools}</dd>
-								</div>
-							))
-						}
+						{stack.map((row) => (
+							<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
+								<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
+								<dd class="text-base-content/85 text-sm">{row.tools}</dd>
+							</div>
+						))}
 					</dl>
 					<p class="text-base-content/55 mt-4 max-w-md text-sm leading-relaxed">
 						Sentry used to be in here too, but it slowed builds more than it was worth, so it came out. A self-hosted
@@ -347,10 +356,9 @@ const stack = [
 					</p>
 				</div>
 				<details class="border-neutral/20 mt-10 max-w-3xl border-t pt-5">
-					<summary
-						class="cubby-accent cursor-pointer py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-4"
-						>Development notes</summary
-					>
+					<summary class="cubby-accent cursor-pointer py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-4">
+						Development notes
+					</summary>
 					<div class="text-base-content/85 mt-5 grid gap-6 leading-relaxed">
 						<p>
 							GPT-5.6 Sol was quick to push out changes and happy to layer more onto the frontend architecture. I only
@@ -381,8 +389,7 @@ const stack = [
 		</div>
 
 		<details data-case-study-section-nav class="case-study-contents mx-auto max-w-5xl px-5 pb-14 sm:hidden">
-			<summary
-				class="cubby-contents-summary focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 border-y py-3 text-xs font-semibold tracking-wide focus-visible:outline-2 focus-visible:outline-offset-2">
+			<summary class="cubby-contents-summary focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 border-y py-3 text-xs font-semibold tracking-wide focus-visible:outline-2 focus-visible:outline-offset-2">
 				<span>Explore {contents.length} sections</span>
 				<Icon
 					name="chevron-right"
@@ -392,68 +399,62 @@ const stack = [
 			</summary>
 			<nav aria-label="Sections">
 				<ul class="mt-2 grid">
-					{
-						contents.map((item) => (
-							<li>
-								<a
-									href={`#${item.id}`}
-									class="group border-neutral/10 focus-visible:outline-accent flex min-h-11 items-center justify-between gap-4 border-b py-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-									<span class="cubby-section-label font-semibold">{item.label}</span>
-									<span class="text-base-content/55 text-sm">{item.note}</span>
-								</a>
-							</li>
-						))
-					}
+					{contents.map((item) => (
+						<li>
+							<a
+								href={`#${item.id}`}
+								class="group border-neutral/10 focus-visible:outline-accent flex min-h-11 items-center justify-between gap-4 border-b py-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+								<span class="cubby-section-label font-semibold">{item.label}</span>
+								<span class="text-base-content/55 text-sm">{item.note}</span>
+							</a>
+						</li>
+					))}
 				</ul>
 			</nav>
 		</details>
 		<nav data-case-study-section-nav class="mx-auto hidden max-w-5xl px-5 pb-14 sm:block" aria-label="Sections">
 			<p class="cubby-accent text-xs tracking-wide">Contents</p>
 			<ul class="mt-4 grid gap-x-10 sm:grid-cols-2">
-				{
-					contents.map((item) => (
-						<li>
-							<a
-								href={`#${item.id}`}
-								class="group border-neutral/10 flex items-baseline justify-between gap-4 border-b py-3">
-								<span class="cubby-section-label font-semibold">{item.label}</span>
-								<span class="text-base-content/50 text-sm">{item.note}</span>
-							</a>
-						</li>
-					))
-				}
+				{contents.map((item) => (
+					<li>
+						<a
+							href={`#${item.id}`}
+							class="group border-neutral/10 flex items-baseline justify-between gap-4 border-b py-3">
+							<span class="cubby-section-label font-semibold">{item.label}</span>
+							<span class="text-base-content/50 text-sm">{item.note}</span>
+						</a>
+					</li>
+				))}
 			</ul>
 		</nav>
 
 		<div class="mx-auto max-w-5xl px-5">
-			{
-				groups.map((group) => (
-					<section id={group.label === 'Household' ? 'home' : group.label.toLowerCase()} class="scroll-mt-20 pt-14">
-						<div class="border-neutral/20 flex flex-wrap items-baseline gap-3 border-b pb-3">
-							<h2 class="text-base-content/85 text-sm font-semibold tracking-[0.18em] uppercase">{group.label}</h2>
-							<span class="text-base-content/50 text-xs">{group.note}</span>
-						</div>
-						<p class="text-base-content/80 mt-5 max-w-2xl leading-relaxed">{group.intro}</p>
-						<div>
-							{group.items.map((item) => (
-								<article class="border-neutral/10 grid gap-8 border-b py-10 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-12">
-									<div>
-										<h3 class="text-2xl leading-snug font-bold lg:text-3xl">{item.headline}</h3>
-										<div class="text-base-content/85 mt-5 grid gap-4 leading-relaxed">
-											{item.paragraphs.map((paragraph) => (
-												<p>{paragraph}</p>
-											))}
-										</div>
+			{groups.map((group) => (
+				<section id={group.label === 'Household' ? 'home' : group.label.toLowerCase()} class="scroll-mt-20 pt-14">
+					<div class="border-neutral/20 flex flex-wrap items-baseline gap-3 border-b pb-3">
+						<h2 class="text-base-content/85 text-sm font-semibold tracking-[0.18em] uppercase">{group.label}</h2>
+						<span class="text-base-content/50 text-xs">{group.note}</span>
+					</div>
+					<p class="text-base-content/80 mt-5 max-w-2xl leading-relaxed">{group.intro}</p>
+					<div>
+						{group.items.map((item) => (
+							<article class="border-neutral/10 grid gap-8 border-b py-10 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-12">
+								<div>
+									<h3 class="text-2xl leading-snug font-bold lg:text-3xl">{item.headline}</h3>
+									<div class="text-base-content/85 mt-5 grid gap-4 leading-relaxed">
+										{item.paragraphs.map((paragraph) => (
+											<p>{paragraph}</p>
+										))}
 									</div>
-									<div class="sm:w-[230px]">
-										<ScreenshotSpecimen src={item.src} alt={item.alt} max="max-w-[230px]" />
-									</div>
-								</article>
-							))}
-						</div>
-					</section>
-				))
-			}
+								</div>
+								<div class="sm:w-[230px]">
+									<ScreenshotSpecimen src={item.src} alt={item.alt} max="max-w-[230px]" />
+								</div>
+							</article>
+						))}
+					</div>
+				</section>
+			))}
 		</div>
 
 		<section id="recap" class="mx-auto max-w-5xl scroll-mt-20 px-5 py-16">

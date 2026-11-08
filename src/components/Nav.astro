@@ -63,50 +63,46 @@ const mobileLinks = links.slice(0, 5);
 				Zixian Chen
 			</a>
 			<div class="hidden min-w-0 items-center justify-center gap-1 lg:flex" data-nav-links="desktop">
-				{
-					links.map((item) => {
-						const active = isActive(item.active);
-						return (
-							<a
-								href={item.href}
-								aria-current={ariaCurrent(item.active, active)}
-								data-nav-link
-								data-active-rule={item.active.type}
-								data-active-key={'key' in item.active ? item.active.key : undefined}
-								data-active-hash={'hash' in item.active ? item.active.hash : undefined}
-								data-active={active ? 'true' : 'false'}
-								class:list={[
-									'top-nav-link focus-visible:outline-accent relative inline-flex min-h-11 items-center justify-center px-3 font-sans text-sm whitespace-nowrap transition-colors focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
-									active ? 'font-semibold' : '',
-								]}>
-								{item.label}
-							</a>
-						);
-					})
-				}
+				{links.map((item) => {
+					const active = isActive(item.active);
+					return (
+						<a
+							href={item.href}
+							aria-current={ariaCurrent(item.active, active)}
+							data-nav-link
+							data-active-rule={item.active.type}
+							data-active-key={'key' in item.active ? item.active.key : undefined}
+							data-active-hash={'hash' in item.active ? item.active.hash : undefined}
+							data-active={active ? 'true' : 'false'}
+							class:list={[
+								'top-nav-link focus-visible:outline-accent relative inline-flex min-h-11 items-center justify-center px-3 font-sans text-sm whitespace-nowrap transition-colors focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
+								active ? 'font-semibold' : '',
+							]}>
+							{item.label}
+						</a>
+					);
+				})}
 			</div>
 			<div class="flex items-center justify-end gap-1 lg:hidden" data-nav-links="mobile">
-				{
-					mobileLinks.map((link) => {
-						const active = isActive(link.active);
-						return (
-							<a
-								href={'mobileHref' in link ? link.mobileHref : link.href}
-								aria-current={ariaCurrent(link.active, active)}
-								data-nav-link
-								data-active-rule={link.active.type}
-								data-active-key={'key' in link.active ? link.active.key : undefined}
-								data-active-hash={'hash' in link.active ? link.active.hash : undefined}
-								data-active={active ? 'true' : 'false'}
-								class:list={[
-									'top-nav-link focus-visible:outline-accent relative inline-flex min-h-11 shrink-0 items-center justify-center px-1 font-sans text-xs whitespace-nowrap transition-colors focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
-									active ? 'font-semibold' : '',
-								]}>
-								{link.label}
-							</a>
-						);
-					})
-				}
+				{mobileLinks.map((link) => {
+					const active = isActive(link.active);
+					return (
+						<a
+							href={'mobileHref' in link ? link.mobileHref : link.href}
+							aria-current={ariaCurrent(link.active, active)}
+							data-nav-link
+							data-active-rule={link.active.type}
+							data-active-key={'key' in link.active ? link.active.key : undefined}
+							data-active-hash={'hash' in link.active ? link.active.hash : undefined}
+							data-active={active ? 'true' : 'false'}
+							class:list={[
+								'top-nav-link focus-visible:outline-accent relative inline-flex min-h-11 shrink-0 items-center justify-center px-1 font-sans text-xs whitespace-nowrap transition-colors focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
+								active ? 'font-semibold' : '',
+							]}>
+							{link.label}
+						</a>
+					);
+				})}
 			</div>
 		</div>
 	</nav>

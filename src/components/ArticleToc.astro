@@ -17,11 +17,14 @@ const sectionLabel = headings.length
 
 <div data-article-toc-root>
 	<details data-article-toc-mobile class="article-contents border-base-content/10 mt-4 border-y px-5 sm:px-6 xl:px-14">
-		<summary
-			class="flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2">
+		<summary class="flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2">
 			<span class="contents-label shrink-0">Contents</span>
-			<span class="contents-separator" aria-hidden="true">·</span>
-			<span data-toc-current class="contents-current min-w-0 flex-1 truncate">{sectionLabel}</span>
+			<span class="contents-separator" aria-hidden="true">
+				·
+			</span>
+			<span data-toc-current class="contents-current min-w-0 flex-1 truncate">
+				{sectionLabel}
+			</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
@@ -37,40 +40,38 @@ const sectionLabel = headings.length
 		</summary>
 		<nav aria-label="Article contents" class="border-base-content/10 border-t py-2">
 			<ol>
-				{
-					headings.map((heading) => (
-						<li class:list={{ 'toc-mobile-h3': heading.depth === 3 }}>
-							<a
-								href={`#${heading.slug}`}
-								data-toc-link
-								data-toc-id={heading.slug}
-								class="group flex min-h-11 items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-								<span class="toc-link-marker size-3 shrink-0" aria-hidden="true">
-									›
-								</span>
-								<span>{heading.text}</span>
-							</a>
-						</li>
-					))
-				}
+				{headings.map((heading) => (
+					<li class:list={{ 'toc-mobile-h3': heading.depth === 3 }}>
+						<a
+							href={`#${heading.slug}`}
+							data-toc-link
+							data-toc-id={heading.slug}
+							class="group flex min-h-11 items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+							<span class="toc-link-marker size-3 shrink-0" aria-hidden="true">
+								›
+							</span>
+							<span>{heading.text}</span>
+						</a>
+					</li>
+				))}
 			</ol>
 		</nav>
 	</details>
 
 	<aside data-article-toc-desktop hidden aria-labelledby="article-contents-heading">
-		<h2 id="article-contents-heading" class="toc-heading">Contents</h2>
+		<h2 id="article-contents-heading" class="toc-heading">
+			Contents
+		</h2>
 		<nav aria-label="Article contents" class="relative">
 			<span data-toc-indicator class="toc-indicator" aria-hidden="true"></span>
 			<ol>
-				{
-					headings.map((heading) => (
-						<li class:list={{ 'toc-h2': heading.depth === 2, 'toc-h3': heading.depth === 3 }}>
-							<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
-								{heading.text}
-							</a>
-						</li>
-					))
-				}
+				{headings.map((heading) => (
+					<li class:list={{ 'toc-h2': heading.depth === 2, 'toc-h3': heading.depth === 3 }}>
+						<a href={`#${heading.slug}`} data-toc-link data-toc-id={heading.slug}>
+							{heading.text}
+						</a>
+					</li>
+				))}
 			</ol>
 		</nav>
 	</aside>
