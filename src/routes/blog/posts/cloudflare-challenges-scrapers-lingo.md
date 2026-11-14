@@ -1,6 +1,6 @@
 ---
 title: "Bots Scraped Lingo, and Now I Can't Tell Who's Human"
-description: "Scrapers keep hitting Lingo, my list of Singapore public service acronyms. Cloudflare challenges helped a bit, but now I don't know if any humans are left in my stats."
+description: "Scrapers keep hitting Lingo, my list of Singapore public service acronyms. Cloudflare challenges stop the lazy ones, but I'm making real people prove they're human and still can't tell how many are left in my stats."
 date: '2026-11-14'
 category: 'Systems'
 tags:
@@ -11,16 +11,14 @@ tags:
   - Lingo
 published: false
 listed: false
-slug: 'cloudflare-managed-challenge-scrapers-lingo'
+slug: 'cloudflare-challenges-scrapers-lingo'
 ---
 
-Lingo is my curated list of acronyms and jargon used in the Singapore Public Service, with plain-English explanations. It normally gets about 10–20 hits a day, which is fine for a niche site.
-
-Then one day it was 300–500 hits a day from outside Singapore, with the US as the top country.
+Lingo is my curated list of acronyms and jargon used in the Singapore Public Service, with plain-English explanations. It normally gets about 10-20 hits a day, which is fine for a niche site, until traffic jumped to 300-500 hits a day from outside Singapore, with US as the top country.
 
 ## The first wave
 
-I'm pretty sure they were bots. They went to all kinds of routes, including the report term page for term after term. Nobody does that. It felt like simplistic stuff to me.
+I'm pretty sure they were bots, because they went to all kinds of routes, including the report term page for term after term, which felt like fairly simplistic scraping.
 
 They were scraping the list I curated, which was also made with help from AI, so that's a bit ironic. I don't know if it's AI scrapers or something else.
 
@@ -37,27 +35,27 @@ Countries:       US 57, Brazil 27, India 17, Singapore 13,
 Browsers:        Chrome 168, Firefox 96, Edge 62
 ```
 
-The US was the biggest country, but only 57 of the 326. The rest came from all over. Everyone looked at one page for about a second, and no page got more than 14 visitors.
+US was the biggest country at 57 of the 326, with the rest coming from all over. Everyone looked at one page for about a second, and no page got more than 14 visitors.
 
 ## What I tried first
 
-I put an interactive challenge on everything outside Singapore. I excluded known bots so Googlebot still gets in.
+I put an interactive challenge on everything outside Singapore, excluding known bots so Googlebot still gets in.
 
 ```text
 Hostname = lingo.zixian.dev AND Country ≠ SG AND Known Bots ≠ true → Interactive Challenge
 ```
 
-It worked on every country except the US. The bots from everywhere else stopped. By 19 Aug it was down to 60 visitors, but 56 of them were from the US, all on Chrome, and 40 just loaded the home page. They were getting through the challenge.
+It stopped the bots from everywhere except US. By 19 Aug traffic was down to 60 visitors, 56 of them from US on Chrome, with 40 hitting the home page, so US traffic was still getting through the challenge.
 
-I don't know why. Maybe US traffic gets an easier challenge, or maybe those were just better bots. I couldn't tell.
+I don't know why, maybe US traffic gets an easier challenge, or maybe those were just better bots.
 
-So I blocked the US instead.
+So I blocked US instead:
 
 ```text
 Hostname = lingo.zixian.dev AND Country = US AND Known Bots ≠ true → Block
 ```
 
-That more or less stopped it after a while. Blocking a whole country feels crude though. That rule is disabled now.
+That more or less stopped it after a while, though blocking a whole country feels crude (that rule is disabled now).
 
 A normal day after the block looked like this one, 28 Aug:
 
@@ -72,11 +70,11 @@ Countries:       Singapore 100%
 Browsers:        Chrome 100%
 ```
 
-One person, three views, 41 minutes. Probably a human, or someone who left a tab open. Keep this in mind for the next section.
+One person, three views, 41 minutes, probably a human, or someone who left a tab open.
 
 ## Then they came from Singapore
 
-Recently it got worse. 700+ hits a day, and this time from Singapore, so my country rules did nothing.
+Recently it got worse, jumping to 700+ hits a day from Singapore, where my country rules did nothing.
 
 This is what Umami showed for the last 24 hours:
 
@@ -90,7 +88,7 @@ Countries:       Singapore 100%
 Browsers:        Chrome 100%
 ```
 
-637 visitors for 658 views is basically one view each. Every one is on Chrome, and the top paths each had exactly one visitor. Looks like bots to me. It's a different crowd from August, which was Chrome, Firefox and Edge from lots of countries. Now it's Chrome from Singapore only. I'm guessing each request comes from a different IP, but I haven't checked.
+637 visitors for 658 views is basically one view each, all on Chrome, with the top paths each getting a single visitor. It looks like a different crowd of bots from August, which had Chrome, Firefox and Edge from lots of countries rather than just Chrome from Singapore. I'm guessing each request comes from a different IP, though I haven't checked.
 
 So I added another challenge, this time for everyone who isn't a known bot, Singapore included.
 
@@ -105,25 +103,23 @@ Lingo challenge (outside SG):   228 events, 21.05% solved
 Lingo challenge (SG):           254 events,  1.57% solved
 ```
 
-Only 1.57% solved on the SG rule, so most of what hits it probably isn't human. That rule is only a few hours old though. I added it at about 10:48am on 14 Nov, so most of the 637 in that Umami screenshot got in before it existed.
+Only 1.57% solved on the SG rule, so most of what hits it probably isn't human. That rule is only a few hours old though, since I added it at about 10:48am SGT on 14 Nov, so most of the 637 in that Umami screenshot got in before it existed.
 
-I'm now making Singaporeans prove they're human just to look up an acronym. Not great.
+Meanwhile, over a fifth of the challenges outside Singapore are being solved, so interactive challenges aren't much of a wall anymore, and I'm making Singaporeans prove they're human just to look up an acronym.
 
 ## What happened after I added it
 
-Cloudflare counts requests, not visits, so these numbers are bigger than Umami's. Lingo loads a lot of JavaScript, so one page view is several requests. The shape is still clear.
+Cloudflare counts requests rather than visits, and Lingo loads a lot of JavaScript so one page view is several requests, making these numbers bigger than Umami's.
 
-Before the rule, Singapore was sending 900 to 1,000 requests an hour and none of them were challenged. In the hour after, that dropped to around 150 an hour, and almost nothing got through unchallenged.
+Before the rule, Singapore was sending 900 to 1,000 requests an hour and none of them were challenged. In the hours after, that dropped to around 150 an hour, and almost nothing got through unchallenged.
 
-But traffic from outside Singapore went from about 15 requests an hour to about 800. Most of it already had a valid clearance, which means it had passed a challenge. It has been tailing off since.
-
-I think the bots changed country as soon as Singapore started challenging them. I'd only just turned off the US block, so I don't think that explains it. Some of them are solving the interactive challenge too.
+At the same time, traffic from outside Singapore jumped from about 15 requests an hour to about 800, most of it carrying a valid clearance from already passing a challenge. It has been tailing off since. Switching countries only helps if foreign IPs pass more easily, which fits the solve rates (21.05% outside Singapore vs 1.57% in Singapore, though over different time windows), even if I can't separate that from turning off US block at the same time.
 
 ## Umami vs PostHog
 
-I also run PostHog on Lingo. It says 13 pageviews from 10 visitors yesterday. Umami says 637 visitors in 24 hours.
+I also run PostHog on Lingo. It says 13 pageviews from 10 visitors yesterday, while Umami says 637 visitors in 24 hours.
 
-I haven't confirmed why. My guess is that PostHog drops traffic from bot user agents, and Umami counts anything that loads its script. If so, PostHog is accidentally a decent human filter. But I can't be sure, since real visitors with ad blockers could be missing from both.
+I still dont know why. Maybe PostHog drops traffic from bot user agents while Umami counts anything that loads its script. If so, PostHog would be a good human filter, though real visitors with ad blockers could still be missing from both.
 
 ## Things I haven't tried
 
@@ -131,8 +127,8 @@ I haven't confirmed why. My guess is that PostHog drops traffic from bot user ag
 - **A rule on the report term route.** Humans barely use it and the bots hit it constantly.
 - **Something other than country.** ASN, user agent, that sort of thing.
 - **Cloudflare's own bot detection.** The dashboard shows it as not running (0/1), and I haven't looked at what the free plan gives me.
-- **Doing nothing.** About 37% of the 498k monthly requests across zixian.dev reach my origin. Annoying, but nothing's breaking.
+- **Doing nothing.** About 37% of the 498k monthly requests across zixian.dev reach my origin, which is annoying, though nothing is breaking.
 
 ## Where that leaves me
 
-I care about humans, not bots. But after all this I've no idea if there are even any human visitors. PostHog says yes, about the same as before. I'll go with that for now.
+An interactive challenge stops the lazy scrapers, while the ones that persist still find ways through, leaving me making real visitors prove they're human with muddied analytics. I just care about human visitors, so after all this I'm not sure how many are left. PostHog says about the same as before, so I'll go with that for now.
