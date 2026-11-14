@@ -52,6 +52,8 @@ For rendering or CSS changes, verify the affected routes at representative mobil
 
 Recent commits use Conventional Commit-style prefixes such as `feat:`, `fix:`, `refactor:`, and `style:`. Keep commit subjects imperative and scoped to one change. Do not include a parenthesized scope in commit subjects; use `feat: ...`, not `feat(sitemap): ...`.
 
+Use `feat:` when adding or publishing a blog post, including drafts. Reserve `docs:` for small edits to an existing post or repository documentation.
+
 Pull request titles follow the same unscoped Conventional Commit format and are enforced by CI. Do not use parenthesized scopes in pull request titles.
 
 Do not push commits or branches unless the user explicitly asks for a push. A request to commit does not imply permission to push.
