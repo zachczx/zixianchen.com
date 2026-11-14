@@ -9,8 +9,8 @@ tags:
   - Bots
   - Analytics
   - Lingo
-published: false
-listed: false
+published: true
+listed: true
 slug: 'cloudflare-challenges-scrapers-lingo'
 ---
 
