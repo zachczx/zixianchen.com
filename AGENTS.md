@@ -56,6 +56,8 @@ Use `feat:` when adding or publishing a blog post, including drafts. Reserve `do
 
 Pull request titles follow the same unscoped Conventional Commit format and are enforced by CI. Do not use parenthesized scopes in pull request titles.
 
+Do not add Claude Code session links, `Claude-Session:` trailers, or "Generated with Claude Code" lines to commit messages or pull request descriptions.
+
 Do not push commits or branches unless the user explicitly asks for a push. A request to commit does not imply permission to push.
 
 Pull requests should include a short summary, linked issue when applicable, commands run, and screenshots or screen recordings for visual changes. Call out client-JavaScript changes, asset additions, and any deployment implications for Cloudflare or static output.
