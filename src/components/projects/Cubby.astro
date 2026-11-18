@@ -12,6 +12,7 @@ import limits from '$lib/screenshots/cubby/limits.webp';
 import market from '$lib/screenshots/cubby/market.webp';
 import finance from '$lib/screenshots/cubby/finance.webp';
 import expiry from '$lib/screenshots/cubby/expiry.webp';
+import stock from '$lib/screenshots/cubby/stock.webp';
 import gymWorkout from '$lib/screenshots/cubby/gym-workout.webp';
 import coffee from '$lib/screenshots/cubby/coffee.webp';
 import meals from '$lib/screenshots/cubby/meals.webp';
@@ -153,6 +154,7 @@ const groups = [
 				],
 			},
 			{
+				src: stock,
 				alt: 'Cubby stock',
 				headline: 'Before the last one runs out',
 				paragraphs: [
@@ -276,7 +278,7 @@ const stack = [
 				<div class="border-neutral/15 bg-base-100 overflow-hidden rounded-2xl border shadow-xl">
 					<Image
 						src={dashboard}
-						alt="Cubby Home with the day's timeline and a Needs you list of expiring food and due bills"
+						alt="Cubby Home with the day's timeline and a Today list of expired food, due bills, an overdue stocktake and kibble running low"
 						width={645}
 						densities={[1, 2]}
 						loading="eager"
