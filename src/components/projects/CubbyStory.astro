@@ -221,7 +221,7 @@ const tracks: { id: Track; label: string }[] = [
 <div class="cubby-story">
 	{section === 'mockups' && (
 		<section
-			class="border-base-300/60 mx-auto w-full max-w-5xl border-t px-5 py-14 md:py-20"
+			class="border-base-300/60 w-full border-t py-14 md:py-20"
 			id="before-cubby"
 			aria-labelledby="friction-showcase-title">
 			<div class="mb-8 max-w-2xl sm:mb-10">
@@ -497,7 +497,7 @@ const tracks: { id: Track; label: string }[] = [
 		</section>
 	)}
 	{section === 'timeline' && (
-		<section id="household-day" class="mx-auto max-w-5xl scroll-mt-20 px-5 py-14" aria-labelledby="timeline-title">
+		<section id="household-day" class="scroll-mt-20 py-14" aria-labelledby="timeline-title">
 			<header class="mb-8 max-w-2xl">
 				<h2 id="timeline-title" class="text-2xl font-bold sm:text-3xl">
 					This is what it adds up to.
@@ -619,35 +619,33 @@ const tracks: { id: Track; label: string }[] = [
 		--track-own: #557739;
 		--track-line: #d7d6c9;
 		--sage: #e1ebdf;
-		--blue: #e2e9f2;
-		--oat: #eee9df;
-		--clay: #f4e2dc;
-		--olive: #e6ebdc;
 	}
 	cubby-story-timeline {
 		display: block;
 	}
 	.track-filters {
 		display: flex;
-		gap: 0.5rem;
+		gap: 1.5rem;
 		flex-wrap: wrap;
 		margin-bottom: 1rem;
+		border-bottom: 1px solid var(--track-line);
 	}
 	.track-filters button {
 		min-height: 44px;
-		padding: 0.5rem 1rem;
-		border: 1px solid var(--track-line);
-		border-radius: 2rem;
-		font-weight: 600;
+		margin-bottom: -1px;
+		padding: 0.5rem 0;
+		border-bottom: 2px solid transparent;
+		color: color-mix(in srgb, var(--color-base-content) 60%, transparent);
+		font-weight: 500;
 		cursor: pointer;
 	}
 	.track-filters button[aria-pressed='true'] {
-		background: var(--track-kid);
-		color: var(--color-base-100);
-		border-color: var(--track-kid);
+		color: var(--color-base-content);
+		border-bottom-color: var(--track-kid);
+		font-weight: 600;
 	}
 	.track-filters button:hover {
-		border-color: var(--track-kid);
+		color: var(--color-base-content);
 	}
 	.track-filters button:focus-visible,
 	.timeline-viewport:focus-visible {
@@ -660,10 +658,7 @@ const tracks: { id: Track; label: string }[] = [
 	}
 	.timeline-viewport {
 		overflow-x: auto;
-		border: 1px solid var(--track-line);
-		border-radius: 14px;
-		background: var(--color-base-100);
-		padding: 1.5rem;
+		padding-block: 1rem 0.5rem;
 	}
 	.timeline-grid {
 		display: grid;
@@ -705,22 +700,7 @@ const tracks: { id: Track; label: string }[] = [
 	}
 	.timeline-entry {
 		position: relative;
-		padding: 1rem;
-		border: 1px solid var(--track-line);
-		border-radius: 10px;
-		background: var(--oat);
-	}
-	.timeline-entry.sage {
-		background: var(--sage);
-	}
-	.timeline-entry.blue {
-		background: var(--blue);
-	}
-	.timeline-entry.clay {
-		background: var(--clay);
-	}
-	.timeline-entry.olive {
-		background: var(--olive);
+		padding: 0 0 0.25rem;
 	}
 	.timeline-entry.staggered {
 		margin-top: 1rem;
@@ -728,7 +708,7 @@ const tracks: { id: Track; label: string }[] = [
 	.timeline-dot {
 		position: absolute;
 		left: -1.9rem;
-		top: 1rem;
+		top: 0.15rem;
 		width: 0.75rem;
 		height: 0.75rem;
 		border: 2px solid var(--track-color);
@@ -737,9 +717,10 @@ const tracks: { id: Track; label: string }[] = [
 	}
 	.timeline-entry time {
 		display: block;
-		font-family: 'JetBrains Mono Variable', monospace;
-		font-size: 0.65rem;
-		margin-bottom: 0.5rem;
+		color: color-mix(in srgb, var(--color-base-content) 55%, transparent);
+		font-size: 0.75rem;
+		font-variant-numeric: tabular-nums;
+		margin-bottom: 0.25rem;
 	}
 	.timeline-entry h3 {
 		font-size: 0.875rem;
@@ -751,27 +732,19 @@ const tracks: { id: Track; label: string }[] = [
 	.timeline-entry p {
 		font-size: 0.8125rem;
 		line-height: 1.45;
-		margin-top: 0.5rem;
+		margin-top: 0.35rem;
+		color: color-mix(in srgb, var(--color-base-content) 75%, transparent);
 	}
-	.timeline-entry.has-photo h3 {
-		padding-right: 2.5rem;
+	.timeline-entry.has-photo {
+		padding-right: 3.75rem;
 	}
 	.entry-photo {
 		position: absolute;
-		top: -0.75rem;
-		right: -0.4rem;
-		width: 4rem;
-		height: 4rem;
+		top: 0;
+		right: 0;
+		width: 3rem;
+		height: 3rem;
 		object-fit: cover;
-		border: 3px solid var(--color-base-100);
-		border-radius: 10px;
-		box-shadow: 0 4px 12px #25382c24;
-	}
-	.timeline-entry.has-photo {
-		padding-top: 1.25rem;
-	}
-	.timeline-entry.has-photo time {
-		padding-right: 3rem;
 	}
 	.limit-value {
 		display: flex;
@@ -811,14 +784,6 @@ const tracks: { id: Track; label: string }[] = [
 	@media (min-width: 1000px) {
 		.timeline-hint {
 			display: none;
-		}
-	}
-	@media (prefers-reduced-motion: no-preference) {
-		.timeline-entry {
-			transition: transform 180ms ease;
-		}
-		.timeline-entry:hover {
-			transform: translateY(-2px);
 		}
 	}
 </style>

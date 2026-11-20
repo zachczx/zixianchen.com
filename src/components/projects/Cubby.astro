@@ -4,7 +4,8 @@ import Icon from '../Icon.astro';
 import CubbyStory from './CubbyStory.astro';
 import CubbyHomeEvolution from './CubbyHomeEvolution.astro';
 import CubbyDecisions from './CubbyDecisions.astro';
-import ScreenshotSpecimen from '../ScreenshotSpecimen.astro';
+import CubbyIndex, { type IndexItem } from './CubbyIndex.astro';
+import ScreenshotDialog from '../ScreenshotDialog.astro';
 import dashboard from '$lib/screenshots/cubby/dashboard.webp';
 import dashboardRecent from '$lib/screenshots/cubby/dashboard-recent.webp';
 import tasks from '$lib/screenshots/cubby/tasks.webp';
@@ -205,13 +206,17 @@ const groups = [
 	},
 ];
 
-const contents = [
-	...groups.map((group) => ({
-		id: group.label === 'Household' ? 'home' : group.label.toLowerCase(),
-		label: group.label,
-		note: group.note,
-	})),
-	{ id: 'recap', label: 'Recap', note: 'everything rolled up' },
+const heroScreenshots = [
+	{
+		full: dashboard,
+		alt: "Cubby Home with the day's timeline and a Today list of expired food, due bills, an overdue stocktake and kibble running low",
+		caption: 'Home: today',
+	},
+	{
+		full: dashboardRecent,
+		alt: "Cubby Home's quick log for coffee, meals, and prices, with recent meals and household jobs",
+		caption: 'Home: quick log and recent',
+	},
 ];
 
 const stack = [
@@ -222,11 +227,54 @@ const stack = [
 	{ role: 'Auth', tools: 'Stytch' },
 	{ role: 'Observability', tools: 'Grafana Cloud, Umami, Uptime Kuma' },
 ];
+
+const featureName = (alt: string) => {
+	const name = alt.replace(/^Cubby /, '');
+	return name.charAt(0).toUpperCase() + name.slice(1);
+};
+const featureId = (alt: string) =>
+	`feature-${alt
+		.replace(/^Cubby /, '')
+		.toLowerCase()
+		.replace(/\s+/g, '-')}`;
+const groupId = (label: string) => (label === 'Household' ? 'home' : label.toLowerCase());
+
+const heroStack = stack
+	.filter((row) => ['Runtime', 'Frontend', 'Data', 'Distribution'].includes(row.role))
+	.map((row) => row.tools)
+	.join(' · ');
+
+const index: IndexItem[] = [
+	{ id: 'overview', number: '01', label: 'Overview' },
+	{ id: 'home-design', number: '02', label: 'Home' },
+	{
+		id: 'decisions',
+		number: '03',
+		label: 'Decisions',
+		children: [
+			{ id: 'everyday-use', label: 'What I reach for every day' },
+			{ id: 'domain-decisions', label: 'Where the data model stopped helping' },
+			{ id: 'dashboard-design', label: 'Making room without making a mess' },
+			{ id: 'visual-feedback', label: 'How it felt after repeated use' },
+			{ id: 'another-user', label: 'Someone else has to want to use it' },
+		],
+	},
+	{
+		id: 'features',
+		number: '04',
+		label: 'Features',
+		children: [
+			...groups.map((group) => ({ id: groupId(group.label), label: group.label })),
+			{ id: 'recap', label: 'Recap' },
+		],
+	},
+	{ id: 'built-with', label: 'Built with' },
+];
 ---
 
 <div class="cubby-case-study text-base-content bg-base-200">
 	<div class="bg-base-200">
-		<div class="text-base-content/65 mx-auto max-w-5xl px-5 text-sm">
+		<div class="text-base-content/65 mx-auto max-w-6xl px-5 text-sm">
 			<div class="flex min-h-11 items-center justify-between lg:hidden">
 				<a
 					href="/#projects"
@@ -253,389 +301,311 @@ const stack = [
 		</div>
 	</div>
 
-	<header class="mx-auto max-w-5xl px-5 pt-12 pb-14 lg:pt-16">
-		<div>
-			<div class="max-w-3xl">
-				<img src={CubbyLogo.src} alt="Cubby" class="h-12" />
-				<h1 class="mt-6 max-w-4xl text-4xl leading-[1.05] font-black tracking-tight text-balance sm:text-5xl lg:text-6xl">
-					It started with my towels and ended up managing our home.
-				</h1>
-				<p class="text-base-content/80 mt-6 max-w-2xl text-lg leading-relaxed">
-					We kept medicine timings and class schedules in Telegram, and washing routines mostly in our heads. I started
-					with a towel reminder and kept adding things we needed. Now a household of four and a dog uses Cubby.
-				</p>
-				<a
-					href="https://cubby.dev"
-					target="_blank"
-					rel="noopener"
-					class="cubby-visit hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-					Visit site <Icon name="external-link" class="size-[1.1em]" />
-				</a>
-			</div>
-			<div
-				style="view-transition-name: project-hero-cubby;"
-				class="mt-10 grid grid-cols-2 items-start gap-3 sm:mt-12 sm:gap-5">
-				<div class="border-neutral/15 bg-base-100 overflow-hidden rounded-2xl border shadow-xl">
-					<Image
-						src={dashboard}
-						alt="Cubby Home with the day's timeline and a Today list of expired food, due bills, an overdue stocktake and kibble running low"
-						width={645}
-						densities={[1, 2]}
-						loading="eager"
-						class="block h-auto w-full"
-					/>
-				</div>
-				<div class="border-neutral/15 bg-base-100 overflow-hidden rounded-2xl border shadow-xl">
-					<Image
-						src={dashboardRecent}
-						alt="Cubby Home's quick log for coffee, meals, and prices, with recent meals and household jobs"
-						width={645}
-						densities={[1, 2]}
-						loading="eager"
-						class="block h-auto w-full"
-					/>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<div class="cubby-chapters mx-auto max-w-5xl px-5" id="case-study-chapters">
-		<nav aria-label="Case study chapters" class="chapter-navigation">
-			<a id="chapter-overview" href="#overview">
-				Overview
-			</a>
-			<a id="chapter-features" href="#features">
-				Features
-			</a>
-			<a id="chapter-home" href="#home-design">
-				Home
-			</a>
-			<a id="chapter-decisions" href="#decisions">
-				Decisions
-			</a>
-		</nav>
-	</div>
-
-	<section id="overview" data-cubby-chapter aria-labelledby="chapter-overview" class="scroll-mt-20">
-		<div class="mx-auto max-w-5xl px-5 py-12 sm:py-16">
-			<div class="grid gap-8 sm:grid-cols-[1fr_1.5fr] sm:gap-16">
-				<h2 class="text-3xl font-bold tracking-tight sm:text-4xl">A place for the things we keep forgetting.</h2>
-				<div class="grid gap-5 leading-relaxed">
-					<p>
-						I designed and built Cubby around our household: recurring tasks, weekly limits, meals, health records,
-						bills, and the moments I want to keep. It's a web app we can install on our phones.
-					</p>
-					<p>
-						Home puts frequent actions and today's information within reach. Each feature keeps the detail it needs,
-						while a shared recap brings the records back together.
-					</p>
-					<p>
-						I keep changing it as I use it. Sometimes I've made a common action too troublesome, and sometimes a feature
-						that works well for me turns out to be something my wife would rather leave to me.
-					</p>
-					<div class="flex flex-wrap gap-x-6 gap-y-3 pt-2 font-semibold">
-						<a
-							href="#features"
-							class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
-							Explore the features <Icon name="chevron-right" class="size-4 shrink-0" />
-						</a>
-						<a
-							href="#decisions"
-							class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
-							Read the product decisions <Icon name="chevron-right" class="size-4 shrink-0" />
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<section>
-			<div class="mx-auto max-w-5xl px-5 py-12">
-				<div>
-					<p class="text-base-content/55 text-xs tracking-wide">Built with</p>
-					<dl class="mt-4 max-w-md">
-						{stack.map((row) => (
-							<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
-								<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
-								<dd class="text-base-content/85 text-sm">{row.tools}</dd>
-							</div>
-						))}
-					</dl>
-					<p class="text-base-content/55 mt-4 max-w-md text-sm leading-relaxed">
-						Sentry used to be in here too, but it slowed builds more than it was worth, so it came out. A self-hosted
-						GitHub Actions runner checks the web app and API before changes ship.
-					</p>
-				</div>
-				<details class="border-neutral/20 mt-10 max-w-3xl border-t pt-5">
-					<summary class="cubby-accent cursor-pointer py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-4">
-						Development notes
-					</summary>
-					<div class="text-base-content/85 mt-5 grid gap-6 leading-relaxed">
-						<p>
-							GPT-5.6 Sol was quick to push out changes and happy to layer more onto the frontend architecture. I only
-							noticed how much had accumulated when I stopped to audit it. Some pages loaded things they didn't need,
-							and I removed that unnecessary work from startup.
-						</p>
-						<p>
-							That was enough of an improvement for me. I left the slowest few percent of load times alone after dealing
-							with the large sources of waste.
-						</p>
-						<p>
-							Moving the static frontend to Cloudflare Workers freed the VPS to run the services that needed a server,
-							and the free tier covered the frontend.
-						</p>
-					</div>
-				</details>
-			</div>
-		</section>
-	</section>
-
-	<section id="features" data-cubby-chapter aria-labelledby="chapter-features" class="scroll-mt-20">
-		<div class="mx-auto max-w-5xl px-5 pt-12 pb-8">
-			<h2 class="text-3xl font-bold tracking-tight sm:text-4xl">What I built, and why it stayed</h2>
-			<p class="mt-4 max-w-2xl leading-relaxed">
-				Each feature started with something we kept forgetting or struggling to find. These are the household problems
-				behind the screens.
-			</p>
-		</div>
-
-		<details data-case-study-section-nav class="case-study-contents mx-auto max-w-5xl px-5 pb-14 sm:hidden">
-			<summary class="cubby-contents-summary focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 border-y py-3 text-xs font-semibold tracking-wide focus-visible:outline-2 focus-visible:outline-offset-2">
-				<span>Explore {contents.length} sections</span>
-				<Icon
-					name="chevron-right"
-					data-motion="spatial"
-					class="contents-chevron size-4 shrink-0 transition-transform"
-				/>
-			</summary>
-			<nav aria-label="Sections">
-				<ul class="mt-2 grid">
-					{contents.map((item) => (
-						<li>
-							<a
-								href={`#${item.id}`}
-								class="group border-neutral/10 focus-visible:outline-accent flex min-h-11 items-center justify-between gap-4 border-b py-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
-								<span class="cubby-section-label font-semibold">{item.label}</span>
-								<span class="text-base-content/55 text-sm">{item.note}</span>
-							</a>
-						</li>
-					))}
-				</ul>
+	<div class="mx-auto max-w-6xl px-5 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-14">
+		<aside class="hidden lg:block lg:pt-16">
+			<nav
+				data-case-study-section-nav
+				aria-label="Sections"
+				class="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto pb-8">
+				<p class="text-base-content/50 mb-4 text-xs tracking-wide">Contents</p>
+				<CubbyIndex items={index} />
 			</nav>
-		</details>
-		<nav data-case-study-section-nav class="mx-auto hidden max-w-5xl px-5 pb-14 sm:block" aria-label="Sections">
-			<p class="cubby-accent text-xs tracking-wide">Contents</p>
-			<ul class="mt-4 grid gap-x-10 sm:grid-cols-2">
-				{contents.map((item) => (
-					<li>
-						<a
-							href={`#${item.id}`}
-							class="group border-neutral/10 flex items-baseline justify-between gap-4 border-b py-3">
-							<span class="cubby-section-label font-semibold">{item.label}</span>
-							<span class="text-base-content/50 text-sm">{item.note}</span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</nav>
+		</aside>
 
-		<div class="mx-auto max-w-5xl px-5">
-			{groups.map((group) => (
-				<section id={group.label === 'Household' ? 'home' : group.label.toLowerCase()} class="scroll-mt-20 pt-14">
-					<div class="border-neutral/20 flex flex-wrap items-baseline gap-3 border-b pb-3">
-						<h2 class="text-base-content/85 text-sm font-semibold tracking-[0.18em] uppercase">{group.label}</h2>
-						<span class="text-base-content/50 text-xs">{group.note}</span>
+		<div class="min-w-0">
+			<header class="pt-12 pb-14 lg:pt-16">
+				<div>
+					<div class="max-w-3xl">
+						<img src={CubbyLogo.src} alt="Cubby" class="h-12" />
+						<h1 class="mt-6 max-w-4xl text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+							It started with my towels and ended up managing our home.
+						</h1>
+						<p class="text-base-content/80 mt-6 max-w-2xl text-lg leading-relaxed">
+							We kept medicine timings and class schedules in Telegram, and washing routines mostly in our heads. I
+							started with a towel reminder and kept adding things we needed. Now a household of four and a dog uses
+							Cubby.
+						</p>
+						<a
+							href="https://cubby.dev"
+							target="_blank"
+							rel="noopener"
+							class="cubby-visit hover:bg-base-100 mt-7 inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+							Visit site <Icon name="external-link" class="size-[1.1em]" />
+						</a>
+						<p class="text-base-content/55 mt-5 text-sm">
+							<span class="sr-only">Built with </span>
+							{heroStack}
+						</p>
 					</div>
-					<p class="text-base-content/80 mt-5 max-w-2xl leading-relaxed">{group.intro}</p>
-					<div>
-						{group.items.map((item) => (
-							<article class="border-neutral/10 grid gap-8 border-b py-10 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-12">
-								<div>
-									<h3 class="text-2xl leading-snug font-bold lg:text-3xl">{item.headline}</h3>
-									<div class="text-base-content/85 mt-5 grid gap-4 leading-relaxed">
+					<div
+						style="view-transition-name: project-hero-cubby;"
+						data-screenshot-gallery
+						data-gallery-dialog-id="cubby-hero-dialog"
+						class="mt-10 grid grid-cols-2 items-start gap-3 sm:mt-12 sm:gap-5">
+						{heroScreenshots.map((shot, index) => (
+							<button
+								type="button"
+								data-gallery-open={index}
+								data-gallery-caption={shot.caption}
+								class="group border-neutral/20 hover:border-neutral/45 bg-base-100 relative block w-full cursor-pointer overflow-hidden border transition-colors"
+								aria-label={`Open full-size screenshot: ${shot.caption}`}>
+								<Image
+									src={shot.full}
+									alt={shot.alt}
+									width={645}
+									densities={[1, 2]}
+									loading="eager"
+									class="block h-auto w-full"
+								/>
+								<span
+									class="absolute right-2 bottom-2 grid size-9 place-items-center bg-neutral-950/85 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+									aria-hidden="true">
+									<Icon name="expand" class="size-4" />
+								</span>
+							</button>
+						))}
+						<ScreenshotDialog id="cubby-hero" images={heroScreenshots} />
+					</div>
+				</div>
+			</header>
+
+			<details data-case-study-section-nav class="case-study-contents group lg:hidden">
+				<summary class="cubby-contents-summary focus-visible:outline-accent text-base-content/80 flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 border-y py-3 text-xs font-semibold tracking-wide focus-visible:outline-2 focus-visible:outline-offset-2">
+					<span>Contents</span>
+					<Icon
+						name="chevron-right"
+						data-motion="spatial"
+						class="size-4 shrink-0 transition-transform group-open:rotate-90"
+					/>
+				</summary>
+				<nav aria-label="Sections" class="py-4">
+					<CubbyIndex items={index} />
+				</nav>
+			</details>
+
+			<section id="overview" aria-labelledby="overview-title" class="border-neutral/15 scroll-mt-20 lg:border-t">
+				<div class="py-16 sm:py-24">
+					<div class="grid gap-8 sm:grid-cols-[1fr_1.5fr] sm:gap-12">
+						<h2 id="overview-title" class="text-3xl font-bold tracking-tight sm:text-4xl">
+							A place for the things we keep forgetting.
+						</h2>
+						<div class="grid gap-5 leading-relaxed">
+							<p>
+								I designed and built Cubby around our household: recurring tasks, weekly limits, meals, health records,
+								bills, and the moments I want to keep. It's a web app we can install on our phones.
+							</p>
+							<p>
+								Home puts frequent actions and today's information within reach. Each feature keeps the detail it needs,
+								while a shared recap brings the records back together.
+							</p>
+							<p>
+								I keep changing it as I use it. Sometimes I've made a common action too troublesome, and sometimes a
+								feature that works well for me turns out to be something my wife would rather leave to me.
+							</p>
+							<div class="flex flex-wrap gap-x-6 gap-y-3 pt-2 font-semibold">
+								<a
+									href="#decisions"
+									class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
+									Read the product decisions <Icon name="chevron-right" class="size-4 shrink-0" />
+								</a>
+								<a
+									href="#features"
+									class="cubby-action hover:bg-base-100 inline-flex items-center gap-2 border px-4 py-2 text-sm whitespace-nowrap transition-colors">
+									Explore the features <Icon name="chevron-right" class="size-4 shrink-0" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="home-design" aria-labelledby="home-title" class="border-neutral/15 scroll-mt-20 border-t">
+				<CubbyHomeEvolution />
+			</section>
+
+			<section id="decisions" aria-labelledby="decisions-title" class="border-neutral/15 scroll-mt-20 border-t">
+				<CubbyDecisions />
+			</section>
+
+			<section id="features" aria-labelledby="features-title" class="border-neutral/15 scroll-mt-20 border-t">
+				<div class="pt-16 pb-4 sm:pt-24">
+					<h2 id="features-title" class="text-3xl font-bold tracking-tight sm:text-4xl">
+						What I built, and why it stayed
+					</h2>
+					<p class="mt-4 max-w-2xl leading-relaxed">
+						Each feature started with something we kept forgetting or struggling to find. These are the household
+						problems behind the screens.
+					</p>
+				</div>
+
+				{groups.map((group) => (
+					<section id={groupId(group.label)} class="scroll-mt-20 pt-14">
+						<div class="border-neutral/20 flex flex-wrap items-baseline gap-3 border-b pb-3">
+							<h3 class="text-base-content/85 text-sm font-semibold tracking-[0.18em] uppercase">{group.label}</h3>
+							<span class="text-base-content/50 text-xs">{group.note}</span>
+						</div>
+						<p class="text-base-content/80 mt-5 max-w-2xl leading-relaxed">{group.intro}</p>
+						<div data-screenshot-gallery data-gallery-dialog-id={`cubby-${groupId(group.label)}-dialog`}>
+							<ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+								{group.items.map((item, index) => (
+									<li>
+										<button
+											type="button"
+											data-gallery-open={index}
+											data-gallery-caption={featureName(item.alt)}
+											class="group border-neutral/20 hover:border-neutral/45 relative block w-full cursor-pointer overflow-hidden border transition-colors"
+											aria-label={`Open full-size screenshot: ${featureName(item.alt)}`}>
+											<Image
+												src={item.src}
+												alt={item.alt}
+												width={230}
+												densities={[1, 2, 3]}
+												loading="lazy"
+												decoding="async"
+												class="block h-auto w-full"
+											/>
+											<span
+												class="absolute right-1.5 bottom-1.5 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+												aria-hidden="true">
+												<Icon name="expand" class="size-4" />
+											</span>
+										</button>
+										<a href={`#${featureId(item.alt)}`} class="cubby-feature-thumb mt-2 block text-sm font-semibold">
+											{featureName(item.alt)}
+										</a>
+									</li>
+								))}
+							</ul>
+							<ScreenshotDialog
+								id={`cubby-${groupId(group.label)}`}
+								images={group.items.map((item) => ({ full: item.src, alt: item.alt, caption: featureName(item.alt) }))}
+							/>
+						</div>
+						<div class="border-neutral/15 mt-10 border-t">
+							{group.items.map((item) => (
+								<details id={featureId(item.alt)} class="cubby-feature group border-neutral/15 scroll-mt-20 border-b">
+									<summary class="grid min-h-11 cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 py-4 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
+										<span class="text-base-content/50 col-span-2 text-xs font-semibold tracking-wider uppercase sm:col-span-1">
+											{featureName(item.alt)}
+										</span>
+										<h4 class="text-lg leading-snug font-bold sm:text-xl">{item.headline}</h4>
+										<Icon name="chevron-right" class="size-4 shrink-0 transition-transform group-open:rotate-90" />
+									</summary>
+									<div class="text-base-content/85 grid max-w-2xl gap-4 pb-8 leading-relaxed sm:pl-36">
 										{item.paragraphs.map((paragraph) => (
 											<p>{paragraph}</p>
 										))}
 									</div>
-								</div>
-								{item.src && (
-									<div class="sm:w-[230px]">
-										<ScreenshotSpecimen src={item.src} alt={item.alt} max="max-w-[230px]" />
-									</div>
-								)}
-							</article>
-						))}
+								</details>
+							))}
+						</div>
+					</section>
+				))}
+
+				<section id="recap" class="scroll-mt-20 py-16">
+					<div class="grid items-start gap-10 sm:grid-cols-[auto_1fr] sm:gap-12">
+						<div
+							data-screenshot-gallery
+							data-gallery-dialog-id="cubby-recap-dialog"
+							class="mx-auto w-full max-w-[230px]">
+							<button
+								type="button"
+								data-gallery-open="0"
+								data-gallery-caption="Journal recap"
+								class="group border-neutral/20 hover:border-neutral/45 relative block w-full cursor-pointer overflow-hidden border transition-colors"
+								aria-label="Open full-size screenshot: Journal recap">
+								<Image
+									src={journalRecap}
+									alt="Cubby journal recap"
+									width={230}
+									densities={[1, 2, 3]}
+									loading="lazy"
+									decoding="async"
+									class="block h-auto w-full"
+								/>
+								<span
+									class="absolute right-1.5 bottom-1.5 grid size-8 place-items-center bg-neutral-950/85 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+									aria-hidden="true">
+									<Icon name="expand" class="size-4" />
+								</span>
+							</button>
+							<ScreenshotDialog
+								id="cubby-recap"
+								images={[{ full: journalRecap, alt: 'Cubby journal recap', caption: 'Journal recap' }]}
+							/>
+						</div>
+						<div class="sm:pt-2">
+							<h2 class="text-2xl font-bold lg:text-3xl">Looking back at the week</h2>
+							<p class="text-base-content/85 mt-4 max-w-md leading-relaxed">
+								The separate trackers feed a weekly and monthly recap. Meals, workouts, and family moments can be read
+								together, which gives us a reason to come back to what we logged.
+							</p>
+						</div>
 					</div>
 				</section>
-			))}
-		</div>
 
-		<section id="recap" class="mx-auto max-w-5xl scroll-mt-20 px-5 py-16">
-			<div class="grid items-start gap-10 sm:grid-cols-[auto_1fr] sm:gap-12">
-				<ScreenshotSpecimen src={journalRecap} alt="Cubby journal recap" max="max-w-[230px]" />
-				<div class="sm:pt-2">
-					<h2 class="text-2xl font-bold lg:text-3xl">Looking back at the week</h2>
-					<p class="text-base-content/85 mt-4 max-w-md leading-relaxed">
-						The separate trackers feed a weekly and monthly recap. Meals, workouts, and family moments can be read
-						together, which gives us a reason to come back to what we logged.
-					</p>
+				<CubbyStory section="timeline" />
+			</section>
+
+			<section id="built-with" aria-labelledby="built-with-title" class="border-neutral/15 scroll-mt-20 border-t">
+				<div class="py-16 sm:py-24">
+					<div>
+						<h2
+							id="built-with-title"
+							class="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-(--cubby-accent) uppercase">
+							Built with
+						</h2>
+						<dl class="mt-4 max-w-md">
+							{stack.map((row) => (
+								<div class="border-neutral/10 grid grid-cols-[8rem_1fr] gap-4 border-b py-2 last:border-b-0">
+									<dt class="text-base-content/55 text-[0.7rem] font-semibold tracking-wider uppercase">{row.role}</dt>
+									<dd class="text-base-content/85 text-sm">{row.tools}</dd>
+								</div>
+							))}
+						</dl>
+						<p class="text-base-content/55 mt-4 max-w-md text-sm leading-relaxed">
+							Sentry used to be in here too, but it slowed builds more than it was worth, so it came out. A self-hosted
+							GitHub Actions runner checks the web app and API before changes ship.
+						</p>
+					</div>
+					<details class="cubby-feature group border-neutral/20 mt-10 max-w-3xl border-t pt-5">
+						<summary class="cubby-accent inline-flex cursor-pointer list-none items-center gap-2 py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-4">
+							Development notes
+							<Icon name="chevron-right" class="size-4 shrink-0 transition-transform group-open:rotate-90" />
+						</summary>
+						<div class="text-base-content/85 mt-5 grid gap-6 leading-relaxed">
+							<p>
+								GPT-5.6 Sol was quick to push out changes and happy to layer more onto the frontend architecture. I only
+								noticed how much had accumulated when I stopped to audit it. Some pages loaded things they didn't need,
+								and I removed that unnecessary work from startup.
+							</p>
+							<p>
+								That was enough of an improvement for me. I left the slowest few percent of load times alone after
+								dealing with the large sources of waste.
+							</p>
+							<p>
+								Moving the static frontend to Cloudflare Workers freed the VPS to run the services that needed a server,
+								and the free tier covered the frontend.
+							</p>
+						</div>
+					</details>
 				</div>
-			</div>
-		</section>
-
-		<CubbyStory section="timeline" />
-	</section>
-
-	<section id="home-design" data-cubby-chapter aria-labelledby="chapter-home" class="scroll-mt-20">
-		<CubbyHomeEvolution />
-	</section>
-
-	<section id="decisions" data-cubby-chapter aria-labelledby="chapter-decisions" class="scroll-mt-20">
-		<CubbyDecisions />
-	</section>
+			</section>
+		</div>
+	</div>
 </div>
 
 <script>
-	const chapterNavigation = document.querySelector<HTMLElement>('.chapter-navigation');
-	if (chapterNavigation) {
-		const tabs = Array.from(chapterNavigation.querySelectorAll<HTMLAnchorElement>('a'));
-		const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-cubby-chapter]'));
-		const panelForHash = (hash: string) => {
-			const target = document.getElementById(hash.slice(1));
-			return target?.closest<HTMLElement>('[data-cubby-chapter]');
-		};
-		const selectPanel = (panel: HTMLElement) => {
-			for (const candidate of panels) candidate.hidden = candidate !== panel;
-			for (const tab of tabs) {
-				const selected = tab.hash === `#${panel.id}`;
-				tab.setAttribute('aria-selected', String(selected));
-				tab.tabIndex = selected ? 0 : -1;
-			}
-		};
-		chapterNavigation.setAttribute('role', 'tablist');
-		for (const tab of tabs) {
-			tab.setAttribute('role', 'tab');
-			tab.setAttribute('aria-controls', tab.hash.slice(1));
-		}
-		for (const panel of panels) {
-			panel.setAttribute('role', 'tabpanel');
-			panel.tabIndex = 0;
-		}
-		selectPanel(panelForHash(location.hash) ?? panels[0]);
-		const scrollToHash = () => {
-			if (panelForHash(location.hash))
-				document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
-		};
-		// Initial fragment scrolling can happen before the inactive chapters have been hidden.
-		requestAnimationFrame(scrollToHash);
-		// Reveal the destination before native fragment navigation, including links between chapters.
-		document.querySelector('.cubby-case-study')?.addEventListener('click', (event) => {
-			if (!(event.target instanceof Element)) return;
-			const link = event.target.closest<HTMLAnchorElement>('a[href^="#"]');
-			const panel = link && panelForHash(link.hash);
-			if (panel) {
-				selectPanel(panel);
-				if (link.getAttribute('role') === 'tab') {
-					event.preventDefault();
-					if (location.hash !== link.hash) history.pushState(null, '', link.hash);
-					link.focus({ preventScroll: true });
-					scrollToHash();
-				}
-			}
-		});
-		chapterNavigation.addEventListener('keydown', (event) => {
-			const current = tabs.indexOf(document.activeElement as HTMLAnchorElement);
-			if (current < 0) return;
-			let next: number;
-			if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
-			else if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
-			else if (event.key === 'Home') next = 0;
-			else if (event.key === 'End') next = tabs.length - 1;
-			else if (event.key === ' ') {
-				event.preventDefault();
-				tabs[current].click();
-				return;
-			} else return;
-			event.preventDefault();
-			tabs[next].focus();
-			tabs[next].click();
-		});
-		window.addEventListener('hashchange', () => {
-			selectPanel(panelForHash(location.hash) ?? panels[0]);
-			scrollToHash();
-		});
-	}
+	// Feature write-ups are collapsed; open the one a link points at (thumbnails, Decisions links, shared URLs).
+	const openTargetFeature = () => {
+		const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+		if (target instanceof HTMLDetailsElement && target.classList.contains('cubby-feature')) target.open = true;
+	};
+	openTargetFeature();
+	window.addEventListener('hashchange', openTargetFeature);
 </script>
 
 <style>
-	[data-cubby-chapter][hidden] {
-		display: none;
-	}
-
-	.cubby-chapters {
-		position: sticky;
-		top: 0;
-		z-index: 9;
-		padding-block: 0.75rem;
-		background: var(--color-base-200);
-	}
-
-	/* Hallmark component: chapter switcher; existing Cubby palette and Jost type.
-	 * Pre-emit critique: philosophy 4, hierarchy 5, execution 4, specificity 4, restraint 5, variety 4.
-	 */
-	.chapter-navigation {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		width: min(100%, 42rem);
-		gap: 0.25rem;
-		padding: 0.25rem;
-		border: 1px solid var(--cubby-control-border);
-		border-radius: 9999px;
-		background: var(--cubby-control-track);
-		color: var(--color-base-content);
-	}
-
-	.chapter-navigation a {
-		display: flex;
-		min-width: 0;
-		min-height: 2.75rem;
-		align-items: center;
-		justify-content: center;
-		padding: 0.5rem 0.375rem;
-		border-radius: 9999px;
-		font-size: clamp(0.8125rem, 2.8vw, 0.9375rem);
-		font-weight: 500;
-		white-space: nowrap;
-		text-align: center;
-		text-decoration: none;
-		transition:
-			background-color 120ms ease-out,
-			color 120ms ease-out,
-			transform 120ms ease-out;
-	}
-
-	@media (hover: hover) {
-		.chapter-navigation a:hover {
-			background: var(--color-base-100);
-			color: var(--color-base-content);
-		}
-	}
-
-	.chapter-navigation a:active {
-		transform: translateY(1px);
-	}
-
-	.chapter-navigation a[aria-selected='true'] {
-		background: var(--cubby-accent);
-		color: var(--color-base-100);
-		font-weight: 600;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.chapter-navigation a {
-			transition: none;
-		}
-	}
-
 	.cubby-case-study :focus-visible {
 		outline: 2px solid var(--cubby-accent);
 		outline-offset: 4px;
@@ -646,8 +616,6 @@ const stack = [
 		--color-base-200: #f5f2e9;
 		--color-base-content: #25382c;
 		--cubby-accent: #365c43;
-		--cubby-control-track: #e9e9df;
-		--cubby-control-border: #c8cdbf;
 	}
 
 	.cubby-accent,
@@ -666,28 +634,20 @@ const stack = [
 		border-color: color-mix(in srgb, var(--cubby-accent) 25%, transparent);
 	}
 
-	.cubby-section-label {
-		transition: color var(--motion-duration-short) var(--motion-ease-out);
-	}
-
-	[data-case-study-section-nav] a:hover .cubby-section-label,
-	[data-case-study-section-nav] a:focus-visible .cubby-section-label,
-	[data-case-study-section-nav] a[aria-current='location'] .cubby-section-label {
-		color: var(--cubby-accent);
-	}
-
-	[data-case-study-section-nav] a[aria-current='location'] .cubby-section-label {
-		text-decoration: underline;
-		text-decoration-color: var(--cubby-accent);
-		text-decoration-thickness: 2px;
-		text-underline-offset: 0.25rem;
-	}
-
 	.case-study-contents summary::-webkit-details-marker {
 		display: none;
 	}
 
-	.case-study-contents[open] .contents-chevron {
-		transform: rotate(90deg);
+	.cubby-feature summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cubby-feature summary:hover h4,
+	.cubby-feature-thumb:hover {
+		color: var(--cubby-accent);
+	}
+
+	.cubby-feature-thumb {
+		transition: color var(--motion-duration-short) var(--motion-ease-out);
 	}
 </style>

@@ -32,21 +32,23 @@ const { name, slug, description } = Astro.props;
 		let frame: number | undefined;
 		const syncCurrent = () => {
 			const viewportAnchor = window.innerHeight * 0.35;
-			let current = pairs.find(({ section }) => {
+			// Nested sections (a chapter and the group inside it) can all contain the anchor line; mark each of them.
+			let current = pairs.filter(({ section }) => {
 				const rect = section.getBoundingClientRect();
 				return rect.top <= viewportAnchor && rect.bottom > viewportAnchor;
 			});
 
-			if (!current) {
-				current = pairs.reduce<{ pair: (typeof pairs)[number]; distance: number } | undefined>((nearest, pair) => {
+			if (current.length === 0) {
+				const nearest = pairs.reduce<{ pair: (typeof pairs)[number]; distance: number } | undefined>((best, pair) => {
 					const rect = pair.section.getBoundingClientRect();
 					const distance = Math.min(Math.abs(rect.top - viewportAnchor), Math.abs(rect.bottom - viewportAnchor));
-					return !nearest || distance < nearest.distance ? { pair, distance } : nearest;
+					return !best || distance < best.distance ? { pair, distance } : best;
 				}, undefined)?.pair;
+				current = nearest ? [nearest] : [];
 			}
 
 			for (const { link, section } of pairs) {
-				if (section === current?.section) link.setAttribute('aria-current', 'location');
+				if (current.some((pair) => pair.section === section)) link.setAttribute('aria-current', 'location');
 				else link.removeAttribute('aria-current');
 			}
 			frame = undefined;

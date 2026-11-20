@@ -1,0 +1,67 @@
+---
+export interface IndexItem {
+	id: string;
+	label: string;
+	number?: string;
+	children?: { id: string; label: string }[];
+}
+
+interface Props {
+	items: IndexItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="cubby-index grid gap-4">
+	{items.map((item) => (
+		<li>
+			<a href={`#${item.id}`} class="cubby-index-link cubby-index-chapter flex items-baseline gap-3 py-1 text-sm">
+				<span class="cubby-index-number w-5 shrink-0 text-xs tabular-nums">{item.number ?? ''}</span>
+				<span>{item.label}</span>
+			</a>
+			{item.children && (
+				<ul class="mt-1 grid gap-0.5 pl-8">
+					{item.children.map((child) => (
+						<li>
+							<a href={`#${child.id}`} class="cubby-index-link cubby-index-child block py-1 text-xs leading-snug">
+								{child.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</li>
+	))}
+</ol>
+
+<style>
+	.cubby-index-link {
+		color: color-mix(in srgb, var(--color-base-content) 62%, transparent);
+		text-decoration: none;
+		transition: color var(--motion-duration-short) var(--motion-ease-out);
+	}
+
+	.cubby-index-number {
+		color: color-mix(in srgb, var(--color-base-content) 40%, transparent);
+	}
+
+	.cubby-index-link:hover,
+	.cubby-index-link:focus-visible {
+		color: var(--color-base-content);
+	}
+
+	.cubby-index-link[aria-current='location'] {
+		color: var(--cubby-accent);
+	}
+
+	.cubby-index-chapter[aria-current='location'] {
+		font-weight: 600;
+	}
+
+	.cubby-index-child[aria-current='location'] {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.25rem;
+	}
+</style>
