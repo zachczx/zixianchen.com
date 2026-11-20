@@ -179,7 +179,7 @@ const featured: FeaturedProject[] = [
 			))}
 		</dl>
 		{archive.length > 3 && (
-			<details class="archive-disclosure border-night-overlay/15 border-b">
+			<details class="archive-disclosure group border-night-overlay/15 border-b">
 				<summary class="focus-visible:outline-accent text-night-content/65 hover:text-night-content flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-3 font-mono text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
 					<span>
 						<span class="archive-when-closed">Show</span>
@@ -188,7 +188,7 @@ const featured: FeaturedProject[] = [
 					<Icon
 						name="chevron-right"
 						data-motion="spatial"
-						class="archive-chevron size-4 shrink-0 transition-transform"
+						class="size-4 shrink-0 transition-transform group-open:rotate-90"
 					/>
 				</summary>
 				<dl>
@@ -216,9 +216,5 @@ const featured: FeaturedProject[] = [
 
 	.archive-disclosure[open] .archive-when-open {
 		display: inline;
-	}
-
-	.archive-disclosure[open] .archive-chevron {
-		transform: rotate(90deg);
 	}
 </style>
